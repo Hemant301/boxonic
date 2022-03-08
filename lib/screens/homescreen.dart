@@ -42,6 +42,7 @@ class _HomeScrrenState extends State<HomeScrren> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: CircleAvatar(
+              radius: 15,
               backgroundImage: NetworkImage(
                 "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
               ),
@@ -126,9 +127,19 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 image: "assets/package (1) 1.png",
                                 title: "Create Box",
                               ),
+                              Container(
+                                width: 40,
+                                height: 1,
+                                color: Color(0xffDDDDDD),
+                              ),
                               Mainbox(
                                   image: "assets/wallet (2) 1.png",
                                   title: "Subscribe"),
+                              Container(
+                                width: 40,
+                                height: 1,
+                                color: Color(0xffDDDDDD),
+                              ),
                               Mainbox(
                                   image: "assets/sync 1.png",
                                   title: "Delivery"),
@@ -148,16 +159,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                               width: MediaQuery.of(context).size.width - 150,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                color: Colors.green,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.4),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(
-                                        1, 3), // changes position of shadow
-                                  ),
-                                ],
+                                color: Color(0xff09A42B),
                               ),
                               child: Center(
                                 child: Text(
@@ -199,19 +201,19 @@ class _HomeScrrenState extends State<HomeScrren> {
                       children: [
                         Column(
                           children: [
-                            startBox(),
+                            startBox(image: 'assets/c1.png'),
                             SizedBox(
                               height: 10,
                             ),
-                            startBox(),
+                            startBox(image: 'assets/c3.png'),
                             SizedBox(
                               height: 10,
                             ),
-                            startBox(),
+                            startBox(image: 'assets/c4.png'),
                           ],
                         ),
-                        SizedBox(
-                          width: 10,
+                        Spacer(
+                          flex: 1,
                         ),
                         Column(
                           children: [
@@ -315,12 +317,30 @@ class _HomeScrrenState extends State<HomeScrren> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      babyItem(),
-                      babyItem(),
-                      babyItem(),
-                      babyItem(),
-                      babyItem(),
-                      babyItem()
+                      babyItem(
+                        image: 'assets/1 9.png',
+                        name: 'Baby',
+                      ),
+                      babyItem(
+                        image: 'assets/a1.png',
+                        name: 'Baby Shampoo',
+                      ),
+                      babyItem(
+                        image: 'assets/a2.png',
+                        name: 'Baby Lotion',
+                      ),
+                      babyItem(
+                        image: 'assets/a3.png',
+                        name: 'Baby oil',
+                      ),
+                      babyItem(
+                        image: 'assets/1 9.png',
+                        name: 'Baby',
+                      ),
+                      babyItem(
+                        image: 'assets/1 9.png',
+                        name: 'Baby',
+                      ),
                     ],
                   ),
                 ),
@@ -344,10 +364,22 @@ class _HomeScrrenState extends State<HomeScrren> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    WhyChoose(),
-                    WhyChoose(),
-                    WhyChoose(),
-                    WhyChoose(),
+                    WhyChoose(
+                      image: 'assets/image 1.png',
+                      name: 'Bundlers get amazing bang for their buck',
+                    ),
+                    WhyChoose(
+                      image: 'assets/123.png',
+                      name: 'Conveniently delivered to your doorstep',
+                    ),
+                    WhyChoose(
+                      image: 'assets/image 1.png',
+                      name: 'Conveniently delivered to your doorstep',
+                    ),
+                    WhyChoose(
+                      image: 'assets/image 1.png',
+                      name: 'Conveniently delivered to your doorstep',
+                    ),
                   ],
                 ),
               ),
@@ -360,7 +392,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                   width: MediaQuery.of(context).size.width - 40,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Colors.green,
+                    color: Color(0xff09A42B),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.4),
@@ -389,16 +421,17 @@ class _HomeScrrenState extends State<HomeScrren> {
                           height: 5,
                         ),
                         Text(
-                          "Get access to latest updates from boxoniq and special offers",
+                          "Get access to latest updates from boxoniq \nand special offers",
                           style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 8,
-                              color: Colors.white,
-                              fontFamily: font,
-                              fontWeight: FontWeight.bold),
+                            letterSpacing: 1,
+                            fontSize: 11,
+                            color: Colors.white,
+                            // fontFamily: font,
+                            // fontWeight: FontWeight.bold
+                          ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
                         Row(
                           children: [
@@ -473,20 +506,20 @@ class _HomeScrrenState extends State<HomeScrren> {
 }
 
 class WhyChoose extends StatelessWidget {
-  const WhyChoose({
-    Key? key,
-  }) : super(key: key);
+  WhyChoose({Key? key, this.image, this.name}) : super(key: key);
+  String? image;
+  String? name;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
       child: Container(
           // padding: EdgeInsets.all(20),
           // height: 160,
-          width: MediaQuery.of(context).size.width - 180,
+          width: 165,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -501,18 +534,17 @@ class WhyChoose extends StatelessWidget {
             children: [
               Container(
                   height: 100,
-                  width: MediaQuery.of(context).size.width - 180,
+                  width: 165,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/image 1.png"),
-                        fit: BoxFit.cover),
+                        image: AssetImage(image!), fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(5),
                   )),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   child: Text(
-                    "Bundlers get amazing bang for their buck",
+                    name!,
                     style: TextStyle(
                       letterSpacing: 1,
                       fontSize: 10,
@@ -530,9 +562,9 @@ class WhyChoose extends StatelessWidget {
 }
 
 class babyItem extends StatelessWidget {
-  const babyItem({
-    Key? key,
-  }) : super(key: key);
+  babyItem({Key? key, this.image, this.name}) : super(key: key);
+  String? image;
+  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -542,7 +574,7 @@ class babyItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 35,
-            backgroundImage: AssetImage("assets/1 9.png"),
+            backgroundImage: AssetImage(image!),
             backgroundColor: Color(0xffD3C6F9).withOpacity(0.5),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -556,7 +588,7 @@ class babyItem extends StatelessWidget {
             height: 10,
           ),
           Text(
-            "Baby Shop",
+            name!,
             style: TextStyle(
               letterSpacing: 1,
               fontSize: 10,
@@ -612,9 +644,8 @@ class Brand extends StatelessWidget {
 }
 
 class startBox extends StatelessWidget {
-  const startBox({
-    Key? key,
-  }) : super(key: key);
+  startBox({Key? key, this.image}) : super(key: key);
+  String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -628,7 +659,7 @@ class startBox extends StatelessWidget {
             // ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 45,
+                left: 22,
                 top: 10,
                 bottom: 5,
               ),
@@ -662,23 +693,23 @@ class startBox extends StatelessWidget {
                           "Skip subscription anytime, anywhere",
                           style: TextStyle(
                               letterSpacing: 1,
-                              fontSize: 10,
+                              fontSize: 12,
                               color: Colors.black,
                               fontFamily: font,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
                       Container(
                         width: 140,
                         child: Text(
-                          "Skip, modify you bundleas per requirement",
+                          "Skip, modify you bundleas \nper requirement",
                           style: TextStyle(
                               letterSpacing: 1,
-                              fontSize: 7,
-                              color: Colors.black,
+                              fontSize: 8,
+                              color: Color(0xff484848),
                               fontFamily: font,
                               fontWeight: FontWeight.bold),
                         ),
@@ -695,8 +726,7 @@ class startBox extends StatelessWidget {
                 backgroundColor: Color(0xffD3C6F9),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Image.network(
-                      "https://cdn-icons-png.flaticon.com/512/6884/6884991.png"),
+                  child: Image.asset(image!),
                 ),
               ),
             ),

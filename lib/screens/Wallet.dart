@@ -170,7 +170,7 @@ class WallatePage extends StatelessWidget {
                                                 "Paid For Bundle ID #BXNQ1257",
                                                 style: TextStyle(
                                                   letterSpacing: 1,
-                                                  fontSize: 8,
+                                                  fontSize: 12,
                                                   color: Colors.black,
                                                   fontFamily: font,
                                                   // fontWeight: FontWeight.bold
@@ -183,7 +183,7 @@ class WallatePage extends StatelessWidget {
                                                 "22th Jan, 2022| 05:52 PM",
                                                 style: TextStyle(
                                                   letterSpacing: 1,
-                                                  fontSize: 8,
+                                                  fontSize: 12,
                                                   color: Colors.black,
                                                   fontFamily: font,
                                                   // fontWeight: FontWeight.bold
@@ -192,6 +192,7 @@ class WallatePage extends StatelessWidget {
                                             ],
                                           ),
                                           CircleAvatar(
+                                            radius: 25,
                                             // backgroundImage: AssetImage(
                                             //     "assets/wallet (1) 3.png"),
                                             backgroundColor: Colors.transparent,
@@ -214,7 +215,7 @@ class WallatePage extends StatelessWidget {
                                     // ),
                                     Divider(
                                       height: 1,
-                                      color: Colors.blue,
+                                      color: Color.fromARGB(255, 99, 99, 99),
                                     )
                                   ],
                                 ),

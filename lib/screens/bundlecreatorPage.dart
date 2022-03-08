@@ -56,7 +56,7 @@ class BundleCreatorPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: CircleAvatar(
-                            radius: 25,
+                            radius: 30,
                             backgroundImage: AssetImage("assets/1 9.png"),
                             backgroundColor: Color(0xffD3C6F9).withOpacity(0.5),
                             child: Padding(
@@ -81,7 +81,7 @@ class BundleCreatorPage extends StatelessWidget {
                           "Baby Oil",
                           style: TextStyle(
                               letterSpacing: 1,
-                              fontSize: 22,
+                              fontSize: 24,
                               color: Colors.black,
                               fontFamily: font,
                               fontWeight: FontWeight.bold),
@@ -92,10 +92,10 @@ class BundleCreatorPage extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width - 180,
                           child: Text(
-                            "Vitamin Category Description will go here",
+                            "Vitamin Category \nDescription will go here",
                             style: TextStyle(
                               letterSpacing: 1,
-                              fontSize: 10,
+                              fontSize: 15,
                               color: Colors.black,
                               fontFamily: font,
                               // fontWeight: FontWeight.bold
@@ -118,9 +118,9 @@ class BundleCreatorPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 width: MediaQuery.of(context).size.width - 40,
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   // border: Border.all(color: Colors.blue, width: 1),
                                   boxShadow: [
@@ -139,11 +139,13 @@ class BundleCreatorPage extends StatelessWidget {
                                   children: [
                                     Column(
                                       children: [
-                                        SizedBox(
+                                        Container(
                                           height: 120,
                                           width: 100,
                                           child: Image.asset(
-                                              "assets/hello_bello_vitamins_MENS_front_580x 1.png"),
+                                            "assets/hello_bello_vitamins_MENS_front_580x 1.png",
+                                            fit: BoxFit.cover,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -192,48 +194,83 @@ class BundleCreatorPage extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                              width: 80,
+                                              width: 120,
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 5, vertical: 10),
+                                                  horizontal: 5, vertical: 5),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
-                                                color: Colors.grey,
+                                                color: Color(0xff53900F),
                                                 // border: Border.all(color: Colors.blue, width: 1),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.4),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 1,
-                                                    offset: Offset(1,
-                                                        3), // changes position of shadow
-                                                  ),
-                                                ],
                                               ),
-                                              child: Text(
-                                                "Remove Item",
-                                                style: TextStyle(
-                                                    letterSpacing: 1,
-                                                    fontSize: 10,
-                                                    color: Colors.black,
-                                                    fontFamily: font,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                              child: Center(
+                                                child: Text(
+                                                  "Remove Item",
+                                                  style: TextStyle(
+                                                      letterSpacing: 1,
+                                                      fontSize: 10,
+                                                      color: Colors.white,
+                                                      fontFamily: font,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 20,
+                                              width: 10,
                                             ),
-                                            DropDown(
-                                              items: ["3 KG", "5 KG", "10 KG"],
-                                              hint: Text("2 KG"),
-                                              icon: Icon(
-                                                Icons.expand_more,
-                                                color: Colors.blue,
+                                            Container(
+                                              // width: 120,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 5),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: Color(0xffC4C4C4),
+                                                // border: Border.all(color: Colors.blue, width: 1),
                                               ),
-                                              onChanged: print,
+                                              child: Center(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      "₹500 / Kg",
+                                                      style: TextStyle(
+                                                          letterSpacing: 1,
+                                                          fontSize: 10,
+                                                          color: Colors.black,
+                                                          fontFamily: font,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .expand_more_outlined,
+                                                      size: 10,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
+                                            // Container(
+                                            //   decoration: BoxDecoration(
+                                            //       color: Color(0xffC4C4C4)),
+                                            //   child: SizedBox(
+                                            //     height: 20,
+                                            //     child: DropDown(
+                                            //       items: [
+                                            //         "3 KG",
+                                            //         "5 KG",
+                                            //         "10 KG"
+                                            //       ],
+                                            //       hint: Text("2 KG"),
+                                            //       icon: Icon(
+                                            //         Icons.expand_more,
+                                            //         color: Colors.blue,
+                                            //       ),
+                                            //       onChanged: print,
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         )
                                       ],
@@ -270,7 +307,7 @@ class BundleCreatorPage extends StatelessWidget {
           children: [
             Container(
               width: 80,
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.green,
@@ -286,7 +323,10 @@ class BundleCreatorPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Image.asset("assets/Vector (1).png"),
+                  Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
                   SizedBox(
                     width: 10,
                   ),
@@ -338,7 +378,7 @@ class BundleCreatorPage extends StatelessWidget {
               },
               child: Container(
                 width: 80,
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 7),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.green,
@@ -354,6 +394,9 @@ class BundleCreatorPage extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
+                    SizedBox(
+                      width: 5,
+                    ),
                     Text(
                       "Next",
                       style: TextStyle(
@@ -366,7 +409,10 @@ class BundleCreatorPage extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Image.asset("assets/Vector.png"),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    )
                   ],
                 ),
               ),

@@ -18,10 +18,9 @@ class _MyCorosuleState extends State<MyCorosule> {
   @override
   Widget build(BuildContext context) {
     List<String> image = [
-      "https://img.freepik.com/free-photo/mother-baby-girl-doctors-office_329181-9261.jpg?w=740",
-      'https://img.freepik.com/free-vector/flat-design-stages-baby-boy_23-2148974790.jpg?w=740',
-      'https://img.freepik.com/free-vector/flat-design-baby-shower-zoom-background_23-2149240976.jpg?w=740',
-      'https://img.freepik.com/free-vector/flat-design-baby-shower-zoom-background_23-2149240974.jpg?w=740'
+      "assets/b1.png",
+      "assets/b1.png",
+      "assets/b1.png",
     ];
     return ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -45,7 +44,7 @@ class _MyCorosuleState extends State<MyCorosule> {
                 },
                 //onPageChanged: (int index) {},
                 //height: size.width / 2,
-                aspectRatio: 4 / 2,
+                aspectRatio: 4.5 / 2,
                 viewportFraction: 1,
                 initialPage: 0,
                 enableInfiniteScroll: true,
@@ -68,9 +67,9 @@ class _MyCorosuleState extends State<MyCorosule> {
                   // },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    child: Image.network(
+                    child: Image.asset(
                       image[index],
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),

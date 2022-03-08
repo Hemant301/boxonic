@@ -112,6 +112,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -131,6 +132,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -150,25 +152,44 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Customer Support",
-                          style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 14,
-                              color: grad2Color,
-                              fontFamily: font,
-                              fontWeight: FontWeight.bold),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Customer Support",
+                              style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 14,
+                                  color: grad2Color,
+                                  fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "info@boxonic.com",
+                              style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                  fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                         Image.asset("assets/customer-service (1) 1.png")
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -187,6 +208,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -205,7 +227,7 @@ class DrawersPage extends StatelessWidget {
                                       "Mobile Number",
                                       style: TextStyle(
                                           letterSpacing: 1,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: grad2Color,
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
@@ -213,14 +235,17 @@ class DrawersPage extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Icon(Icons.edit)
+                                    Icon(Icons.edit, size: 15)
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   "8210925188",
                                   style: TextStyle(
                                       letterSpacing: 1,
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey,
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
@@ -233,6 +258,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -251,7 +277,7 @@ class DrawersPage extends StatelessWidget {
                                       "Email",
                                       style: TextStyle(
                                           letterSpacing: 1,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: grad2Color,
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
@@ -259,14 +285,17 @@ class DrawersPage extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Icon(Icons.edit)
+                                    Icon(Icons.edit, size: 15)
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   "gupta.hgk@gmail.com",
                                   style: TextStyle(
                                       letterSpacing: 1,
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey,
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
@@ -279,6 +308,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -297,7 +327,7 @@ class DrawersPage extends StatelessWidget {
                                       "My Address",
                                       style: TextStyle(
                                           letterSpacing: 1,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: grad2Color,
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
@@ -305,14 +335,17 @@ class DrawersPage extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Icon(Icons.edit)
+                                    Icon(Icons.edit, size: 15)
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   "Harmu Housing Colony, Vasa...",
                                   style: TextStyle(
                                       letterSpacing: 1,
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey,
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
@@ -325,6 +358,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -343,7 +377,7 @@ class DrawersPage extends StatelessWidget {
                                       "Baby Name",
                                       style: TextStyle(
                                           letterSpacing: 1,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: grad2Color,
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
@@ -351,14 +385,17 @@ class DrawersPage extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Icon(Icons.edit)
+                                    Icon(Icons.edit, size: 15)
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   "Santosh Kumar",
                                   style: TextStyle(
                                       letterSpacing: 1,
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey,
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
@@ -371,6 +408,7 @@ class DrawersPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Divider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -389,7 +427,7 @@ class DrawersPage extends StatelessWidget {
                                       "Baby D.O.B",
                                       style: TextStyle(
                                           letterSpacing: 1,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: grad2Color,
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
@@ -397,14 +435,17 @@ class DrawersPage extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Icon(Icons.edit)
+                                    Icon(Icons.edit, size: 15)
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
                                   "02/10/2021",
                                   style: TextStyle(
                                       letterSpacing: 1,
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey,
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
@@ -418,6 +459,22 @@ class DrawersPage extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 20,
+                decoration: BoxDecoration(color: Color(0xffFF4F4F)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Center(
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 40,
