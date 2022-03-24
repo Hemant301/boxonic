@@ -1,3 +1,4 @@
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +10,16 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 0), () {
-      Navigator.of(context).pushReplacementNamed(
-        '/onbording',
-      );
+    Future.delayed(Duration(seconds: 3), () {
+      if (userCred.isUserLogin()) {
+        Navigator.of(context).pushReplacementNamed(
+          '/StartScreen',
+        );
+      } else {
+        Navigator.of(context).pushReplacementNamed(
+          '/onbording',
+        );
+      }
     });
     return Scaffold(
       backgroundColor: Colors.white,

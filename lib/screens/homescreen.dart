@@ -1,4 +1,7 @@
+import 'package:boxoniq/modal/homemodal.dart';
+import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/drower.dart';
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +19,10 @@ class _HomeScrrenState extends State<HomeScrren> {
 
   @override
   Widget build(BuildContext context) {
+    homebloc.fetchHomebrand();
+    homebloc.fetchHomebrand2();
+    homebloc.fetchHomecategory();
+    print(userCred.getUserId());
     return Scaffold(
       key: scaffoldkey,
       drawer: Container(
@@ -252,50 +259,44 @@ class _HomeScrrenState extends State<HomeScrren> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Brand(
-                        images: "assets/logo-aboutus 1.png",
+              StreamBuilder<BrandModal>(
+                  stream: homebloc.getHomebrand.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            snapshot.data!.brand.length,
+                            (index) => Brand(
+                              images: snapshot.data!.brand[index].brand,
+                            ),
+                          ),
+                        ),
                       ),
-                      Brand(
-                        images: "assets/Cetaphil-old 1.png",
+                    );
+                  }),
+              StreamBuilder<BrandModal>(
+                  stream: homebloc.getHomebrand2.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            snapshot.data!.brand.length,
+                            (index) => Brand(
+                              images: snapshot.data!.brand[index].brand,
+                            ),
+                          ),
+                        ),
                       ),
-                      Brand(
-                        images: "assets/logo-aboutus 1.png",
-                      ),
-                      Brand(
-                        images: "assets/Cetaphil-old 1.png",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Brand(
-                        images: "assets/logo-aboutus 1.png",
-                      ),
-                      Brand(
-                        images: "assets/Cetaphil-old 1.png",
-                      ),
-                      Brand(
-                        images: "assets/logo-aboutus 1.png",
-                      ),
-                      Brand(
-                        images: "assets/Cetaphil-old 1.png",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }),
               SizedBox(
                 height: 30,
               ),
@@ -311,40 +312,25 @@ class _HomeScrrenState extends State<HomeScrren> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      babyItem(
-                        image: 'assets/1 9.png',
-                        name: 'Baby',
+              StreamBuilder<HomeCategoryModal>(
+                  stream: homebloc.getHomeCategory.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            snapshot.data!.category.length,
+                            (index) => babyItem(
+                                image: snapshot.data!.category[index].image,
+                                name: snapshot.data!.category[index].name!),
+                          ),
+                        ),
                       ),
-                      babyItem(
-                        image: 'assets/a1.png',
-                        name: 'Baby Shampoo',
-                      ),
-                      babyItem(
-                        image: 'assets/a2.png',
-                        name: 'Baby Lotion',
-                      ),
-                      babyItem(
-                        image: 'assets/a3.png',
-                        name: 'Baby oil',
-                      ),
-                      babyItem(
-                        image: 'assets/1 9.png',
-                        name: 'Baby',
-                      ),
-                      babyItem(
-                        image: 'assets/1 9.png',
-                        name: 'Baby',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }),
               SizedBox(
                 height: 30,
               ),
@@ -574,7 +560,7 @@ class babyItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 35,
-            backgroundImage: AssetImage(image!),
+            backgroundImage: NetworkImage(image!),
             backgroundColor: Color(0xffD3C6F9).withOpacity(0.5),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -615,7 +601,7 @@ class Brand extends StatelessWidget {
         width: 120,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Image.asset(
+          child: Image.network(
             "$images",
             fit: BoxFit.cover,
           ),

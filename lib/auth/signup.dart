@@ -5,9 +5,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-TextEditingController _shopownernameController = TextEditingController();
-TextEditingController _shopownerphoneController = TextEditingController();
-TextEditingController _shopowneremailController = TextEditingController();
+TextEditingController _nameController = TextEditingController();
+TextEditingController _phoneController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
 TextEditingController _pwdController = TextEditingController();
 
 class Creatuser extends StatefulWidget {
@@ -130,7 +130,7 @@ class _CreatuserState extends State<Creatuser> {
                       height: 10,
                     ),
                     FormTTextFild(
-                      controller: _shopownernameController,
+                      controller: _nameController,
                       hinttext: "Enter Shop Owner name",
                       keyboardType: TextInputType.name,
                       // icon: (Icons.email),
@@ -193,7 +193,7 @@ class _CreatuserState extends State<Creatuser> {
                     ),
                     FormTTextFild(
                       num: 10,
-                      controller: _shopownerphoneController,
+                      controller: _phoneController,
                       hinttext: "Enter Shop Mobile Number",
                       keyboardType: TextInputType.number,
                       // icon: (Icons.email),
@@ -220,11 +220,11 @@ class _CreatuserState extends State<Creatuser> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: TextFormField(
-                          validator: (value) => EmailValidator.validate(
-                                  _shopowneremailController.text)
-                              ? null
-                              : "Please enter a valid email",
-                          controller: _shopowneremailController,
+                          validator: (value) =>
+                              EmailValidator.validate(_emailController.text)
+                                  ? null
+                                  : "Please enter a valid email",
+                          controller: _emailController,
                           maxLines: null,
                           decoration: InputDecoration(
                               hintText: 'Email',
@@ -240,7 +240,7 @@ class _CreatuserState extends State<Creatuser> {
                     ),
                     // FormTTextFild(
 
-                    //   controller: _shopowneremailController,
+                    //   controller: _emailController,
                     //   hinttext: "Enter Shop Email",
                     //   // icon: (Icons.email),
                     // ),
@@ -278,8 +278,8 @@ class _CreatuserState extends State<Creatuser> {
                     Center(
                       child: InkWell(
                         onTap: () async {
-                          if (_shopownernameController.text == "" ||
-                              _shopownernameController.text == "") {
+                          if (_nameController.text == "" ||
+                              _nameController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid Name!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -289,8 +289,8 @@ class _CreatuserState extends State<Creatuser> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                             return;
-                          } else if (_shopowneremailController.text == " " ||
-                              _shopowneremailController.text == "") {
+                          } else if (_emailController.text == " " ||
+                              _emailController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid Email!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -300,8 +300,7 @@ class _CreatuserState extends State<Creatuser> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                             return;
-                          } else if ((_shopownerphoneController.text).length <=
-                              9) {
+                          } else if ((_phoneController.text).length <= 9) {
                             Fluttertoast.showToast(
                                 msg: "Invalid Phone No!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -330,23 +329,20 @@ class _CreatuserState extends State<Creatuser> {
                           AuthApi _authapi = AuthApi();
                           try {
                             Map data = await _authapi.doSugnup(
-                                shopowneremail:
-                                    "${_shopowneremailController.text}",
+                                shopowneremail: "${_emailController.text}",
                                 pwd: "${_pwdController.text}",
-                                shopownerphone:
-                                    "${_shopownerphoneController.text}",
-                                shopownername:
-                                    "${_shopownernameController.text}");
+                                shopownerphone: "${_phoneController.text}",
+                                shopownername: "${_nameController.text}");
                             print(data);
 
-                            if (data['status'] == 200) {
+                            if (data['response'] == '1') {
                               setState(() {
                                 isLoading = false;
                               });
                               Future.delayed(Duration(seconds: 0), () {
                                 Navigator.of(context).pushNamed(
                                     '/otpverification',
-                                    arguments: {'ACCId': data['vendor_id']});
+                                    arguments: {'ACCId': data['accountId']});
                                 print(data);
                               });
                               Fluttertoast.showToast(

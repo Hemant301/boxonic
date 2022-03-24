@@ -6,16 +6,16 @@ import 'package:boxoniq/util/constance.dart';
 import 'package:http/http.dart' as http;
 
 class AuthApi {
-  
   Future<dynamic> doLogin({
     String pwd = "",
     String shopownerphone = "",
   }) async {
     var client = http.Client();
     try {
-      final response = await client.post(Uri.parse("${base}api/login.php"),
+      final response = await client.post(Uri.parse("${base}make-login-bo.php"),
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({"mobile": shopownerphone, "password": pwd}));
+          body: jsonEncode(
+              {"login_email": shopownerphone, "login_password": pwd}));
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as Map;
@@ -38,14 +38,15 @@ class AuthApi {
       String shopownername = ""}) async {
     var client = http.Client();
     try {
-      final response = await client.post(Uri.parse("${base}api/register.php"),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
-            "name": shopownername,
-            "mobile": shopownerphone,
-            "email": shopowneremail,
-            "password": pwd
-          }));
+      final response =
+          await client.post(Uri.parse("${base}save-account-bo.php"),
+              headers: {"Content-Type": "application/json"},
+              body: jsonEncode({
+                "name": shopownername,
+                "mobile": shopownerphone,
+                "email": shopowneremail,
+                "password": pwd
+              }));
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as Map;
@@ -64,7 +65,7 @@ class AuthApi {
   Future<dynamic> doSugnupvERIFY({String otp = "", String accid = ""}) async {
     var client = http.Client();
     try {
-      final response = await client.post(Uri.parse("${base}api/verifyotp.php"),
+      final response = await client.post(Uri.parse("${base}verify-otp-bo.php"),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({"user_id": accid, "otp": otp}));
       if (response.statusCode == 200) {

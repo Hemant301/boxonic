@@ -10,12 +10,17 @@ import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/splash/onbording.dart';
 import 'package:boxoniq/splash/splashsceen.dart';
+import 'package:boxoniq/util/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await StorageUtil.getInstance();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(const MyApp());
 }
 
