@@ -1,3 +1,6 @@
+import 'package:boxoniq/auth/login.dart';
+import 'package:boxoniq/auth/otpverification.dart';
+import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/billing.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
@@ -5,6 +8,8 @@ import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/subscription.dart';
+import 'package:boxoniq/splash/onbording.dart';
+import 'package:boxoniq/splash/splashsceen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,8 +31,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: "/StartScreen",
+        initialRoute: "/splashsceen",
         routes: {
+          "/splashsceen": (context) => Splash(),
+          "/onbording": (context) => OnboardingScreen(),
+          "/login": (context) => Login(),
+          "/otpverification": (context) => VeryfiedOtp(),
+          "/signup": (context) => Creatuser(),
+
           "/homescreen": (context) => HomeScrren(),
           "/StartScreen": (context) => Nav(),
           "/bundlecreatorPage": (context) => BundleCreatorPage(),

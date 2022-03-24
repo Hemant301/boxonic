@@ -412,20 +412,6 @@ class BillingPage extends StatelessWidget {
               ),
               
               
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
               SizedBox(
                 height: 20,
               ),
