@@ -56,6 +56,66 @@ class HomeBloc {
       print(e);
     }
   }
+
+  final BehaviorSubject<CategoryItemModal> _livecategoryItems =
+      BehaviorSubject<CategoryItemModal>();
+  BehaviorSubject<CategoryItemModal> get getCategoryitems => _livecategoryItems;
+  fetchcatItems(String id) async {
+    // _livecategoryItems.addError("Loading");
+    try {
+      CategoryItemModal homeSlider = await _homeRepo.fetchcatItems(id);
+      // print(homeSlider.imgs!.length);
+
+      _livecategoryItems.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<BundleitemModal> _liveBundleItems =
+      BehaviorSubject<BundleitemModal>();
+  BehaviorSubject<BundleitemModal> get getBundleitems => _liveBundleItems;
+  fetchbundleItems(String id) async {
+    // _liveBundleItems.addError("Loading");
+    try {
+      BundleitemModal homeSlider = await _homeRepo.fetchbundleItems(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveBundleItems.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<CheckAmountModal> _livecheckAmount =
+      BehaviorSubject<CheckAmountModal>();
+  BehaviorSubject<CheckAmountModal> get getcheckAmount => _livecheckAmount;
+  checkamount() async {
+    // _livecheckAmount.addError("Loading");
+    try {
+      CheckAmountModal homeSlider = await _homeRepo.checkamount();
+      // print(homeSlider.imgs!.length);
+
+      _livecheckAmount.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<CalAmountModal> _liveCalAmount =
+      BehaviorSubject<CalAmountModal>();
+  BehaviorSubject<CalAmountModal> get getCalculatedAmount => _liveCalAmount;
+  fetchcalAmount() async {
+    // _liveCalAmount.addError("Loading");
+    try {
+      CalAmountModal homeSlider = await _homeRepo.fetchcalAmount();
+      // print(homeSlider.imgs!.length);
+
+      _liveCalAmount.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
 
 final homebloc = HomeBloc();

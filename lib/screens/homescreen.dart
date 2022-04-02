@@ -157,8 +157,8 @@ class _HomeScrrenState extends State<HomeScrren> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              Navigator.pushNamed(
-                                  context, "/bundlecreatorPage");
+                              Navigator.pushNamed(context, "/bundlecreatorPage",
+                                  arguments: {'id': '1', 'index': '1'});
                             },
                             child: Container(
                               // padding: EdgeInsets.all(20),
@@ -323,9 +323,20 @@ class _HomeScrrenState extends State<HomeScrren> {
                         child: Row(
                           children: List.generate(
                             snapshot.data!.category.length,
-                            (index) => babyItem(
-                                image: snapshot.data!.category[index].image,
-                                name: snapshot.data!.category[index].name!),
+                            (index) => InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, '/bundlecreatorPage',
+                                    arguments: {
+                                      'id': snapshot.data!.category[index].seq
+                                          .toString(),
+                                      'index': (index + 1).toString()
+                                    });
+                              },
+                              child: babyItem(
+                                  image: snapshot.data!.category[index].image,
+                                  name: snapshot.data!.category[index].name!),
+                            ),
                           ),
                         ),
                       ),

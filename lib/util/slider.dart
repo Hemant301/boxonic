@@ -1,5 +1,7 @@
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/util/const.dart';
+import 'package:boxoniq/util/constance.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -73,9 +75,12 @@ class _MyCorosuleState extends State<MyCorosule> {
                         //       arguments: {'id': (widget.data![index].cat).toString()});
                         // },
                         child: Container(
+                          color: grad1Color,
                           width: MediaQuery.of(context).size.width,
                           child: Image.network(
                             snapshot.data!.imgs[index].slide!,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset('assets/b1.png'),
                             fit: BoxFit.fill,
                           ),
                         ),

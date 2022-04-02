@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/constance.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +52,38 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}super-cat-bo.php"));
       if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchcatItems(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}product-super-cat-bo.php"),
+          body: {'sequence': id});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchbundleItems(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/get-product.php"),
+          body: {'account-id': id});
+      if (response.statusCode == 200) {
         print(response.body);
         return response;
       } else {
@@ -58,4 +93,160 @@ class HomeApi {
       // print(e);
     } finally {}
   }
+
+  Future<dynamic> fetchcalAmount() async {
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
+          body: {'account-id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchcatItemsinIt(String id) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${base}product-super-cat-bo.php"),
+          body: {'sequence': id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> deletecartItem(String p_id) async {
+    print(p_id);
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
+          body: {'cart-id': p_id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as List;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> addToCart({
+    String p_id = "",
+    String qty = "",
+    String attr_id = "",
+    String userid = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.post(Uri.parse("${base}add-to-cart-bo.php"), body: {
+        'user_id': userid,
+        'qty': qty,
+        'attr_id': attr_id,
+        'product_id': p_id,
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  // Future<dynamic> checkamount({
+  //   String userid = "",
+  // }) async {
+  //   var client = http.Client();
+  //   try {
+  //     final response = await client.post(
+  //         Uri.parse("${newBase}boxoniq-crm/api/droid/get-total-attr-price.php"),
+  //         body: {
+  //           'account-id': userCred.getUserId(),
+  //         });
+  //     if (response.statusCode == 200) {
+  //       print(response.body);
+  //       return jsonDecode(response.body) as Map;
+  //     } else {
+  //       print('Request failed with status: ${response.statusCode}.');
+  //       throw "Somethiing went wrong";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     throw "Somethiing went wrong";
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
+  Future<dynamic> checkamount() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/get-total-attr-price.php"),
+          body: {
+            'account-id': userCred.getUserId(),
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+  // Future<dynamic> doAddtoCart(
+  //     {String user_id = "", String attrId = "", String qty = ""}) async {
+  //   var client = http.Client();
+  //   try {
+  //     final response = await client.post(Uri.parse("${base}verify-otp-bo.php"),
+  //         headers: {"Content-Type": "application/json"},
+  //         body:
+  //             jsonEncode({"user_id": user_id, "attr_id": attrId, "qty": qty}));
+  //     if (response.statusCode == 200) {
+  //       print(response.body);
+  //       return jsonDecode(response.body) as Map;
+  //     } else {
+  //       print('Request failed with status: ${response.statusCode}.');
+  //       throw "Somethiing went wrong";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     throw "Somethiing went wrong";
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
 }
+
+final homeApi = HomeApi();

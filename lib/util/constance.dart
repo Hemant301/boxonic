@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 String base = "https://cms.cybertizeweb.com/boxoniq-crm/api/app/next/";
+String newBase = "https://cms.cybertizeweb.com/";
 
 String font = "sans";
 const Color primary = Color(0xfff9ba49);

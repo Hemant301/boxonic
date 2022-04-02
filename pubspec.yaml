@@ -45,6 +45,11 @@ dependencies:
   video_player: ^2.3.0
   shared_preferences: ^2.0.13
   rxdart: ^0.27.3
+  delivery_tracker: ^1.0.0-Alpha
+  cached_network_image: ^3.2.0
+  shimmer: ^2.0.0
+  lottie: ^1.2.2
+  paytm_allinonesdk: ^1.1.5
 
 dev_dependencies:
   flutter_test:

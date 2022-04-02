@@ -1,3 +1,4 @@
+import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
@@ -11,7 +12,9 @@ class SubscriptionPage extends StatelessWidget {
       backgroundColor: grad1Color,
       appBar: AppBar(
         backgroundColor: lightWhite2,
-        leading: Image.asset("assets/magic-box (1) 1.png"),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
         title: Text(
           "Subscription",
           style: TextStyle(
@@ -382,7 +385,7 @@ class SubscriptionPage extends StatelessWidget {
                 height: 20,
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.pushNamed(context, "/mybundalSubscription");
                 },
                 child: Container(
@@ -409,7 +412,7 @@ class SubscriptionPage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width - 150,
                               child: Text(
-                                "Monthly Subscribe Benefits Includes",
+                                "Add ₹19,570 to Wallet & Proceed",
                                 style: TextStyle(
                                   letterSpacing: 1,
                                   fontSize: 12,

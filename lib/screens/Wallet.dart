@@ -1,8 +1,66 @@
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 
-class WallatePage extends StatelessWidget {
+class WallatePage extends StatefulWidget {
   const WallatePage({Key? key}) : super(key: key);
+
+  @override
+  State<WallatePage> createState() => _WallatePageState();
+}
+
+class _WallatePageState extends State<WallatePage> {
+  String mid = "sPyCNq11089326422803",
+      orderId = "Orderid_123",
+      amount = "600",
+      txnToken = "fsdfsd";
+  String result = "";
+  bool isStaging = false;
+  bool isApiCallInprogress = false;
+  String callbackUrl = "";
+  bool restrictAppInvoke = false;
+  bool enableAssist = true;
+  Future<void> _startTransaction() async {
+    if (txnToken.isEmpty) {
+      return;
+    }
+    var sendMap = <String, dynamic>{
+      "mid": mid,
+      "orderId": orderId,
+      "amount": amount,
+      "txnToken": txnToken,
+      "callbackUrl": callbackUrl,
+      "isStaging": isStaging,
+      "restrictAppInvoke": restrictAppInvoke,
+      "enableAssist": enableAssist
+    };
+    print(sendMap);
+    try {
+      var response = AllInOneSdk.startTransaction(mid, orderId, amount,
+          txnToken, "", isStaging, restrictAppInvoke, enableAssist);
+      response.then((value) {
+        print(value);
+        setState(() {
+          result = value.toString();
+        });
+      }).catchError((onError) {
+        if (onError is PlatformException) {
+          setState(() {
+            result = onError.message.toString() +
+                " \n  " +
+                onError.details.toString();
+          });
+        } else {
+          setState(() {
+            result = onError.toString();
+          });
+        }
+      });
+    } catch (err) {
+      result = err.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,31 +132,37 @@ class WallatePage extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  // padding: EdgeInsets.all(20),
-                  height: 40,
-                  width: MediaQuery.of(context).size.width - 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.green,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 3), // changes position of shadow
+                InkWell(
+                  onTap: () {
+                    print('object');
+                    _startTransaction();
+                  },
+                  child: Container(
+                    // padding: EdgeInsets.all(20),
+                    height: 40,
+                    width: MediaQuery.of(context).size.width - 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.green,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset: Offset(1, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        "+ Add To Wallet",
+                        style: TextStyle(
+                            letterSpacing: 1,
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: font,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      "+ Add To Wallet",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

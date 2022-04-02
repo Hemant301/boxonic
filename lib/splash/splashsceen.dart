@@ -32,20 +32,20 @@ class _SplashState extends State<Splash> {
               left: 0,
               right: 0,
               child: Image.asset(
-                "assets/delivery.png",
-                height: 50,
-                width: 50,
+                "assets/logo.png",
+                height: 150,
+                width: 150,
               ),
             ),
-            Center(
-                child: Text(
-              "Boxoniq",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: lightWhite3,
-              ),
-            )),
+            // Center(
+            //     child: Text(
+            //   "Boxoniq",
+            //   style: TextStyle(
+            //     fontSize: 20,
+            //     fontWeight: FontWeight.bold,
+            //     color: lightWhite3,
+            //   ),
+            // )),
             Positioned(
               bottom: 8,
               left: 0,
