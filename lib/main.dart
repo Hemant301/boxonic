@@ -2,6 +2,7 @@ import 'package:boxoniq/auth/login.dart';
 import 'package:boxoniq/auth/otpverification.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
+import 'package:boxoniq/screens/address.dart';
 import 'package:boxoniq/screens/billing.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
 import 'package:boxoniq/screens/homescreen.dart';
@@ -44,7 +45,6 @@ class MyApp extends StatelessWidget {
           "/login": (context) => Login(),
           "/otpverification": (context) => VeryfiedOtp(),
           "/signup": (context) => Creatuser(),
-
           "/homescreen": (context) => HomeScrren(),
           "/StartScreen": (context) => Nav(),
           "/bundlecreatorPage": (context) => BundleCreatorPage(),
@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
           "/mybundalSubscription": (context) => MyBundalSubscription(),
           "/subscription": (context) => SubscriptionPage(),
           "/thankyou": (context) => Thankyou(),
+          "/address": (context) => Address(),
         });
   }
 }

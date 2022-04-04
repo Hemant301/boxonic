@@ -73,44 +73,392 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Column(
-                      children: [
-                        snapshot.data!.bundal.length == 0
-                            ? Center(
-                                child: Column(
-                                children: [
-                                  Lottie.asset('assets/empty.json',
-                                      repeat: false, height: 200),
-                                  Text(
-                                    'Your Box is Empty',
-                                    style: TextStyle(fontFamily: font),
-                                  )
-                                ],
-                              ))
-                            : Column(
-                                children: List.generate(
+                    Column(children: [
+                      snapshot.data!.bundal.length == 0
+                          ? Center(
+                              child: Column(
+                              children: [
+                                Lottie.asset('assets/empty.json',
+                                    repeat: false, height: 200),
+                                Text(
+                                  'Your Box is Empty',
+                                  style: TextStyle(fontFamily: font),
+                                )
+                              ],
+                            ))
+                          :
+                          // Column(
+                          //     children: List.generate(
+                          //       snapshot.data!.bundal.length,
+                          //       (index) => PreviewItem(
+                          //           onTab: () async {
+                          //             HomeApi _api = HomeApi();
+                          //             List a = await _api.deletecartItem(
+                          //                 snapshot.data!.bundal[index]
+                          //                     .product[index].Cart_id!);
+                          //             print(a[0]['response']);
+                          //             if (a[0]['response'] == true) {
+                          //               setState(() {});
+                          //               Fluttertoast.showToast(
+                          //                   msg: 'Deleted Successfully');
+                          //             } else {
+                          //               Fluttertoast.showToast(
+                          //                   msg: 'Somehing went wrong');
+                          //             }
+                          //           },
+                          //           data: snapshot.data!.bundal[index]),
+                          //     ),
+                          //   ),
+
+                          // ],
+
+                          Column(
+                              children: List.generate(
                                   snapshot.data!.bundal.length,
-                                  (index) => PreviewItem(
-                                      onTab: () async {
-                                        HomeApi _api = HomeApi();
-                                        List a = await _api.deletecartItem(
-                                            snapshot.data!.bundal[index]
-                                                .product[index].Cart_id!);
-                                        print(a[0]['response']);
-                                        if (a[0]['response'] == true) {
-                                          setState(() {});
-                                          Fluttertoast.showToast(
-                                              msg: 'Deleted Successfully');
-                                        } else {
-                                          Fluttertoast.showToast(
-                                              msg: 'Somehing went wrong');
-                                        }
-                                      },
-                                      data: snapshot.data!.bundal[index]),
-                                ),
-                              ),
-                      ],
-                    ),
+                                  (index) => Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                snapshot
+                                                    .data!.bundal[index].title!,
+                                                style: TextStyle(
+                                                    letterSpacing: 1,
+                                                    fontSize: 16,
+                                                    color: Colors.grey[500],
+                                                    fontFamily: font,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                              children: List.generate(
+                                                  snapshot.data!.bundal[index]
+                                                      .product.length,
+                                                  (i) => Center(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width -
+                                                                40,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color:
+                                                                  Colors.white,
+                                                              // border: Border.all(color: Colors.blue, width: 1),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.4),
+                                                                  spreadRadius:
+                                                                      1,
+                                                                  blurRadius: 1,
+                                                                  offset: Offset(
+                                                                      1,
+                                                                      3), // changes position of shadow
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Column(
+                                                                  children: [
+                                                                    Container(
+                                                                      height:
+                                                                          120,
+                                                                      width:
+                                                                          100,
+                                                                      child: Image
+                                                                          .asset(
+                                                                        snapshot
+                                                                            .data!
+                                                                            .bundal[index]
+                                                                            .product[i]
+                                                                            .img!,
+                                                                        errorBuilder: (context,
+                                                                                error,
+                                                                                stackTrace) =>
+                                                                            Image.network('https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?t=st=1648458079~exp=1648458679~hmac=22225d104f55882eeda53ca4bba904e4d687db4db62051a53fc670b06d89a94f&w=740'),
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      height:
+                                                                          10,
+                                                                    ),
+                                                                    Container(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          2,
+                                                                      child:
+                                                                          Text(
+                                                                        snapshot
+                                                                            .data!
+                                                                            .bundal[index]
+                                                                            .product[i]
+                                                                            .title!,
+                                                                        maxLines:
+                                                                            2,
+                                                                        style: TextStyle(
+                                                                            letterSpacing:
+                                                                                1,
+                                                                            fontSize:
+                                                                                16,
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontFamily:
+                                                                                font,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width -
+                                                                          180,
+                                                                      child:
+                                                                          Text(
+                                                                        snapshot
+                                                                            .data!
+                                                                            .bundal[index]
+                                                                            .product[i]
+                                                                            .desc!,
+                                                                        maxLines:
+                                                                            4,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          letterSpacing:
+                                                                              1,
+                                                                          fontSize:
+                                                                              10,
+                                                                          color:
+                                                                              Colors.black,
+                                                                          fontFamily:
+                                                                              font,
+                                                                          // fontWeight: FontWeight.bold
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          'Qty: ${snapshot.data!.bundal[index].product[i].qty!}',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+
+                                                                            letterSpacing:
+                                                                                1,
+                                                                            fontSize:
+                                                                                10,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontFamily:
+                                                                                font,
+                                                                            // fontWeight: FontWeight.bold
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              10,
+                                                                        ),
+                                                                        Text(
+                                                                          'Price: ₹${snapshot.data!.bundal[index].product[i].price!}',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            letterSpacing:
+                                                                                1,
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontFamily:
+                                                                                font,
+                                                                            // fontWeight: FontWeight.bold
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              10,
+                                                                        ),
+                                                                        Text(
+                                                                          'Total: ₹${snapshot.data!.bundal[index].product[i].total!}',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            letterSpacing:
+                                                                                1,
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontFamily:
+                                                                                font,
+                                                                            // fontWeight: FontWeight.bold
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 5,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            HomeApi
+                                                                                _api =
+                                                                                HomeApi();
+                                                                            List
+                                                                                a =
+                                                                                await _api.deletecartItem(snapshot.data!.bundal[index].product[i].Cart_id!);
+                                                                            print(a[0]['response']);
+                                                                            if (a[0]['response'] ==
+                                                                                true) {
+                                                                              setState(() {});
+                                                                              Fluttertoast.showToast(msg: 'Deleted Successfully');
+                                                                            } else {
+                                                                              Fluttertoast.showToast(msg: 'Somehing went wrong');
+                                                                            }
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            width:
+                                                                                120,
+                                                                            padding:
+                                                                                EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(5),
+                                                                              color: Color(0xff53900F),
+                                                                              // border: Border.all(color: Colors.blue, width: 1),
+                                                                            ),
+                                                                            child:
+                                                                                Center(
+                                                                              child: Text(
+                                                                                "Remove Item",
+                                                                                style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.white, fontFamily: font, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              10,
+                                                                        ),
+                                                                        Container(
+                                                                          // width: 120,
+                                                                          padding: EdgeInsets.symmetric(
+                                                                              horizontal: 10,
+                                                                              vertical: 5),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(5),
+                                                                            color:
+                                                                                Color(0xffC4C4C4),
+                                                                            // border: Border.all(color: Colors.blue, width: 1),
+                                                                          ),
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                Text(
+                                                                                  snapshot.data!.bundal[index].product[i].attribute!,
+                                                                                  style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.black, fontFamily: font, fontWeight: FontWeight.bold),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        // Container(
+                                                                        //   decoration: BoxDecoration(
+                                                                        //       color: Color(0xffC4C4C4)),
+                                                                        //   child: SizedBox(
+                                                                        //     height: 20,
+                                                                        //     child: DropDown(
+                                                                        //       items: [
+                                                                        //         "3 KG",
+                                                                        //         "5 KG",
+                                                                        //         "10 KG"
+                                                                        //       ],
+                                                                        //       hint: Text("2 KG"),
+                                                                        //       icon: Icon(
+                                                                        //         Icons.expand_more,
+                                                                        //         color: Colors.blue,
+                                                                        //       ),
+                                                                        //       onChanged: print,
+                                                                        //     ),
+                                                                        //   ),
+                                                                        // ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ))),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      )),
+                            )
+                    ]),
                   ],
                 ),
               ),
@@ -381,7 +729,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                             children: [
                                               Text(
                                                 widget.data!.product[index]
-                                                    .attribute!.name!,
+                                                    .attribute!,
                                                 style: TextStyle(
                                                     letterSpacing: 1,
                                                     fontSize: 10,

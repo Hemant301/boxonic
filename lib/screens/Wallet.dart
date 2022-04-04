@@ -134,7 +134,7 @@ class _WallatePageState extends State<WallatePage> {
                 ),
                 InkWell(
                   onTap: () {
-                    print('object');
+                    // print('object');
                     _startTransaction();
                   },
                   child: Container(

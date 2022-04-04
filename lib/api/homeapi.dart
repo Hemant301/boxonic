@@ -80,9 +80,8 @@ class HomeApi {
 
   Future<dynamic> fetchbundleItems(String id) async {
     try {
-      final response = await client.post(
-          Uri.parse("${newBase}boxoniq-crm/api/droid/get-product.php"),
-          body: {'account-id': id});
+      final response = await client
+          .post(Uri.parse("${base}get-cart-bo.php"), body: {'account-id': id});
       if (response.statusCode == 200) {
         print(response.body);
         return response;

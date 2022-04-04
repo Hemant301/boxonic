@@ -27,7 +27,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
     super.didChangeDependencies();
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
 
-    print(rcvdData['index']);
+    print('${rcvdData['index']} index');
     setState(() {
       activeIndex = int.parse(rcvdData['index']);
       id = rcvdData['id'];
@@ -199,9 +199,9 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                         children: List.generate(
                             snapshot.data!.product.length,
                             (index) => ProductsCard(
-                                  appid: activeIndex.toString(),
-                                  data: snapshot.data!.product[index],
-                                )))
+                                appid: activeIndex.toString(),
+                                data: snapshot.data!.product[index],
+                                i: index)))
                   ],
                 ),
               ),
@@ -378,11 +378,12 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
 }
 
 class ProductsCard extends StatefulWidget {
-  ProductsCard({Key? key, this.data, this.appid}) : super(key: key);
+  ProductsCard({Key? key, this.data, this.appid, this.i}) : super(key: key);
   ProductListModal? data;
   String? appid;
   int colorIndex = 0;
   String attrIdForApi = "";
+  int? i;
 
   @override
   State<ProductsCard> createState() => _ProductsCardState();
@@ -404,13 +405,13 @@ class _ProductsCardState extends State<ProductsCard> {
     Map data = await homeApi.fetchcatItemsinIt(widget.appid!);
     // print('${data['product'][0]['attribute'][0]['id']} ');
     if (widget.attrIdForApi == "") {
-      widget.attrIdForApi = data['product'][0]['attribute'][0]['id'];
+      widget.attrIdForApi = data['product'][widget.i]['attribute'][0]['id'];
     } else if (widget.attrIdForApi !=
-        data['product'][0]['attribute'][0]['id']) {
+        data['product'][widget.i]['attribute'][0]['id']) {
       print('true');
       return;
     } else {
-      widget.attrIdForApi = data['product'][0]['attribute'][0]['id'];
+      widget.attrIdForApi = data['product'][widget.i]['attribute'][0]['id'];
       // print('false');
       // print(widget.attrIdForApi);
       // print('${data['product'][0]['attribute'][0]['id']} ');

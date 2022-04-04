@@ -134,18 +134,18 @@ class BundleProductdetailModal {
   String? price;
   String? desc;
   String? qty;
-  int? total;
-  BundleAttrModal? attribute;
+  String? total;
+  String? attribute;
   BundleProductdetailModal(js) {
-    id = js['id'] ?? "";
+    id = js['item_id'] ?? "";
     img = js['img'] ?? "";
-    Cart_id = js['cart-id'] ?? "";
-    title = js['title'] ?? "";
-    price = js['price'] ?? "";
+    Cart_id = js['id'] ?? "";
+    title = js['item_name'] ?? "";
+    price = js['item_price'] ?? "";
     desc = js['desc'] ?? "";
-    qty = js['qty'] ?? "";
-    total = js['total'] ?? "";
-    attribute = BundleAttrModal(js['attribute']);
+    qty = js['quantity'] ?? "";
+    total = js['total_amount'] ?? "";
+    attribute = js['attribute'] ?? "";
   }
 }
 

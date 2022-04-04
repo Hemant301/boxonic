@@ -460,11 +460,13 @@ class _BillingPageState extends State<BillingPage> {
               ),
               InkWell(
                 onTap: () {
-                  if (activeIndex == 0) {
-                    Navigator.pushNamed(context, '/subscription');
-                  } else {
-                    Navigator.pushNamed(context, '/thankyou');
-                  }
+                  // if (activeIndex == 0) {
+                  //   Navigator.pushNamed(context, '/subscription');
+                  // } else {
+                  //   Navigator.pushNamed(context, '/thankyou');
+                  // }
+                  Navigator.pushNamed(context, '/address',
+                      arguments: {'activeIndex': activeIndex});
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 // import 'package:http/http.dart' show Client, Response;
 
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/constance.dart';
 import 'package:http/http.dart' as http;
 
@@ -68,6 +69,32 @@ class AuthApi {
       final response = await client.post(Uri.parse("${base}verify-otp-bo.php"),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({"user_id": accid, "otp": otp}));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> doSaveAddress(
+      {String address = "", String pincode = "", String landmark = ""}) async {
+    var client = http.Client();
+    try {
+      final response = await client
+          .post(Uri.parse("${base}save-delivery-address-bo.php"), body: {
+        "user_id": userCred.getUserId(),
+        "address": address,
+        'pincode': pincode,
+        'landmark': landmark
+      });
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as Map;
