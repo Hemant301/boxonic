@@ -5,6 +5,7 @@ import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/address.dart';
 import 'package:boxoniq/screens/billing.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
+import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
           "/subscription": (context) => SubscriptionPage(),
           "/thankyou": (context) => Thankyou(),
           "/address": (context) => Address(),
+          "/checkwallet": (context) => Checkwallet(),
         });
   }
 }

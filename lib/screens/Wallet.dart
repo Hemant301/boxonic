@@ -1,3 +1,5 @@
+import 'package:boxoniq/modal/homemodal.dart';
+import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,6 +66,8 @@ class _WallatePageState extends State<WallatePage> {
 
   @override
   Widget build(BuildContext context) {
+    homebloc.fetchWalletbalance();
+
     return Scaffold(
       backgroundColor: grad1Color,
       appBar: AppBar(
@@ -101,34 +105,40 @@ class _WallatePageState extends State<WallatePage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  // padding: EdgeInsets.all(20),
-                  height: 80,
-                  width: MediaQuery.of(context).size.width - 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      "₹ 12,520",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 24,
-                          color: Colors.black,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
+                StreamBuilder<WalletModal>(
+                    stream: homebloc.getwallet.stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Container();
+                      return Container(
+                        // padding: EdgeInsets.all(20),
+                        height: 80,
+                        width: MediaQuery.of(context).size.width - 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset:
+                                  Offset(1, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "₹ ${snapshot.data!.balance[0].amount}",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 24,
+                                color: Colors.black,
+                                fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      );
+                    }),
                 SizedBox(
                   height: 20,
                 ),

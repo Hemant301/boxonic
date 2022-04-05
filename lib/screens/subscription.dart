@@ -1,3 +1,4 @@
+import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ class SubscriptionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    homebloc.fetchcalAmount();
+
     return Scaffold(
       backgroundColor: grad1Color,
       appBar: AppBar(
@@ -120,7 +123,7 @@ class SubscriptionPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
+                    ),  
                     SizedBox(
                       height: 20,
                     ),
@@ -218,169 +221,183 @@ class SubscriptionPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 24,
-                          color: Colors.grey,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "₹ 10,300",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          // height: 60,
-                          // width: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              "₹ 9,785          ",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                child: StreamBuilder<CalAmountModal>(
+                    stream: homebloc.getCalculatedAmount.stream,
+                    builder: (context, snapshot) {
+                      // print('++++++++++${snapshot.data!.data[0]}');
+                      if (!snapshot.hasData) return Container();
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 24,
+                                color: Colors.grey,
+                                fontFamily: font,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: 100,
-                          child: Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.green,
-                              border: Border.all(color: Colors.blue, width: 1),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: Offset(
-                                      1, 3), // changes position of shadow
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "₹ ${snapshot.data!.data[0].response!.sub_total}",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                // height: 60,
+                                // width: 200,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    "₹ ${snapshot.data!.data[0].response!.total}",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 24,
+                                        color: Colors.black,
+                                        fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: Text(
-                              "5% off ",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                left: 100,
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.green,
+                                    border: Border.all(
+                                        color: Colors.blue, width: 1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    "₹ ${snapshot.data!.data[0].response!.coupon_discount} off ",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      );
+                    }),
               ),
               SizedBox(
                 height: 20,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width - 40,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.blue, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              "Add ₹ 9785 x ",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            DropDown(
-                              items: ["1 Months", "2 Months", "3 Months"],
-                              hint: Text("2 Months / Times"),
-                              icon: Icon(
-                                Icons.expand_more,
-                                color: Colors.blue,
+              StreamBuilder<CalAmountModal>(
+                  stream: homebloc.getCalculatedAmount.stream,
+                  builder: (context, snapshot) {
+                    // print('++++++++++${snapshot.data!.data[0]}');
+                    if (!snapshot.hasData) return Container();
+                    return Container(
+                      width: MediaQuery.of(context).size.width - 40,
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        border: Border.all(color: Colors.blue, width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(1, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    "Add ₹ ${snapshot.data!.data[0].response!.total} x ",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                        fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  DropDown(
+                                    items: ["1 Months", "2 Months", "3 Months"],
+                                    hint: Text("2 Months / Times"),
+                                    icon: Icon(
+                                      Icons.expand_more,
+                                      color: Colors.blue,
+                                    ),
+                                    onChanged: print,
+                                  ),
+                                  // Text(
+                                  //   "Add ₹ 9785 x ",
+                                  //   style: TextStyle(
+                                  //       letterSpacing: 1,
+                                  //       fontSize: 12,
+                                  //       color: Colors.black,
+                                  //       fontFamily: font,
+                                  //       fontWeight: FontWeight.bold),
+                                  // ),
+                                ],
                               ),
-                              onChanged: print,
-                            ),
-                            // Text(
-                            //   "Add ₹ 9785 x ",
-                            //   style: TextStyle(
-                            //       letterSpacing: 1,
-                            //       fontSize: 12,
-                            //       color: Colors.black,
-                            //       fontFamily: font,
-                            //       fontWeight: FontWeight.bold),
-                            // ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset("assets/wallet (1) 3.png"),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Text(
-                              "In Wallet",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                              Column(
+                                children: [
+                                  Image.asset("assets/wallet (1) 3.png"),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Text(
+                                    "In Wallet",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                        fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
               SizedBox(
                 height: 20,
               ),

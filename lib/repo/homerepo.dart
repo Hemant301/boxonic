@@ -35,6 +35,18 @@ class HomeRepo {
     return CategoryItemModal(jsonResponse);
   }
 
+  Future<AddressModal> fetchaddess() async {
+    final response = await homeApi.fetchaddess();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return AddressModal(jsonResponse);
+  }
+
+  Future<WalletModal> fetchWalletbalance() async {
+    final response = await homeApi.fetchWalletbalance();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return WalletModal(jsonResponse);
+  }
+
   Future<BundleitemModal> fetchbundleItems(String id) async {
     final response = await homeApi.fetchbundleItems(id);
     var jsonResponse = jsonDecode(response.body) as List;

@@ -47,27 +47,32 @@ class Thankyou extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  width: 280,
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  decoration: BoxDecoration(
-                      color: Color(0xff30AC1B),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Countinue Shopping',
-                        style: TextStyle(
-                            fontSize: 13,
-                            letterSpacing: 1.5,
-                            color: Colors.white),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      )
-                    ],
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/StartScreen');
+                  },
+                  child: Container(
+                    width: 280,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    decoration: BoxDecoration(
+                        color: Color(0xff30AC1B),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Countinue Shopping',
+                          style: TextStyle(
+                              fontSize: 13,
+                              letterSpacing: 1.5,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

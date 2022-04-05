@@ -1,4 +1,5 @@
 import 'package:boxoniq/api/authApi.dart';
+import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,28 @@ class _AddressState extends State<Address> {
   TextEditingController pincodeController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMydata();
+  }
+
+  getMydata() {
+    homebloc.liveAddress.listen((value) {
+      addressController.text = value.addess!;
+      pincodeController.text = value.pincode!;
+      landmarkController.text = value.landmark!;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    homebloc.fetchaddess();
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
     print(rcvdData['activeIndex']);
+    print(rcvdData['activeIndex'].runtimeType);
+    print(rcvdData['total_amount']);
+
     return Scaffold(
         backgroundColor: grad1Color,
         appBar: AppBar(
@@ -163,12 +183,21 @@ class _AddressState extends State<Address> {
                         print(data["response"].runtimeType);
 
                         if (data['response'] == '1') {
-                          // Future.delayed(Duration(seconds: 0), () {
-                          //   Navigator.pushReplacementNamed(
-                          //       context, "/StartScreen");
-                          // });
+                          Future.delayed(Duration(seconds: 0), () {
+                            if (rcvdData['activeIndex'] == 0) {
+                              Navigator.pushNamed(context, "/subscription",
+                                  arguments: {
+                                    'total_amount': rcvdData['total_amount']
+                                  });
+                            } else {
+                              Navigator.pushNamed(context, "/checkwallet",
+                                  arguments: {
+                                    'total_amount': rcvdData['total_amount']
+                                  });
+                            }
+                          });
                           Fluttertoast.showToast(
-                              msg: "${data['message']}",
+                              msg: "${data['msg']}",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
@@ -177,7 +206,7 @@ class _AddressState extends State<Address> {
                               fontSize: 16.0);
                         } else {
                           Fluttertoast.showToast(
-                              msg: " ${data['message']}! ",
+                              msg: " ${data['msg']}! ",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,

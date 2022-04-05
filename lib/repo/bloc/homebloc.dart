@@ -72,6 +72,36 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<AddressModal> liveAddress =
+      BehaviorSubject<AddressModal>();
+  BehaviorSubject<AddressModal> get getaddress => liveAddress;
+  fetchaddess() async {
+    // _liveAddress.addError("Loading");
+    try {
+      AddressModal homeSlider = await _homeRepo.fetchaddess();
+      // print(homeSlider.imgs!.length);
+
+      liveAddress.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<WalletModal> liveWallet =
+      BehaviorSubject<WalletModal>();
+  BehaviorSubject<WalletModal> get getwallet => liveWallet;
+  fetchWalletbalance() async {
+    // _liveWallet.addError("Loading");
+    try {
+      WalletModal homeSlider = await _homeRepo.fetchWalletbalance();
+      // print(homeSlider.imgs!.length);
+
+      liveWallet.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<BundleitemModal> _liveBundleItems =
       BehaviorSubject<BundleitemModal>();
   BehaviorSubject<BundleitemModal> get getBundleitems => _liveBundleItems;

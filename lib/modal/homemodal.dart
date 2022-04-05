@@ -193,3 +193,32 @@ class ResponseModal {
     total = js['total'] ?? "";
   }
 }
+
+class AddressModal {
+  String? addess;
+  String? pincode;
+  String? landmark;
+  AddressModal(js) {
+    addess = js['address'] ?? "";
+    pincode = js['pincode'] ?? "";
+    landmark = js['landmark'] ?? "";
+  }
+}
+
+class WalletModal {
+  List<WalletbalanceModal> balance = [];
+  WalletModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      balance.add(WalletbalanceModal(js[i]));
+    }
+  }
+}
+
+class WalletbalanceModal {
+  String? response;
+  String? amount;
+  WalletbalanceModal(js) {
+    response = js['response'] ?? "";
+    amount = js['amount'] ?? "";
+  }
+}

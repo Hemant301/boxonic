@@ -458,31 +458,40 @@ class _BillingPageState extends State<BillingPage> {
               SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () {
-                  // if (activeIndex == 0) {
-                  //   Navigator.pushNamed(context, '/subscription');
-                  // } else {
-                  //   Navigator.pushNamed(context, '/thankyou');
-                  // }
-                  Navigator.pushNamed(context, '/address',
-                      arguments: {'activeIndex': activeIndex});
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      border:
-                          Border.all(color: Color.fromARGB(96, 255, 255, 255)),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: Text(
-                    'Proceed',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  )),
-                ),
-              ),
+              StreamBuilder<CalAmountModal>(
+                  stream: homebloc.getCalculatedAmount.stream,
+                  builder: (context, snapshot) {
+                    // print('++++++++++${snapshot.data!.data[0]}');
+                    if (!snapshot.hasData) return Container();
+                    return InkWell(
+                      onTap: () {
+                        // if (activeIndex == 0) {
+                        //   Navigator.pushNamed(context, '/subscription');
+                        // } else {
+                        //   Navigator.pushNamed(context, '/thankyou');
+                        // }
+                        Navigator.pushNamed(context, '/address', arguments: {
+                          'activeIndex': activeIndex,
+                          'total_amount': snapshot.data!.data[0].response!.total
+                        });
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            border: Border.all(
+                                color: Color.fromARGB(96, 255, 255, 255)),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Text(
+                          'Proceed',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        )),
+                      ),
+                    );
+                  }),
               SizedBox(
                 height: 20,
               ),

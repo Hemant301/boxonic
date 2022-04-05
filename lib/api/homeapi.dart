@@ -110,6 +110,38 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchaddess() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}fetch-saved-address-vue.php"),
+          body: {'user_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchWalletbalance() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/get-user-wallet.php"),
+          body: {'account-id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchcatItemsinIt(String id) async {
     var client = http.Client();
     try {
@@ -168,6 +200,32 @@ class HomeApi {
         'attr_id': attr_id,
         'product_id': p_id,
       });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> doPayment({
+    String amount = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/wallet-calculation.php"),
+          body: {
+            'account-id': userCred.getUserId(),
+            'amt': amount,
+          });
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as Map;
