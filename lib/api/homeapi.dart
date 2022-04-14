@@ -34,6 +34,21 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> getMonths() async {
+    try {
+      final response = await client
+          .get(Uri.parse("${newBase}boxoniq-crm/api/droid/get-months.php"));
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchHomebrand2() async {
     try {
       final response = await client.get(Uri.parse("${base}brand2-bo.php"));
@@ -83,7 +98,7 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-cart-bo.php"), body: {'account-id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -100,7 +115,7 @@ class HomeApi {
               "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -116,7 +131,7 @@ class HomeApi {
           Uri.parse("${base}fetch-saved-address-vue.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -132,7 +147,7 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/get-user-wallet.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -149,7 +164,7 @@ class HomeApi {
           Uri.parse("${base}product-super-cat-bo.php"),
           body: {'sequence': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -171,7 +186,7 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
           body: {'cart-id': p_id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as List;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -201,7 +216,7 @@ class HomeApi {
         'product_id': p_id,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -227,7 +242,7 @@ class HomeApi {
             'amt': amount,
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -273,7 +288,7 @@ class HomeApi {
             'account-id': userCred.getUserId(),
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');

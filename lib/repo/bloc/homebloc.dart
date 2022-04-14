@@ -30,6 +30,20 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<MonthsModal> _liveMonths =
+      BehaviorSubject<MonthsModal>();
+  BehaviorSubject<MonthsModal> get getLiveMonths => _liveMonths;
+  getMonths() async {
+    try {
+      MonthsModal homeSlider = await _homeRepo.getMonths();
+      // print(homeSlider.imgs!.length);
+
+      _liveMonths.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<BrandModal> _livebrand2 = BehaviorSubject<BrandModal>();
   BehaviorSubject<BrandModal> get getHomebrand2 => _livebrand2;
   fetchHomebrand2() async {

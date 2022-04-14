@@ -17,6 +17,12 @@ class HomeRepo {
     return BrandModal(jsonResponse);
   }
 
+  Future<MonthsModal> getMonths() async {
+    final response = await homeApi.getMonths();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return MonthsModal(jsonResponse);
+  }
+
   Future<BrandModal> fetchHomebrand2() async {
     final response = await homeApi.fetchHomebrand2();
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;

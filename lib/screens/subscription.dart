@@ -3,13 +3,21 @@ import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class SubscriptionPage extends StatelessWidget {
+class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({Key? key}) : super(key: key);
 
   @override
+  State<SubscriptionPage> createState() => _SubscriptionPageState();
+}
+
+class _SubscriptionPageState extends State<SubscriptionPage> {
+  String monthname = '';
+  @override
   Widget build(BuildContext context) {
     homebloc.fetchcalAmount();
+    homebloc.getMonths();
 
     return Scaffold(
       backgroundColor: grad1Color,
@@ -123,7 +131,7 @@ class SubscriptionPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),  
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -355,15 +363,26 @@ class SubscriptionPage extends StatelessWidget {
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  DropDown(
-                                    items: ["1 Months", "2 Months", "3 Months"],
-                                    hint: Text("2 Months / Times"),
-                                    icon: Icon(
-                                      Icons.expand_more,
-                                      color: Colors.blue,
-                                    ),
-                                    onChanged: print,
-                                  ),
+                                  StreamBuilder<MonthsModal>(
+                                      stream: homebloc.getLiveMonths.stream,
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData)
+                                          return Container();
+                                        return DropDown(
+                                          items: List.generate(
+                                              snapshot.data!.data.length,
+                                              (index) => snapshot
+                                                  .data!.data[index].months!),
+                                          hint: Text("Select Months"),
+                                          icon: Icon(
+                                            Icons.expand_more,
+                                            color: Colors.blue,
+                                          ),
+                                          onChanged: (s) {
+                                            monthname = s.toString();
+                                          },
+                                        );
+                                      }),
                                   // Text(
                                   //   "Add ₹ 9785 x ",
                                   //   style: TextStyle(
@@ -403,6 +422,10 @@ class SubscriptionPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  if (monthname == "") {
+                    Fluttertoast.showToast(msg: 'Select Month');
+                    return;
+                  }
                   Navigator.pushNamed(context, "/mybundalSubscription");
                 },
                 child: Container(

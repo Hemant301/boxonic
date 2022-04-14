@@ -3,7 +3,9 @@ import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class WallatePage extends StatefulWidget {
   const WallatePage({Key? key}) : super(key: key);
@@ -13,55 +15,119 @@ class WallatePage extends StatefulWidget {
 }
 
 class _WallatePageState extends State<WallatePage> {
-  String mid = "sPyCNq11089326422803",
-      orderId = "Orderid_123",
-      amount = "600",
-      txnToken = "fsdfsd";
-  String result = "";
-  bool isStaging = false;
-  bool isApiCallInprogress = false;
-  String callbackUrl = "";
-  bool restrictAppInvoke = false;
-  bool enableAssist = true;
-  Future<void> _startTransaction() async {
-    if (txnToken.isEmpty) {
-      return;
-    }
-    var sendMap = <String, dynamic>{
-      "mid": mid,
-      "orderId": orderId,
-      "amount": amount,
-      "txnToken": txnToken,
-      "callbackUrl": callbackUrl,
-      "isStaging": isStaging,
-      "restrictAppInvoke": restrictAppInvoke,
-      "enableAssist": enableAssist
+  TextEditingController amountController = TextEditingController();
+  late Razorpay _razorpay;
+
+  // String mid = "sPyCNq11089326422803",
+  //     orderId = "Orderid_123",
+  //     amount = "600",
+  //     txnToken = "fsdfsd";
+  // String result = "";
+  // bool isStaging = false;
+  // bool isApiCallInprogress = false;
+  // String callbackUrl = "";
+  // bool restrictAppInvoke = false;
+  // bool enableAssist = true;
+  // Future<void> _startTransaction() async {
+  //   if (txnToken.isEmpty) {
+  //     return;
+  //   }
+  //   var sendMap = <String, dynamic>{
+  //     "mid": mid,
+  //     "orderId": orderId,
+  //     "amount": amount,
+  //     "txnToken": txnToken,
+  //     "callbackUrl": callbackUrl,
+  //     "isStaging": isStaging,
+  //     "restrictAppInvoke": restrictAppInvoke,
+  //     "enableAssist": enableAssist
+  //   };
+  //   print(sendMap);
+  //   try {
+  //     var response = AllInOneSdk.startTransaction(mid, orderId, amount,
+  //         txnToken, "", isStaging, restrictAppInvoke, enableAssist);
+  //     response.then((value) {
+  //       print(value);
+  //       setState(() {
+  //         result = value.toString();
+  //       });
+  //     }).catchError((onError) {
+  //       if (onError is PlatformException) {
+  //         setState(() {
+  //           result = onError.message.toString() +
+  //               " \n  " +
+  //               onError.details.toString();
+  //         });
+  //       } else {
+  //         setState(() {
+  //           result = onError.toString();
+  //         });
+  //       }
+  //     });
+  //   } catch (err) {
+  //     result = err.toString();
+  //   }
+  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void openCheckout(totalamount) async {
+    var options = {
+      'key': 'rzp_test_1DP5mmOlF5G5ag',
+      'amount': (totalamount) * 100,
+      'name': 'Boxoniq',
+      'description': 'Add Wallet Money',
+      'prefill': {'contact': '9798416091', 'email': 'test@razorpay.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
     };
-    print(sendMap);
+
     try {
-      var response = AllInOneSdk.startTransaction(mid, orderId, amount,
-          txnToken, "", isStaging, restrictAppInvoke, enableAssist);
-      response.then((value) {
-        print(value);
-        setState(() {
-          result = value.toString();
-        });
-      }).catchError((onError) {
-        if (onError is PlatformException) {
-          setState(() {
-            result = onError.message.toString() +
-                " \n  " +
-                onError.details.toString();
-          });
-        } else {
-          setState(() {
-            result = onError.toString();
-          });
-        }
-      });
-    } catch (err) {
-      result = err.toString();
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
     }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    // String trnid = response.paymentId!;
+    // String userid = userCred.getUserId();
+    // walletbloc.fetchwallettrans(userid);
+    // walletApi.doAddwalletmoney(userid, amount, trnid, couponid, iscoupon);
+
+    // Fluttertoast.showToast(
+    //     msg: "SUCCESS: " + response.paymentId! + "Rs" + amount,
+    //     toastLength: Toast.LENGTH_SHORT);
+    // Navigator.pushReplacementNamed(
+    //   context, '/money_added',
+    //   // arguments: {'amount': amount}
+    // );
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Fluttertoast.showToast(
+    //     msg: "ERROR: " + response.code.toString() + " - " + response.message!,
+    //     toastLength: Toast.LENGTH_SHORT);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName!,
+        toastLength: Toast.LENGTH_SHORT);
   }
 
   @override
@@ -142,10 +208,29 @@ class _WallatePageState extends State<WallatePage> {
                 SizedBox(
                   height: 20,
                 ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: amountController,
+                    decoration: InputDecoration(
+                        border: InputBorder.none, labelText: 'Enter Amount'),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: () {
                     // print('object');
-                    _startTransaction();
+                    if (amountController.text == "") {
+                      Fluttertoast.showToast(msg: 'Enter Amount');
+                      return;
+                    }
+                    openCheckout(int.parse(amountController.text));
                   },
                   child: Container(
                     // padding: EdgeInsets.all(20),

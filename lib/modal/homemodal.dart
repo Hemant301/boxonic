@@ -222,3 +222,21 @@ class WalletbalanceModal {
     amount = js['amount'] ?? "";
   }
 }
+
+class MonthsModal {
+  List<MonthsdetailModal> data = [];
+  MonthsModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(MonthsdetailModal(js[i]));
+    }
+  }
+}
+
+class MonthsdetailModal {
+  String? id;
+  String? months;
+  MonthsdetailModal(js) {
+    id = js['id'] ?? "";
+    months = js['months'] ?? "";
+  }
+}
