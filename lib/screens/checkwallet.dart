@@ -1,4 +1,5 @@
 import 'package:boxoniq/api/homeapi.dart';
+import 'package:boxoniq/api/walletapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
@@ -34,7 +35,10 @@ class _CheckwalletState extends State<Checkwallet> {
     _razorpay.clear();
   }
 
+  String amount = "";
+
   void openCheckout(totalamount) async {
+    amount = totalamount.toString();
     var options = {
       'key': 'rzp_test_1DP5mmOlF5G5ag',
       'amount': (totalamount) * 100,
@@ -54,6 +58,13 @@ class _CheckwalletState extends State<Checkwallet> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    String trnid = response.paymentId!;
+    walletApi.doSuccessPayment(amount: amount, txnid: trnid);
+    setState(() {
+      homebloc.fetchWalletbalance();
+
+      amountController.text = "";
+    });
     // String trnid = response.paymentId!;
     // String userid = userCred.getUserId();
     // walletbloc.fetchwallettrans(userid);

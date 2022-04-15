@@ -240,3 +240,32 @@ class MonthsdetailModal {
     months = js['months'] ?? "";
   }
 }
+
+
+class WallettransModal {
+  String? walletbalance;
+  List<TransModalDetails> wallethistory = [];
+
+  WallettransModal(js) {
+    walletbalance = js['wallet_balance'] ?? "";
+    for (var i = 0; i < js['wallet_history'].length; i++) {
+      wallethistory.add(TransModalDetails(js['wallet_history'][i]));
+    }
+  }
+}
+
+class TransModalDetails {
+  String? amount;
+  String? tran_id;
+  int? type;
+  String? msg;
+  String? created_on;
+
+  TransModalDetails(js) {
+    amount = js['amount'] ?? "";
+    tran_id = js['tran_id'] ?? "";
+    type = js['type'] ?? "";
+    msg = js['msg'] ?? "";
+    created_on = js['created_on'] ?? "";
+  }
+}

@@ -116,6 +116,21 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<WallettransModal> liveWalletrans =
+      BehaviorSubject<WallettransModal>();
+  BehaviorSubject<WallettransModal> get getwallettrans => liveWalletrans;
+  fetchWalletTransaction() async {
+    // _liveWalletrans.addError("Loading");
+    try {
+      WallettransModal homeSlider = await _homeRepo.fetchWalletTransaction();
+      // print(homeSlider.imgs!.length);
+
+      liveWalletrans.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<BundleitemModal> _liveBundleItems =
       BehaviorSubject<BundleitemModal>();
   BehaviorSubject<BundleitemModal> get getBundleitems => _liveBundleItems;

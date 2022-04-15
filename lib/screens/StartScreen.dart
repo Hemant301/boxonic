@@ -1,5 +1,6 @@
 import 'package:boxoniq/screens/Wallet.dart';
 import 'package:boxoniq/screens/homescreen.dart';
+import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/search.dart';
 import 'package:boxoniq/screens/subscription.dart';
@@ -18,7 +19,7 @@ class _NavState extends State<Nav> {
     HomeScrren(),
     SearchPage(),
     MyOrderPage(),
-    SubscriptionPage(),
+    MyBundalSubscription(),
     WallatePage(),
   ];
 

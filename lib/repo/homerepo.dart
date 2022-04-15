@@ -52,6 +52,11 @@ class HomeRepo {
     var jsonResponse = jsonDecode(response.body) as List;
     return WalletModal(jsonResponse);
   }
+  Future<WallettransModal> fetchWalletTransaction() async {
+    final response = await homeApi.fetchWalletTransaction();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return WallettransModal(jsonResponse);
+  }
 
   Future<BundleitemModal> fetchbundleItems(String id) async {
     final response = await homeApi.fetchbundleItems(id);

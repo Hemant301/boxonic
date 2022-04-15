@@ -16,6 +16,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   String monthname = '';
   @override
   Widget build(BuildContext context) {
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    // print(rcvdData['activeIndex']);
+    // print(rcvdData['activeIndex'].runtimeType);
+    print(rcvdData['total_amount']);
     homebloc.fetchcalAmount();
     homebloc.getMonths();
 
@@ -36,17 +40,17 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
-          Center(
-            child: Text(
-              "₹ 9,785   ",
-              style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 18,
-                  color: grad2Color,
-                  fontFamily: font,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+          // Center(
+          //   child: Text(
+          //     "₹ 9,785   ",
+          //     style: TextStyle(
+          //         letterSpacing: 1,
+          //         fontSize: 18,
+          //         color: grad2Color,
+          //         fontFamily: font,
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
         ],
       ),
       body: SingleChildScrollView(
@@ -426,7 +430,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     Fluttertoast.showToast(msg: 'Select Month');
                     return;
                   }
-                  Navigator.pushNamed(context, "/mybundalSubscription");
+                  Navigator.pushNamed(context, "/checkwallet",
+                      arguments: {'total_amount': rcvdData['total_amount']});
+                  // Navigator.pushNamed(context, "/mybundalSubscription");
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
@@ -452,7 +458,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             Container(
                               width: MediaQuery.of(context).size.width - 150,
                               child: Text(
-                                "Add ₹19,570 to Wallet & Proceed",
+                                "Add to Wallet & Proceed",
                                 style: TextStyle(
                                   letterSpacing: 1,
                                   fontSize: 12,

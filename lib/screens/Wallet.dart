@@ -1,3 +1,4 @@
+import 'package:boxoniq/api/walletapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
@@ -84,7 +85,10 @@ class _WallatePageState extends State<WallatePage> {
     _razorpay.clear();
   }
 
+  String amount = "";
+
   void openCheckout(totalamount) async {
+    amount = totalamount.toString();
     var options = {
       'key': 'rzp_test_1DP5mmOlF5G5ag',
       'amount': (totalamount) * 100,
@@ -104,14 +108,22 @@ class _WallatePageState extends State<WallatePage> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    // String trnid = response.paymentId!;
+    String trnid = response.paymentId!;
+    walletApi.doSuccessPayment(amount: amount, txnid: trnid);
+
+    setState(() {
+      homebloc.fetchWalletbalance();
+      homebloc.fetchWalletTransaction();
+
+      amountController.text = "";
+    });
     // String userid = userCred.getUserId();
     // walletbloc.fetchwallettrans(userid);
     // walletApi.doAddwalletmoney(userid, amount, trnid, couponid, iscoupon);
 
-    // Fluttertoast.showToast(
-    //     msg: "SUCCESS: " + response.paymentId! + "Rs" + amount,
-    //     toastLength: Toast.LENGTH_SHORT);
+    Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId! + "Rs" + amount,
+        backgroundColor: Colors.green);
     // Navigator.pushReplacementNamed(
     //   context, '/money_added',
     //   // arguments: {'amount': amount}
@@ -133,6 +145,7 @@ class _WallatePageState extends State<WallatePage> {
   @override
   Widget build(BuildContext context) {
     homebloc.fetchWalletbalance();
+    homebloc.fetchWalletTransaction();
 
     return Scaffold(
       backgroundColor: grad1Color,
@@ -276,110 +289,153 @@ class _WallatePageState extends State<WallatePage> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    // padding: EdgeInsets.all(20),
+                StreamBuilder<WallettransModal>(
+                    stream: homebloc.getwallettrans.stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Container();
+                      return Container(
+                          // padding: EdgeInsets.all(20),
 
-                    width: MediaQuery.of(context).size.width - 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: Offset(1, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: List.generate(
-                          5,
-                          (index) => Container(
-                                // padding: EdgeInsets.symmetric(horizontal: 10),
-                                width: MediaQuery.of(context).size.width - 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    // BoxShadow(
-                                    //   color: Colors.grey.withOpacity(0.4),
-                                    //   spreadRadius: 1,
-                                    //   blurRadius: 1,
-                                    //   offset: Offset(
-                                    //       1, 3), // changes position of shadow
-                                    // ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Paid For Bundle ID #BXNQ1257",
-                                                style: TextStyle(
-                                                  letterSpacing: 1,
-                                                  fontSize: 12,
-                                                  color: Colors.black,
-                                                  fontFamily: font,
-                                                  // fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 3,
-                                              ),
-                                              Text(
-                                                "22th Jan, 2022| 05:52 PM",
-                                                style: TextStyle(
-                                                  letterSpacing: 1,
-                                                  fontSize: 12,
-                                                  color: Colors.black,
-                                                  fontFamily: font,
-                                                  // fontWeight: FontWeight.bold
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          CircleAvatar(
-                                            radius: 25,
-                                            // backgroundImage: AssetImage(
-                                            //     "assets/wallet (1) 3.png"),
-                                            backgroundColor: Colors.transparent,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(12.0),
-                                              child: Image.asset(
-                                                "assets/wallet (1) 3.png",
-                                                fit: BoxFit.cover,
-                                                height: 40,
-                                                width: 40,
-                                              ),
-                                            ),
-                                          ),
+                          width: MediaQuery.of(context).size.width - 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(1, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: List.generate(
+                                snapshot.data!.wallethistory.length,
+                                (index) => Container(
+                                      // padding: EdgeInsets.symmetric(horizontal: 10),
+                                      width: MediaQuery.of(context).size.width -
+                                          40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          // BoxShadow(
+                                          //   color: Colors.grey.withOpacity(0.4),
+                                          //   spreadRadius: 1,
+                                          //   blurRadius: 1,
+                                          //   offset: Offset(
+                                          //       1, 3), // changes position of shadow
+                                          // ),
                                         ],
                                       ),
-                                    ),
-                                    // SizedBox(
-                                    //   height: 10,
-                                    // ),
-                                    Divider(
-                                      height: 1,
-                                      color: Color.fromARGB(255, 99, 99, 99),
-                                    )
-                                  ],
-                                ),
-                              )),
-                    ))
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                      .size
+                                                                      .width /
+                                                                  2 +
+                                                              10,
+                                                      child: Text(
+                                                        snapshot
+                                                            .data!
+                                                            .wallethistory[
+                                                                index]
+                                                            .msg!,
+                                                        maxLines: 2,
+                                                        style: TextStyle(
+                                                          letterSpacing: 1,
+                                                          fontSize: 12,
+                                                          color: Colors.black,
+                                                          fontFamily: font,
+                                                          // fontWeight: FontWeight.bold
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 3,
+                                                    ),
+                                                    Text(
+                                                      snapshot
+                                                          .data!
+                                                          .wallethistory[index]
+                                                          .created_on!,
+                                                      style: TextStyle(
+                                                        letterSpacing: 1,
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                        fontFamily: font,
+                                                        // fontWeight: FontWeight.bold
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  '₹ ${snapshot.data!.wallethistory[index].amount!}',
+                                                  style: TextStyle(
+                                                      color: snapshot
+                                                                  .data!
+                                                                  .wallethistory[
+                                                                      index]
+                                                                  .type ==
+                                                              1
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
+                                                )
+
+                                                // CircleAvatar(
+                                                //   radius: 25,
+                                                //   // backgroundImage: AssetImage(
+                                                //   //     "assets/wallet (1) 3.png"),
+                                                //   backgroundColor:
+                                                //       Colors.transparent,
+                                                //   child: Padding(
+                                                //     padding:
+                                                //         const EdgeInsets.all(
+                                                //             12.0),
+                                                //     child: Image.asset(
+                                                //       "assets/wallet (1) 3.png",
+                                                //       fit: BoxFit.cover,
+                                                //       height: 40,
+                                                //       width: 40,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                              ],
+                                            ),
+                                          ),
+                                          // SizedBox(
+                                          //   height: 10,
+                                          // ),
+                                          Divider(
+                                            height: 1,
+                                            color:
+                                                Color.fromARGB(255, 99, 99, 99),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                          ));
+                    })
               ]),
         ),
       ),

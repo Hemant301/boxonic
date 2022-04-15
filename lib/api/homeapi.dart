@@ -157,6 +157,22 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchWalletTransaction() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-wallet-history.php"),
+          body: {'user_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchcatItemsinIt(String id) async {
     var client = http.Client();
     try {
