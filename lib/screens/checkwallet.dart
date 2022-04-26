@@ -3,6 +3,7 @@ import 'package:boxoniq/api/walletapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
+import 'package:cashfree_pg/cashfree_pg.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -17,16 +18,58 @@ class Checkwallet extends StatefulWidget {
 class _CheckwalletState extends State<Checkwallet> {
   TextEditingController amountController = TextEditingController();
 
+  void cashFree(
+      {String amount = "",
+      String token = "",
+      String orderId = "",
+      String name = "",
+      String phone = "",
+      String email = ""}) {
+    Map<String, dynamic> inputParams = {
+      "orderId": '$orderId',
+      "orderAmount": '$amount',
+      "customerName": 'santosh',
+      "orderCurrency": 'INR',
+      "appId": '1520515e63d5612b1f28642840150251',
+      "customerPhone": '9798416091',
+      "customerEmail": 'santosh@gmail.com',
+      'stage': 'test',
+      'tokenData': '$token'
+    };
+    CashfreePGSDK.doPayment(inputParams)
+        .then((value) => value?.forEach((key, value) {
+              if (key == "txStatus" && value == "SUCCESS") {
+                walletApi.doSuccessPayment(amount: amount, txnid: orderId);
+
+                setState(() {
+                  homebloc.fetchWalletbalance();
+                  homebloc.fetchWalletTransaction();
+
+                  amountController.text = "";
+                });
+                Fluttertoast.showToast(
+                    msg: 'Succesfully Added', backgroundColor: Colors.green);
+                return;
+              } else {
+                Fluttertoast.showToast(
+                    msg: 'Failed', backgroundColor: Colors.red);
+              }
+
+              print("$key : $value");
+              //Do something with the result
+            }));
+  }
+
   late Razorpay _razorpay;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    // _razorpay = Razorpay();
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   @override
@@ -96,6 +139,8 @@ class _CheckwalletState extends State<Checkwallet> {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
 
     print(rcvdData['total_amount']);
+    print(rcvdData['month']);
+    print(rcvdData['subs']);
     homebloc.fetchWalletbalance();
     return Scaffold(
         appBar: AppBar(
@@ -194,45 +239,73 @@ class _CheckwalletState extends State<Checkwallet> {
                         SizedBox(
                           height: 20,
                         ),
-                        InkWell(
-                          onTap: () {
-                            // print('object');
-                            if (amountController.text == "") {
-                              Fluttertoast.showToast(msg: 'Enter Amount');
-                              return;
-                            }
-                            openCheckout(int.parse(amountController.text));
-                          },
-                          child: Container(
-                            // padding: EdgeInsets.all(20),
-                            height: 40,
-                            width: MediaQuery.of(context).size.width - 10,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.green,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: Offset(
-                                      1, 3), // changes position of shadow
+                        StreamBuilder<UserdetailModal>(
+                            stream: homebloc.getuserdetails.stream,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) return Container();
+                              return InkWell(
+                                onTap: () async {
+                                  // print('object');
+                                  if (amountController.text == "") {
+                                    Fluttertoast.showToast(msg: 'Enter Amount');
+                                    return;
+                                  }
+                                  String orderId = DateTime.now()
+                                      .millisecondsSinceEpoch
+                                      .remainder(10000000000)
+                                      .toString();
+                                  Walletapi _api = Walletapi();
+                                  Map data = await _api.initTokenCashfree(
+                                    amount: amountController.text,
+                                    orderId: orderId,
+                                  );
+                                  print(data);
+                                  if (data['status'] == "OK") {
+                                    cashFree(
+                                      amount: amountController.text,
+                                      token: data['cftoken'],
+                                      orderId: orderId,
+                                      name: snapshot.data!.name!,
+                                      email: snapshot.data!.email!,
+                                      phone: snapshot.data!.phone!,
+                                    );
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: 'Something went wrong');
+                                  }
+                                  // openCheckout(int.parse(amountController.text));
+                                },
+                                child: Container(
+                                  // padding: EdgeInsets.all(20),
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width - 10,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.green,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "+ Add To Wallet",
+                                      style: TextStyle(
+                                          letterSpacing: 1,
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                          fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "+ Add To Wallet",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
+                              );
+                            }),
                         Spacer(
                           flex: 1,
                         ),
@@ -243,7 +316,9 @@ class _CheckwalletState extends State<Checkwallet> {
                               print('paise h bhai');
                               HomeApi _api = HomeApi();
                               Map data = await _api.doPayment(
-                                  amount: rcvdData['total_amount'].toString());
+                                  amount: rcvdData['total_amount'].toString(),
+                                  month: rcvdData['month'],
+                                  subs: rcvdData['subs']);
                               print(data);
                               if (data['response'] == '1') {
                                 Navigator.pushNamed(

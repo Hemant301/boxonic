@@ -11,6 +11,12 @@ class HomeRepo {
     return HomeSlider(jsonResponse);
   }
 
+  Future<MyOrderModal> fetchMyOrder() async {
+    final response = await homeApi.fetchMyOrder();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return MyOrderModal(jsonResponse);
+  }
+
   Future<BrandModal> fetchHomebrand() async {
     final response = await homeApi.fetchHomebrand();
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;
@@ -52,6 +58,7 @@ class HomeRepo {
     var jsonResponse = jsonDecode(response.body) as List;
     return WalletModal(jsonResponse);
   }
+
   Future<WallettransModal> fetchWalletTransaction() async {
     final response = await homeApi.fetchWalletTransaction();
     var jsonResponse = jsonDecode(response.body) as Map;
@@ -62,6 +69,30 @@ class HomeRepo {
     final response = await homeApi.fetchbundleItems(id);
     var jsonResponse = jsonDecode(response.body) as List;
     return BundleitemModal(jsonResponse);
+  }
+
+  Future<Myordermodal> fetchOrderdetails(String id) async {
+    final response = await homeApi.fetchOrderdetails(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return Myordermodal(jsonResponse);
+  }
+
+  Future<Myordermodal> fetchSubsdetails(String id) async {
+    final response = await homeApi.fetchSubsdetails(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return Myordermodal(jsonResponse);
+  }
+
+  Future<SubsListModal> fetchSublist() async {
+    final response = await homeApi.fetchSublist();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return SubsListModal(jsonResponse);
+  }
+
+  Future<UserdetailModal> fetchuserDetails() async {
+    final response = await homeApi.fetchuserDetails();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return UserdetailModal(jsonResponse);
   }
 
   Future<CalAmountModal> fetchcalAmount() async {

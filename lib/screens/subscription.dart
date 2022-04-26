@@ -20,6 +20,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     // print(rcvdData['activeIndex']);
     // print(rcvdData['activeIndex'].runtimeType);
     print(rcvdData['total_amount']);
+    print(rcvdData['subs']);
     homebloc.fetchcalAmount();
     homebloc.getMonths();
 
@@ -430,8 +431,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     Fluttertoast.showToast(msg: 'Select Month');
                     return;
                   }
-                  Navigator.pushNamed(context, "/checkwallet",
-                      arguments: {'total_amount': rcvdData['total_amount']});
+                  Navigator.pushNamed(context, "/checkwallet", arguments: {
+                    'total_amount': rcvdData['total_amount'],
+                    'month': monthname,
+                    'subs': rcvdData['subs']
+                  });
                   // Navigator.pushNamed(context, "/mybundalSubscription");
                 },
                 child: Container(

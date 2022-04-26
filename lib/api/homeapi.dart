@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/constance.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,21 @@ class HomeApi {
       final response = await client.get(Uri.parse("${base}slider-bo.php"));
       if (response.statusCode == 200) {
         // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchMyOrder() async {
+    try {
+      final response = await client.post(Uri.parse("${base}get-order-bo.php"),
+          body: {'account_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -98,7 +114,70 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-cart-bo.php"), body: {'account-id': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchOrderdetails(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-order-details-bo.php"),
+          body: {'process_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchSubsdetails(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${droidBase}get-order-details-subscription-bo.php"),
+          body: {'process_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchSublist() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-order-subscription-bo.php"),
+          body: {'account_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchuserDetails() async {
+    try {
+      final response = await client.post(Uri.parse("${base}get-user-bo.php"),
+          body: {'user_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -216,6 +295,28 @@ class HomeApi {
     }
   }
 
+  Future<dynamic> deletesubsItem(String p_id) async {
+    print(p_id);
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
+          body: {'cart_id': p_id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as List;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> addToCart({
     String p_id = "",
     String qty = "",
@@ -248,17 +349,20 @@ class HomeApi {
 
   Future<dynamic> doPayment({
     String amount = "",
+    String subs = "",
+    String month = "",
   }) async {
     var client = http.Client();
     try {
-      final response = await client.post(
-          Uri.parse("${newBase}boxoniq-crm/api/droid/wallet-calculation.php"),
-          body: {
-            'account-id': userCred.getUserId(),
-            'amt': amount,
-          });
+      final response = await client
+          .post(Uri.parse("${base}checkout-with-payment-bo.php"), body: {
+        'account_id': userCred.getUserId(),
+        'total_cart_value': amount,
+        'subscription': subs,
+        'subscription_month': month
+      });
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -271,6 +375,37 @@ class HomeApi {
       client.close();
     }
   }
+
+  // Future<dynamic> deleteSubsItem({
+  //   String amount = "",
+  //   String subs = "",
+  //   String month = "",
+  // }) async {
+  //   var client = http.Client();
+  //   try {
+  //     final response = await client.post(
+  //         Uri.parse(
+  //             "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/remove-order-details-subscription-bo.php"),
+  //         body: {
+  //           'account_id': userCred.getUserId(),
+  //           'total_cart_value': amount,
+  //           'subscription': subs,
+  //           'subscription_month': month
+  //         });
+  //     if (response.statusCode == 200) {
+  //       print(response.body);
+  //       return jsonDecode(response.body) as Map;
+  //     } else {
+  //       print('Request failed with status: ${response.statusCode}.');
+  //       throw "Somethiing went wrong";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     throw "Somethiing went wrong";
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
 
   // Future<dynamic> checkamount({
   //   String userid = "",

@@ -138,7 +138,7 @@ class BundleProductdetailModal {
   String? attribute;
   BundleProductdetailModal(js) {
     id = js['item_id'] ?? "";
-    img = js['img'] ?? "";
+    img = js['image'] ?? "";
     Cart_id = js['id'] ?? "";
     title = js['item_name'] ?? "";
     price = js['item_price'] ?? "";
@@ -241,7 +241,6 @@ class MonthsdetailModal {
   }
 }
 
-
 class WallettransModal {
   String? walletbalance;
   List<TransModalDetails> wallethistory = [];
@@ -267,5 +266,119 @@ class TransModalDetails {
     type = js['type'] ?? "";
     msg = js['msg'] ?? "";
     created_on = js['created_on'] ?? "";
+  }
+}
+
+class MyOrderModal {
+  List<OrderdetailModal> data = [];
+  MyOrderModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(OrderdetailModal(js[i]));
+    }
+  }
+}
+
+class OrderdetailModal {
+  String? response;
+  String? orderid;
+  String? date;
+  String? amount;
+  String? img;
+  String? status;
+  OrderdetailModal(js) {
+    response = js['response'] ?? "";
+    orderid = js['order_id'] ?? "";
+    date = js['date'] ?? "";
+    img = js['img'] ?? "";
+    amount = js['amount'] ?? "";
+    status = js['status'] ?? "";
+  }
+}
+
+class Myordermodal {
+  List<Itemsmodal> items = [];
+  TotalModal? total;
+  Myordermodal(js) {
+    for (var i = 0; i < js['items'].length; i++) {
+      items.add(Itemsmodal(js['items'][i]));
+    }
+    total = TotalModal(js['total']);
+  }
+}
+
+class Itemsmodal {
+  String? response;
+  String? item_id;
+  String? cart_id;
+  String? img;
+  String? item_name;
+  dynamic? item_price;
+  String? quantity;
+  String? amount;
+  String? status;
+  Itemsmodal(js) {
+    response = js['response'] ?? "";
+    item_id = js['item_id'] ?? "";
+    cart_id = js['cart_id'] ?? "";
+    img = js['img'] ?? "";
+    item_name = js['item_name'] ?? "";
+    item_price = js['item_price'] ?? "";
+    quantity = js['quantity'] ?? "";
+    amount = js['amount'] ?? "";
+    status = js['status'] ?? "";
+  }
+}
+
+class TotalModal {
+  dynamic? subtotal;
+  dynamic? discount;
+  dynamic? total;
+  TotalModal(js) {
+    subtotal = js['subtotal'] ?? "";
+    discount = js['discount'] ?? "";
+    total = js['total'] ?? "";
+  }
+}
+
+class SubsListModal {
+  List<SubsModal> data = [];
+  SubsListModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(SubsModal(js[i]));
+    }
+  }
+}
+
+class SubsModal {
+  String? response;
+  String? order_id;
+  String? img;
+  String? amount;
+  String? date;
+  String? status;
+  SubsModal(js) {
+    response = js['response'] ?? "";
+    order_id = js['order_id'] ?? "";
+    img = js['img'] ?? "";
+    amount = js['amount'] ?? "";
+    date = js['date'] ?? "";
+    status = js['status'] ?? "";
+  }
+}
+
+class UserdetailModal {
+  String? name;
+  String? email;
+  String? phone;
+  String? address;
+  String? pincode;
+  String? landmark;
+  UserdetailModal(js) {
+    name = js['name'] ?? "";
+    email = js['email'] ?? "";
+    phone = js['phone'] ?? "";
+    address = js['address'] ?? "";
+    pincode = js['pincode'] ?? "";
+    landmark = js['landmark'] ?? "";
   }
 }

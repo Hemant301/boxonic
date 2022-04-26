@@ -8,8 +8,11 @@ import 'package:boxoniq/screens/bundlecreatorPage.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
+import 'package:boxoniq/screens/myorderdetail.dart';
+import 'package:boxoniq/screens/mysublist.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/subscription.dart';
+import 'package:boxoniq/screens/subsdetail.dart';
 import 'package:boxoniq/screens/thankyou.dart';
 import 'package:boxoniq/splash/onbording.dart';
 import 'package:boxoniq/splash/splashsceen.dart';
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
           "/thankyou": (context) => Thankyou(),
           "/address": (context) => Address(),
           "/checkwallet": (context) => Checkwallet(),
+          "/myorderdetail": (context) => Myorderdetail(),
+          "/mysublist": (context) => Mysublist(),
+          "/subsdetail": (context) => Subsdetail(),
         });
   }
 }

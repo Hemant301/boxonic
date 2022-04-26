@@ -193,7 +193,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                       width:
                                                                           100,
                                                                       child: Image
-                                                                          .asset(
+                                                                          .network(
                                                                         snapshot
                                                                             .data!
                                                                             .bundal[index]
@@ -388,7 +388,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                                 Center(
                                                                               child: Text(
                                                                                 "Remove Item",
-                                                                               style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.white, fontFamily: font, fontWeight: FontWeight.bold),
+                                                                                style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.white, fontFamily: font, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           ),

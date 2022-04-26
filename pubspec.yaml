@@ -54,6 +54,7 @@ dependencies:
   flutter_share: ^2.0.0
   screenshot: ^1.2.3
   share:
+  cashfree_pg: 2.0.8+28
 
 
 dev_dependencies:

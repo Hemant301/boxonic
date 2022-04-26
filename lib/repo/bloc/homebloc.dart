@@ -17,6 +17,20 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<MyOrderModal> _liveMyOrder =
+      BehaviorSubject<MyOrderModal>();
+  BehaviorSubject<MyOrderModal> get getMyOrder => _liveMyOrder;
+  fetchMyOrder() async {
+    try {
+      MyOrderModal homeSlider = await _homeRepo.fetchMyOrder();
+      // print(homeSlider.imgs!.length);
+
+      _liveMyOrder.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<BrandModal> _livebrand = BehaviorSubject<BrandModal>();
   BehaviorSubject<BrandModal> get getHomebrand => _livebrand;
   fetchHomebrand() async {
@@ -141,6 +155,66 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       _liveBundleItems.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<Myordermodal> _liveOrderdetails =
+      BehaviorSubject<Myordermodal>();
+  BehaviorSubject<Myordermodal> get getOrderdetails => _liveOrderdetails;
+  fetchOrderdetails(String id) async {
+    // _liveOrderdetails.addError("Loading");
+    try {
+      Myordermodal homeSlider = await _homeRepo.fetchOrderdetails(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveOrderdetails.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<Myordermodal> _liveSubsdetail =
+      BehaviorSubject<Myordermodal>();
+  BehaviorSubject<Myordermodal> get getSubsdetail => _liveSubsdetail;
+  fetchSubsdetails(String id) async {
+    // _liveSubsdetail.addError("Loading");
+    try {
+      Myordermodal homeSlider = await _homeRepo.fetchSubsdetails(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSubsdetail.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<SubsListModal> _livesubslist =
+      BehaviorSubject<SubsListModal>();
+  BehaviorSubject<SubsListModal> get getsubsList => _livesubslist;
+  fetchSublist() async {
+    // _livesubslist.addError("Loading");
+    try {
+      SubsListModal homeSlider = await _homeRepo.fetchSublist();
+      // print(homeSlider.imgs!.length);
+
+      _livesubslist.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<UserdetailModal> _liveuserdetails =
+      BehaviorSubject<UserdetailModal>();
+  BehaviorSubject<UserdetailModal> get getuserdetails => _liveuserdetails;
+  fetchuserDetails() async {
+    // _liveuserdetails.addError("Loading");
+    try {
+      UserdetailModal homeSlider = await _homeRepo.fetchuserDetails();
+      // print(homeSlider.imgs!.length);
+
+      _liveuserdetails.add(homeSlider);
     } catch (e) {
       print(e);
     }

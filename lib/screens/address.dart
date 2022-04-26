@@ -38,6 +38,7 @@ class _AddressState extends State<Address> {
     print(rcvdData['activeIndex']);
     print(rcvdData['activeIndex'].runtimeType);
     print(rcvdData['total_amount']);
+    print(rcvdData['subs']);
 
     return Scaffold(
         backgroundColor: grad1Color,
@@ -184,15 +185,18 @@ class _AddressState extends State<Address> {
 
                         if (data['response'] == '1') {
                           Future.delayed(Duration(seconds: 0), () {
-                            if (rcvdData['activeIndex'] == 0) {
+                            if (rcvdData['activeIndex'] == 1) {
                               Navigator.pushNamed(context, "/subscription",
                                   arguments: {
-                                    'total_amount': rcvdData['total_amount']
+                                    'total_amount': rcvdData['total_amount'],
+                                    'subs': rcvdData['subs']
                                   });
                             } else {
                               Navigator.pushNamed(context, "/checkwallet",
                                   arguments: {
-                                    'total_amount': rcvdData['total_amount']
+                                    'total_amount': rcvdData['total_amount'],
+                                    'month': '0',
+                                    'subs': rcvdData['subs']
                                   });
                             }
                           });

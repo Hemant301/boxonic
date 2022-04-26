@@ -290,7 +290,7 @@ class _BillingPageState extends State<BillingPage> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          activeIndex = 0;
+                          activeIndex = 1;
                         });
                       },
                       child: Container(
@@ -301,12 +301,12 @@ class _BillingPageState extends State<BillingPage> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               color:
-                                  activeIndex == 0 ? Colors.blue : Colors.grey,
+                                  activeIndex == 1 ? Colors.blue : Colors.grey,
                               width: 1),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: activeIndex == 0
+                              color: activeIndex == 1
                                   ? Colors.grey.withOpacity(0.4)
                                   : Colors.grey.withOpacity(0.2),
                               spreadRadius: 1,
@@ -336,7 +336,7 @@ class _BillingPageState extends State<BillingPage> {
                                 CircleAvatar(
                                   radius: 10,
                                   // backgroundImage: AssetImage("assets/1 9.png"),
-                                  backgroundColor: activeIndex == 0
+                                  backgroundColor: activeIndex == 1
                                       ? Colors.blue
                                       : Colors.grey[300],
                                   child: Padding(
@@ -395,7 +395,7 @@ class _BillingPageState extends State<BillingPage> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          activeIndex = 1;
+                          activeIndex = 0;
                         });
                       },
                       child: Container(
@@ -406,12 +406,12 @@ class _BillingPageState extends State<BillingPage> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               color:
-                                  activeIndex == 1 ? Colors.blue : Colors.grey,
+                                  activeIndex == 0 ? Colors.blue : Colors.grey,
                               width: 1),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: activeIndex == 1
+                              color: activeIndex == 0
                                   ? Colors.grey.withOpacity(0.4)
                                   : Colors.grey.withOpacity(0.2),
                               spreadRadius: 1,
@@ -437,7 +437,7 @@ class _BillingPageState extends State<BillingPage> {
                             CircleAvatar(
                               radius: 10,
                               // backgroundImage: AssetImage("assets/1 9.png"),
-                              backgroundColor: activeIndex == 1
+                              backgroundColor: activeIndex == 0
                                   ? Colors.blue
                                   : Colors.grey[300],
                               child: Padding(
@@ -465,6 +465,8 @@ class _BillingPageState extends State<BillingPage> {
                     if (!snapshot.hasData) return Container();
                     return InkWell(
                       onTap: () {
+                        // print(activeIndex);
+                        // return;
                         // if (activeIndex == 0) {
                         //   Navigator.pushNamed(context, '/subscription');
                         // } else {
@@ -472,7 +474,9 @@ class _BillingPageState extends State<BillingPage> {
                         // }
                         Navigator.pushNamed(context, '/address', arguments: {
                           'activeIndex': activeIndex,
-                          'total_amount': snapshot.data!.data[0].response!.total
+                          'total_amount':
+                              snapshot.data!.data[0].response!.total,
+                          'subs': activeIndex.toString()
                         });
                       },
                       child: Container(
