@@ -273,6 +273,29 @@ class HomeApi {
     }
   }
 
+  Future<dynamic> updateQuantity({String qty = "", String cartid = ""}) async {
+    var client = http.Client();
+    try {
+      print(qty);
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/update-order-quantit-subscription-bo.php"),
+          body: {'qty': qty, 'cart_id': cartid});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> deletecartItem(String p_id) async {
     print(p_id);
     var client = http.Client();

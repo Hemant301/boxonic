@@ -4,10 +4,16 @@ import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class MyBundalSubscription extends StatelessWidget {
+class MyBundalSubscription extends StatefulWidget {
   const MyBundalSubscription({Key? key}) : super(key: key);
 
+  @override
+  State<MyBundalSubscription> createState() => _MyBundalSubscriptionState();
+}
+
+class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -23,15 +29,15 @@ class MyBundalSubscription extends StatelessWidget {
               Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back_ios, color: Colors.black)),
-        // title: Text(
-        //   "Billing",
-        //   style: TextStyle(
-        //       letterSpacing: 1,
-        //       fontSize: 18,
-        //       color: grad2Color,
-        //       fontFamily: font,
-        //       fontWeight: FontWeight.bold),
-        // ),
+        title: Text(
+          "Subscription",
+          style: TextStyle(
+              letterSpacing: 1,
+              fontSize: 18,
+              color: grad2Color,
+              fontFamily: font,
+              fontWeight: FontWeight.bold),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(12.0),
@@ -217,6 +223,7 @@ class MyBundalSubscription extends StatelessWidget {
                                           width: 100,
                                           child: Image.network(
                                             snapshot.data!.items[index].img!,
+                                            fit: BoxFit.contain,
                                           ))
                                     ],
                                   ),
@@ -242,8 +249,103 @@ class MyBundalSubscription extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                              'Quantity : ${snapshot.data!.items[index].quantity}'),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.black)),
+                                            child: Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    HomeApi _api = HomeApi();
+                                                    Map data = await _api.updateQuantity(
+                                                        cartid: snapshot
+                                                            .data!
+                                                            .items[index]
+                                                            .cart_id!,
+                                                        qty: (int.parse(snapshot
+                                                                    .data!
+                                                                    .items[
+                                                                        index]
+                                                                    .quantity!) -
+                                                                1)
+                                                            .toString());
+                                                    if (data['response'] ==
+                                                        '1') {
+                                                      setState(() {});
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Successfully updated');
+                                                    } else {
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Something went wrong');
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(1),
+                                                    decoration: BoxDecoration(
+                                                        // shape: BoxShape.circle,
+                                                        // border: Border.all(
+                                                        //     color: Colors.black)
+                                                        ),
+                                                    child: Icon(Icons
+                                                        .arrow_drop_down_outlined),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.all(2),
+                                                  decoration: BoxDecoration(
+                                                      // shape: BoxShape.circle,
+                                                      // border: Border.all(
+                                                      //     color: Colors.black)
+                                                      ),
+                                                  child: Text(
+                                                      '${snapshot.data!.items[index].quantity}'),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    HomeApi _api = HomeApi();
+                                                    Map data = await _api.updateQuantity(
+                                                        cartid: snapshot
+                                                            .data!
+                                                            .items[index]
+                                                            .cart_id!,
+                                                        qty: (int.parse(snapshot
+                                                                    .data!
+                                                                    .items[
+                                                                        index]
+                                                                    .quantity!) +
+                                                                1)
+                                                            .toString());
+                                                    if (data['response'] ==
+                                                        '1') {
+                                                      setState(() {});
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Successfully updated');
+                                                    } else {
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Something went wrong');
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(1),
+                                                    decoration: BoxDecoration(
+                                                        // shape: BoxShape.circle,
+                                                        // border: Border.all(
+                                                        //     color: Colors.black)
+                                                        ),
+                                                    child: Icon(Icons
+                                                        .arrow_drop_up_outlined),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          // Text(
+                                          //     'Quantity : ${snapshot.data!.items[index].quantity}'),
                                           SizedBox(
                                             width: 10,
                                           ),
@@ -254,8 +356,17 @@ class MyBundalSubscription extends StatelessWidget {
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Text(
-                                          'Total : ₹ ${snapshot.data!.items[index].amount}'),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              'Total : ₹ ${snapshot.data!.items[index].amount}'),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              'Attr : ₹ ${snapshot.data!.items[index].item_attr}'),
+                                        ],
+                                      ),
                                       SizedBox(
                                         height: 5,
                                       ),
@@ -266,10 +377,12 @@ class MyBundalSubscription extends StatelessWidget {
                                           InkWell(
                                             onTap: () async {
                                               HomeApi _api = HomeApi();
-                                              Map data = await _api
+                                              List data = await _api
                                                   .deletesubsItem(snapshot.data!
                                                       .items[index].cart_id!);
-                                                      
+                                              if (data[0]['response'] == true) {
+                                                setState(() {});
+                                              }
                                             },
                                             child: Container(
                                               width: 120,
@@ -295,6 +408,33 @@ class MyBundalSubscription extends StatelessWidget {
                                               ),
                                             ),
                                           ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          // Container(
+                                          //   decoration: BoxDecoration(
+                                          //       color: Color.fromARGB(
+                                          //           255, 255, 255, 255)),
+                                          //   child: SizedBox(
+                                          //     height: 20,
+                                          //     child: DropDown(
+                                          //       items: List.generate(
+                                          //           snapshot.data!.items[index]
+                                          //               .attribute.length,
+                                          //           (i) => snapshot
+                                          //               .data!
+                                          //               .items[index]
+                                          //               .attribute[i]
+                                          //               .attr_name!),
+                                          //       hint: Text("2 KG"),
+                                          //       icon: Icon(
+                                          //         Icons.expand_more,
+                                          //         color: Colors.blue,
+                                          //       ),
+                                          //       onChanged: print,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       )
                                     ],
@@ -362,7 +502,7 @@ class MyBundalSubscription extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // Padding(
+                            // Padding(0
                             //   padding: const EdgeInsets.all(8.0),
                             //   child: Row(
                             //     mainAxisAlignment:

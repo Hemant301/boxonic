@@ -310,6 +310,8 @@ class Itemsmodal {
   String? response;
   String? item_id;
   String? cart_id;
+  String? item_attr;
+  List<attributeModal> attribute = [];
   String? img;
   String? item_name;
   dynamic? item_price;
@@ -317,15 +319,26 @@ class Itemsmodal {
   String? amount;
   String? status;
   Itemsmodal(js) {
+    for (var i = 0; i < js['attribute'].length; i++) {
+      attribute.add(attributeModal(js['attribute'][i]));
+    }
     response = js['response'] ?? "";
     item_id = js['item_id'] ?? "";
     cart_id = js['cart_id'] ?? "";
+    item_attr = js['item_attr'] ?? "";
     img = js['img'] ?? "";
     item_name = js['item_name'] ?? "";
     item_price = js['item_price'] ?? "";
     quantity = js['quantity'] ?? "";
     amount = js['amount'] ?? "";
     status = js['status'] ?? "";
+  }
+}
+
+class attributeModal {
+  String? attr_name;
+  attributeModal(js) {
+    attr_name = js['attr_name'] ?? "";
   }
 }
 
