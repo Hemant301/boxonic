@@ -39,6 +39,8 @@ class _CheckwalletState extends State<Checkwallet> {
     CashfreePGSDK.doPayment(inputParams)
         .then((value) => value?.forEach((key, value) {
               if (key == "txStatus" && value == "SUCCESS") {
+                print('from succes');
+                print(value);
                 walletApi.doSuccessPayment(amount: amount, txnid: orderId);
 
                 setState(() {
@@ -49,8 +51,10 @@ class _CheckwalletState extends State<Checkwallet> {
                 });
                 Fluttertoast.showToast(
                     msg: 'Succesfully Added', backgroundColor: Colors.green);
-                return;
+                throw "";
               } else {
+                // print('from fail');
+
                 Fluttertoast.showToast(
                     msg: 'Failed', backgroundColor: Colors.red);
               }
@@ -142,6 +146,7 @@ class _CheckwalletState extends State<Checkwallet> {
     print(rcvdData['month']);
     print(rcvdData['subs']);
     homebloc.fetchWalletbalance();
+    homebloc.fetchuserDetails();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: lightWhite2,
@@ -171,7 +176,7 @@ class _CheckwalletState extends State<Checkwallet> {
                           height: 30,
                         ),
                         Text(
-                          "Wallet Balance",
+                          "Available Wallet Balance",
                           style: TextStyle(
                               letterSpacing: 1,
                               fontSize: 16,
@@ -211,6 +216,18 @@ class _CheckwalletState extends State<Checkwallet> {
                             ),
                           ),
                         ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // Text(
+                        //   "Enter amount to add ",
+                        //   style: TextStyle(
+                        //       letterSpacing: 1,
+                        //       fontSize: 16,
+                        //       color: Colors.black,
+                        //       fontFamily: font,
+                        //       fontWeight: FontWeight.bold),
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
@@ -233,7 +250,7 @@ class _CheckwalletState extends State<Checkwallet> {
                             controller: amountController,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                labelText: 'Enter Amount'),
+                                labelText: 'Enter Amount '),
                           ),
                         ),
                         SizedBox(

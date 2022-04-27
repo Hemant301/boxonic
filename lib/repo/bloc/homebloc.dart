@@ -160,13 +160,13 @@ class HomeBloc {
     }
   }
 
-  final BehaviorSubject<Myordermodal> _liveOrderdetails =
-      BehaviorSubject<Myordermodal>();
-  BehaviorSubject<Myordermodal> get getOrderdetails => _liveOrderdetails;
+  final BehaviorSubject<Myorderdetailmodal> _liveOrderdetails =
+      BehaviorSubject<Myorderdetailmodal>();
+  BehaviorSubject<Myorderdetailmodal> get getOrderdetails => _liveOrderdetails;
   fetchOrderdetails(String id) async {
     // _liveOrderdetails.addError("Loading");
     try {
-      Myordermodal homeSlider = await _homeRepo.fetchOrderdetails(id);
+      Myorderdetailmodal homeSlider = await _homeRepo.fetchOrderdetails(id);
       // print(homeSlider.imgs!.length);
 
       _liveOrderdetails.add(homeSlider);

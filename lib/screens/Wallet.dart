@@ -35,6 +35,7 @@ class _WallatePageState extends State<WallatePage> {
     };
     CashfreePGSDK.doPayment(inputParams)
         .then((value) => value?.forEach((key, value) {
+              print("$key : $value");
               if (key == "txStatus" && value == "SUCCESS") {
                 walletApi.doSuccessPayment(amount: amount, txnid: orderId);
 
@@ -44,14 +45,16 @@ class _WallatePageState extends State<WallatePage> {
 
                   amountController.text = "";
                 });
+
                 Fluttertoast.showToast(
                     msg: 'Succesfully Added', backgroundColor: Colors.green);
+                throw "";
               } else {
+                print('from  fail==========');
                 Fluttertoast.showToast(
                     msg: 'Fail', backgroundColor: Colors.red);
               }
 
-              print("$key : $value");
               //Do something with the result
             }));
   }

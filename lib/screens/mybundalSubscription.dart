@@ -41,31 +41,39 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Container(
-              width: 100,
-              // padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white,
-                // border: Border.all(color: Colors.blue, width: 1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: Offset(1, 3), // changes position of shadow
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/addtobundle', arguments: {
+                  'id': '1',
+                  'index': '1',
+                  'process': rcvdData['id']
+                });
+              },
+              child: Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                  // border: Border.all(color: Colors.blue, width: 1),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(1, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    "+ Add Items",
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 12,
+                        color: grad2Color,
+                        fontFamily: font,
+                        fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  "+ Add Items",
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 12,
-                      color: grad2Color,
-                      fontFamily: font,
-                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -227,6 +235,9 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                           ))
                                     ],
                                   ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -259,6 +270,11 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                   onTap: () async {
                                                     HomeApi _api = HomeApi();
                                                     Map data = await _api.updateQuantity(
+                                                        process: rcvdData['id'],
+                                                        attr_price: snapshot
+                                                            .data!
+                                                            .items[index]
+                                                            .attr_price,
                                                         cartid: snapshot
                                                             .data!
                                                             .items[index]
@@ -307,6 +323,11 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                   onTap: () async {
                                                     HomeApi _api = HomeApi();
                                                     Map data = await _api.updateQuantity(
+                                                        process: rcvdData['id'],
+                                                        attr_price: snapshot
+                                                            .data!
+                                                            .items[index]
+                                                            .attr_price,
                                                         cartid: snapshot
                                                             .data!
                                                             .items[index]
@@ -350,7 +371,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                             width: 10,
                                           ),
                                           Text(
-                                              'Price : ₹ ${snapshot.data!.items[index].item_price}')
+                                              'Price : ₹ ${snapshot.data!.items[index].attr_price}')
                                         ],
                                       ),
                                       SizedBox(
@@ -370,6 +391,97 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                       SizedBox(
                                         height: 5,
                                       ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: List.generate(
+                                                snapshot.data!.items[index]
+                                                    .attribute.length,
+                                                (i) => Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          HomeApi _api =
+                                                              HomeApi();
+                                                          Map data = await _api.updateAttr(
+                                                              attrprice: snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .attribute[i]
+                                                                  .price,
+                                                              processid:
+                                                                  rcvdData[
+                                                                      'id'],
+                                                              qty: snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .quantity!,
+                                                              cartid: snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .cart_id!,
+                                                              item_id: snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .item_id!,
+                                                              attrid: snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .attribute[i]
+                                                                  .attr_id!
+                                                                  .toString());
+                                                          if (data[
+                                                                  'response'] ==
+                                                              '1') {
+                                                            setState(() {});
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    'Successfully updated');
+                                                          } else {
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    'Something went wrong');
+                                                          }
+                                                        },
+                                                        child: Chip(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    1),
+                                                            backgroundColor: snapshot
+                                                                        .data!
+                                                                        .items[
+                                                                            index]
+                                                                        .item_attr ==
+                                                                    snapshot
+                                                                        .data!
+                                                                        .items[
+                                                                            index]
+                                                                        .attribute[
+                                                                            i]
+                                                                        .attr_name!
+                                                                ? Colors.amber
+                                                                : Colors
+                                                                    .grey[300],
+                                                            label: Text(
+                                                              snapshot
+                                                                  .data!
+                                                                  .items[index]
+                                                                  .attribute[i]
+                                                                  .attr_name!,
+                                                              style: TextStyle(
+                                                                  fontSize: 10),
+                                                            )),
+                                                      ),
+                                                    )),
+                                          ),
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -377,9 +489,13 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                           InkWell(
                                             onTap: () async {
                                               HomeApi _api = HomeApi();
-                                              List data = await _api
-                                                  .deletesubsItem(snapshot.data!
-                                                      .items[index].cart_id!);
+                                              List data =
+                                                  await _api.deletesubsItem(
+                                                      snapshot
+                                                          .data!
+                                                          .items[index]
+                                                          .cart_id!,
+                                                      rcvdData['id']);
                                               if (data[0]['response'] == true) {
                                                 setState(() {});
                                               }
@@ -708,50 +824,50 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     SizedBox(
                       height: 20,
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/billing");
-                      },
-                      child: Center(
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width - 40,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green,
-                            // border: Border.all(color: Colors.blue, width: 1),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset:
-                                    Offset(1, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Update Subscription",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                width: 30,
-                              ),
-                              Image.asset("assets/Vector.png"),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     Navigator.pushNamed(context, "/billing");
+                    //   },
+                    //   child: Center(
+                    //     child: Container(
+                    //       height: 40,
+                    //       width: MediaQuery.of(context).size.width - 40,
+                    //       padding: EdgeInsets.all(10),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         color: Colors.green,
+                    //         // border: Border.all(color: Colors.blue, width: 1),
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             color: Colors.grey.withOpacity(0.4),
+                    //             spreadRadius: 1,
+                    //             blurRadius: 1,
+                    //             offset:
+                    //                 Offset(1, 3), // changes position of shadow
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Text(
+                    //             "Update Subscription",
+                    //             style: TextStyle(
+                    //                 letterSpacing: 1,
+                    //                 fontSize: 15,
+                    //                 color: Colors.white,
+                    //                 fontFamily: font,
+                    //                 fontWeight: FontWeight.bold),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 30,
+                    //           ),
+                    //           Image.asset("assets/Vector.png"),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),

@@ -273,14 +273,59 @@ class HomeApi {
     }
   }
 
-  Future<dynamic> updateQuantity({String qty = "", String cartid = ""}) async {
+  Future<dynamic> updateQuantity(
+      {String qty = "",
+      String cartid = "",
+      String attr_price = "",
+      String process = ""}) async {
     var client = http.Client();
     try {
       print(qty);
       final response = await client.post(
           Uri.parse(
-              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/update-order-quantit-subscription-bo.php"),
-          body: {'qty': qty, 'cart_id': cartid});
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/qty-update.php"),
+          body: {
+            'qty': qty,
+            'cart_id': cartid,
+            'attr_price': attr_price,
+            'process_id': process
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> updateAttr(
+      {String attrid = "",
+      String cartid = "",
+      String item_id = "",
+      String processid = "",
+      String attrprice = "",
+      String qty = ""}) async {
+    var client = http.Client();
+    try {
+      print(attrid);
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/attr-update.php"),
+          body: {
+            'attr_id': attrid,
+            'cart_id': cartid,
+            'item_id': item_id,
+            'attr_price': attrprice,
+            'process_id': processid,
+            'qty': qty
+          });
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as Map;
@@ -318,13 +363,13 @@ class HomeApi {
     }
   }
 
-  Future<dynamic> deletesubsItem(String p_id) async {
+  Future<dynamic> deletesubsItem(String p_id, String process) async {
     print(p_id);
     var client = http.Client();
     try {
       final response = await client.post(
           Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
-          body: {'cart_id': p_id});
+          body: {'cart_id': p_id, 'process_id': process});
       if (response.statusCode == 200) {
         print(response.body);
         return jsonDecode(response.body) as List;
@@ -355,6 +400,40 @@ class HomeApi {
         'attr_id': attr_id,
         'product_id': p_id,
       });
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> addTobundle({
+    String p_id = "",
+    String qty = "",
+    String attr_id = "",
+    String userid = "",
+    String process = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/add_items.php"),
+          body: {
+            'user_id': userid,
+            'qty': qty,
+            'attr_id': attr_id,
+            'product_id': p_id,
+            'process_id': process
+          });
       if (response.statusCode == 200) {
         // print(response.body);
         return jsonDecode(response.body) as Map;

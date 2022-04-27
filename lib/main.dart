@@ -3,6 +3,7 @@ import 'package:boxoniq/auth/otpverification.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/address.dart';
+import 'package:boxoniq/screens/addtobundle.dart';
 import 'package:boxoniq/screens/billing.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
           "/myorderdetail": (context) => Myorderdetail(),
           "/mysublist": (context) => Mysublist(),
           "/subsdetail": (context) => Subsdetail(),
+          "/addtobundle": (context) => Addtobundle(),
         });
   }
 }

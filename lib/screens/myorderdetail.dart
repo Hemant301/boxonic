@@ -34,7 +34,7 @@ class Myorderdetail extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           )),
       body: SingleChildScrollView(
-        child: StreamBuilder<Myordermodal>(
+        child: StreamBuilder<Myorderdetailmodal>(
             stream: homebloc.getOrderdetails.stream,
             builder: (context, snapshot) {
               if (!snapshot.hasData) return Container();
@@ -75,7 +75,7 @@ class Myorderdetail extends StatelessWidget {
                                     SizedBox(
                                       height: 120,
                                       width: 100,
-                                      child: Image.asset(
+                                      child: Image.network(
                                           snapshot.data!.items[index].img!),
                                     )
                                   ],

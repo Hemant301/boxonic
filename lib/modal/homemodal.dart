@@ -295,6 +295,44 @@ class OrderdetailModal {
   }
 }
 
+class Myorderdetailmodal {
+  List<Itemsdetailmodal> items = [];
+  TotalModal? total;
+  Myorderdetailmodal(js) {
+    for (var i = 0; i < js['items'].length; i++) {
+      items.add(Itemsdetailmodal(js['items'][i]));
+    }
+    total = TotalModal(js['total']);
+  }
+}
+
+class Itemsdetailmodal {
+  String? response;
+  String? item_id;
+  // String? cart_id;
+  // String? item_attr;
+  String? img;
+  String? item_name;
+  dynamic? item_price;
+  // dynamic? attr_price;
+  String? quantity;
+  dynamic? amount;
+  String? status;
+  Itemsdetailmodal(js) {
+    response = js['response'] ?? "";
+    item_id = js['item_id'] ?? "";
+    // cart_id = js['cart_id'] ?? "";
+    // item_attr = js['item_attr'] ?? "";
+    img = js['img'] ?? "";
+    item_name = js['item_name'] ?? "";
+    item_price = js['item_price'] ?? "";
+    // attr_price = js['attr_price'] ?? "";
+    quantity = js['quantity'] ?? "";
+    amount = js['amount'] ?? "";
+    status = js['status'] ?? "";
+  }
+}
+
 class Myordermodal {
   List<Itemsmodal> items = [];
   TotalModal? total;
@@ -315,8 +353,9 @@ class Itemsmodal {
   String? img;
   String? item_name;
   dynamic? item_price;
+  dynamic? attr_price;
   String? quantity;
-  String? amount;
+  dynamic? amount;
   String? status;
   Itemsmodal(js) {
     for (var i = 0; i < js['attribute'].length; i++) {
@@ -329,6 +368,7 @@ class Itemsmodal {
     img = js['img'] ?? "";
     item_name = js['item_name'] ?? "";
     item_price = js['item_price'] ?? "";
+    attr_price = js['attr_price'] ?? "";
     quantity = js['quantity'] ?? "";
     amount = js['amount'] ?? "";
     status = js['status'] ?? "";
@@ -337,8 +377,12 @@ class Itemsmodal {
 
 class attributeModal {
   String? attr_name;
+  String? attr_id;
+  dynamic price;
   attributeModal(js) {
     attr_name = js['attr_name'] ?? "";
+    attr_id = js['attr_id'] ?? "";
+    price = js['attr_price'] ?? "";
   }
 }
 

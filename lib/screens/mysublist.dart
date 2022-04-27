@@ -43,7 +43,7 @@ class Mysublist extends StatelessWidget {
                               });
                             },
                             child: Container(
-                              width: MediaQuery.of(context).size.width - 40,
+                              width: MediaQuery.of(context).size.width - 30,
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -66,7 +66,7 @@ class Mysublist extends StatelessWidget {
                                   SizedBox(
                                     height: 120,
                                     width: 100,
-                                    child: Image.asset(
+                                    child: Image.network(
                                       snapshot.data!.data[index].img!,
                                       fit: BoxFit.contain,
                                     ),
@@ -108,11 +108,17 @@ class Mysublist extends StatelessWidget {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
                                                 'Date',
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
                                               ),
                                               Text(
                                                 'Amount:',
@@ -134,10 +140,16 @@ class Mysublist extends StatelessWidget {
                                                     .order_id!,
                                                 style: TextStyle(),
                                               ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
                                               Text(
                                                 snapshot
                                                     .data!.data[index].date!,
                                                 style: TextStyle(),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
                                               ),
                                               Text(
                                                 snapshot

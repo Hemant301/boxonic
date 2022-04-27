@@ -71,10 +71,10 @@ class HomeRepo {
     return BundleitemModal(jsonResponse);
   }
 
-  Future<Myordermodal> fetchOrderdetails(String id) async {
+  Future<Myorderdetailmodal> fetchOrderdetails(String id) async {
     final response = await homeApi.fetchOrderdetails(id);
     var jsonResponse = jsonDecode(response.body) as Map;
-    return Myordermodal(jsonResponse);
+    return Myorderdetailmodal(jsonResponse);
   }
 
   Future<Myordermodal> fetchSubsdetails(String id) async {
