@@ -39,45 +39,56 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/addtobundle', arguments: {
-                  'id': '1',
-                  'index': '1',
-                  'process': rcvdData['id']
-                });
-              },
-              child: Container(
-                width: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                  // border: Border.all(color: Colors.blue, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
+          StreamBuilder<Myordermodal>(
+              stream: homebloc.getSubsdetail.stream,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+                return Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: InkWell(
+                    onTap: () {
+                      if (snapshot.data!.status == "Cancelled") {
+                        Fluttertoast.showToast(
+                            msg: 'Subscription is already cancelled');
+                        return;
+                      }
+                      Navigator.pushNamed(context, '/addtobundle', arguments: {
+                        'id': '1',
+                        'index': '1',
+                        'process': rcvdData['id']
+                      });
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        // border: Border.all(color: Colors.blue, width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(1, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "+ Add Items",
+                          style: TextStyle(
+                              letterSpacing: 1,
+                              fontSize: 12,
+                              color: grad2Color,
+                              fontFamily: font,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    "+ Add Items",
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 12,
-                        color: grad2Color,
-                        fontFamily: font,
-                        fontWeight: FontWeight.bold),
                   ),
-                ),
-              ),
-            ),
-          )
+                );
+              })
         ],
       ),
       body: SingleChildScrollView(
@@ -116,8 +127,16 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
+                    Text(
+                      'Product delivered ${snapshot.data!.delivered} out of ${snapshot.data!.subs_month} Months',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
                     Container(
                       width: MediaQuery.of(context).size.width - 40,
                       padding: EdgeInsets.all(10),
@@ -139,7 +158,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Your next box is ready to ship on 25th jan. Please maintain sufficiant balance in your wallet for your upcoming shipment",
+                            snapshot.data!.nextdate!,
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 12,
@@ -150,32 +169,37 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                           SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            width: 120,
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white,
-                              // border: Border.all(color: Colors.blue, width: 1),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: Offset(
-                                      1, 3), // changes position of shadow
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/Wallet');
+                            },
+                            child: Container(
+                              width: 120,
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.white,
+                                // border: Border.all(color: Colors.blue, width: 1),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: Offset(
+                                        1, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Manage Wallet",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: grad2Color,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Manage Wallet",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 12,
-                                    color: grad2Color,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -268,6 +292,13 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               children: [
                                                 InkWell(
                                                   onTap: () async {
+                                                    if (snapshot.data!.status ==
+                                                        "Cancelled") {
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Subscription is already cancelled');
+                                                      return;
+                                                    }
                                                     HomeApi _api = HomeApi();
                                                     Map data = await _api.updateQuantity(
                                                         process: rcvdData['id'],
@@ -321,6 +352,13 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                 ),
                                                 InkWell(
                                                   onTap: () async {
+                                                    if (snapshot.data!.status ==
+                                                        "Cancelled") {
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              'Subscription is already cancelled');
+                                                      return;
+                                                    }
                                                     HomeApi _api = HomeApi();
                                                     Map data = await _api.updateQuantity(
                                                         process: rcvdData['id'],
@@ -407,6 +445,14 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                               3.0),
                                                       child: InkWell(
                                                         onTap: () async {
+                                                          if (snapshot.data!
+                                                                  .status ==
+                                                              "Cancelled") {
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    'Subscription is already cancelled');
+                                                            return;
+                                                          }
                                                           HomeApi _api =
                                                               HomeApi();
                                                           Map data = await _api.updateAttr(
@@ -488,6 +534,13 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
+                                              if (snapshot.data!.status ==
+                                                  "Cancelled") {
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        'Subscription is already cancelled');
+                                                return;
+                                              }
                                               HomeApi _api = HomeApi();
                                               List data =
                                                   await _api.deletesubsItem(
@@ -618,37 +671,6 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                 ],
                               ),
                             ),
-                            // Padding(0
-                            //   padding: const EdgeInsets.all(8.0),
-                            //   child: Row(
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     // crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: [
-                            //       Text(
-                            //         "Bundle Discount",
-                            //         style: TextStyle(
-                            //             letterSpacing: 1,
-                            //             fontSize: 16,
-                            //             color: Colors.grey[600],
-                            //             fontFamily: font,
-                            //             fontWeight: FontWeight.bold),
-                            //       ),
-                            //       SizedBox(
-                            //         height: 5,
-                            //       ),
-                            //       Text(
-                            //         "-₹ 1,200",
-                            //         style: TextStyle(
-                            //             letterSpacing: 1,
-                            //             fontSize: 16,
-                            //             color: Colors.black,
-                            //             fontFamily: font,
-                            //             fontWeight: FontWeight.bold),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -824,50 +846,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     SizedBox(
                       height: 20,
                     ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     Navigator.pushNamed(context, "/billing");
-                    //   },
-                    //   child: Center(
-                    //     child: Container(
-                    //       height: 40,
-                    //       width: MediaQuery.of(context).size.width - 40,
-                    //       padding: EdgeInsets.all(10),
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(10),
-                    //         color: Colors.green,
-                    //         // border: Border.all(color: Colors.blue, width: 1),
-                    //         boxShadow: [
-                    //           BoxShadow(
-                    //             color: Colors.grey.withOpacity(0.4),
-                    //             spreadRadius: 1,
-                    //             blurRadius: 1,
-                    //             offset:
-                    //                 Offset(1, 3), // changes position of shadow
-                    //           ),
-                    //         ],
-                    //       ),
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: [
-                    //           Text(
-                    //             "Update Subscription",
-                    //             style: TextStyle(
-                    //                 letterSpacing: 1,
-                    //                 fontSize: 15,
-                    //                 color: Colors.white,
-                    //                 fontFamily: font,
-                    //                 fontWeight: FontWeight.bold),
-                    //           ),
-                    //           SizedBox(
-                    //             width: 30,
-                    //           ),
-                    //           Image.asset("assets/Vector.png"),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -876,7 +855,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, "/billing");
+                            // Navigator.pushNamed(context, "/billing");
                           },
                           child: Center(
                             child: Container(
@@ -921,50 +900,109 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            // Navigator.pushNamed(context, "/billing");
-                          },
-                          child: Center(
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width / 2 - 40,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.red,
-                                // border: Border.all(color: Colors.blue, width: 1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.4),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(
-                                        1, 3), // changes position of shadow
+                        snapshot.data!.status == "Cancelled"
+                            ? InkWell(
+                                child: Center(
+                                  child: Container(
+                                    height: 40,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Color.fromARGB(255, 243, 124, 115),
+                                      // border: Border.all(color: Colors.blue, width: 1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(1,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Cancelled",
+                                          style: TextStyle(
+                                              // letterSpacing: 1,
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              fontFamily: font,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        // SizedBox(
+                                        //   width: 30,
+                                        // ),
+                                        // Image.asset("assets/Vector.png"),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Cancel Subscription",
-                                    style: TextStyle(
-                                        // letterSpacing: 1,
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  // Navigator.pushNamed(context, "/billing");
+                                  HomeApi _api = HomeApi();
+                                  Map data =
+                                      await _api.cancelSubs(rcvdData['id']);
+                                  print(data);
+                                  if (data['response'] == '1') {
+                                    setState(() {});
+                                    Fluttertoast.showToast(msg: data['msg']);
+                                    return;
+                                  } else {
+                                    Fluttertoast.showToast(msg: data['msg']);
+                                  }
+                                },
+                                child: Center(
+                                  child: Container(
+                                    height: 40,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.red,
+                                      // border: Border.all(color: Colors.blue, width: 1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(1,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Cancel Subscription",
+                                          style: TextStyle(
+                                              // letterSpacing: 1,
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              fontFamily: font,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        // SizedBox(
+                                        //   width: 30,
+                                        // ),
+                                        // Image.asset("assets/Vector.png"),
+                                      ],
+                                    ),
                                   ),
-                                  // SizedBox(
-                                  //   width: 30,
-                                  // ),
-                                  // Image.asset("assets/Vector.png"),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(

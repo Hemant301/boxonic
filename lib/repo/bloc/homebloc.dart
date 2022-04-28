@@ -249,6 +249,21 @@ class HomeBloc {
       print(e);
     }
   }
+
+  final BehaviorSubject<SearchModal> _liveSearch =
+      BehaviorSubject<SearchModal>();
+  BehaviorSubject<SearchModal> get getSearch => _liveSearch;
+  fetchSerach(s) async {
+    // _liveSearch.addError("Loading");
+    try {
+      SearchModal homeSlider = await _homeRepo.fetchSerach(s);
+      // print(homeSlider.imgs!.length);
+
+      _liveSearch.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
 
 final homebloc = HomeBloc();

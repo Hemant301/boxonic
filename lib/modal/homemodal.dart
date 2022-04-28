@@ -336,11 +336,19 @@ class Itemsdetailmodal {
 class Myordermodal {
   List<Itemsmodal> items = [];
   TotalModal? total;
+  String? subs_month;
+  dynamic delivered;
+  String? nextdate;
+  String? status;
   Myordermodal(js) {
     for (var i = 0; i < js['items'].length; i++) {
       items.add(Itemsmodal(js['items'][i]));
     }
     total = TotalModal(js['total']);
+    subs_month = js['subs_month'] ?? "";
+    delivered = js['delivered'] ?? "";
+    nextdate = js['nextdate'] ?? "";
+    status = js['status'] ?? "";
   }
 }
 
@@ -437,5 +445,31 @@ class UserdetailModal {
     address = js['address'] ?? "";
     pincode = js['pincode'] ?? "";
     landmark = js['landmark'] ?? "";
+  }
+}
+
+class SearchModal {
+  List<SearchProductModal> data = [];
+  SearchModal(js) {
+    for (var i = 0; i < js['product'].length; i++) {
+      data.add(SearchProductModal(js['product'][i]));
+    }
+  }
+}
+
+class SearchProductModal {
+  String? id;
+  String? img;
+  String? title;
+  String? desc;
+  List<AttribueListModal> attr = [];
+  SearchProductModal(js) {
+    id = js['id'] ?? "";
+    img = js['image'] ?? "";
+    title = js['title'] ?? "";
+    desc = js['desc'] ?? "";
+    for (var i = 0; i < js['attribute'].length; i++) {
+      attr.add(AttribueListModal(js['attribute'][i]));
+    }
   }
 }

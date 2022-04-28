@@ -209,6 +209,9 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                     )
                                                                   ],
                                                                 ),
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                ),
                                                                 Column(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -360,12 +363,11 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             HomeApi
                                                                                 _api =
                                                                                 HomeApi();
-                                                                            List
-                                                                                a =
+                                                                            Map a =
                                                                                 await _api.deletecartItem(snapshot.data!.bundal[index].product[i].Cart_id!);
-                                                                            print(a[0]['response']);
-                                                                            if (a[0]['response'] ==
-                                                                                true) {
+                                                                            print(a['response']);
+                                                                            if (a['response'] ==
+                                                                                '1') {
                                                                               setState(() {});
                                                                               Fluttertoast.showToast(msg: 'Deleted Successfully');
                                                                             } else {

@@ -54,6 +54,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
 
   @override
   Widget build(BuildContext context) {
+  
     homebloc.checkamount();
 
     print(userCred.getUserId());

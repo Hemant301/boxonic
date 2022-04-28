@@ -102,63 +102,106 @@ class DrawersPage extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "My Wallet",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 12,
-                                    color: grad2Color,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Image.asset("assets/wallet (1) 3.png")
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/Wallet');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "My Wallet",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: grad2Color,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Image.asset("assets/wallet (1) 3.png")
+                              ],
+                            ),
                           ),
                         ),
                         Divider(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "My Bundle Subscription",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 12,
-                                    color: grad2Color,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Image.asset("assets/bbo.png")
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/mysublist');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "My Bundle Subscription",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: grad2Color,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Image.asset("assets/bbo.png")
+                              ],
+                            ),
                           ),
                         ),
                         Divider(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Order History",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 12,
-                                    color: grad2Color,
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Image.asset("assets/thistorys.png")
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/myorderpage');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Order History",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: grad2Color,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Image.asset("assets/thistorys.png")
+                              ],
+                            ),
+                          ),
+                        ),
+                        Divider(),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/previewBundal');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "My Bag",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: grad2Color,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Icon(
+                                  Icons.shopping_bag,
+                                  size: 28,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Divider(),

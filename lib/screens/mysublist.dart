@@ -15,6 +15,8 @@ class Mysublist extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),
+          // leadingWidth: 0,
+          // leading: Container(),
           title: Text(
             'My Subscriptions',
             style: TextStyle(color: Colors.black),
@@ -126,6 +128,15 @@ class Mysublist extends StatelessWidget {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                'Status:',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
@@ -155,6 +166,16 @@ class Mysublist extends StatelessWidget {
                                                 snapshot
                                                     .data!.data[index].amount!,
                                                 style: TextStyle(),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                snapshot
+                                                    .data!.data[index].status!,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           )

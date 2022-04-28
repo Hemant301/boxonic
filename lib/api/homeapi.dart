@@ -204,6 +204,47 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchSerach(s) async {
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/search-super-cat-bo.php"),
+          body: {'query': s});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> searchinit(s) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/search-super-cat-bo.php"),
+          body: {
+            'query': s,
+          });
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> fetchaddess() async {
     try {
       final response = await client.post(
@@ -346,11 +387,35 @@ class HomeApi {
     var client = http.Client();
     try {
       final response = await client.post(
-          Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cart-remove-item-checkout.php"),
           body: {'cart-id': p_id});
       if (response.statusCode == 200) {
-        // print(response.body);
-        return jsonDecode(response.body) as List;
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> cancelSubs(String p_id) async {
+    print(p_id);
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cancel-item-sub.php"),
+          body: {'process_id': p_id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";

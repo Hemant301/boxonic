@@ -101,6 +101,12 @@ class HomeRepo {
     return CalAmountModal(jsonResponse);
   }
 
+  Future<SearchModal> fetchSerach(s) async {
+    final response = await homeApi.fetchSerach(s);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return SearchModal(jsonResponse);
+  }
+
   Future<CheckAmountModal> checkamount() async {
     final response = await homeApi.checkamount();
     var jsonResponse = jsonDecode(response.body) as Map;

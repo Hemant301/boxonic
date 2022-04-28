@@ -2,6 +2,7 @@ import 'package:boxoniq/auth/login.dart';
 import 'package:boxoniq/auth/otpverification.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
+import 'package:boxoniq/screens/Wallet.dart';
 import 'package:boxoniq/screens/address.dart';
 import 'package:boxoniq/screens/addtobundle.dart';
 import 'package:boxoniq/screens/billing.dart';
@@ -10,6 +11,7 @@ import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderdetail.dart';
+import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/subscription.dart';
@@ -65,6 +67,8 @@ class MyApp extends StatelessWidget {
           "/mysublist": (context) => Mysublist(),
           "/subsdetail": (context) => Subsdetail(),
           "/addtobundle": (context) => Addtobundle(),
+          "/Wallet": (context) => WallatePage(),
+          "/myorderpage": (context) => MyOrderPage(),
         });
   }
 }

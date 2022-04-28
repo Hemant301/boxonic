@@ -142,6 +142,9 @@ class Myorderdetail extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Text(
                                       'Total : ₹ ${snapshot.data!.items[index].amount}',
                                       style: TextStyle(

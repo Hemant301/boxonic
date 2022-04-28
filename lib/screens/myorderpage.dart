@@ -12,13 +12,12 @@ class MyOrderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: lightWhite2,
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.search,
-                color: Colors.black,
-                size: 30,
-              )),
+          // leadingWidth: 0,
+          // leading: Container(),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+
           // actions: [
           //   Padding(
           //     padding: const EdgeInsets.all(10.0),

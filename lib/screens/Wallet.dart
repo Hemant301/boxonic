@@ -197,8 +197,14 @@ class _WallatePageState extends State<WallatePage> {
       appBar: AppBar(
         backgroundColor: lightWhite2,
         // leading: Container(),
+        // leadingWidth: 0,
+        // leading: Container(),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+
         title: Text(
-          "    Boxoniq Wallet",
+          "Boxoniq Wallet",
           style: TextStyle(
               letterSpacing: 1,
               fontSize: 18,
