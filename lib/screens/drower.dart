@@ -1,6 +1,7 @@
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/homescreen.dart';
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 
@@ -526,15 +527,24 @@ class DrawersPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 20,
-                      decoration: BoxDecoration(color: Color(0xffFF4F4F)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Center(
-                          child: Text(
-                            'Logout',
-                            style: TextStyle(color: Colors.white),
+                    InkWell(
+                      onTap: () {
+                        userCred.logoutUser();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/login',
+                          ModalRoute.withName('/splashsceen'),
+                        );
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 20,
+                        decoration: BoxDecoration(color: Color(0xffFF4F4F)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Center(
+                            child: Text(
+                              'Logout',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),

@@ -144,11 +144,38 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 10,
                     ),
-                    FormTTextFild(
-                      controller: _pwdController,
-                      hinttext: "Enter Your Password",
-                      // icon: (Icons.email),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: TextField(
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        controller: _pwdController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          filled: true,
+
+                          fillColor: Color.fromARGB(255, 255, 255, 255),
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                          hintText: "Enter Your Password",
+                          // icon: Icon(
+                          //   icon,
+                          //   color: Colors.black,
+                          // ),
+                        ),
+                      ),
                     ),
+                    // FormTTextFild(
+                    //   obscureText: true,
+                    //   enableSuggestions: false,
+                    //   autocorrect: false,
+                    //   controller: _pwdController,
+                    //   hinttext: "Enter Your Password",
+                    //   // icon: (Icons.email),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
