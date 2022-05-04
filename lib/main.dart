@@ -1,4 +1,6 @@
 import 'package:boxoniq/auth/login.dart';
+import 'package:boxoniq/auth/loginotp.dart';
+import 'package:boxoniq/auth/mobilelogin.dart';
 import 'package:boxoniq/auth/otpverification.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
@@ -69,6 +71,8 @@ class MyApp extends StatelessWidget {
           "/addtobundle": (context) => Addtobundle(),
           "/Wallet": (context) => WallatePage(),
           "/myorderpage": (context) => MyOrderPage(),
+          "/mobilelogin": (context) => Mobilelogin(),
+          "/loginotp": (context) => Loginotp(),
         });
   }
 }

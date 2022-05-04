@@ -99,7 +99,7 @@ class HomeApi {
           Uri.parse("${base}product-super-cat-bo.php"),
           body: {'sequence': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -140,10 +140,28 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchAddress() async {
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
+          body: {'account_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchSubsdetails(String id) async {
     try {
       final response = await client.post(
-          Uri.parse("${droidBase}get-order-details-subscription-bo.php"),
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-order-details-subscription-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
         print(response.body);
@@ -259,6 +277,28 @@ class HomeApi {
     } catch (e) {
       // print(e);
     } finally {}
+  }
+
+  Future<dynamic> fetchaddessHome() async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
+          body: {'account_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
   }
 
   Future<dynamic> fetchWalletbalance() async {
@@ -405,6 +445,29 @@ class HomeApi {
     }
   }
 
+  Future<dynamic> skipSubs(String p_id) async {
+    print(p_id);
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/skip-sub-item.php"),
+          body: {'process_id': p_id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> cancelSubs(String p_id) async {
     print(p_id);
     var client = http.Client();
@@ -518,6 +581,7 @@ class HomeApi {
     String amount = "",
     String subs = "",
     String month = "",
+    String addressid = "",
   }) async {
     var client = http.Client();
     try {
@@ -526,6 +590,7 @@ class HomeApi {
         'account_id': userCred.getUserId(),
         'total_cart_value': amount,
         'subscription': subs,
+        'address_id': addressid,
         'subscription_month': month
       });
       if (response.statusCode == 200) {

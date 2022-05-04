@@ -20,6 +20,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     // print(rcvdData['activeIndex']);
     // print(rcvdData['activeIndex'].runtimeType);
     print(rcvdData['total_amount']);
+    print(rcvdData['address_id']);
     print(rcvdData['subs']);
     homebloc.fetchcalAmount();
     homebloc.getMonths();
@@ -425,61 +426,71 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () {
-                  if (monthname == "") {
-                    Fluttertoast.showToast(msg: 'Select Month');
-                    return;
-                  }
-                  Navigator.pushNamed(context, "/checkwallet", arguments: {
-                    'total_amount': rcvdData['total_amount'],
-                    'month': monthname,
-                    'subs': rcvdData['subs']
-                  });
-                  // Navigator.pushNamed(context, "/mybundalSubscription");
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width - 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.green,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
+              StreamBuilder<CalAmountModal>(
+                  stream: homebloc.getCalculatedAmount.stream,
+                  builder: (context, snapshot) {
+                    // print('++++++++++${snapshot.data!.data[0]}');
+                    if (!snapshot.hasData) return Container();
+                    return InkWell(
+                      onTap: () {
+                        if (monthname == "") {
+                          Fluttertoast.showToast(msg: 'Select Month');
+                          return;
+                        }
+                        Navigator.pushNamed(context, "/checkwallet",
+                            arguments: {
+                              'address_id': rcvdData['address_id'],
+                              'total_amount': rcvdData['total_amount'],
+                              'month': monthname,
+                              'subs': rcvdData['subs']
+                            });
+                        // Navigator.pushNamed(context, "/mybundalSubscription");
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width - 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.green,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset:
+                                  Offset(1, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width - 150,
-                              child: Text(
-                                "Add to Wallet & Proceed",
-                                style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontFamily: font,
-                                  // fontWeight: FontWeight.bold
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width - 150,
+                                    child: Text(
+                                      "Add ₹ ${snapshot.data!.data[0].response!.total} to Wallet & Proceed",
+                                      style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontFamily: font,
+                                        // fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Image.asset("assets/Vector.png")
+                                ],
                               ),
                             ),
-                            Image.asset("assets/Vector.png")
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }),
               SizedBox(
                 height: 20,
               ),

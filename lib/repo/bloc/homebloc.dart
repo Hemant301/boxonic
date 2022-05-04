@@ -175,6 +175,21 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<AddressListModal> _liveAddredd =
+      BehaviorSubject<AddressListModal>();
+  BehaviorSubject<AddressListModal> get getAddress => _liveAddredd;
+  fetchListAddress() async {
+    // _liveAddredd.addError("Loading");
+    try {
+      AddressListModal homeSlider = await _homeRepo.fetchAddress();
+      // print(homeSlider.imgs!.length);
+
+      _liveAddredd.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<Myordermodal> _liveSubsdetail =
       BehaviorSubject<Myordermodal>();
   BehaviorSubject<Myordermodal> get getSubsdetail => _liveSubsdetail;

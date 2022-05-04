@@ -9,6 +9,7 @@ import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -115,7 +116,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 ),
               ),
               Text(
-                "Let's bring to continue",
+                "Let's begin to continue",
                 style: TextStyle(
                     letterSpacing: 1,
                     fontSize: 10,
@@ -177,7 +178,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                               children: [
                                 Mainbox(
                                   image: "assets/package (1) 1.png",
-                                  title: "Create Box",
+                                  title: "Create Box ",
                                 ),
                                 Container(
                                   width: 40,
@@ -194,7 +195,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 ),
                                 Mainbox(
                                     image: "assets/sync 1.png",
-                                    title: "Delivery"),
+                                    title: "Delivery \n every month"),
                               ]),
                           SizedBox(
                             height: 35,
@@ -254,15 +255,29 @@ class _HomeScrrenState extends State<HomeScrren> {
                         children: [
                           Column(
                             children: [
-                              startBox(image: 'assets/c1.png'),
+                              startBox(
+                                image: 'assets/c1.png',
+                                title: 'Bundle Discount',
+                                desc:
+                                    'Get additional bundle discount by adding minimum one product from each category',
+                              ),
                               SizedBox(
                                 height: 10,
                               ),
-                              startBox(image: 'assets/c3.png'),
+                              startBox(
+                                  image: 'assets/c3.png',
+                                  title: 'Subscribe and Save',
+                                  desc:
+                                      "Subscription comes with additional benefits throughout your subscription journey"),
                               SizedBox(
                                 height: 10,
                               ),
-                              startBox(image: 'assets/c4.png'),
+                              startBox(
+                                  image: 'assets/c4.png',
+                                  title:
+                                      'Modify , Skip or Cancel Subscription anytime',
+                                  desc:
+                                      'Modify, your bundle anytime. Skip or Cancel subscription anytime.'),
                             ],
                           ),
                           Spacer(
@@ -290,6 +305,51 @@ class _HomeScrrenState extends State<HomeScrren> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "SHOP BY CATEGORY",
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 13,
+                        color: Colors.black,
+                        fontFamily: font,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                StreamBuilder<HomeCategoryModal>(
+                    stream: homebloc.getHomeCategory.stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Container();
+                      return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              snapshot.data!.category.length,
+                              (index) => InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/bundlecreatorPage',
+                                      arguments: {
+                                        'id': snapshot.data!.category[index].seq
+                                            .toString(),
+                                        'index': (index + 1).toString()
+                                      });
+                                },
+                                child: babyItem(
+                                    image: snapshot.data!.category[index].image,
+                                    name: snapshot.data!.category[index].name!),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                 SizedBox(
                   height: 20,
                 ),
@@ -349,51 +409,6 @@ class _HomeScrrenState extends State<HomeScrren> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    "SHOP BY CATEGORY",
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 13,
-                        color: Colors.black,
-                        fontFamily: font,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                StreamBuilder<HomeCategoryModal>(
-                    stream: homebloc.getHomeCategory.stream,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              snapshot.data!.category.length,
-                              (index) => InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/bundlecreatorPage',
-                                      arguments: {
-                                        'id': snapshot.data!.category[index].seq
-                                            .toString(),
-                                        'index': (index + 1).toString()
-                                      });
-                                },
-                                child: babyItem(
-                                    image: snapshot.data!.category[index].image,
-                                    name: snapshot.data!.category[index].name!),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
                     "WHY CHOOSE BOXONIQ?",
                     style: TextStyle(
                         letterSpacing: 1,
@@ -406,22 +421,27 @@ class _HomeScrrenState extends State<HomeScrren> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       WhyChoose(
                         image: 'assets/image 1.png',
-                        name: 'Bundlers get amazing bang for their buck',
+                        name: 'Making life easier for today’s parents',
                       ),
                       WhyChoose(
                         image: 'assets/123.png',
-                        name: 'Conveniently delivered to your doorstep',
+                        name:
+                            'Subscription comes with remarkable discounts and offers to add some cherry on the top of it',
                       ),
                       WhyChoose(
                         image: 'assets/image 1.png',
-                        name: 'Conveniently delivered to your doorstep',
+                        name:
+                            'Conveniently delivered to your doorstep every month.',
                       ),
                       WhyChoose(
-                        image: 'assets/image 1.png',
-                        name: 'Conveniently delivered to your doorstep',
+                        image: 'assets/123.png',
+                        name:
+                            'Get a space in our platform to publish your story of your subscription journey',
                       ),
                     ],
                   ),
@@ -537,6 +557,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                               )
                             ],
                           ),
+                        
                         ],
                       ),
                     ),
@@ -584,7 +605,7 @@ class WhyChoose extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
       child: Container(
           // padding: EdgeInsets.all(20),
-          // height: 160,
+          height: 170,
           width: 165,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -712,8 +733,10 @@ class Brand extends StatelessWidget {
 }
 
 class startBox extends StatelessWidget {
-  startBox({Key? key, this.image}) : super(key: key);
+  startBox({Key? key, this.image, this.desc, this.title}) : super(key: key);
   String? image;
+  String? title;
+  String? desc;
 
   @override
   Widget build(BuildContext context) {
@@ -733,7 +756,7 @@ class startBox extends StatelessWidget {
               ),
               child: Container(
                 // padding: EdgeInsets.all(10),
-                height: 80,
+                height: 100,
                 width: MediaQuery.of(context).size.width - 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -750,6 +773,7 @@ class startBox extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(
                     top: 10,
+                    right: 5,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -758,7 +782,7 @@ class startBox extends StatelessWidget {
                       Container(
                         width: 140,
                         child: Text(
-                          "Skip subscription anytime, anywhere",
+                          "$title",
                           style: TextStyle(
                               letterSpacing: 1,
                               fontSize: 12,
@@ -773,7 +797,7 @@ class startBox extends StatelessWidget {
                       Container(
                         width: 140,
                         child: Text(
-                          "Skip, modify you bundleas \nper requirement",
+                          "$desc",
                           style: TextStyle(
                               letterSpacing: 1,
                               fontSize: 8,
@@ -788,7 +812,8 @@ class startBox extends StatelessWidget {
               ),
             ),
             Positioned(
-              // top: -5,
+              bottom: 0,
+              top: 0,
               child: CircleAvatar(
                 radius: 50,
                 backgroundColor: Color(0xffD3C6F9),
@@ -829,6 +854,7 @@ class Mainbox extends StatelessWidget {
         Text(
           "$title",
           // "Create Box",
+          textAlign: ui.TextAlign.center,
           style: TextStyle(
             letterSpacing: 1,
             fontSize: 12,

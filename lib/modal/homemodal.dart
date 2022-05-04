@@ -98,11 +98,13 @@ class AttribueListModal {
   String? name;
   String? price;
   String? mrp;
+  dynamic? discount;
   AttribueListModal(js) {
     id = js['id'] ?? "";
     name = js['name'] ?? "";
     price = js['price'] ?? "";
     mrp = js['mrp'] ?? "";
+    discount = js['discount'] ?? "";
   }
 }
 
@@ -471,5 +473,28 @@ class SearchProductModal {
     for (var i = 0; i < js['attribute'].length; i++) {
       attr.add(AttribueListModal(js['attribute'][i]));
     }
+  }
+}
+
+class AddressListModal {
+  List<AddressdetailModal> data = [];
+  AddressListModal(js) {
+    for (var i = 0; i < js['address'].length; i++) {
+      data.add(AddressdetailModal(js['address'][i]));
+    }
+  }
+}
+
+class AddressdetailModal {
+  String? fulladdress;
+  String? id;
+  String? landmark;
+  String? pincode;
+
+  AddressdetailModal(js) {
+    id = js['id'] ?? "";
+    fulladdress = js['full_address'] ?? "";
+    landmark = js['landmark'] ?? "";
+    pincode = js['pincode'] ?? "";
   }
 }

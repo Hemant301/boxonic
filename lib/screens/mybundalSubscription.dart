@@ -853,53 +853,111 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            // Navigator.pushNamed(context, "/billing");
-                          },
-                          child: Center(
-                            child: Container(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width / 2 - 40,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey,
-                                // border: Border.all(color: Colors.blue, width: 1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.4),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(
-                                        1, 3), // changes position of shadow
+                        snapshot.data!.status == 'Skipped'
+                            ? Container(
+                                height: 40,
+                                width:
+                                    MediaQuery.of(context).size.width / 2 - 40,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromARGB(255, 248, 130, 130),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 255, 132, 132)
+                                          .withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(
+                                          1, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Skipped",
+                                      style: TextStyle(
+                                          // letterSpacing: 1,
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 10,
+                                    // ),
+                                    // Image.asset(
+                                    //   "assets/Vector.png",
+                                    //   width: 10,
+                                    // ),
+                                  ],
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  HomeApi _api = HomeApi();
+                                  Map data =
+                                      await _api.skipSubs(rcvdData['id']);
+                                  print(data);
+                                  if (data['response'] == "1") {
+                                    setState(() {});
+                                    Fluttertoast.showToast(
+                                        msg: 'Successfully skiped');
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: 'Successfully skiped');
+                                  }
+                                  // Navigator.pushNamed(context, "/billing");
+                                },
+                                child: Center(
+                                  child: Container(
+                                    height: 40,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            40,
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey,
+                                      // border: Border.all(color: Colors.blue, width: 1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(1,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Skip for This Month",
+                                          style: TextStyle(
+                                              // letterSpacing: 1,
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              fontFamily: font,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        // SizedBox(
+                                        //   width: 10,
+                                        // ),
+                                        // Image.asset(
+                                        //   "assets/Vector.png",
+                                        //   width: 10,
+                                        // ),
+                                      ],
+                                    ),
                                   ),
-                                ],
+                                ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Skip for This Month",
-                                    style: TextStyle(
-                                        // letterSpacing: 1,
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  // SizedBox(
-                                  //   width: 10,
-                                  // ),
-                                  // Image.asset(
-                                  //   "assets/Vector.png",
-                                  //   width: 10,
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
                         snapshot.data!.status == "Cancelled"
                             ? InkWell(
                                 child: Center(

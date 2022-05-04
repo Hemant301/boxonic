@@ -143,6 +143,7 @@ class _CheckwalletState extends State<Checkwallet> {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
 
     print(rcvdData['total_amount']);
+    print(rcvdData['address_id']);
     print(rcvdData['month']);
     print(rcvdData['subs']);
     homebloc.fetchWalletbalance();
@@ -335,6 +336,7 @@ class _CheckwalletState extends State<Checkwallet> {
                               Map data = await _api.doPayment(
                                   amount: rcvdData['total_amount'].toString(),
                                   month: rcvdData['month'],
+                                  addressid: rcvdData['address_id'],
                                   subs: rcvdData['subs']);
                               print(data);
                               if (data['response'] == '1') {
@@ -342,7 +344,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                   context,
                                   '/thankyou',
                                 );
-                              } else {}
+                              } else {
+                                Fluttertoast.showToast(msg: data['msg']);
+                              }
                             } else {
                               Fluttertoast.showToast(
                                   msg: 'Add amount to wallet',

@@ -77,6 +77,12 @@ class HomeRepo {
     return Myorderdetailmodal(jsonResponse);
   }
 
+  Future<AddressListModal> fetchAddress() async {
+    final response = await homeApi.fetchAddress();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return AddressListModal(jsonResponse);
+  }
+
   Future<Myordermodal> fetchSubsdetails(String id) async {
     final response = await homeApi.fetchSubsdetails(id);
     var jsonResponse = jsonDecode(response.body) as Map;

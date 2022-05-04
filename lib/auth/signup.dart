@@ -1,6 +1,7 @@
 import 'package:boxoniq/api/authApi.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +10,8 @@ TextEditingController _nameController = TextEditingController();
 TextEditingController _phoneController = TextEditingController();
 TextEditingController _emailController = TextEditingController();
 TextEditingController _pwdController = TextEditingController();
+TextEditingController _dobController = TextEditingController();
+TextEditingController _babynameController = TextEditingController();
 
 class Creatuser extends StatefulWidget {
   const Creatuser({Key? key}) : super(key: key);
@@ -103,7 +106,7 @@ class _CreatuserState extends State<Creatuser> {
                     //   height: 40,
                     // ),
                     Text(
-                      "Register Your Shop",
+                      "Register",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         letterSpacing: 1,
@@ -131,7 +134,7 @@ class _CreatuserState extends State<Creatuser> {
                     ),
                     FormTTextFild(
                       controller: _nameController,
-                      hinttext: "Enter Shop Owner name",
+                      hinttext: "Enter name",
                       keyboardType: TextInputType.name,
                       // icon: (Icons.email),
                     ),
@@ -194,9 +197,76 @@ class _CreatuserState extends State<Creatuser> {
                     FormTTextFild(
                       num: 10,
                       controller: _phoneController,
-                      hinttext: "Enter Shop Mobile Number",
+                      hinttext: "Enter Mobile Number",
                       keyboardType: TextInputType.number,
                       // icon: (Icons.email),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Baby Name",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FormTTextFild(
+                      num: 10,
+                      controller: _babynameController,
+                      hinttext: "Enter Baby Name",
+                      // keyboardType: TextInputType.number,
+                      // icon: (Icons.email),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Baby Date of birth",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateTimePicker(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Date of birth',
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
+                        controller: _dobController,
+                        type: DateTimePickerType.date,
+                        // initialValue: '16/12/2001',
+                        firstDate: DateTime(1947),
+                        lastDate: DateTime(2200),
+                        dateLabelText: 'Date of birth',
+                        dateHintText: 'Date of birth',
+
+                        style: TextStyle(fontSize: 16),
+                        onChanged: (val) => print(val),
+                        validator: (val) {
+                          print(val);
+                        },
+                        onSaved: (val) => print(val),
+                      ),
                     ),
                     SizedBox(
                       height: 30,
@@ -332,6 +402,8 @@ class _CreatuserState extends State<Creatuser> {
                                 shopowneremail: "${_emailController.text}",
                                 pwd: "${_pwdController.text}",
                                 shopownerphone: "${_phoneController.text}",
+                                babydob: "${_dobController.text}",
+                                babyname: "${_babynameController.text}",
                                 shopownername: "${_nameController.text}");
                             print(data);
 

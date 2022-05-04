@@ -54,7 +54,6 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
 
   @override
   Widget build(BuildContext context) {
-  
     homebloc.checkamount();
 
     print(userCred.getUserId());
@@ -249,7 +248,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.green,
+                        color: activeIndex == 1 ? Colors.grey : Colors.green,
                         // border: Border.all(color: Colors.blue, width: 1),
                         boxShadow: [
                           BoxShadow(
@@ -334,7 +333,9 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.green,
+                        color: activeIndex == snapshot.data!.totalCount
+                            ? Colors.grey
+                            : Colors.green,
                         // border: Border.all(color: Colors.blue, width: 1),
                         boxShadow: [
                           BoxShadow(
@@ -502,9 +503,37 @@ class _ProductsCardState extends State<ProductsCard> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    '₹ ${widget.data!.attr[widget.colorIndex].price!}',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      Text(
+                        '₹ ${widget.data!.attr[widget.colorIndex].price!}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '₹ ${widget.data!.attr[widget.colorIndex].mrp!}',
+                        style: TextStyle(
+                          decorationThickness: 2,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red),
+                        child: Text(
+                          '₹ ${widget.data!.attr[widget.colorIndex].discount!} off',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width / 2 + 30,
@@ -632,7 +661,7 @@ class _ProductsCardState extends State<ProductsCard> {
                           ),
                           child: Center(
                             child: Text(
-                              "Add to bag",
+                              "Add to Box",
                               style: TextStyle(
                                   letterSpacing: 1,
                                   fontSize: 10,
