@@ -9,7 +9,6 @@ import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -557,7 +556,6 @@ class _HomeScrrenState extends State<HomeScrren> {
                               )
                             ],
                           ),
-                        
                         ],
                       ),
                     ),
