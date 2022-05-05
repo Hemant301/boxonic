@@ -192,7 +192,8 @@ class HomeApi {
 
   Future<dynamic> fetchuserDetails() async {
     try {
-      final response = await client.post(Uri.parse("${base}get-user-bo.php"),
+      final response = await client.post(
+          Uri.parse("${droidBase}get-user-bo.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
         print(response.body);

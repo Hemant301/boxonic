@@ -440,6 +440,8 @@ class UserdetailModal {
   String? address;
   String? pincode;
   String? landmark;
+  String? baby_name;
+  String? baby_dob;
   UserdetailModal(js) {
     name = js['name'] ?? "";
     email = js['email'] ?? "";
@@ -447,6 +449,8 @@ class UserdetailModal {
     address = js['address'] ?? "";
     pincode = js['pincode'] ?? "";
     landmark = js['landmark'] ?? "";
+    baby_name = js['baby_name'] ?? "";
+    baby_dob = js['baby_dob'] ?? "";
   }
 }
 

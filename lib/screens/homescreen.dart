@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
@@ -8,11 +6,6 @@ import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_share/flutter_share.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
 
 class HomeScrren extends StatefulWidget {
   const HomeScrren({Key? key}) : super(key: key);
@@ -85,12 +78,17 @@ class _HomeScrrenState extends State<HomeScrren> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                  "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundImage: NetworkImage(
+                    "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
+                  ),
                 ),
               ),
             ),

@@ -16,6 +16,7 @@ import 'package:boxoniq/screens/myorderdetail.dart';
 import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
+import 'package:boxoniq/screens/profile.dart';
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/screens/subsdetail.dart';
 import 'package:boxoniq/screens/thankyou.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
           "/myorderpage": (context) => MyOrderPage(),
           "/mobilelogin": (context) => Mobilelogin(),
           "/loginotp": (context) => Loginotp(),
+          "/profile": (context) => Profile(),
         });
   }
 }
