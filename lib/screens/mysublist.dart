@@ -2,6 +2,7 @@ import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Mysublist extends StatelessWidget {
   const Mysublist({Key? key}) : super(key: key);
@@ -39,6 +40,9 @@ class Mysublist extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             onTap: () {
+                              Fluttertoast.showToast(
+                                  msg: 'Working on this flow');
+                              return;
                               Navigator.pushNamed(
                                   context, '/mybundalSubscription', arguments: {
                                 'id': snapshot.data!.data[index].order_id

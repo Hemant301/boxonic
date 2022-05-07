@@ -184,6 +184,7 @@ class _WallatePageState extends State<WallatePage> {
   //       msg: "EXTERNAL_WALLET: " + response.walletName!,
   //       toastLength: Toast.LENGTH_SHORT);
   // }
+  int sum = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -203,14 +204,22 @@ class _WallatePageState extends State<WallatePage> {
           color: Colors.black, //change your color here
         ),
 
-        title: Text(
-          "Boxoniq Wallet",
-          style: TextStyle(
-              letterSpacing: 1,
-              fontSize: 18,
-              color: grad2Color,
-              fontFamily: font,
-              fontWeight: FontWeight.bold),
+        title: InkWell(
+          onTap: () {
+            setState(() {
+              sum + 45;
+            });
+            print(sum);
+          },
+          child: Text(
+            "Boxoniq Wallet",
+            style: TextStyle(
+                letterSpacing: 1,
+                fontSize: 18,
+                color: grad2Color,
+                fontFamily: font,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       body: Padding(
@@ -223,14 +232,23 @@ class _WallatePageState extends State<WallatePage> {
                 SizedBox(
                   height: 30,
                 ),
-                Text(
-                  "Wallet Balance",
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontFamily: font,
-                      fontWeight: FontWeight.bold),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      int newValue = 50 - 5;
+                      sum = newValue;
+                    });
+                    print(sum);
+                  },
+                  child: Text(
+                    "Wallet Balance",
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontFamily: font,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
                 SizedBox(
                   height: 20,

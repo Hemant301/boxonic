@@ -87,81 +87,171 @@ class _AddressState extends State<Address> {
                   StreamBuilder<AddressListModal>(
                       stream: homebloc.getAddress.stream,
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData) return Container();
+                        if (!snapshot.hasData)
+                          return CircularProgressIndicator();
                         return Column(
-                          children: List.generate(
-                              snapshot.data!.data.length,
-                              (index) => Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          addressId = snapshot
-                                              .data!.data[index].id!
-                                              .toString();
-                                        });
-                                      },
-                                      child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              20,
-                                          padding: EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: Colors.white,
-                                            // border: Border.all(color: Colors.blue, width: 1),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.4),
-                                                spreadRadius: 1,
-                                                blurRadius: 1,
-                                                offset: Offset(1,
-                                                    3), // changes position of shadow
-                                              ),
-                                            ],
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                height: 10,
-                                                width: 10,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.blue),
-                                                  shape: BoxShape.circle,
-                                                  color: addressId ==
-                                                          snapshot.data!
-                                                              .data[index].id
-                                                      ? Colors.blue
-                                                      : Colors.white,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(snapshot
-                                                      .data!
-                                                      .data[index]
-                                                      .fulladdress!),
-                                                  Text(snapshot.data!
-                                                      .data[index].landmark!),
-                                                  Text(snapshot.data!
-                                                      .data[index].pincode!),
+                          children: [
+                            Column(
+                              children: List.generate(
+                                  snapshot.data!.data.length,
+                                  (index) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              addressId = snapshot
+                                                  .data!.data[index].id!
+                                                  .toString();
+                                            });
+                                          },
+                                          child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  20,
+                                              padding: EdgeInsets.all(20),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: Colors.white,
+                                                // border: Border.all(color: Colors.blue, width: 1),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.4),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 1,
+                                                    offset: Offset(1,
+                                                        3), // changes position of shadow
+                                                  ),
                                                 ],
-                                              )
-                                            ],
-                                          )),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    height: 10,
+                                                    width: 10,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.blue),
+                                                      shape: BoxShape.circle,
+                                                      color: addressId ==
+                                                              snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .id
+                                                          ? Colors.blue
+                                                          : Colors.white,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(snapshot
+                                                          .data!
+                                                          .data[index]
+                                                          .fulladdress!),
+                                                      Text(snapshot
+                                                          .data!
+                                                          .data[index]
+                                                          .landmark!),
+                                                      Text(snapshot
+                                                          .data!
+                                                          .data[index]
+                                                          .pincode!),
+                                                    ],
+                                                  )
+                                                ],
+                                              )),
+                                        ),
+                                      )),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            snapshot.data!.data.length == 0
+                                ? Container()
+                                : InkWell(
+                                    onTap: () async {
+                                      // AuthApi _authapi = AuthApi();
+                                      try {
+                                        // Map data = await _authapi.doSaveAddress(
+                                        //     address: addressController.text,
+                                        //     landmark: landmarkController.text,
+                                        //     pincode: pincodeController.text);
+                                        // print(data["response"].runtimeType);
+
+                                        // if (data['response'] == '1') {
+                                        // Future.delayed(Duration(seconds: 0), () {
+                                        if (rcvdData['activeIndex'] == 1) {
+                                          Navigator.pushNamed(
+                                              context, "/subscription",
+                                              arguments: {
+                                                'address_id': addressId,
+                                                'total_amount':
+                                                    rcvdData['total_amount'],
+                                                'subs': rcvdData['subs']
+                                              });
+                                        } else {
+                                          Navigator.pushNamed(
+                                              context, "/checkwallet",
+                                              arguments: {
+                                                'address_id': addressId,
+                                                'total_amount':
+                                                    rcvdData['total_amount'],
+                                                'month': '0',
+                                                'subs': rcvdData['subs']
+                                              });
+                                        }
+                                        // });
+                                        // Fluttertoast.showToast(
+                                        //     msg: "${data['msg']}",
+                                        //     toastLength: Toast.LENGTH_SHORT,
+                                        //     gravity: ToastGravity.BOTTOM,
+                                        //     timeInSecForIosWeb: 1,
+                                        //     backgroundColor: Colors.green,
+                                        //     textColor: Colors.white,
+                                        //     fontSize: 16.0);
+                                        // }
+                                        // else {
+                                        //   Fluttertoast.showToast(
+                                        //       msg: " ${data['msg']}! ",
+                                        //       toastLength: Toast.LENGTH_SHORT,
+                                        //       gravity: ToastGravity.BOTTOM,
+                                        //       timeInSecForIosWeb: 1,
+                                        //       backgroundColor: Colors.red,
+                                        //       textColor: Colors.white,
+                                        //       fontSize: 16.0);
+                                        // }
+                                      } catch (e) {}
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      width: MediaQuery.of(context).size.width -
+                                          40,
+                                      decoration: BoxDecoration(
+                                          color: lightWhite2,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Center(
+                                        child: Text(
+                                          "Next ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
-                                  )),
+                                  ),
+                          ],
                         );
                       }),
 
@@ -269,76 +359,7 @@ class _AddressState extends State<Address> {
                   //     // ],
                   //   ),
                   // ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      // AuthApi _authapi = AuthApi();
-                      try {
-                        // Map data = await _authapi.doSaveAddress(
-                        //     address: addressController.text,
-                        //     landmark: landmarkController.text,
-                        //     pincode: pincodeController.text);
-                        // print(data["response"].runtimeType);
 
-                        // if (data['response'] == '1') {
-                        // Future.delayed(Duration(seconds: 0), () {
-                        if (rcvdData['activeIndex'] == 1) {
-                          Navigator.pushNamed(context, "/subscription",
-                              arguments: {
-                                'address_id': addressId,
-                                'total_amount': rcvdData['total_amount'],
-                                'subs': rcvdData['subs']
-                              });
-                        } else {
-                          Navigator.pushNamed(context, "/checkwallet",
-                              arguments: {
-                                'address_id': addressId,
-                                'total_amount': rcvdData['total_amount'],
-                                'month': '0',
-                                'subs': rcvdData['subs']
-                              });
-                        }
-                        // });
-                        // Fluttertoast.showToast(
-                        //     msg: "${data['msg']}",
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     gravity: ToastGravity.BOTTOM,
-                        //     timeInSecForIosWeb: 1,
-                        //     backgroundColor: Colors.green,
-                        //     textColor: Colors.white,
-                        //     fontSize: 16.0);
-                        // }
-                        // else {
-                        //   Fluttertoast.showToast(
-                        //       msg: " ${data['msg']}! ",
-                        //       toastLength: Toast.LENGTH_SHORT,
-                        //       gravity: ToastGravity.BOTTOM,
-                        //       timeInSecForIosWeb: 1,
-                        //       backgroundColor: Colors.red,
-                        //       textColor: Colors.white,
-                        //       fontSize: 16.0);
-                        // }
-                      } catch (e) {}
-                    },
-                    child: Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                          color: lightWhite2,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: Text(
-                          "Next ",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 20,
                   ),

@@ -587,12 +587,45 @@ class HomeApi {
     var client = http.Client();
     try {
       final response = await client
-          .post(Uri.parse("${base}checkout-with-payment-bo.php"), body: {
+          .post(Uri.parse("${base}checkout-with-payment-wallet-bo.php"), body: {
         'account_id': userCred.getUserId(),
         'total_cart_value': amount,
         'subscription': subs,
         'address_id': addressid,
         'subscription_month': month
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> doPaymentOnline({
+    String amount = "",
+    String subs = "",
+    String month = "",
+    String addressid = "",
+    String paymentid = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response = await client
+          .post(Uri.parse("${base}checkout-with-payment-bo.php"), body: {
+        'account_id': userCred.getUserId(),
+        'total_cart_value': amount,
+        'subscription': subs,
+        'address_id': addressid,
+        'subscription_month': month,
+        'cashfree_payment_id': paymentid
       });
       if (response.statusCode == 200) {
         print(response.body);

@@ -64,6 +64,52 @@ class _CheckwalletState extends State<Checkwallet> {
             }));
   }
 
+  void cashFreeOnlinepayment(
+      {String amount = "",
+      String token = "",
+      String orderId = "",
+      String name = "",
+      String phone = "",
+      String email = ""}) {
+    Map<String, dynamic> inputParams = {
+      "orderId": '$orderId',
+      "orderAmount": '$amount',
+      "customerName": 'santosh',
+      "orderCurrency": 'INR',
+      "appId": '1520515e63d5612b1f28642840150251',
+      "customerPhone": '9798416091',
+      "customerEmail": 'santosh@gmail.com',
+      'stage': 'test',
+      'tokenData': '$token'
+    };
+    CashfreePGSDK.doPayment(inputParams)
+        .then((value) => value?.forEach((key, value) {
+              if (key == "txStatus" && value == "SUCCESS") {
+                print('from succes');
+                print(value);
+                homeApi.doPaymentOnline(
+                    amount: totalamount,
+                    subs: subs,
+                    month: months,
+                    addressid: addressId,
+                    paymentid: orderId);
+                Navigator.pushReplacementNamed(
+                  context,
+                  '/thankyou',
+                );
+                throw "";
+              } else {
+                // print('from fail');
+
+                Fluttertoast.showToast(
+                    msg: 'Failed', backgroundColor: Colors.red);
+              }
+
+              print("$key : $value");
+              //Do something with the result
+            }));
+  }
+
   late Razorpay _razorpay;
 
   @override
@@ -138,6 +184,10 @@ class _CheckwalletState extends State<Checkwallet> {
         toastLength: Toast.LENGTH_SHORT);
   }
 
+  String totalamount = '0';
+  String addressId = '0';
+  String months = '0';
+  String subs = '0';
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -146,6 +196,10 @@ class _CheckwalletState extends State<Checkwallet> {
     print(rcvdData['address_id']);
     print(rcvdData['month']);
     print(rcvdData['subs']);
+    totalamount = rcvdData['total_amount'].toString();
+    addressId = rcvdData['address_id'];
+    months = rcvdData['month'];
+    subs = rcvdData['subs'];
     homebloc.fetchWalletbalance();
     homebloc.fetchuserDetails();
     return Scaffold(
@@ -374,7 +428,7 @@ class _CheckwalletState extends State<Checkwallet> {
                             ),
                             child: Center(
                               child: Text(
-                                "Confirm Order",
+                                "Pay through wallet",
                                 style: TextStyle(
                                     letterSpacing: 1,
                                     fontSize: 15,
@@ -385,6 +439,72 @@ class _CheckwalletState extends State<Checkwallet> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        StreamBuilder<UserdetailModal>(
+                            stream: homebloc.getuserdetails.stream,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) return Container();
+                              return InkWell(
+                                onTap: () async {
+                                  String orderId = DateTime.now()
+                                      .millisecondsSinceEpoch
+                                      .remainder(10000000000)
+                                      .toString();
+                                  Walletapi _api = Walletapi();
+                                  Map data = await _api.initTokenCashfree(
+                                    amount: rcvdData['total_amount'].toString(),
+                                    orderId: orderId,
+                                  );
+                                  print(data);
+                                  if (data['status'] == "OK") {
+                                    cashFreeOnlinepayment(
+                                      amount:
+                                          rcvdData['total_amount'].toString(),
+                                      token: data['cftoken'],
+                                      orderId: orderId,
+                                      name: snapshot.data!.name!,
+                                      email: snapshot.data!.email!,
+                                      phone: snapshot.data!.phone!,
+                                    );
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: 'Something went wrong');
+                                  }
+                                  // openCheckout(int.parse(amountController.text));
+                                },
+                                child: Container(
+                                  // padding: EdgeInsets.all(20),
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width - 10,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: lightWhite2,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Pay online",
+                                      style: TextStyle(
+                                          letterSpacing: 1,
+                                          fontSize: 15,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                         SizedBox(
                           height: 30,
                         )
