@@ -480,7 +480,7 @@ class _CheckwalletState extends State<Checkwallet> {
                                   width: MediaQuery.of(context).size.width - 10,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    color: lightWhite2,
+                                    color: Colors.green,
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey.withOpacity(0.4),
@@ -493,11 +493,12 @@ class _CheckwalletState extends State<Checkwallet> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "Pay online",
+                                      "Pay Online",
                                       style: TextStyle(
                                           letterSpacing: 1,
                                           fontSize: 15,
-                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
                                           fontFamily: font,
                                           fontWeight: FontWeight.bold),
                                     ),

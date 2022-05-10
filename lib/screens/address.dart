@@ -180,6 +180,12 @@ class _AddressState extends State<Address> {
                                 ? Container()
                                 : InkWell(
                                     onTap: () async {
+                                      if (addressId == "0") {
+                                        Fluttertoast.showToast(
+                                            msg: 'Select Address');
+                                        return;
+                                      }
+
                                       // AuthApi _authapi = AuthApi();
                                       try {
                                         // Map data = await _authapi.doSaveAddress(

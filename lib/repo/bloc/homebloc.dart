@@ -196,7 +196,7 @@ class HomeBloc {
   fetchSubsdetails(String id) async {
     // _liveSubsdetail.addError("Loading");
     try {
-      _liveSubsdetail.addError('error');
+      // _liveSubsdetail.addError('error');
       Myordermodal homeSlider = await _homeRepo.fetchSubsdetails(id);
       // print(homeSlider.imgs!.length);
 
