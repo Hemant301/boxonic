@@ -10,7 +10,7 @@ class DrawersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // homebloc.fetchuserDetails();
+    homebloc.fetchuserDetails();
     return Drawer(
         backgroundColor: Colors.white,
         child: SingleChildScrollView(
@@ -45,7 +45,20 @@ class DrawersPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 10,
+                              ),
+                              StreamBuilder<UserdetailModal>(
+                                  stream: homebloc.getuserdetails.stream,
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) return Container();
+                                    return Text(
+                                      'Hello ! ${snapshot.data!.name}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    );
+                                  }),
+                              SizedBox(
+                                height: 10,
                               ),
                               Container(
                                 //  height: MediaQuery.of(context).size.height - 450,

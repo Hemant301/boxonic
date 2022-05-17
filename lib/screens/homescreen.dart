@@ -52,6 +52,7 @@ class _HomeScrrenState extends State<HomeScrren> {
     homebloc.fetchHomebrand();
     homebloc.fetchHomebrand2();
     homebloc.fetchHomecategory();
+    homebloc.fetchWhyBoxonic();
     print(userCred.getUserId());
     return RepaintBoundary(
       key: previewContainer,
@@ -427,8 +428,8 @@ class _HomeScrrenState extends State<HomeScrren> {
                           children: List.generate(
                             snapshot.data!.data.length,
                             (index) => WhyChoose(
-                              image: 'assets/image 1.png',
-                              name: "Making life easier for today's parents",
+                              image: snapshot.data!.data[index].image!,
+                              name: snapshot.data!.data[index].why_desc!,
                             ),
                           ),
                         ),
@@ -613,7 +614,7 @@ class WhyChoose extends StatelessWidget {
                   width: 165,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(image!), fit: BoxFit.cover),
+                        image: NetworkImage(image!), fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(5),
                   )),
               Padding(
@@ -621,6 +622,7 @@ class WhyChoose extends StatelessWidget {
                 child: Container(
                   child: Text(
                     name!,
+                    maxLines: 4,
                     style: TextStyle(
                       letterSpacing: 1,
                       fontSize: 10,

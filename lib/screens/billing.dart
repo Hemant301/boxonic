@@ -13,9 +13,10 @@ class BillingPage extends StatefulWidget {
 }
 
 class _BillingPageState extends State<BillingPage> {
-  int activeIndex = 0;
+  int activeIndex = 1;
   int? couponIndex;
   int couponDiscount = 0;
+  int? deliveryCharge = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -97,7 +98,15 @@ class _BillingPageState extends State<BillingPage> {
                 ),
                 child: Column(
                   children: [
-                    Align(alignment: Alignment.topLeft, child: Text('Coupons')),
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Coupons',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     StreamBuilder<CouponModal>(
                         stream: homebloc.getCouponscode.stream,
                         builder: (context, snapshot) {
@@ -294,6 +303,36 @@ class _BillingPageState extends State<BillingPage> {
                               // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
+                                  "Delivery Charges",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "₹ ${deliveryCharge}",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   "Total",
                                   style: TextStyle(
                                       letterSpacing: 1,
@@ -306,7 +345,7 @@ class _BillingPageState extends State<BillingPage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "₹ ${totalamount - couponDiscount}",
+                                  "₹ ${(totalamount + deliveryCharge!) - couponDiscount}",
                                   style: TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
@@ -359,6 +398,7 @@ class _BillingPageState extends State<BillingPage> {
                       onTap: () {
                         setState(() {
                           activeIndex = 1;
+                          deliveryCharge = 0;
                         });
                       },
                       child: Container(
@@ -465,6 +505,13 @@ class _BillingPageState extends State<BillingPage> {
                         setState(() {
                           activeIndex = 0;
                         });
+                        if (totalamount < 500) {
+                          setState(() {
+                            deliveryCharge = 49;
+                          });
+                        } else {
+                          deliveryCharge = 0;
+                        }
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
@@ -549,7 +596,8 @@ class _BillingPageState extends State<BillingPage> {
                         // }
                         Navigator.pushNamed(context, '/address', arguments: {
                           'activeIndex': activeIndex,
-                          'total_amount': totalamount - couponDiscount,
+                          'total_amount':
+                              (totalamount + deliveryCharge!) - couponDiscount,
                           'subs': activeIndex.toString()
                         });
                       },

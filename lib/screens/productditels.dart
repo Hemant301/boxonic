@@ -12,7 +12,22 @@ class _ProductDitelsState extends State<ProductDitels> {
   int count = 1;
   @override
   Widget build(BuildContext context) {
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    print(rcvdData['data']);
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: lightWhite2,
+          // leading: Container(),
+          // leadingWidth: 0,
+          // leading: Container(),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            "Boro Plus",
+            style: TextStyle(color: Colors.black, fontFamily: font),
+          ),
+        ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -28,27 +43,27 @@ class _ProductDitelsState extends State<ProductDitels> {
                               image: NetworkImage(
                                   "https://m.media-amazon.com/images/I/81hmur09-TL._SX450_.jpg"),
                               fit: BoxFit.cover))),
-                  Positioned(
-                    top: 40,
-                    left: 30,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Center(child: Icon(Icons.arrow_back_ios)),
-                          ),
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 40,
+                  //   left: 30,
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       Navigator.pop(context);
+                  //     },
+                  //     child: ClipRRect(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //       child: Container(
+                  //         height: 40,
+                  //         width: 40,
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.symmetric(horizontal: 12),
+                  //           child: Center(child: Icon(Icons.arrow_back_ios)),
+                  //         ),
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ]),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -338,7 +353,8 @@ class _ProductDitelsState extends State<ProductDitels> {
               decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(5),
                   color: Colors.white,
-                  // border: Border.all(color: Colors.blue, width: 1),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 206, 206, 206), width: 1),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.4),
@@ -349,7 +365,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                   ]),
               child: Center(
                 child: Text(
-                  "Add to Cart",
+                  "Go to Bag",
                   style: TextStyle(
                       letterSpacing: 1,
                       fontSize: 16,
@@ -365,7 +381,7 @@ class _ProductDitelsState extends State<ProductDitels> {
 
               decoration: BoxDecoration(
                   // borderRadius: BorderRadius.circular(5),
-                  color: Colors.orange,
+                  color: lightWhite2,
                   // border: Border.all(color: Colors.blue, width: 1),
                   boxShadow: [
                     BoxShadow(
@@ -381,7 +397,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                   style: TextStyle(
                       letterSpacing: 1,
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 0, 0, 0),
                       fontFamily: font,
                       fontWeight: FontWeight.bold),
                 ),

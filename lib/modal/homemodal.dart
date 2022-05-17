@@ -185,9 +185,9 @@ class CalDetailModal {
 
 class ResponseModal {
   int? sub_total;
-  int? bundle_disc;
+  dynamic? bundle_disc;
   int? coupon_discount;
-  int? total;
+  dynamic? total;
   ResponseModal(js) {
     sub_total = js['sub total'] ?? "0";
     bundle_disc = js['bundal discount'] ?? "";
@@ -536,9 +536,9 @@ class WhyBoxoniqModal {
 
 class BoxoniqdetailModal {
   String? image;
-  String? desc;
+  String? why_desc;
   BoxoniqdetailModal(js) {
     image = js['image'] ?? "";
-    desc = js['desc'] ?? "Description";
+    why_desc = js['why_desc'] ?? "Description";
   }
 }

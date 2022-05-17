@@ -226,11 +226,10 @@ class HomeApi {
   Future<dynamic> fetchWhyBoxonic() async {
     try {
       final response = await client.post(
-          Uri.parse(
-              "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
+          Uri.parse("${base}get-why-section.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');

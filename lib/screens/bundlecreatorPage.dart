@@ -172,14 +172,14 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                 height: 5,
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width - 180,
+                                width: MediaQuery.of(context).size.width - 120,
                                 child: Text(
                                   snapshot.data!.description!,
-                                  maxLines: 2,
+                                  // maxLines: 4,
                                   style: TextStyle(
                                     letterSpacing: 1,
 
-                                    fontSize: 15,
+                                    fontSize: 12,
                                     color: Colors.black,
                                     fontFamily: font,
                                     // fontWeight: FontWeight.bold
@@ -201,7 +201,9 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                             (index) => InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, "/productditels");
+                                        context, "/productditels", arguments: {
+                                      'data': snapshot.data!.product[index]
+                                    });
                                   },
                                   child: ProductsCard(
                                       appid: activeIndex.toString(),
