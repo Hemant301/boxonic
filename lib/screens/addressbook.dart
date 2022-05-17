@@ -7,14 +7,14 @@ import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Address extends StatefulWidget {
-  const Address({Key? key}) : super(key: key);
+class Addressbook extends StatefulWidget {
+  const Addressbook({Key? key}) : super(key: key);
 
   @override
-  State<Address> createState() => _AddressState();
+  State<Addressbook> createState() => _AddressbookState();
 }
 
-class _AddressState extends State<Address> {
+class _AddressbookState extends State<Addressbook> {
   TextEditingController addressController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
@@ -51,11 +51,11 @@ class _AddressState extends State<Address> {
   Widget build(BuildContext context) {
     // homebloc.fetchaddess();
     homebloc.fetchListAddress();
-    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
-    print(rcvdData['activeIndex']);
-    print(rcvdData['activeIndex'].runtimeType);
-    print(rcvdData['total_amount']);
-    print(rcvdData['subs']);
+    // final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    // print(rcvdData['activeIndex']);
+    // print(rcvdData['activeIndex'].runtimeType);
+    // print(rcvdData['total_amount']);
+    // print(rcvdData['subs']);
 
     return Scaffold(
         backgroundColor: grad1Color,
@@ -65,7 +65,7 @@ class _AddressState extends State<Address> {
           ),
           backgroundColor: lightWhite2,
           title: Text(
-            "Address",
+            "Address Book",
             style: TextStyle(
                 letterSpacing: 1,
                 fontSize: 18,
@@ -176,68 +176,6 @@ class _AddressState extends State<Address> {
                             SizedBox(
                               height: 50,
                             ),
-                            snapshot.data!.data.length == 0
-                                ? Container()
-                                : InkWell(
-                                    onTap: () async {
-                                      if (addressId == "0") {
-                                        Fluttertoast.showToast(
-                                            msg: 'Select Address');
-                                        return;
-                                      }
-
-                                      // AuthApi _authapi = AuthApi();
-                                      try {
-                                        // Map data = await _authapi.doSaveAddress(
-                                        //     address: addressController.text,
-                                        //     landmark: landmarkController.text,
-                                        //     pincode: pincodeController.text);
-                                        // print(data["response"].runtimeType);
-
-                                        // if (data['response'] == '1') {
-                                        // Future.delayed(Duration(seconds: 0), () {
-                                        if (rcvdData['activeIndex'] == 1) {
-                                          Navigator.pushNamed(
-                                              context, "/subscription",
-                                              arguments: {
-                                                'address_id': addressId,
-                                                'total_amount':
-                                                    rcvdData['total_amount'],
-                                                'subs': rcvdData['subs']
-                                              });
-                                        } else {
-                                          Navigator.pushNamed(
-                                              context, "/checkwallet",
-                                              arguments: {
-                                                'address_id': addressId,
-                                                'total_amount':
-                                                    rcvdData['total_amount'],
-                                                'month': '0',
-                                                'subs': rcvdData['subs']
-                                              });
-                                        }
-                              
-                                      } catch (e) {}
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width -
-                                          40,
-                                      decoration: BoxDecoration(
-                                          color: lightWhite2,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Center(
-                                        child: Text(
-                                          "Next ",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                           ],
                         );
                       }),

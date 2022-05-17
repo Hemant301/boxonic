@@ -342,6 +342,7 @@ class Myordermodal {
   dynamic delivered;
   String? nextdate;
   String? status;
+  int? cancel;
   Myordermodal(js) {
     for (var i = 0; i < js['items'].length; i++) {
       items.add(Itemsmodal(js['items'][i]));
@@ -351,6 +352,7 @@ class Myordermodal {
     delivered = js['delivered'] ?? "";
     nextdate = js['nextdate'] ?? "";
     status = js['status'] ?? "";
+    cancel = js['cancel'] ?? "";
   }
 }
 

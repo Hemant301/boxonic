@@ -19,7 +19,7 @@ class Mysublist extends StatelessWidget {
           // leadingWidth: 0,
           // leading: Container(),
           title: Text(
-            'My Subscriptions',
+            'My Subscription',
             style: TextStyle(color: Colors.black),
           )),
       body: SingleChildScrollView(

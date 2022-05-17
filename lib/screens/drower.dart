@@ -141,7 +141,7 @@ class DrawersPage extends StatelessWidget {
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Image.asset("assets/bbo.png")
+                          Icon(Icons.subscriptions_outlined)
                         ],
                       ),
                     ),
@@ -183,7 +183,7 @@ class DrawersPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "My Bag",
+                            "My Cart",
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 12,
@@ -205,46 +205,141 @@ class DrawersPage extends StatelessWidget {
                       Navigator.pushNamed(context, "/bundlecreatorPage",
                           arguments: {'id': '1', 'index': '1'});
                     },
-                    name: 'Start Your Bundle',
+                    name: 'Create Your Bundle',
                     icon: Icons.branding_watermark_rounded,
                   ),
                   Divider(),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Customer Support",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 14,
-                                  color: grad2Color,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "info@boxonic.com",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 10,
-                                  color: Colors.grey,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Image.asset("assets/customer-service (1) 1.png")
-                      ],
-                    ),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/addressbook",
+                      );
+                    },
+                    name: 'Address Book',
+                    icon: Icons.location_on,
                   ),
+                  Divider(),
+                  Menulist(
+                    // onTap: () {
+                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
+                    //       arguments: {'id': '1', 'index': '1'});
+                    // },
+                    name: 'Refer & Earn',
+                    icon: Icons.location_on,
+                  ),
+                  Divider(),
+                  Menulist(
+                    // onTap: () {
+                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
+                    //       arguments: {'id': '1', 'index': '1'});
+                    // },
+                    name: 'Community',
+                    icon: Icons.local_library_outlined,
+                  ),
+                  Divider(),
+                  Menulist(
+                    // onTap: () {
+                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
+                    //       arguments: {'id': '1', 'index': '1'});
+                    // },
+                    name: 'Story',
+                    icon: Icons.history_toggle_off,
+                  ),
+                  Divider(),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/blog",
+                      );
+                    },
+                    name: 'Blogs',
+                    icon: Icons.rss_feed,
+                  ),
+                  Divider(),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/contact",
+                      );
+                    },
+                    name: 'Contact Us',
+                    icon: Icons.contact_mail_outlined,
+                  ),
+                  Divider(),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/pdf', arguments: {
+                        'url':
+                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                        'title': 'About Us'
+                      });
+                    },
+                    name: 'About Us',
+                    icon: Icons.details_outlined,
+                  ),
+                  Divider(),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/pdf', arguments: {
+                        'url':
+                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                        'title': 'FAQ'
+                      });
+                    },
+                    name: 'FAQ',
+                    icon: Icons.question_answer_outlined,
+                  ),
+                  Divider(),
+                  Menulist(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/policies",
+                      );
+                    },
+                    name: 'Policies',
+                    icon: Icons.policy_outlined,
+                  ),
+                  Divider(),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(
+                  //             "Customer Support",
+                  //             style: TextStyle(
+                  //                 letterSpacing: 1,
+                  //                 fontSize: 14,
+                  //                 color: grad2Color,
+                  //                 fontFamily: font,
+                  //                 fontWeight: FontWeight.bold),
+                  //           ),
+                  //           SizedBox(
+                  //             height: 5,
+                  //           ),
+                  //           Text(
+                  //             "info@boxonic.com",
+                  //             style: TextStyle(
+                  //                 letterSpacing: 1,
+                  //                 fontSize: 10,
+                  //                 color: Colors.grey,
+                  //                 fontFamily: font,
+                  //                 fontWeight: FontWeight.bold),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       Image.asset("assets/customer-service (1) 1.png")
+                  //     ],
+                  //   ),
+                  // ),
                   Divider(),
                   // Padding(
                   //   padding: const EdgeInsets.all(16.0),

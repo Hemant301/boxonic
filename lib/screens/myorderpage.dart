@@ -12,22 +12,9 @@ class MyOrderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: lightWhite2,
-          // leadingWidth: 0,
-          // leading: Container(),
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),
-
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.all(10.0),
-          //     child: CircleAvatar(
-          //       backgroundImage: NetworkImage(
-          //         "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
-          //       ),
-          //     ),
-          //   ),
-          // ],
           title: Text(
             'My Orders',
             style: TextStyle(color: Colors.black),

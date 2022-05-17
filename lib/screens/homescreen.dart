@@ -214,7 +214,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Start Your Bundle",
+                                    "Create Your Bundle",
                                     style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 13,
@@ -235,7 +235,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    "Start Your Bundle",
+                    "Bundle and Subscription Benefits",
                     style: TextStyle(
                         letterSpacing: 1,
                         fontSize: 13,
@@ -253,7 +253,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                           Column(
                             children: [
                               startBox(
-                                image: 'assets/c1.png',
+                                image: 'assets/c3.png',
                                 title: 'Bundle Discount',
                                 desc:
                                     'Get additional bundle discount by adding minimum one product from each category',
@@ -262,7 +262,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 height: 10,
                               ),
                               startBox(
-                                  image: 'assets/c3.png',
+                                  image: 'assets/c1.png',
                                   title: 'Subscribe and Save',
                                   desc:
                                       "Subscription comes with additional benefits throughout your subscription journey"),

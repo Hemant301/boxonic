@@ -527,10 +527,12 @@ class _ProductsCardState extends State<ProductsCard> {
                             EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.red),
+                            color: Color(0xff53900F)),
                         child: Text(
-                          '₹ ${widget.data!.attr[widget.colorIndex].discount!} off',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          '${widget.data!.attr[widget.colorIndex].discount!}% off',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 12),
                         ),
                       ),
                     ],

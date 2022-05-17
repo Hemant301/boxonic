@@ -102,6 +102,20 @@ class Profile extends StatelessWidget {
                             // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Icon(Icons.edit),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(

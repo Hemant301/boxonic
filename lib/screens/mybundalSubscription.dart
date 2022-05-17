@@ -47,7 +47,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                   padding: const EdgeInsets.all(12.0),
                   child: InkWell(
                     onTap: () {
-                      if (snapshot.data!.status == "Cancelled") {
+                      if (snapshot.data!.cancel == 1) {
                         Fluttertoast.showToast(
                             msg: 'Subscription is already cancelled');
                         return;
@@ -292,8 +292,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               children: [
                                                 InkWell(
                                                   onTap: () async {
-                                                    if (snapshot.data!.status ==
-                                                        "Cancelled") {
+                                                    if (snapshot.data!.cancel ==
+                                                        1) {
                                                       Fluttertoast.showToast(
                                                           msg:
                                                               'Subscription is already cancelled');
@@ -352,8 +352,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                 ),
                                                 InkWell(
                                                   onTap: () async {
-                                                    if (snapshot.data!.status ==
-                                                        "Cancelled") {
+                                                    if (snapshot.data!.cancel ==
+                                                        1) {
                                                       Fluttertoast.showToast(
                                                           msg:
                                                               'Subscription is already cancelled');
@@ -446,8 +446,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                       child: InkWell(
                                                         onTap: () async {
                                                           if (snapshot.data!
-                                                                  .status ==
-                                                              "Cancelled") {
+                                                                  .cancel ==
+                                                              1) {
                                                             Fluttertoast.showToast(
                                                                 msg:
                                                                     'Subscription is already cancelled');
@@ -534,8 +534,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
-                                              if (snapshot.data!.status ==
-                                                  "Cancelled") {
+                                              if (snapshot.data!.cancel == 1) {
                                                 Fluttertoast.showToast(
                                                     msg:
                                                         'Subscription is already cancelled');
@@ -958,7 +957,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                   ),
                                 ),
                               ),
-                        snapshot.data!.status == "Cancelled"
+                        snapshot.data!.cancel == 1
                             ? InkWell(
                                 child: Center(
                                   child: Container(

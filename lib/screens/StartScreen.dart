@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:boxoniq/screens/Wallet.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
@@ -52,7 +54,9 @@ class _NavState extends State<Nav> {
                   onPressed: () => Navigator.pop(context, false),
                 ),
                 FlatButton(
-                    onPressed: () => Navigator.pop(context, true),
+                    onPressed: () {
+                      exit(1);
+                    },
                     child: Text("Quit", style: TextStyle(color: Colors.blue))),
               ],
             );
@@ -96,7 +100,7 @@ class _NavState extends State<Nav> {
               icon: Icon(
                 Icons.shopping_cart,
               ),
-              label: 'My Order',
+              label: 'My Cart',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.subscriptions),

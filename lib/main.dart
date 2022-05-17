@@ -6,15 +6,21 @@ import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/Wallet.dart';
 import 'package:boxoniq/screens/address.dart';
+import 'package:boxoniq/screens/addressbook.dart';
 import 'package:boxoniq/screens/addtobundle.dart';
 import 'package:boxoniq/screens/billing.dart';
+import 'package:boxoniq/screens/blog.dart';
+import 'package:boxoniq/screens/blogdetail.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
+import 'package:boxoniq/screens/contact.dart';
+import 'package:boxoniq/screens/editprofile.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderdetail.dart';
 import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
+import 'package:boxoniq/screens/pdf.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/profile.dart';
 import 'package:boxoniq/screens/subscription.dart';
@@ -25,6 +31,8 @@ import 'package:boxoniq/splash/splashsceen.dart';
 import 'package:boxoniq/util/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'screens/policies.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,6 +83,13 @@ class MyApp extends StatelessWidget {
           "/mobilelogin": (context) => Mobilelogin(),
           "/loginotp": (context) => Loginotp(),
           "/profile": (context) => Profile(),
+          "/addressbook": (context) => Addressbook(),
+          "/policies": (context) => Policies(),
+          "/pdf": (context) => PdfView(),
+          "/contact": (context) => Contact(),
+          "/blog": (context) => Blog(),
+          "/blogdetail": (context) => Blogdetail(),
+          "/editprofile": (context) => Editprofile(),
         });
   }
 }

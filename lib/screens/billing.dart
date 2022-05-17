@@ -1,7 +1,9 @@
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BillingPage extends StatefulWidget {
   const BillingPage({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class BillingPage extends StatefulWidget {
 
 class _BillingPageState extends State<BillingPage> {
   int activeIndex = 0;
+  int? couponIndex;
   @override
   Widget build(BuildContext context) {
     homebloc.fetchcalAmount();
@@ -75,30 +78,52 @@ class _BillingPageState extends State<BillingPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Popular Searches",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Apply to get discount",
-                      style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 16,
-                        color: Colors.grey[600],
-                        fontFamily: font,
-                        // fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
+                  children: List.generate(
+                      3,
+                      (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  couponIndex = index;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 8,
+                                    // backgroundImage: AssetImage("assets/1 9.png"),
+                                    backgroundColor: couponIndex == index
+                                        ? Colors.blue
+                                        : Colors.grey[300],
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      // child: Image.asset(
+                                      //   "assets/1 9.png",
+                                      //   fit: BoxFit.contain,
+                                      // ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Coupon code',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                          'Coupon code to get deiscount of 50%'),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
                 ),
               ),
               SizedBox(
@@ -464,7 +489,14 @@ class _BillingPageState extends State<BillingPage> {
                     // print('++++++++++${snapshot.data!.data[0]}');
                     if (!snapshot.hasData) return Container();
                     return InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        if (activeIndex == 1) {
+                          Map data = await homeApi.checkAlreadysubs();
+                          if (data['response'] == 0) {
+                            Fluttertoast.showToast(msg: data['msg']);
+                            return;
+                          }
+                        }
                         // print(activeIndex);
                         // return;
                         // if (activeIndex == 0) {
