@@ -22,6 +22,7 @@ import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
 import 'package:boxoniq/screens/pdf.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
+import 'package:boxoniq/screens/productditels.dart';
 import 'package:boxoniq/screens/profile.dart';
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/screens/subsdetail.dart';
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
           "/blog": (context) => Blog(),
           "/blogdetail": (context) => Blogdetail(),
           "/editprofile": (context) => Editprofile(),
+          "/productditels": (context) => ProductDitels()
         });
   }
 }

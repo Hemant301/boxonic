@@ -198,10 +198,16 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                     Column(
                         children: List.generate(
                             snapshot.data!.product.length,
-                            (index) => ProductsCard(
-                                appid: activeIndex.toString(),
-                                data: snapshot.data!.product[index],
-                                i: index)))
+                            (index) => InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/productditels");
+                                  },
+                                  child: ProductsCard(
+                                      appid: activeIndex.toString(),
+                                      data: snapshot.data!.product[index],
+                                      i: index),
+                                )))
                   ],
                 ),
               ),
