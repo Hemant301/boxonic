@@ -44,8 +44,22 @@ dependencies:
   email_validator: ^2.0.1
   video_player: ^2.3.0
   shared_preferences: ^2.0.13
-  location: ^4.3.0
+  rxdart: ^0.27.3
+  delivery_tracker: ^1.0.0-Alpha
+  cached_network_image: ^3.2.0
+  shimmer: ^2.0.0
   lottie: ^1.2.2
+  paytm_allinonesdk: ^1.1.5
+  razorpay_flutter: ^1.2.7
+  flutter_share: ^2.0.0
+  screenshot: ^1.2.3
+  share:
+  cashfree_pg: 2.0.8+28
+  date_time_picker:
+  syncfusion_flutter_pdfviewer: ^20.1.55-beta
+  
+
+
 
 dev_dependencies:
   flutter_test:

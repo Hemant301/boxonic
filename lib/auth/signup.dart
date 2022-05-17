@@ -1,14 +1,17 @@
 import 'package:boxoniq/api/authApi.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-TextEditingController _shopownernameController = TextEditingController();
-TextEditingController _shopownerphoneController = TextEditingController();
-TextEditingController _shopowneremailController = TextEditingController();
+TextEditingController _nameController = TextEditingController();
+TextEditingController _phoneController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
 TextEditingController _pwdController = TextEditingController();
+TextEditingController _dobController = TextEditingController();
+TextEditingController _babynameController = TextEditingController();
 
 class Creatuser extends StatefulWidget {
   const Creatuser({Key? key}) : super(key: key);
@@ -103,7 +106,7 @@ class _CreatuserState extends State<Creatuser> {
                     //   height: 40,
                     // ),
                     Text(
-                      "Register Your Shop",
+                      "Register",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         letterSpacing: 1,
@@ -130,8 +133,8 @@ class _CreatuserState extends State<Creatuser> {
                       height: 10,
                     ),
                     FormTTextFild(
-                      controller: _shopownernameController,
-                      hinttext: "Enter Shop Owner name",
+                      controller: _nameController,
+                      hinttext: "Enter name",
                       keyboardType: TextInputType.name,
                       // icon: (Icons.email),
                     ),
@@ -193,10 +196,77 @@ class _CreatuserState extends State<Creatuser> {
                     ),
                     FormTTextFild(
                       num: 10,
-                      controller: _shopownerphoneController,
-                      hinttext: "Enter Shop Mobile Number",
+                      controller: _phoneController,
+                      hinttext: "Enter Mobile Number",
                       keyboardType: TextInputType.number,
                       // icon: (Icons.email),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Baby Name",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FormTTextFild(
+                      num: 10,
+                      controller: _babynameController,
+                      hinttext: "Enter Baby Name",
+                      // keyboardType: TextInputType.number,
+                      // icon: (Icons.email),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Baby Date of birth",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateTimePicker(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Date of birth',
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
+                        controller: _dobController,
+                        type: DateTimePickerType.date,
+                        // initialValue: '16/12/2001',
+                        firstDate: DateTime(1947),
+                        lastDate: DateTime(2200),
+                        dateLabelText: 'Date of birth',
+                        dateHintText: 'Date of birth',
+
+                        style: TextStyle(fontSize: 16),
+                        onChanged: (val) => print(val),
+                        validator: (val) {
+                          print(val);
+                        },
+                        onSaved: (val) => print(val),
+                      ),
                     ),
                     SizedBox(
                       height: 30,
@@ -220,11 +290,11 @@ class _CreatuserState extends State<Creatuser> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: TextFormField(
-                          validator: (value) => EmailValidator.validate(
-                                  _shopowneremailController.text)
-                              ? null
-                              : "Please enter a valid email",
-                          controller: _shopowneremailController,
+                          validator: (value) =>
+                              EmailValidator.validate(_emailController.text)
+                                  ? null
+                                  : "Please enter a valid email",
+                          controller: _emailController,
                           maxLines: null,
                           decoration: InputDecoration(
                               hintText: 'Email',
@@ -240,7 +310,7 @@ class _CreatuserState extends State<Creatuser> {
                     ),
                     // FormTTextFild(
 
-                    //   controller: _shopowneremailController,
+                    //   controller: _emailController,
                     //   hinttext: "Enter Shop Email",
                     //   // icon: (Icons.email),
                     // ),
@@ -278,8 +348,8 @@ class _CreatuserState extends State<Creatuser> {
                     Center(
                       child: InkWell(
                         onTap: () async {
-                          if (_shopownernameController.text == "" ||
-                              _shopownernameController.text == "") {
+                          if (_nameController.text == "" ||
+                              _nameController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid Name!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -289,8 +359,8 @@ class _CreatuserState extends State<Creatuser> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                             return;
-                          } else if (_shopowneremailController.text == " " ||
-                              _shopowneremailController.text == "") {
+                          } else if (_emailController.text == " " ||
+                              _emailController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid Email!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -300,8 +370,7 @@ class _CreatuserState extends State<Creatuser> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                             return;
-                          } else if ((_shopownerphoneController.text).length <=
-                              9) {
+                          } else if ((_phoneController.text).length <= 9) {
                             Fluttertoast.showToast(
                                 msg: "Invalid Phone No!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -330,23 +399,22 @@ class _CreatuserState extends State<Creatuser> {
                           AuthApi _authapi = AuthApi();
                           try {
                             Map data = await _authapi.doSugnup(
-                                shopowneremail:
-                                    "${_shopowneremailController.text}",
+                                shopowneremail: "${_emailController.text}",
                                 pwd: "${_pwdController.text}",
-                                shopownerphone:
-                                    "${_shopownerphoneController.text}",
-                                shopownername:
-                                    "${_shopownernameController.text}");
+                                shopownerphone: "${_phoneController.text}",
+                                babydob: "${_dobController.text}",
+                                babyname: "${_babynameController.text}",
+                                shopownername: "${_nameController.text}");
                             print(data);
 
-                            if (data['status'] == 200) {
+                            if (data['response'] == '1') {
                               setState(() {
                                 isLoading = false;
                               });
                               Future.delayed(Duration(seconds: 0), () {
                                 Navigator.of(context).pushNamed(
                                     '/otpverification',
-                                    arguments: {'ACCId': data['vendor_id']});
+                                    arguments: {'ACCId': data['accountId']});
                                 print(data);
                               });
                               Fluttertoast.showToast(

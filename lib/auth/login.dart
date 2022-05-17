@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
-TextEditingController _shopownerphoneController = TextEditingController();
+TextEditingController _emailController = TextEditingController();
 
 TextEditingController _pwdController = TextEditingController();
 
@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                       height: 30,
                     ),
                     Text(
-                      "Mobile No",
+                      "Email",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         letterSpacing: 1,
@@ -122,10 +122,10 @@ class _LoginState extends State<Login> {
                       height: 10,
                     ),
                     FormTTextFild(
-                      num: 10,
-                      controller: _shopownerphoneController,
-                      hinttext: "Enter Your Mobile No",
-                      keyboardType: TextInputType.number,
+                      // num: 10,
+                      controller: _emailController,
+                      hinttext: "Enter Your Email",
+                      // keyboardType: TextInputType.number,
                       // icon: (Icons.email),
                     ),
                     SizedBox(
@@ -144,28 +144,44 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 10,
                     ),
-                    FormTTextFild(
-                      controller: _pwdController,
-                      hinttext: "Enter Your Password",
-                      // icon: (Icons.email),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: TextField(
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        controller: _pwdController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          filled: true,
+
+                          fillColor: Color.fromARGB(255, 255, 255, 255),
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                          hintText: "Enter Your Password",
+                          // icon: Icon(
+                          //   icon,
+                          //   color: Colors.black,
+                          // ),
+                        ),
+                      ),
                     ),
+                    // FormTTextFild(
+                    //   obscureText: true,
+                    //   enableSuggestions: false,
+                    //   autocorrect: false,
+                    //   controller: _pwdController,
+                    //   hinttext: "Enter Your Password",
+                    //   // icon: (Icons.email),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
-                    // Text(
-                    //   "Forget Password?",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     letterSpacing: 1,
-                    //     color: Colors.red,
-                    //     fontSize: 15,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 50,
                     ),
-
                     isLoging == true
                         ? Center(child: CircularProgressIndicator())
                         : Container(),
@@ -175,9 +191,21 @@ class _LoginState extends State<Login> {
                     Center(
                       child: InkWell(
                         onTap: () async {
-                          if ((_shopownerphoneController.text).length <= 9) {
+                          // if ((_emailController.text).length <= 9) {
+                          //   Fluttertoast.showToast(
+                          //       msg: "Invalid Login!",
+                          //       toastLength: Toast.LENGTH_SHORT,
+                          //       gravity: ToastGravity.BOTTOM,
+                          //       timeInSecForIosWeb: 1,
+                          //       backgroundColor: Colors.red,
+                          //       textColor: Colors.white,
+                          //       fontSize: 16.0);
+                          //   return;
+                          // } else
+                          if (_pwdController.text == " " ||
+                              _pwdController.text == "") {
                             Fluttertoast.showToast(
-                                msg: "Invalid Login!",
+                                msg: "Invalid pwd!",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 1,
@@ -185,8 +213,8 @@ class _LoginState extends State<Login> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                             return;
-                          } else if (_pwdController.text == " " ||
-                              _pwdController.text == "") {
+                          } else if (_emailController.text == " " ||
+                              _emailController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid pwd!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -205,12 +233,12 @@ class _LoginState extends State<Login> {
                           try {
                             Map data = await _authapi.doLogin(
                               pwd: "${_pwdController.text}",
-                              shopownerphone:
-                                  "${_shopownerphoneController.text}",
+                              shopownerphone: "${_emailController.text}",
                             );
-                            // print(data["Profile Progress"].runtimeType);
+                            print(data["response"].runtimeType);
 
-                            if (data['status'] == 200) {
+                            if (data['response'] == '1') {
+                              userCred.addUserId('${data['accountId']}');
                               Future.delayed(Duration(seconds: 0), () {
                                 Navigator.pushReplacementNamed(
                                     context, "/StartScreen");
@@ -264,6 +292,22 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/mobilelogin');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: Text(
+                          'Sign in with OTP',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ),
+                    SizedBox(
                       height: 20,
                     ),
                     Center(
@@ -272,7 +316,7 @@ class _LoginState extends State<Login> {
                           Navigator.pushNamed(context, "/signup");
                         },
                         child: Text(
-                          "Sign up ?",
+                          "Sign up",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             letterSpacing: 1,

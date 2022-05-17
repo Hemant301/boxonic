@@ -1,4 +1,3 @@
-
 import 'package:boxoniq/api/authApi.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
@@ -26,7 +25,7 @@ class _VeryfiedOtpState extends State<VeryfiedOtp> {
 
   Widget build(BuildContext context) {
     Map data = ModalRoute.of(context)!.settings.arguments as Map;
-    print("${data['ACCId']}}-------------123");
+    // print("${data['ACCId']}}-------------123");
     acid = data['ACCId'];
     return Scaffold(
         backgroundColor: Colors.white,
@@ -148,15 +147,14 @@ class _VeryfiedOtpState extends State<VeryfiedOtp> {
                       );
                       print(data);
 
-                      if (data['status'] == 200) {
+                      if (data['response'] == '1') {
                         setState(() {
                           isLoading = false;
                         });
                         userCred.addUserId(acid);
                         Future.delayed(Duration(seconds: 0), () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/login',
-                              ModalRoute.withName('/otpverification'));
+                              '/StartScreen', ModalRoute.withName('/login'));
                         });
                         Fluttertoast.showToast(
                             msg: data['message'],
@@ -188,7 +186,7 @@ class _VeryfiedOtpState extends State<VeryfiedOtp> {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width - 20,
-                    decoration: BoxDecoration(color:lightWhite3),
+                    decoration: BoxDecoration(color: lightWhite3),
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
