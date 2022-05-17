@@ -504,3 +504,41 @@ class AddressdetailModal {
     pincode = js['pincode'] ?? "";
   }
 }
+
+class CouponModal {
+  List<CouponListModal> coupons = [];
+  CouponModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      coupons.add(CouponListModal(js[i]));
+    }
+  }
+}
+
+class CouponListModal {
+  String? response;
+  String? coupon;
+  String? msg;
+  CouponListModal(js) {
+    response = js['response'] ?? "";
+    coupon = js['coupon'] ?? "";
+    msg = js['msg'] ?? "";
+  }
+}
+
+class WhyBoxoniqModal {
+  List<BoxoniqdetailModal> data = [];
+  WhyBoxoniqModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(BoxoniqdetailModal(js[i]));
+    }
+  }
+}
+
+class BoxoniqdetailModal {
+  String? image;
+  String? desc;
+  BoxoniqdetailModal(js) {
+    image = js['image'] ?? "";
+    desc = js['desc'] ?? "Description";
+  }
+}

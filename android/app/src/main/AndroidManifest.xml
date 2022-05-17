@@ -3,7 +3,7 @@ xmlns:tools="http://schemas.android.com/tools"
     package="com.example.boxoniq">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="boxoniq"
+        android:label="Boxoniq"
         android:name="${applicationName}"
         tools:node="merge"
         android:icon="@mipmap/ic_launcher">

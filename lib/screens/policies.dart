@@ -28,7 +28,7 @@ class Policies extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/pdf', arguments: {
                 'url':
-                    'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                    'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/privacy.pdf',
                 'title': 'Privacy Policy'
               });
             },
@@ -38,7 +38,7 @@ class Policies extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/pdf', arguments: {
                 'url':
-                    'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                    'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/refund-cancel.pdf',
                 'title': 'Refund & cancellation'
               });
             },
@@ -48,7 +48,7 @@ class Policies extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/pdf', arguments: {
                 'url':
-                    'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                    'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/shipping.pdf',
                 'title': 'Shipping Policy'
               });
             },
@@ -58,7 +58,7 @@ class Policies extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/pdf', arguments: {
                 'url':
-                    'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                    'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/terms.pdf',
                 'title': 'Terms & Conditions'
               });
             },

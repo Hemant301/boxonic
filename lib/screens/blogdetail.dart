@@ -26,7 +26,7 @@ class Blogdetail extends StatelessWidget {
           // ),
           Container(
             height: 500,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width, 
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,

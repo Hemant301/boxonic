@@ -223,6 +223,62 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchWhyBoxonic() async {
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
+          body: {'account-id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  // Future<dynamic> fetchTotalAmount() async {
+  //   try {
+  //     final response = await client.post(
+  //         Uri.parse(
+  //             "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
+  //         body: {'account-id': userCred.getUserId()});
+  //     if (response.statusCode == 200) {
+  //       // print(response.body);
+  //       return jsonDecode(response.body) as Map;
+  //     } else {
+  //       // print('Request failed with status: ${response.statusCode}.');
+  //     }
+  //   } catch (e) {
+  //     // print(e);
+  //   } finally {}
+  // }
+  Future<dynamic> fetchTotalAmount() async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse(
+              "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
+          body: {'account-id': userCred.getUserId()});
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as List;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> fetchSerach(s) async {
     try {
       final response = await client.post(
@@ -346,6 +402,43 @@ class HomeApi {
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
         // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> applyCoupons({String total = "", String coupon = ""}) async {
+    try {
+      final response =
+          await client.post(Uri.parse("${base}apply-coupon-bo.php"),
+              // headers: {"Content-Type": "application/json"},
+              body: {
+            "account_id": userCred.getUserId(),
+            // "total": total,
+            'coupon': coupon
+          });
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchGetCoupons() async {
+    try {
+      final response = await client.get(
+        Uri.parse("${base}get-coupon-bo.php"),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');

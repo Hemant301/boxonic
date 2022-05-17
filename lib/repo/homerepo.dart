@@ -65,10 +65,23 @@ class HomeRepo {
     return WallettransModal(jsonResponse);
   }
 
+  // Future<CouponModal> fetchCoupons(
+  //     {String total = "", String coupon = ""}) async {
+  //   final response = await homeApi.fetchCoupons(total: total, coupon: coupon);
+  //   var jsonResponse = jsonDecode(response.body) as Map;
+  //   return CouponModal(jsonResponse);
+  // }
+
   Future<BundleitemModal> fetchbundleItems(String id) async {
     final response = await homeApi.fetchbundleItems(id);
     var jsonResponse = jsonDecode(response.body) as List;
     return BundleitemModal(jsonResponse);
+  }
+
+  Future<CouponModal> fetchGetCoupons() async {
+    final response = await homeApi.fetchGetCoupons();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return CouponModal(jsonResponse);
   }
 
   Future<Myorderdetailmodal> fetchOrderdetails(String id) async {
@@ -105,6 +118,11 @@ class HomeRepo {
     final response = await homeApi.fetchcalAmount();
     var jsonResponse = jsonDecode(response.body) as List;
     return CalAmountModal(jsonResponse);
+  }
+  Future<WhyBoxoniqModal> fetchWhyBoxonic() async {
+    final response = await homeApi.fetchWhyBoxonic();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return WhyBoxoniqModal(jsonResponse);
   }
 
   Future<SearchModal> fetchSerach(s) async {

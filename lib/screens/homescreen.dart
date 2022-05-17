@@ -415,34 +415,25 @@ class _HomeScrrenState extends State<HomeScrren> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      WhyChoose(
-                        image: 'assets/image 1.png',
-                        name: 'Making life easier for today’s parents',
-                      ),
-                      WhyChoose(
-                        image: 'assets/123.png',
-                        name:
-                            'Subscription comes with remarkable discounts and offers to add some cherry on the top of it',
-                      ),
-                      WhyChoose(
-                        image: 'assets/image 1.png',
-                        name:
-                            'Conveniently delivered to your doorstep every month.',
-                      ),
-                      WhyChoose(
-                        image: 'assets/123.png',
-                        name:
-                            'Get a space in our platform to publish your story of your subscription journey',
-                      ),
-                    ],
-                  ),
-                ),
+                StreamBuilder<WhyBoxoniqModal>(
+                    stream: homebloc.getWhyBoxonic.stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Container();
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            snapshot.data!.data.length,
+                            (index) => WhyChoose(
+                              image: 'assets/image 1.png',
+                              name: "Making life easier for today's parents",
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 40),

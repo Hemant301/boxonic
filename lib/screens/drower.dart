@@ -273,7 +273,7 @@ class DrawersPage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, '/pdf', arguments: {
                         'url':
-                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                            'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/about.pdf',
                         'title': 'About Us'
                       });
                     },
@@ -285,7 +285,7 @@ class DrawersPage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, '/pdf', arguments: {
                         'url':
-                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                            'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/faq.pdf',
                         'title': 'FAQ'
                       });
                     },

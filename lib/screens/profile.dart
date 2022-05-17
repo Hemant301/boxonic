@@ -105,8 +105,9 @@ class Profile extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                    onTap: (){
-                                      
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/editprofile');
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -154,11 +155,6 @@ class Profile extends StatelessWidget {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text(
-                                        'Address',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
                                     ],
                                   ),
                                   Spacer(
@@ -184,13 +180,13 @@ class Profile extends StatelessWidget {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 -
-                                              20,
-                                          child: Text(snapshot.data!.address!)),
+                                      // Container(
+                                      //     width: MediaQuery.of(context)
+                                      //                 .size
+                                      //                 .width /
+                                      //             2 -
+                                      //         20,
+                                      //     child: Text(snapshot.data!.address!)),
                                     ],
                                   ),
                                 ],

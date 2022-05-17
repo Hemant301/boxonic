@@ -93,6 +93,38 @@ class AuthApi {
     }
   }
 
+  Future<dynamic> editProfile(
+      {String email = "",
+      String phone = "",
+      String babyname = "",
+      String babydob = "",
+      String name = ""}) async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.post(Uri.parse("${base}update-profile-bo.php"), body: {
+        'account_id': userCred.getUserId(),
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "baby_name": babyname,
+        "baby_dob": babydob,
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> doSugnupvERIFY({String otp = "", String accid = ""}) async {
     var client = http.Client();
     try {

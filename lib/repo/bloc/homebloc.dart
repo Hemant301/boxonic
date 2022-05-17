@@ -145,6 +145,37 @@ class HomeBloc {
     }
   }
 
+  // final BehaviorSubject<CouponModal> liveCoupons =
+  //     BehaviorSubject<CouponModal>();
+  // BehaviorSubject<CouponModal> get getCoupons => liveCoupons;
+  // fetchCoupons({String total = "", String coupon = ""}) async {
+  //   // _liveCoupons.addError("Loading");
+  //   try {
+  //     CouponModal homeSlider =
+  //         await _homeRepo.fetchCoupons(total: total, coupon: coupon);
+  //     // print(homeSlider.imgs!.length);
+
+  //     liveCoupons.add(homeSlider);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  final BehaviorSubject<CouponModal> liveGetCoupons =
+      BehaviorSubject<CouponModal>();
+  BehaviorSubject<CouponModal> get getCouponscode => liveGetCoupons;
+  fetchGetCoupons() async {
+    // _liveGetCoupons.addError("Loading");
+    try {
+      CouponModal homeSlider = await _homeRepo.fetchGetCoupons();
+      // print(homeSlider.imgs!.length);
+
+      liveGetCoupons.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<BundleitemModal> _liveBundleItems =
       BehaviorSubject<BundleitemModal>();
   BehaviorSubject<BundleitemModal> get getBundleitems => _liveBundleItems;
@@ -221,16 +252,16 @@ class HomeBloc {
     }
   }
 
-  final BehaviorSubject<UserdetailModal> _liveuserdetails =
+  final BehaviorSubject<UserdetailModal> liveuserdetails =
       BehaviorSubject<UserdetailModal>();
-  BehaviorSubject<UserdetailModal> get getuserdetails => _liveuserdetails;
+  BehaviorSubject<UserdetailModal> get getuserdetails => liveuserdetails;
   fetchuserDetails() async {
-    // _liveuserdetails.addError("Loading");
+    // liveuserdetails.addError("Loading");
     try {
       UserdetailModal homeSlider = await _homeRepo.fetchuserDetails();
       // print(homeSlider.imgs!.length);
 
-      _liveuserdetails.add(homeSlider);
+      liveuserdetails.add(homeSlider);
     } catch (e) {
       print(e);
     }
@@ -261,6 +292,21 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       _liveCalAmount.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<WhyBoxoniqModal> _liveWhyboxonic =
+      BehaviorSubject<WhyBoxoniqModal>();
+  BehaviorSubject<WhyBoxoniqModal> get getWhyBoxonic => _liveWhyboxonic;
+  fetchWhyBoxonic() async {
+    // _liveWhyboxonic.addError("Loading");
+    try {
+      WhyBoxoniqModal homeSlider = await _homeRepo.fetchWhyBoxonic();
+      // print(homeSlider.imgs!.length);
+
+      _liveWhyboxonic.add(homeSlider);
     } catch (e) {
       print(e);
     }

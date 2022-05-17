@@ -15,9 +15,29 @@ class BillingPage extends StatefulWidget {
 class _BillingPageState extends State<BillingPage> {
   int activeIndex = 0;
   int? couponIndex;
+  int couponDiscount = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkTotal();
+  }
+
+  checkTotal() async {
+    List data = await homeApi.fetchTotalAmount() as List;
+    // print('from init*******************+*+*+*+*+*+');
+    print(data[0]['response']['total']);
+    setState(() {
+      totalamount = data[0]['response']['total'];
+    });
+  }
+
+  int totalamount = 0;
+
   @override
   Widget build(BuildContext context) {
     homebloc.fetchcalAmount();
+    homebloc.fetchGetCoupons();
 
     return Scaffold(
       backgroundColor: grad1Color,
@@ -76,54 +96,77 @@ class _BillingPageState extends State<BillingPage> {
                   ],
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                      3,
-                      (index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  couponIndex = index;
-                                });
-                              },
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 8,
-                                    // backgroundImage: AssetImage("assets/1 9.png"),
-                                    backgroundColor: couponIndex == index
-                                        ? Colors.blue
-                                        : Colors.grey[300],
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      // child: Image.asset(
-                                      //   "assets/1 9.png",
-                                      //   fit: BoxFit.contain,
-                                      // ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Coupon code',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                  children: [
+                    Align(alignment: Alignment.topLeft, child: Text('Coupons')),
+                    StreamBuilder<CouponModal>(
+                        stream: homebloc.getCouponscode.stream,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) return Container();
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                                snapshot.data!.coupons.length,
+                                (index) => Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          HomeApi api = HomeApi();
+                                          Map data = await api.applyCoupons(
+                                              coupon: snapshot.data!
+                                                  .coupons[index].coupon!);
+                                          print(data);
+                                          Fluttertoast.showToast(
+                                              msg: data['msg']);
+
+                                          setState(() {
+                                            couponIndex = index;
+                                            couponDiscount = data['discount'];
+                                          });
+                                        },
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 8,
+                                              // backgroundImage: AssetImage("assets/1 9.png"),
+                                              backgroundColor:
+                                                  couponIndex == index
+                                                      ? Colors.blue
+                                                      : Colors.grey[300],
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                // child: Image.asset(
+                                                //   "assets/1 9.png",
+                                                //   fit: BoxFit.contain,
+                                                // ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  snapshot.data!.coupons[index]
+                                                      .coupon!,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(snapshot
+                                                    .data!.coupons[index].msg!),
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                          'Coupon code to get deiscount of 50%'),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
+                                    )),
+                          );
+                        }),
+                  ],
                 ),
               ),
               SizedBox(
@@ -233,7 +276,7 @@ class _BillingPageState extends State<BillingPage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "-₹ ${snapshot.data!.data[0].response!.coupon_discount}",
+                                  "-₹ ${couponDiscount}",
                                   style: TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
@@ -263,7 +306,7 @@ class _BillingPageState extends State<BillingPage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "₹ ${snapshot.data!.data[0].response!.total}",
+                                  "₹ ${totalamount - couponDiscount}",
                                   style: TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
@@ -506,8 +549,7 @@ class _BillingPageState extends State<BillingPage> {
                         // }
                         Navigator.pushNamed(context, '/address', arguments: {
                           'activeIndex': activeIndex,
-                          'total_amount':
-                              snapshot.data!.data[0].response!.total,
+                          'total_amount': totalamount - couponDiscount,
                           'subs': activeIndex.toString()
                         });
                       },
