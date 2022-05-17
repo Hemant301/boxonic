@@ -44,6 +44,8 @@ dependencies:
   email_validator: ^2.0.1
   video_player: ^2.3.0
   shared_preferences: ^2.0.13
+  location: ^4.3.0
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_test:
