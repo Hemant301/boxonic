@@ -1,11 +1,22 @@
+import 'dart:io';
+
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
+import 'package:boxoniq/util/shearfunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     homebloc.fetchuserDetails();
@@ -34,20 +45,89 @@ class Profile extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.black)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: CircleAvatar(
-                            radius: 45,
-                            backgroundImage: NetworkImage(
-                              "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
+                      InkWell(
+                        onTap: () async {
+                          try {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
+                            if (result != null) {
+                              File file = File(result.files.single.path!);
+                              print(file.path);
+                              showProgressDialog(context);
+                              HomeApi _api = HomeApi();
+                              Map data = await _api.doUploadProfile(
+                                  file, userCred.getUserId());
+                              print(data);
+                              if (data['response'] == 1) {
+                                positiveToast(data['msg']);
+                                setState(() {});
+
+                                 homebloc.fetchuserDetails();
+
+                              } else {
+                                negetiveToast(data['msg']);
+                              }
+                              Navigator.pop(context);
+                            } else {
+                              negetiveToast("Something went wrong");
+                              // User canceled the picker
+                            }
+                          } catch (e) {
+                            negetiveToast(e.toString());
+                          }
+                        },
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(width: 1, color: Colors.blue)),
+                            child: ClipOval(
+                              child: Stack(
+                                children: [
+                                  Image.network(
+                                    snapshot.data!.image!,
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child: Container(
+                                        color: Colors.amber.withOpacity(1),
+                                        height: 30,
+                                        child: const Center(
+                                          child: Text("Edit",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white)),
+                                        ),
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       border: Border.all(color: Colors.black)),
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(10.0),
+                      //     child: CircleAvatar(
+                      //       radius: 45,
+                      //       backgroundImage: NetworkImage(
+                      //         "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20,
                       ),
@@ -124,6 +204,14 @@ class Profile extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
+                                        'Name',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
                                         'Mobile Number ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -164,6 +252,10 @@ class Profile extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(snapshot.data!.name!),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(snapshot.data!.phone!),
                                       SizedBox(
                                         height: 10,

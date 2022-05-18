@@ -33,7 +33,7 @@ class _BillingPageState extends State<BillingPage> {
     });
   }
 
-  int totalamount = 0;
+  dynamic totalamount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _BillingPageState extends State<BillingPage> {
         title: Text(
           "Billing",
           style: TextStyle(
-              letterSpacing: 1,
+              // // letterSpacing: 1,
               fontSize: 18,
               color: grad2Color,
               fontFamily: font,
@@ -61,7 +61,7 @@ class _BillingPageState extends State<BillingPage> {
         //     child: Text(
         //       "₹ 9,785   ",
         //       style: TextStyle(
-        //           letterSpacing: 1,
+        //           // // letterSpacing: 1,
         //           fontSize: 18,
         //           color: grad2Color,
         //           fontFamily: font,
@@ -215,7 +215,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Sub Total",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
                                       fontFamily: font,
@@ -227,7 +227,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   '₹ ${snapshot.data!.data[0].response!.sub_total!}',
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontFamily: font,
@@ -245,7 +245,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Bundle Discount",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
                                       fontFamily: font,
@@ -257,7 +257,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "-₹ ${snapshot.data!.data[0].response!.bundle_disc}",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontFamily: font,
@@ -275,19 +275,34 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Coupon Discount",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
+                                couponDiscount == 0
+                                    ? Container()
+                                    : Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 2, horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.green[800]),
+                                        child: Text(
+                                          'Applied',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "-₹ ${couponDiscount}",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontFamily: font,
@@ -305,19 +320,34 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Delivery Charges",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      //  letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
                                       fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
+                                deliveryCharge == 0
+                                    ? Container()
+                                    : Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 2, horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.green[800]),
+                                        child: Text(
+                                          'Applied',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "₹ ${deliveryCharge}",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontFamily: font,
@@ -335,7 +365,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Total",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
                                       fontFamily: font,
@@ -347,7 +377,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "₹ ${(totalamount + deliveryCharge!) - couponDiscount}",
                                   style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontFamily: font,
@@ -366,7 +396,7 @@ class _BillingPageState extends State<BillingPage> {
               Text(
                 "Checkout or Subscribe",
                 style: TextStyle(
-                    letterSpacing: 1,
+                    // // letterSpacing: 1,
                     fontSize: 16,
                     color: Colors.black,
                     fontFamily: font,
@@ -434,7 +464,7 @@ class _BillingPageState extends State<BillingPage> {
                                 Text(
                                   "Monthly Subscription",
                                   style: TextStyle(
-                                    letterSpacing: 1,
+                                    // // letterSpacing: 1,
                                     fontSize: 12,
                                     color: Colors.black,
                                     fontFamily: font,
@@ -483,7 +513,7 @@ class _BillingPageState extends State<BillingPage> {
                                   child: Text(
                                     "Get 5% Discount on Every Orders + Additional Benefits",
                                     style: TextStyle(
-                                      letterSpacing: 1,
+                                      // // letterSpacing: 1,
                                       fontSize: 12,
                                       color: Colors.white,
                                       fontFamily: font,
@@ -542,7 +572,7 @@ class _BillingPageState extends State<BillingPage> {
                             Text(
                               "One Time Purchase",
                               style: TextStyle(
-                                letterSpacing: 1,
+                                // // letterSpacing: 1,
                                 fontSize: 12,
                                 color: Colors.black,
                                 fontFamily: font,

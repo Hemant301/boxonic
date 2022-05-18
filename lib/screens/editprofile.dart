@@ -225,7 +225,7 @@ class _EditprofileState extends State<Editprofile> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Center(
                       child: Text(
-                        "Sign Up ",
+                        "Save",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,

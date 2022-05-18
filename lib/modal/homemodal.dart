@@ -437,6 +437,7 @@ class SubsModal {
 
 class UserdetailModal {
   String? name;
+  String? image;
   String? email;
   String? phone;
   String? address;
@@ -447,6 +448,8 @@ class UserdetailModal {
   UserdetailModal(js) {
     name = js['name'] ?? "";
     email = js['email'] ?? "";
+    image =
+        js['img'] ?? "https://cdn-icons-png.flaticon.com/128/1177/1177568.png";
     phone = js['phone'] ?? "";
     address = js['address'] ?? "";
     pincode = js['pincode'] ?? "";
@@ -540,5 +543,71 @@ class BoxoniqdetailModal {
   BoxoniqdetailModal(js) {
     image = js['image'] ?? "";
     why_desc = js['why_desc'] ?? "Description";
+  }
+}
+
+class FaqModal {
+  List<FaqanswerModal> faq = [];
+  FaqModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      faq.add(FaqanswerModal(js[i]));
+    }
+  }
+}
+
+class FaqanswerModal {
+  String? question;
+  String? answer;
+  FaqanswerModal(js) {
+    question = js['faq'] ?? "";
+    answer = js['answer'] ?? "";
+  }
+}
+
+class ProductModal {
+  ProductdetailModal? product;
+  ProductModal(js) {
+    product = ProductdetailModal(js['product']);
+  }
+}
+
+class ProductdetailModal {
+  List<ProductImageModal> image = [];
+  String? id;
+  String? title;
+  String? desc;
+  List<ProductAttribueListModal> attr = [];
+  ProductdetailModal(js) {
+    for (var i = 0; i < js['image'].length; i++) {
+      image.add(ProductImageModal(js['image'][i]));
+    }
+    id = js['id'] ?? "";
+    title = js['title'] ?? "";
+    desc = js['desc'] ?? "";
+    for (var i = 0; i < js['attribute'].length; i++) {
+      attr.add(ProductAttribueListModal(js['attribute'][i]));
+    }
+  }
+}
+
+class ProductImageModal {
+  String? image;
+  ProductImageModal(js) {
+    image = js['img'] ?? "";
+  }
+}
+
+class ProductAttribueListModal {
+  String? id;
+  String? name;
+  String? price;
+  String? mrp;
+  dynamic? discount;
+  ProductAttribueListModal(js) {
+    id = js['id'] ?? "";
+    name = js['name'] ?? "";
+    price = js['price'] ?? "";
+    mrp = js['mrp'] ?? "";
+    discount = js['discount'] ?? "";
   }
 }

@@ -15,6 +15,7 @@ import 'package:boxoniq/screens/bundlecreatorPage.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/contact.dart';
 import 'package:boxoniq/screens/editprofile.dart';
+import 'package:boxoniq/screens/faq.dart';
 import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderdetail.dart';
@@ -91,7 +92,8 @@ class MyApp extends StatelessWidget {
           "/blog": (context) => Blog(),
           "/blogdetail": (context) => Blogdetail(),
           "/editprofile": (context) => Editprofile(),
-          "/productditels": (context) => ProductDitels()
+          "/productditels": (context) => ProductDitels(),
+          "/faq": (context) => Faq()
         });
   }
 }

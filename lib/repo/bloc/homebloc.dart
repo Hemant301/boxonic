@@ -100,6 +100,21 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<ProductModal> _liveProduct =
+      BehaviorSubject<ProductModal>();
+  BehaviorSubject<ProductModal> get getProduct => _liveProduct;
+  fetchProduct(String id) async {
+    // _liveProduct.addError("Loading");
+    try {
+      ProductModal homeSlider = await _homeRepo.fetchProduct(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveProduct.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<AddressModal> liveAddress =
       BehaviorSubject<AddressModal>();
   BehaviorSubject<AddressModal> get getaddress => liveAddress;
@@ -307,6 +322,20 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       _liveWhyboxonic.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<FaqModal> _liveFaq = BehaviorSubject<FaqModal>();
+  BehaviorSubject<FaqModal> get getFaq => _liveFaq;
+  fetchFaq() async {
+    // _liveFaq.addError("Loading");
+    try {
+      FaqModal homeSlider = await _homeRepo.fetchFaq();
+      // print(homeSlider.imgs!.length);
+
+      _liveFaq.add(homeSlider);
     } catch (e) {
       print(e);
     }

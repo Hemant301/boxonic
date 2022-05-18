@@ -296,11 +296,7 @@ class DrawersPage extends StatelessWidget {
                   Divider(),
                   Menulist(
                     onTap: () {
-                      Navigator.pushNamed(context, '/pdf', arguments: {
-                        'url':
-                            'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/faq.pdf',
-                        'title': 'FAQ'
-                      });
+                      Navigator.pushNamed(context, '/faq');
                     },
                     name: 'FAQ',
                     icon: Icons.question_answer_outlined,

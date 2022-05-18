@@ -57,6 +57,8 @@ dependencies:
   cashfree_pg: 2.0.8+28
   date_time_picker:
   syncfusion_flutter_pdfviewer: ^20.1.55-beta
+  flutter_rating_bar: ^4.0.0
+  file_picker: ^4.5.1
   
 
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/util/blog.dart';
@@ -11,7 +12,7 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}slider-bo.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -26,7 +27,7 @@ class HomeApi {
       final response = await client.post(Uri.parse("${base}get-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -40,7 +41,7 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}brand1-bo.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -55,7 +56,7 @@ class HomeApi {
       final response = await client
           .get(Uri.parse("${newBase}boxoniq-crm/api/droid/get-months.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -69,7 +70,7 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}brand2-bo.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -83,7 +84,7 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}super-cat-bo.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -98,6 +99,22 @@ class HomeApi {
       final response = await client.post(
           Uri.parse("${base}product-super-cat-bo.php"),
           body: {'sequence': id});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchProduct(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}product-detail-bo.php"),
+          body: {'product_id': id});
       if (response.statusCode == 200) {
         print(response.body);
         return response;
@@ -114,7 +131,7 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-cart-bo.php"), body: {'account-id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -130,7 +147,7 @@ class HomeApi {
           Uri.parse("${base}get-order-details-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -147,7 +164,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -164,7 +181,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-order-details-subscription-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -180,7 +197,7 @@ class HomeApi {
           Uri.parse("${base}get-order-subscription-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -192,8 +209,7 @@ class HomeApi {
 
   Future<dynamic> fetchuserDetails() async {
     try {
-      final response = await client.post(
-          Uri.parse("${droidBase}get-user-bo.php"),
+      final response = await client.post(Uri.parse("${base}get-user-bo.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
         print(response.body);
@@ -213,7 +229,7 @@ class HomeApi {
               "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -229,10 +245,26 @@ class HomeApi {
           Uri.parse("${base}get-why-section.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchFaq() async {
+    try {
+      final response = await client.get(
+        Uri.parse("${base}get-faq-bo.php"),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       // print(e);
@@ -246,7 +278,7 @@ class HomeApi {
   //             "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
   //         body: {'account-id': userCred.getUserId()});
   //     if (response.statusCode == 200) {
-  //       // print(response.body);
+  //       // // print(response.body);
   //       return jsonDecode(response.body) as Map;
   //     } else {
   //       // print('Request failed with status: ${response.statusCode}.');
@@ -264,7 +296,7 @@ class HomeApi {
           body: {'account-id': userCred.getUserId()});
 
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as List;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -285,7 +317,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/search-super-cat-bo.php"),
           body: {'query': s});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -305,7 +337,7 @@ class HomeApi {
             'query': s,
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -325,7 +357,7 @@ class HomeApi {
           Uri.parse("${base}fetch-saved-address-vue.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -343,7 +375,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -364,7 +396,7 @@ class HomeApi {
           Uri.parse("${base}/check_subscription.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -384,7 +416,7 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/get-user-wallet.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -400,7 +432,7 @@ class HomeApi {
           Uri.parse("${base}get-wallet-history.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -421,7 +453,7 @@ class HomeApi {
             'coupon': coupon
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -437,7 +469,7 @@ class HomeApi {
         Uri.parse("${base}get-coupon-bo.php"),
       );
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -454,7 +486,7 @@ class HomeApi {
           Uri.parse("${base}product-super-cat-bo.php"),
           body: {'sequence': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -486,7 +518,7 @@ class HomeApi {
             'process_id': process
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -522,7 +554,7 @@ class HomeApi {
             'qty': qty
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -545,7 +577,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cart-remove-item-checkout.php"),
           body: {'cart-id': p_id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -568,7 +600,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/skip-sub-item.php"),
           body: {'process_id': p_id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -591,7 +623,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cancel-item-sub.php"),
           body: {'process_id': p_id});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -613,7 +645,7 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
           body: {'cart_id': p_id, 'process_id': process});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as List;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -643,7 +675,7 @@ class HomeApi {
         'product_id': p_id,
       });
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -677,7 +709,7 @@ class HomeApi {
             'process_id': process
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -708,7 +740,7 @@ class HomeApi {
         'subscription_month': month
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -741,7 +773,7 @@ class HomeApi {
         'cashfree_payment_id': paymentid
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -772,7 +804,7 @@ class HomeApi {
   //           'subscription_month': month
   //         });
   //     if (response.statusCode == 200) {
-  //       print(response.body);
+  //       // print(response.body);
   //       return jsonDecode(response.body) as Map;
   //     } else {
   //       print('Request failed with status: ${response.statusCode}.');
@@ -797,7 +829,7 @@ class HomeApi {
   //           'account-id': userCred.getUserId(),
   //         });
   //     if (response.statusCode == 200) {
-  //       print(response.body);
+  //       // print(response.body);
   //       return jsonDecode(response.body) as Map;
   //     } else {
   //       print('Request failed with status: ${response.statusCode}.');
@@ -818,7 +850,7 @@ class HomeApi {
             'account-id': userCred.getUserId(),
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        // // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -836,7 +868,7 @@ class HomeApi {
   //         body:
   //             jsonEncode({"user_id": user_id, "attr_id": attrId, "qty": qty}));
   //     if (response.statusCode == 200) {
-  //       print(response.body);
+  //       // print(response.body);
   //       return jsonDecode(response.body) as Map;
   //     } else {
   //       print('Request failed with status: ${response.statusCode}.');
@@ -849,6 +881,32 @@ class HomeApi {
   //     client.close();
   //   }
   // }
+
+  Future<dynamic> doUploadProfile(File file, String userid) async {
+    var client = http.Client();
+    try {
+      var request = http.MultipartRequest(
+          "POST", Uri.parse("${base}profile-thumbnail-uploader.php"));
+      //add text fields Uri.parse("http://192.168.29.30:8000/ajaxFile.php")
+      request.fields["user_id"] = userid;
+      //create multipart using filepath, string or bytes
+      var pic = await http.MultipartFile.fromPath("thumbnail", file.path);
+      //add multipart to request
+      request.files.add(pic);
+      var response = await request.send();
+
+      //Get the response from the server
+      var responseData = await response.stream.toBytes();
+      String responseString = String.fromCharCodes(responseData);
+      print(responseString);
+      return jsonDecode(responseString) as Map;
+    } catch (e) {
+      print(e);
+      rethrow;
+    } finally {
+      client.close();
+    }
+  }
 }
 
 final homeApi = HomeApi();
