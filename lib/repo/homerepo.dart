@@ -53,6 +53,12 @@ class HomeRepo {
     return ProductModal(jsonResponse);
   }
 
+  Future<CommmentModal> fetchComments(String id) async {
+    final response = await homeApi.fetchComments(id);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return CommmentModal(jsonResponse);
+  }
+
   Future<AddressModal> fetchaddess() async {
     final response = await homeApi.fetchaddess();
     var jsonResponse = jsonDecode(response.body) as Map;

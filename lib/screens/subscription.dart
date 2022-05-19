@@ -13,7 +13,7 @@ class SubscriptionPage extends StatefulWidget {
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
-  String monthname = '';
+  String monthname = '1';
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -386,6 +386,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                           ),
                                           onChanged: (s) {
                                             monthname = s.toString();
+                                            setState(() {});
                                           },
                                         );
                                       }),
@@ -472,7 +473,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     width:
                                         MediaQuery.of(context).size.width - 150,
                                     child: Text(
-                                      "Add ₹ ${snapshot.data!.data[0].response!.total} to Wallet & Proceed",
+                                      "Add ₹ ${(snapshot.data!.data[0].response!.total) * int.parse(monthname[0])} to Wallet & Proceed",
                                       style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 12,

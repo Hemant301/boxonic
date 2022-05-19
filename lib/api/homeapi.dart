@@ -56,7 +56,7 @@ class HomeApi {
       final response = await client
           .get(Uri.parse("${newBase}boxoniq-crm/api/droid/get-months.php"));
       if (response.statusCode == 200) {
-        // // print(response.body);
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -116,6 +116,22 @@ class HomeApi {
           Uri.parse("${base}product-detail-bo.php"),
           body: {'product_id': id});
       if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchComments(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-rating-list.php"),
+          body: {'product_id': id});
+      if (response.statusCode == 200) {
         print(response.body);
         return response;
       } else {
@@ -124,6 +140,53 @@ class HomeApi {
     } catch (e) {
       // print(e);
     } finally {}
+  }
+
+  Future<dynamic> fetchproductInit(id) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${base}product-detail-bo.php"),
+          body: {'product_id': id});
+      if (response.statusCode == 200) {
+        // // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> saveComments(
+      {String rate = "", String p_id = "", String comment = ""}) async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.post(Uri.parse("${base}save-rating-bo.php"), body: {
+        'account_id': userCred.getUserId(),
+        'rating': rate,
+        'product_id': p_id,
+        'comment': comment
+      });
+      if (response.statusCode == 200) {
+        // // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
   }
 
   Future<dynamic> fetchbundleItems(String id) async {
@@ -396,7 +459,7 @@ class HomeApi {
           Uri.parse("${base}/check_subscription.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');

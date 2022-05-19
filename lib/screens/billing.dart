@@ -612,7 +612,7 @@ class _BillingPageState extends State<BillingPage> {
                       onTap: () async {
                         if (activeIndex == 1) {
                           Map data = await homeApi.checkAlreadysubs();
-                          if (data['response'] == 0) {
+                          if (data['response'] == 1) {
                             Fluttertoast.showToast(msg: data['msg']);
                             return;
                           }

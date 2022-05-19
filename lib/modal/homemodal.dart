@@ -238,8 +238,8 @@ class MonthsdetailModal {
   String? id;
   String? months;
   MonthsdetailModal(js) {
-    id = js['id'] ?? "";
-    months = js['months'] ?? "";
+    // id = js['id'] ?? "";
+    months = js['data'] ?? "";
   }
 }
 
@@ -609,5 +609,32 @@ class ProductAttribueListModal {
     price = js['price'] ?? "";
     mrp = js['mrp'] ?? "";
     discount = js['discount'] ?? "";
+  }
+}
+
+class CommmentModal {
+  List<CommmentData>? data;
+  CommmentModal(js) {
+    data = [];
+    for (var i = 0; i < js.length; i++) {
+      data!.add(CommmentData(js[i]));
+    }
+  }
+}
+
+class CommmentData {
+  String? rating_id;
+  String? comment;
+  double? rating;
+  String? name;
+  String? image;
+  String? trn_date;
+  CommmentData(js) {
+    rating_id = js['rating_id'] ?? '';
+    comment = js['comment'] ?? '';
+    rating = js['rating'].toDouble() ?? 0.0;
+    name = js['name'] ?? '';
+    image = js['image'] ?? '';
+    trn_date = js['trn_date'] ?? '';
   }
 }

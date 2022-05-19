@@ -1,8 +1,11 @@
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductDitels extends StatefulWidget {
   const ProductDitels({Key? key}) : super(key: key);
@@ -18,11 +21,37 @@ class _ProductDitelsState extends State<ProductDitels> {
   int pageIndex = 0;
   int colorIndex = 0;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Checkattr() async {
+    Map data = await homeApi.fetchproductInit(id);
+    print('from inti');
+    print(data['product']['attribute'][0]['id']);
+    attrid4api = data['product']['attribute'][0]['id'];
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    final Map a = ModalRoute.of(context)!.settings.arguments as Map;
+    print(a['id']);
+    id = a['id'];
+    Checkattr();
+  }
+
+  String id = "";
+  String attrid4api = "";
+
+  @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
-    print(rcvdData['attr']);
+    // print(rcvdData['attr']);
     homebloc.fetchProduct('${rcvdData['id']}');
-
+    homebloc.fetchComments(rcvdData['id']);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: lightWhite2,
@@ -32,9 +61,14 @@ class _ProductDitelsState extends State<ProductDitels> {
           iconTheme: IconThemeData(
             color: Colors.black, //change your color here
           ),
-          title: Text(
-            rcvdData['title'],
-            style: TextStyle(color: Colors.black, fontFamily: font),
+          title: InkWell(
+            onTap: () {
+              print(attrid4api);
+            },
+            child: Text(
+              rcvdData['title'],
+              style: TextStyle(color: Colors.black, fontFamily: font),
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -273,6 +307,8 @@ class _ProductDitelsState extends State<ProductDitels> {
                                                 onTap: () {
                                                   setState(() {
                                                     colorIndex = i;
+                                                    attrid4api = snapshot.data!
+                                                        .product!.attr[i].id!;
                                                   });
                                                 },
                                                 child: Chip(
@@ -384,19 +420,23 @@ class _ProductDitelsState extends State<ProductDitels> {
                       //             ),
                       //           ]),
                       //     )),
-                      Column(
-                        children: List.generate(
-                          2,
-                          (index) => ProfileComments(
-                            name: "santosh",
-                            image:
-                                'https://www.w3schools.com/howto/img_avatar.png',
-                            comment: '${'Sahi h bro lelo ' * 15}',
-                            rating: 5.0,
-                            time: '5:55 PM',
-                          ),
-                        ),
-                      ),
+                      StreamBuilder<CommmentModal>(
+                          stream: homebloc.getComments.stream,
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) return Container();
+                            return Column(
+                              children: List.generate(
+                                snapshot.data!.data!.length,
+                                (index) => ProfileComments(
+                                  name: snapshot.data!.data![index].name,
+                                  image: snapshot.data!.data![index].image,
+                                  comment: snapshot.data!.data![index].comment,
+                                  rating: snapshot.data!.data![index].rating,
+                                  time: snapshot.data!.data![index].trn_date,
+                                ),
+                              ),
+                            );
+                          }),
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: Container(
@@ -448,19 +488,43 @@ class _ProductDitelsState extends State<ProductDitels> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Container(
-                                  height: 35,
-                                  width: MediaQuery.of(context).size.width - 90,
-                                  decoration: BoxDecoration(
-                                      color: lightWhite3,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Center(
-                                    child: Text(
-                                      "Save",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                InkWell(
+                                  onTap: () async {
+                                    if (_commentController.text == "") {
+                                      Fluttertoast.showToast(
+                                          msg: 'Enter Comment');
+                                    }
+                                    HomeApi api = HomeApi();
+                                    Map data = await api.saveComments(
+                                        rate: rate.toString(),
+                                        p_id: rcvdData['id'],
+                                        comment: _commentController.text);
+                                    print(data);
+                                    if (data['response'] == '1') {
+                                      Fluttertoast.showToast(msg: data['msg']);
+                                      setState(() {
+                                        _commentController.text = "";
+                                      });
+                                    } else {
+                                      Fluttertoast.showToast(msg: data['msg']);
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width:
+                                        MediaQuery.of(context).size.width - 90,
+                                    decoration: BoxDecoration(
+                                        color: lightWhite3,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Center(
+                                      child: Text(
+                                        "Save",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -482,60 +546,85 @@ class _ProductDitelsState extends State<ProductDitels> {
           color: Colors.grey.shade100,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Container(
-              // padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width / 2,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/previewBundal');
+              },
+              child: Container(
+                // padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width / 2,
 
-              decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                  border: Border.all(
-                      color: Color.fromARGB(255, 206, 206, 206), width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
-                    ),
-                  ]),
-              child: Center(
-                child: Text(
-                  "Go to Bag",
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 16,
-                      color: Colors.red,
-                      fontFamily: font,
-                      fontWeight: FontWeight.bold),
+                decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    border: Border.all(
+                        color: Color.fromARGB(255, 206, 206, 206), width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.4),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(1, 3), // changes position of shadow
+                      ),
+                    ]),
+                child: Center(
+                  child: Text(
+                    "Go to Bag",
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 16,
+                        color: Colors.red,
+                        fontFamily: font,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
-            Container(
-              // padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width / 2,
+            InkWell(
+              onTap: () async {
+                HomeApi _api = HomeApi();
+                Map data = await _api.addToCart(
+                    p_id: rcvdData['id'],
+                    attr_id: attrid4api,
+                    qty: count.toString(),
+                    userid: userCred.getUserId());
+                print(data);
 
-              decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(5),
-                  color: lightWhite2,
-                  // border: Border.all(color: Colors.blue, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
-                    ),
-                  ]),
-              child: Center(
-                child: Text(
-                  "Add to Cart",
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontFamily: font,
-                      fontWeight: FontWeight.bold),
+                if (data['response'] == "1") {
+                  homebloc.checkamount();
+
+                  Fluttertoast.showToast(
+                      msg: 'Successfully added', backgroundColor: Colors.green);
+                } else {
+                  Fluttertoast.showToast(msg: 'Something went wrong');
+                }
+              },
+              child: Container(
+                // padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width / 2,
+
+                decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(5),
+                    color: lightWhite2,
+                    // border: Border.all(color: Colors.blue, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.4),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(1, 3), // changes position of shadow
+                      ),
+                    ]),
+                child: Center(
+                  child: Text(
+                    "Add to Cart",
+                    style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontFamily: font,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             )

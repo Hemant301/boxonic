@@ -115,6 +115,21 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<CommmentModal> _liveComments =
+      BehaviorSubject<CommmentModal>();
+  BehaviorSubject<CommmentModal> get getComments => _liveComments;
+  fetchComments(String id) async {
+    // _liveComments.addError("Loading");
+    try {
+      CommmentModal homeSlider = await _homeRepo.fetchComments(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveComments.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<AddressModal> liveAddress =
       BehaviorSubject<AddressModal>();
   BehaviorSubject<AddressModal> get getaddress => liveAddress;
