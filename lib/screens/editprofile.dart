@@ -71,6 +71,7 @@ class _EditprofileState extends State<Editprofile> {
               FormTTextFild(
                 hinttext: 'Name',
                 controller: nameController,
+                maxLines: 1,
               ),
               SizedBox(
                 height: 20,
@@ -85,6 +86,8 @@ class _EditprofileState extends State<Editprofile> {
               FormTTextFild(
                 hinttext: 'Mobile Number ',
                 controller: phoneController,
+                keyboardType: TextInputType.number,
+                num: 10,
               ),
               SizedBox(
                 height: 20,

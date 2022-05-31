@@ -41,7 +41,7 @@ class DrawersPage extends StatelessWidget {
                                     letterSpacing: 1,
                                     fontSize: 18,
                                     color: grad2Color,
-                                    fontFamily: font,
+                                    // fontFamily: font,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
@@ -69,7 +69,7 @@ class DrawersPage extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 10,
                                       color: grad2Color,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -126,7 +126,7 @@ class DrawersPage extends StatelessWidget {
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: grad2Color,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           Image.asset("assets/wallet (1) 3.png")
@@ -137,7 +137,7 @@ class DrawersPage extends StatelessWidget {
                   Divider(),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/mysublist');
+                      Navigator.pushNamed(context, '/subshistory');
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -146,12 +146,12 @@ class DrawersPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "My Bundle Subscription",
+                            "My Bundle History",
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: grad2Color,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           Icon(Icons.subscriptions_outlined)
@@ -176,7 +176,7 @@ class DrawersPage extends StatelessWidget {
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: grad2Color,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           Image.asset("assets/thistorys.png")
@@ -201,7 +201,7 @@ class DrawersPage extends StatelessWidget {
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: grad2Color,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           Icon(
@@ -239,23 +239,27 @@ class DrawersPage extends StatelessWidget {
                     //       arguments: {'id': '1', 'index': '1'});
                     // },
                     name: 'Refer & Earn',
-                    icon: Icons.location_on,
+                    icon: Icons.currency_rupee,
                   ),
                   Divider(),
                   Menulist(
-                    // onTap: () {
-                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
-                    //       arguments: {'id': '1', 'index': '1'});
-                    // },
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/cummunityonboard",
+                      );
+                    },
                     name: 'Community',
                     icon: Icons.local_library_outlined,
                   ),
                   Divider(),
                   Menulist(
-                    // onTap: () {
-                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
-                    //       arguments: {'id': '1', 'index': '1'});
-                    // },
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/story",
+                      );
+                    },
                     name: 'Story',
                     icon: Icons.history_toggle_off,
                   ),
@@ -328,7 +332,7 @@ class DrawersPage extends StatelessWidget {
                   //                 letterSpacing: 1,
                   //                 fontSize: 14,
                   //                 color: grad2Color,
-                  //                 fontFamily: font,
+                  //                 // fontFamily: font,
                   //                 fontWeight: FontWeight.bold),
                   //           ),
                   //           SizedBox(
@@ -340,7 +344,7 @@ class DrawersPage extends StatelessWidget {
                   //                 letterSpacing: 1,
                   //                 fontSize: 10,
                   //                 color: Colors.grey,
-                  //                 fontFamily: font,
+                  //                 // fontFamily: font,
                   //                 fontWeight: FontWeight.bold),
                   //           ),
                   //         ],
@@ -362,7 +366,7 @@ class DrawersPage extends StatelessWidget {
                   //             letterSpacing: 1,
                   //             fontSize: 14,
                   //             color: Colors.grey,
-                  //             fontFamily: font,
+                  //             // fontFamily: font,
                   //             fontWeight: FontWeight.bold),
                   //       ),
                   //     ],
@@ -390,7 +394,7 @@ class DrawersPage extends StatelessWidget {
                   //                         letterSpacing: 1,
                   //                         fontSize: 12,
                   //                         color: grad2Color,
-                  //                         fontFamily: font,
+                  //                         // fontFamily: font,
                   //                         fontWeight: FontWeight.bold),
                   //                   ),
                   //                   SizedBox(
@@ -408,7 +412,7 @@ class DrawersPage extends StatelessWidget {
                   //                     letterSpacing: 1,
                   //                     fontSize: 10,
                   //                     color: Colors.grey,
-                  //                     fontFamily: font,
+                  //                     // fontFamily: font,
                   //                     fontWeight: FontWeight.bold),
                   //               ),
                   //             ],
@@ -441,7 +445,7 @@ class DrawersPage extends StatelessWidget {
                   //                         letterSpacing: 1,
                   //                         fontSize: 12,
                   //                         color: grad2Color,
-                  //                         fontFamily: font,
+                  //                         // fontFamily: font,
                   //                         fontWeight: FontWeight.bold),
                   //                   ),
                   //                   SizedBox(
@@ -459,7 +463,7 @@ class DrawersPage extends StatelessWidget {
                   //                     letterSpacing: 1,
                   //                     fontSize: 10,
                   //                     color: Colors.grey,
-                  //                     fontFamily: font,
+                  //                     // fontFamily: font,
                   //                     fontWeight: FontWeight.bold),
                   //               ),
                   //             ],
@@ -492,7 +496,7 @@ class DrawersPage extends StatelessWidget {
                   //                         letterSpacing: 1,
                   //                         fontSize: 12,
                   //                         color: grad2Color,
-                  //                         fontFamily: font,
+                  //                         // fontFamily: font,
                   //                         fontWeight: FontWeight.bold),
                   //                   ),
                   //                   SizedBox(
@@ -515,7 +519,7 @@ class DrawersPage extends StatelessWidget {
                   //                       letterSpacing: 1,
                   //                       fontSize: 10,
                   //                       color: Colors.grey,
-                  //                       fontFamily: font,
+                  //                       // fontFamily: font,
                   //                       fontWeight: FontWeight.bold),
                   //                 ),
                   //               ),
@@ -549,7 +553,7 @@ class DrawersPage extends StatelessWidget {
                   //                         letterSpacing: 1,
                   //                         fontSize: 12,
                   //                         color: grad2Color,
-                  //                         fontFamily: font,
+                  //                         // fontFamily: font,
                   //                         fontWeight: FontWeight.bold),
                   //                   ),
                   //                   SizedBox(
@@ -567,7 +571,7 @@ class DrawersPage extends StatelessWidget {
                   //                     letterSpacing: 1,
                   //                     fontSize: 10,
                   //                     color: Colors.grey,
-                  //                     fontFamily: font,
+                  //                     // fontFamily: font,
                   //                     fontWeight: FontWeight.bold),
                   //               ),
                   //             ],
@@ -600,7 +604,7 @@ class DrawersPage extends StatelessWidget {
                   //                         letterSpacing: 1,
                   //                         fontSize: 12,
                   //                         color: grad2Color,
-                  //                         fontFamily: font,
+                  //                         // fontFamily: font,
                   //                         fontWeight: FontWeight.bold),
                   //                   ),
                   //                   SizedBox(
@@ -618,7 +622,7 @@ class DrawersPage extends StatelessWidget {
                   //                     letterSpacing: 1,
                   //                     fontSize: 10,
                   //                     color: Colors.grey,
-                  //                     fontFamily: font,
+                  //                     // fontFamily: font,
                   //                     fontWeight: FontWeight.bold),
                   //               ),
                   //             ],
@@ -686,7 +690,7 @@ class Menulist extends StatelessWidget {
                   letterSpacing: 1,
                   fontSize: 12,
                   color: grad2Color,
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
             Icon(

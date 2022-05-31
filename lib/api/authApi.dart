@@ -197,4 +197,54 @@ class AuthApi {
       client.close();
     }
   }
+
+  Future<dynamic> addQuestion({String question = ""}) async {
+    var client = http.Client();
+    try {
+      final response = await client
+          .post(Uri.parse("${base}add-community-question.php"), body: {
+        "account_id": userCred.getUserId(),
+        "question": question,
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> addAnswer({
+    String answer = "",
+    String ques_id = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response = await client
+          .post(Uri.parse("${base}add-community-answer.php"), body: {
+        "account_id": userCred.getUserId(),
+        "question_id": ques_id,
+        'answer': answer
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
 }

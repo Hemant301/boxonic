@@ -85,7 +85,7 @@ class _AddtobundleState extends State<Addtobundle> {
                 letterSpacing: 1,
                 fontSize: 18,
                 color: grad2Color,
-                fontFamily: font,
+                // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
           actions: [
@@ -102,7 +102,7 @@ class _AddtobundleState extends State<Addtobundle> {
                             letterSpacing: 1,
                             fontSize: 18,
                             color: grad2Color,
-                            fontFamily: font,
+                            // fontFamily: font,
                             fontWeight: FontWeight.bold),
                       ),
                     );
@@ -179,7 +179,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                       letterSpacing: 1,
                                       fontSize: 24,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -196,7 +196,7 @@ class _AddtobundleState extends State<Addtobundle> {
 
                                       fontSize: 15,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       // fontWeight: FontWeight.bold
                                     ),
                                   ),
@@ -292,7 +292,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                   letterSpacing: 1,
                                   fontSize: 12,
                                   color: Colors.white,
-                                  fontFamily: font,
+                                  // fontFamily: font,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -332,7 +332,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                 // letterSpacing: 1,
                                 fontSize: 12,
                                 color: Colors.green,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -379,7 +379,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                   letterSpacing: 1,
                                   fontSize: 12,
                                   color: Colors.white,
-                                  fontFamily: font,
+                                  // fontFamily: font,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -502,7 +502,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -517,7 +517,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         letterSpacing: 1,
                         fontSize: 10,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         // fontWeight: FontWeight.bold
                       ),
                     ),
@@ -661,7 +661,7 @@ class _ProductsCardState extends State<ProductsCard> {
                                   letterSpacing: 1,
                                   fontSize: 10,
                                   color: Colors.white,
-                                  fontFamily: font,
+                                  // fontFamily: font,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -691,7 +691,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       //           letterSpacing: 1,
                       //           fontSize: 10,
                       //           color: Colors.white,
-                      //           fontFamily: font,
+                      //           // fontFamily: font,
                       //           fontWeight: FontWeight.bold),
                       //     ),
                       //   ),
@@ -767,7 +767,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       //                 letterSpacing: 1,
                       //                 fontSize: 10,
                       //                 color: Colors.black,
-                      //                 fontFamily: font,
+                      //                 // fontFamily: font,
                       //                 fontWeight: FontWeight.bold),
                       //           ),
                       //           Icon(

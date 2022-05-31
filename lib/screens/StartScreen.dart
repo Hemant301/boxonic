@@ -5,6 +5,7 @@ import 'package:boxoniq/screens/homescreen.dart';
 import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
+import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/search.dart';
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/util/const.dart';
@@ -21,7 +22,7 @@ class _NavState extends State<Nav> {
   List<Widget> _widgetOptions = <Widget>[
     HomeScrren(),
     SearchPage(),
-    MyOrderPage(),
+    PreviewBundalPage(),
     Mysublist(),
     WallatePage(),
   ];

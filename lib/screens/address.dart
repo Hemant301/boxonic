@@ -70,7 +70,7 @@ class _AddressState extends State<Address> {
                 letterSpacing: 1,
                 fontSize: 18,
                 color: grad2Color,
-                fontFamily: font,
+                // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -200,6 +200,12 @@ class _AddressState extends State<Address> {
                                           Navigator.pushNamed(
                                               context, "/subscription",
                                               arguments: {
+                                                'c_discount':
+                                                    rcvdData['c_discount'],
+                                                'b_discount':
+                                                    rcvdData['b_discount'],
+                                                'sub_total':
+                                                    rcvdData['sub_total'],
                                                 'address_id': addressId,
                                                 'total_amount':
                                                     rcvdData['total_amount'],
@@ -209,6 +215,12 @@ class _AddressState extends State<Address> {
                                           Navigator.pushNamed(
                                               context, "/checkwallet",
                                               arguments: {
+                                                'c_discount':
+                                                    rcvdData['c_discount'],
+                                                'b_discount':
+                                                    rcvdData['b_discount'],
+                                                'sub_total':
+                                                    rcvdData['sub_total'],
                                                 'address_id': addressId,
                                                 'total_amount':
                                                     rcvdData['total_amount'],
@@ -216,7 +228,6 @@ class _AddressState extends State<Address> {
                                                 'subs': rcvdData['subs']
                                               });
                                         }
-                              
                                       } catch (e) {}
                                     },
                                     child: Container(
@@ -250,7 +261,7 @@ class _AddressState extends State<Address> {
                   //       letterSpacing: 1,
                   //       fontSize: 16,
                   //       color: Colors.black,
-                  //       fontFamily: font,
+                  //       // fontFamily: font,
                   //     ),
                   //   ),
                   // ),
@@ -284,7 +295,7 @@ class _AddressState extends State<Address> {
                   //       letterSpacing: 1,
                   //       fontSize: 16,
                   //       color: Colors.black,
-                  //       fontFamily: font,
+                  //       // fontFamily: font,
                   //     ),
                   //   ),
                   // ),
@@ -316,7 +327,7 @@ class _AddressState extends State<Address> {
                   //       letterSpacing: 1,
                   //       fontSize: 16,
                   //       color: Colors.black,
-                  //       fontFamily: font,
+                  //       // fontFamily: font,
                   //     ),
                   //   ),
                   // ),
@@ -405,7 +416,7 @@ class _AddressState extends State<Address> {
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: font,
+                                            // fontFamily: font,
                                           ),
                                         ),
                                       ),
@@ -442,7 +453,7 @@ class _AddressState extends State<Address> {
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: font,
+                                            // fontFamily: font,
                                           ),
                                         ),
                                       ),
@@ -477,7 +488,7 @@ class _AddressState extends State<Address> {
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: font,
+                                            // fontFamily: font,
                                           ),
                                         ),
                                       ),
@@ -602,6 +613,7 @@ class _AddressState extends State<Address> {
                                   )),
                             );
                           });
+                   
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

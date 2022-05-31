@@ -101,7 +101,7 @@ class Myorderdetail extends StatelessWidget {
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: font,
+                                            // fontFamily: font,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -117,7 +117,7 @@ class Myorderdetail extends StatelessWidget {
                                     //       letterSpacing: 1,
                                     //       fontSize: 10,
                                     //       color: Colors.black,
-                                    //       fontFamily: font,
+                                    //       // fontFamily: font,
                                     //       // fontWeight: FontWeight.bold
                                     //     ),
                                     //   ),
@@ -196,7 +196,7 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -208,7 +208,37 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Coupon Discount",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "- ₹ ${snapshot.data!.total!.coupon}",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -226,7 +256,7 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -238,7 +268,7 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -256,7 +286,7 @@ class Myorderdetail extends StatelessWidget {
                           //             letterSpacing: 1,
                           //             fontSize: 16,
                           //             color: Colors.grey[600],
-                          //             fontFamily: font,
+                          //             // fontFamily: font,
                           //             fontWeight: FontWeight.bold),
                           //       ),
                           //       SizedBox(
@@ -268,7 +298,7 @@ class Myorderdetail extends StatelessWidget {
                           //             letterSpacing: 1,
                           //             fontSize: 16,
                           //             color: Colors.black,
-                          //             fontFamily: font,
+                          //             // fontFamily: font,
                           //             fontWeight: FontWeight.bold),
                           //       ),
                           //     ],
@@ -286,7 +316,7 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -298,7 +328,7 @@ class Myorderdetail extends StatelessWidget {
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -306,6 +336,55 @@ class Myorderdetail extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 45,
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        // border: Border.all(color: Colors.blue, width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(1, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Delivery Address',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                snapshot.data!.address!.address!,
+                                style: TextStyle(),
+                              ),
+                              Text(
+                                snapshot.data!.address!.landmark!,
+                                style: TextStyle(),
+                              ),
+                              Text(
+                                snapshot.data!.address!.pincode!,
+                                style: TextStyle(),
+                              ),
+                            ],
+                          )),
                     ),
                   ),
                 ],

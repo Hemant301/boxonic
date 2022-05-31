@@ -1,11 +1,9 @@
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
-import 'package:boxoniq/util/constance.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:url_launcher/url_launcher.dart';
 
 class MyCorosule extends StatefulWidget {
   MyCorosule({
@@ -41,7 +39,7 @@ class _MyCorosuleState extends State<MyCorosule> {
                 child: Container(
                     // height: 180,
                     width: MediaQuery.of(context).size.width - 30,
-                    decoration: BoxDecoration(boxShadow: [
+                    decoration: BoxDecoration(boxShadow: const [
                       BoxShadow(
                         color: Colors.black,
                         spreadRadius: 1,

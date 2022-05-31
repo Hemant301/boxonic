@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/drower.dart';
@@ -46,6 +47,19 @@ class _HomeScrrenState extends State<HomeScrren> {
   //     filePath: result.files[0] as String,
   //   );
   // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMydata();
+  }
+
+  getMydata() async {
+    Map data = await homeApi.fetchMydetails();
+    // print(data);
+    userCred.addUserimage(data['img']);
+    userCred.addUsername(data['name']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +123,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                       letterSpacing: 1,
                       fontSize: 18,
                       color: grad2Color,
-                      fontFamily: font,
+                      // // fontFamily: font,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -119,7 +133,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                     letterSpacing: 1,
                     fontSize: 10,
                     color: grad2Color,
-                    fontFamily: font,
+                    // // fontFamily: font,
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -165,7 +179,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: grad2Color,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -220,7 +234,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                         letterSpacing: 1,
                                         fontSize: 13,
                                         color: Colors.white,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -241,7 +255,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                         letterSpacing: 1,
                         fontSize: 13,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -314,7 +328,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                         letterSpacing: 1,
                         fontSize: 13,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -359,7 +373,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                         letterSpacing: 1,
                         fontSize: 13,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -412,7 +426,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                         letterSpacing: 1,
                         fontSize: 13,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -466,7 +480,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 letterSpacing: 1,
                                 fontSize: 18,
                                 color: Colors.white,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -478,7 +492,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                               letterSpacing: 1,
                               fontSize: 11,
                               color: Colors.white,
-                              // fontFamily: font,
+                              // // fontFamily: font,
                               // fontWeight: FontWeight.bold
                             ),
                           ),
@@ -539,7 +553,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                         letterSpacing: 1,
                                         fontSize: 12,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -627,7 +641,7 @@ class WhyChoose extends StatelessWidget {
                       letterSpacing: 1,
                       fontSize: 10,
                       color: Colors.black,
-                      fontFamily: font,
+                      // fontFamily: font,
                       // fontWeight: FontWeight.bold
                     ),
                   ),
@@ -671,7 +685,7 @@ class babyItem extends StatelessWidget {
               letterSpacing: 1,
               fontSize: 10,
               color: Colors.black,
-              fontFamily: font,
+              // fontFamily: font,
               // fontWeight: FontWeight.bold
             ),
           ),
@@ -776,7 +790,7 @@ class startBox extends StatelessWidget {
                               letterSpacing: 1,
                               fontSize: 12,
                               color: Colors.black,
-                              fontFamily: font,
+                              // fontFamily: font,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -791,7 +805,7 @@ class startBox extends StatelessWidget {
                               letterSpacing: 1,
                               fontSize: 8,
                               color: Color(0xff484848),
-                              fontFamily: font,
+                              // fontFamily: font,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -848,7 +862,7 @@ class Mainbox extends StatelessWidget {
             letterSpacing: 1,
             fontSize: 12,
             color: grad2Color,
-            fontFamily: font,
+            // fontFamily: font,
             // fontWeight: FontWeight.bold
           ),
         ),

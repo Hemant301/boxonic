@@ -184,15 +184,19 @@ class CalDetailModal {
 }
 
 class ResponseModal {
-  int? sub_total;
+  dynamic? sub_total;
   dynamic? bundle_disc;
-  int? coupon_discount;
+  dynamic walletBallance;
+  // dynamic delivery;
+  dynamic? coupon_discount;
   dynamic? total;
   ResponseModal(js) {
     sub_total = js['sub total'] ?? "0";
     bundle_disc = js['bundal discount'] ?? "";
+    // delivery = js['delivery'] ?? 0;
     coupon_discount = js['coupon discount'] ?? "";
     total = js['total'] ?? "";
+    walletBallance = js['balance'] ?? "0";
   }
 }
 
@@ -299,12 +303,15 @@ class OrderdetailModal {
 
 class Myorderdetailmodal {
   List<Itemsdetailmodal> items = [];
+  AddInOrderModal? address;
+
   TotalModal? total;
   Myorderdetailmodal(js) {
     for (var i = 0; i < js['items'].length; i++) {
       items.add(Itemsdetailmodal(js['items'][i]));
     }
     total = TotalModal(js['total']);
+    address = AddInOrderModal(js['address']);
   }
 }
 
@@ -341,6 +348,7 @@ class Myordermodal {
   String? subs_month;
   dynamic delivered;
   String? nextdate;
+  AddInsubsModal? address;
   String? status;
   int? cancel;
   Myordermodal(js) {
@@ -353,6 +361,18 @@ class Myordermodal {
     nextdate = js['nextdate'] ?? "";
     status = js['status'] ?? "";
     cancel = js['cancel'] ?? "";
+    address = AddInsubsModal(js['address']);
+  }
+}
+
+class AddInsubsModal {
+  String? address;
+  String? landmark;
+  String? pincode;
+  AddInsubsModal(js) {
+    address = js['address'] ?? "";
+    landmark = js['landmark'] ?? "";
+    pincode = js['pincode'] ?? "";
   }
 }
 
@@ -400,12 +420,26 @@ class attributeModal {
 
 class TotalModal {
   dynamic? subtotal;
+  dynamic? coupon;
+
   dynamic? discount;
   dynamic? total;
   TotalModal(js) {
     subtotal = js['subtotal'] ?? "";
+    coupon = js['coupon'] ?? "0";
     discount = js['discount'] ?? "";
     total = js['total'] ?? "";
+  }
+}
+
+class AddInOrderModal {
+  String? address;
+  String? landmark;
+  String? pincode;
+  AddInOrderModal(js) {
+    address = js['address'] ?? "";
+    landmark = js['landmark'] ?? "";
+    pincode = js['pincode'] ?? "";
   }
 }
 
@@ -520,10 +554,12 @@ class CouponModal {
 class CouponListModal {
   String? response;
   String? coupon;
+  String? couponId;
   String? msg;
   CouponListModal(js) {
     response = js['response'] ?? "";
     coupon = js['coupon'] ?? "";
+    couponId = js['coupon_id'] ?? "";
     msg = js['msg'] ?? "";
   }
 }
@@ -636,5 +672,29 @@ class CommmentData {
     name = js['name'] ?? '';
     image = js['image'] ?? '';
     trn_date = js['trn_date'] ?? '';
+  }
+}
+
+class AnswerModal {
+  List<AnswersDetailModal> answer = [];
+  AnswerModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      answer.add(AnswersDetailModal(js[i]));
+    }
+  }
+}
+
+class AnswersDetailModal {
+  String? answer_id;
+  String? answer;
+  String? user_name;
+  String? img;
+  String? created_on;
+  AnswersDetailModal(js) {
+    answer_id = js['answer_id'] ?? "";
+    answer = js['answer'] ?? "";
+    user_name = js['user_name'] ?? "";
+    img = js['img'] ?? "";
+    created_on = js['created_on'] ?? "";
   }
 }

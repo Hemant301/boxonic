@@ -1,4 +1,3 @@
-
 import 'package:boxoniq/util/storage.dart';
 
 class UserCred {
@@ -16,6 +15,18 @@ class UserCred {
 
   String getUserId() {
     String isActive = StorageUtil.getString('USERID');
+    //print("ff${isActive}ff");
+    return isActive;
+  }
+
+  String getUserName() {
+    String isActive = StorageUtil.getString('NAME');
+    //print("ff${isActive}ff");
+    return isActive;
+  }
+
+  String getUserImage() {
+    String isActive = StorageUtil.getString('IMAGE');
     //print("ff${isActive}ff");
     return isActive;
   }
@@ -42,6 +53,14 @@ class UserCred {
 
   void addUserId(String id) {
     StorageUtil.putString('USERID', '$id');
+  }
+
+  void addUsername(String name) {
+    StorageUtil.putString('NAME', '$name');
+  }
+
+  void addUserimage(String image) {
+    StorageUtil.putString('IMAGE', '$image');
   }
 
   void addPincode(String pin) {

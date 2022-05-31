@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                     letterSpacing: 1,
                     fontSize: 16,
                     color: Colors.black,
-                    fontFamily: font,
+                    // fontFamily: font,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -203,7 +203,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -218,7 +218,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         letterSpacing: 1,
                         fontSize: 10,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         // fontWeight: FontWeight.bold
                       ),
                     ),
@@ -361,7 +361,7 @@ class _ProductsCardState extends State<ProductsCard> {
                                   letterSpacing: 1,
                                   fontSize: 10,
                                   color: Colors.white,
-                                  fontFamily: font,
+                                  // fontFamily: font,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -391,7 +391,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       //           letterSpacing: 1,
                       //           fontSize: 10,
                       //           color: Colors.white,
-                      //           fontFamily: font,
+                      //           // fontFamily: font,
                       //           fontWeight: FontWeight.bold),
                       //     ),
                       //   ),
@@ -467,7 +467,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       //                 letterSpacing: 1,
                       //                 fontSize: 10,
                       //                 color: Colors.black,
-                      //                 fontFamily: font,
+                      //                 // fontFamily: font,
                       //                 fontWeight: FontWeight.bold),
                       //           ),
                       //           Icon(

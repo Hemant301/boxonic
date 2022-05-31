@@ -35,7 +35,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
               letterSpacing: 1,
               fontSize: 18,
               color: grad2Color,
-              fontFamily: font,
+              // fontFamily: font,
               fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -81,7 +81,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                               letterSpacing: 1,
                               fontSize: 12,
                               color: grad2Color,
-                              fontFamily: font,
+                              // fontFamily: font,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -111,26 +111,15 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                           letterSpacing: 1,
                           fontSize: 20,
                           color: Colors.black,
-                          fontFamily: font,
+                          // fontFamily: font,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 15,
                     ),
+
                     Text(
-                      "Preview Seclected items, edit",
-                      style: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 12,
-                          color: Colors.grey,
-                          fontFamily: font,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Product delivered ${snapshot.data!.delivered} out of ${snapshot.data!.subs_month} Months',
+                      'Product delivered for ${snapshot.data!.delivered} Months',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -163,45 +152,94 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                 letterSpacing: 1,
                                 fontSize: 12,
                                 color: Colors.white,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/Wallet');
-                            },
-                            child: Container(
-                              width: 120,
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.white,
-                                // border: Border.all(color: Colors.blue, width: 1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.4),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(
-                                        1, 3), // changes position of shadow
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/Wallet');
+                                },
+                                child: Container(
+                                  width: 120,
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.white,
+                                    // border: Border.all(color: Colors.blue, width: 1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Manage Wallet",
-                                  style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontSize: 12,
-                                      color: grad2Color,
-                                      fontFamily: font,
-                                      fontWeight: FontWeight.bold),
+                                  child: Center(
+                                    child: Text(
+                                      "Manage Wallet",
+                                      style: TextStyle(
+                                          letterSpacing: 1,
+                                          fontSize: 12,
+                                          color: grad2Color,
+                                          // fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              StreamBuilder<WalletModal>(
+                                  stream: homebloc.getwallet.stream,
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) return Container();
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(context, '/Wallet');
+                                      },
+                                      child: Container(
+                                        // width: 120,
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: Colors.white,
+                                          // border: Border.all(color: Colors.blue, width: 1),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.4),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(1,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Available Balance ₹${snapshot.data!.balance[0].amount}",
+                                            style: TextStyle(
+                                                letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: grad2Color,
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ],
                           ),
                         ],
                       ),
@@ -215,7 +253,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     //       letterSpacing: 1,
                     //       fontSize: 16,
                     //       color: Colors.black,
-                    //       fontFamily: font,
+                    //       // fontFamily: font,
                     //       fontWeight: FontWeight.bold),
                     // ),
                     SizedBox(
@@ -276,7 +314,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: font,
+                                            // fontFamily: font,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
@@ -569,7 +607,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                       letterSpacing: 1,
                                                       fontSize: 10,
                                                       color: Colors.white,
-                                                      fontFamily: font,
+                                                      // fontFamily: font,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -639,68 +677,68 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Sub Total",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 16,
-                                        color: Colors.grey[600],
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "₹ ${snapshot.data!.total!.subtotal}",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Coupon Discount",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 16,
-                                        color: Colors.grey[600],
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "- ₹ ${snapshot.data!.total!.discount}",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     // crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text(
+                            //         "Sub Total",
+                            //         style: TextStyle(
+                            //             letterSpacing: 1,
+                            //             fontSize: 16,
+                            //             color: Colors.grey[600],
+                            //             // fontFamily: font,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //       SizedBox(
+                            //         height: 5,
+                            //       ),
+                            //       Text(
+                            //         "₹ ${snapshot.data!.total!.subtotal}",
+                            //         style: TextStyle(
+                            //             letterSpacing: 1,
+                            //             fontSize: 16,
+                            //             color: Colors.black,
+                            //             // fontFamily: font,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     // crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text(
+                            //         "Coupon Discount",
+                            //         style: TextStyle(
+                            //             letterSpacing: 1,
+                            //             fontSize: 16,
+                            //             color: Colors.grey[600],
+                            //             // fontFamily: font,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //       SizedBox(
+                            //         height: 5,
+                            //       ),
+                            //       Text(
+                            //         "- ₹ ${snapshot.data!.total!.discount}",
+                            //         style: TextStyle(
+                            //             letterSpacing: 1,
+                            //             fontSize: 16,
+                            //             color: Colors.black,
+                            //             // fontFamily: font,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -714,19 +752,19 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                         letterSpacing: 1,
                                         fontSize: 16,
                                         color: Colors.grey[600],
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    "₹ ${snapshot.data!.total!.total}",
+                                    "₹ ${snapshot.data!.total!.subtotal}",
                                     style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 16,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -742,8 +780,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
+                        width: MediaQuery.of(context).size.width - 48,
                         padding: EdgeInsets.all(20),
-                        width: MediaQuery.of(context).size.width - 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
@@ -758,93 +796,140 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                             ),
                           ],
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Total",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 24,
-                                  color: Colors.grey,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "₹ ${snapshot.data!.total!.subtotal}",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Stack(
-                              clipBehavior: Clip.none,
+                        child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  // height: 60,
-                                  // width: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Text(
-                                      "₹ ${snapshot.data!.total!.total}",
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                          fontFamily: font,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                                Text(
+                                  'Delivery Address',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                Positioned(
-                                  top: 0,
-                                  left: 90,
-                                  child: Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.green,
-                                      border: Border.all(
-                                          color: Colors.blue, width: 1),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.4),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: Offset(1,
-                                              3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Text(
-                                      "${snapshot.data!.total!.discount}% off ",
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          fontSize: 12,
-                                          color: Colors.white,
-                                          fontFamily: font,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                )
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  snapshot.data!.address!.address!,
+                                  style: TextStyle(),
+                                ),
+                                Text(
+                                  snapshot.data!.address!.landmark!,
+                                  style: TextStyle(),
+                                ),
+                                Text(
+                                  snapshot.data!.address!.pincode!,
+                                  style: TextStyle(),
+                                ),
                               ],
-                            ),
-                          ],
-                        ),
+                            )),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Container(
+                    //     padding: EdgeInsets.all(20),
+                    //     width: MediaQuery.of(context).size.width - 40,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       color: Colors.white,
+                    //       // border: Border.all(color: Colors.blue, width: 1),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           color: Colors.grey.withOpacity(0.4),
+                    //           spreadRadius: 1,
+                    //           blurRadius: 1,
+                    //           offset:
+                    //               Offset(1, 3), // changes position of shadow
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     child: Column(
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Text(
+                    //           "Total",
+                    //           style: TextStyle(
+                    //               letterSpacing: 1,
+                    //               fontSize: 24,
+                    //               color: Colors.grey,
+                    //               // fontFamily: font,
+                    //               fontWeight: FontWeight.bold),
+                    //         ),
+                    //         SizedBox(
+                    //           height: 5,
+                    //         ),
+                    //         Text(
+                    //           "₹ ${snapshot.data!.total!.subtotal}",
+                    //           style: TextStyle(
+                    //               letterSpacing: 1,
+                    //               fontSize: 16,
+                    //               color: Colors.black,
+                    //               // fontFamily: font,
+                    //               fontWeight: FontWeight.bold),
+                    //         ),
+                    //         SizedBox(
+                    //           height: 5,
+                    //         ),
+                    //         Stack(
+                    //           clipBehavior: Clip.none,
+                    //           children: [
+                    //             Container(
+                    //               // height: 60,
+                    //               // width: 200,
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.all(12.0),
+                    //                 child: Text(
+                    //                   "₹ ${snapshot.data!.total!.total}",
+                    //                   style: TextStyle(
+                    //                       letterSpacing: 1,
+                    //                       fontSize: 24,
+                    //                       color: Colors.black,
+                    //                       // fontFamily: font,
+                    //                       fontWeight: FontWeight.bold),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             Positioned(
+                    //               top: 0,
+                    //               left: 90,
+                    //               child: Container(
+                    //                 padding: EdgeInsets.all(2),
+                    //                 decoration: BoxDecoration(
+                    //                   borderRadius: BorderRadius.circular(5),
+                    //                   color: Colors.green,
+                    //                   border: Border.all(
+                    //                       color: Colors.blue, width: 1),
+                    //                   boxShadow: [
+                    //                     BoxShadow(
+                    //                       color: Colors.grey.withOpacity(0.4),
+                    //                       spreadRadius: 1,
+                    //                       blurRadius: 1,
+                    //                       offset: Offset(1,
+                    //                           3), // changes position of shadow
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //                 child: Text(
+                    //                   "${snapshot.data!.total!.discount}% off ",
+                    //                   style: TextStyle(
+                    //                       letterSpacing: 1,
+                    //                       fontSize: 12,
+                    //                       color: Colors.white,
+                    //                       // fontFamily: font,
+                    //                       fontWeight: FontWeight.bold),
+                    //                 ),
+                    //               ),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
 
                     SizedBox(
                       height: 20,
@@ -882,7 +967,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                           // letterSpacing: 1,
                                           fontSize: 12,
                                           color: Colors.white,
-                                          fontFamily: font,
+                                          // fontFamily: font,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     // SizedBox(
@@ -942,7 +1027,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               // letterSpacing: 1,
                                               fontSize: 12,
                                               color: Colors.white,
-                                              fontFamily: font,
+                                              // fontFamily: font,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         // SizedBox(
@@ -990,7 +1075,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               // letterSpacing: 1,
                                               fontSize: 12,
                                               color: Colors.white,
-                                              fontFamily: font,
+                                              // fontFamily: font,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         // SizedBox(
@@ -1048,7 +1133,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               // letterSpacing: 1,
                                               fontSize: 12,
                                               color: Colors.white,
-                                              fontFamily: font,
+                                              // fontFamily: font,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         // SizedBox(

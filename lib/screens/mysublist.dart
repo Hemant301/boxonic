@@ -74,6 +74,10 @@ class Mysublist extends StatelessWidget {
                                     width: 100,
                                     child: Image.network(
                                       snapshot.data!.data[index].img!,
+                                      errorBuilder: ((context, error,
+                                              stackTrace) =>
+                                          Image.network(
+                                              'https://img.freepik.com/free-vector/error-404-concept-illustration_114360-1811.jpg?w=2000')),
                                       fit: BoxFit.contain,
                                     ),
                                   ),
@@ -94,7 +98,7 @@ class Mysublist extends StatelessWidget {
                                       //       letterSpacing: 1,
                                       //       fontSize: 16,
                                       //       color: Colors.black,
-                                      //       fontFamily: font,
+                                      //       // fontFamily: font,
                                       //       fontWeight: FontWeight.bold),
                                       // ),
                                       SizedBox(

@@ -5,8 +5,8 @@ import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:cashfree_pg/cashfree_pg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Checkwallet extends StatefulWidget {
   const Checkwallet({Key? key}) : super(key: key);
@@ -16,64 +16,18 @@ class Checkwallet extends StatefulWidget {
 }
 
 class _CheckwalletState extends State<Checkwallet> {
-  TextEditingController amountController = TextEditingController();
-
-  void cashFree(
-      {String amount = "",
-      String token = "",
-      String orderId = "",
-      String name = "",
-      String phone = "",
-      String email = ""}) {
-    Map<String, dynamic> inputParams = {
-      "orderId": '$orderId',
-      "orderAmount": '$amount',
-      "customerName": 'santosh',
-      "orderCurrency": 'INR',
-      "appId": '1520515e63d5612b1f28642840150251',
-      "customerPhone": '9798416091',
-      "customerEmail": 'santosh@gmail.com',
-      'stage': 'test',
-      'tokenData': '$token'
-    };
-    CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
-              if (key == "txStatus" && value == "SUCCESS") {
-                print('from succes');
-                print(value);
-                walletApi.doSuccessPayment(amount: amount, txnid: orderId);
-
-                setState(() {
-                  homebloc.fetchWalletbalance();
-                  homebloc.fetchWalletTransaction();
-
-                  amountController.text = "";
-                });
-                Fluttertoast.showToast(
-                    msg: 'Succesfully Added', backgroundColor: Colors.green);
-                throw "";
-              } else {
-                // print('from fail');
-
-                Fluttertoast.showToast(
-                    msg: 'Failed', backgroundColor: Colors.red);
-              }
-
-              print("$key : $value");
-              //Do something with the result
-            }));
-  }
-
   void cashFreeOnlinepayment(
       {String amount = "",
+      String is_wallet = "",
       String token = "",
       String orderId = "",
       String name = "",
       String phone = "",
+      String monthamount = "",
       String email = ""}) {
     Map<String, dynamic> inputParams = {
       "orderId": '$orderId',
-      "orderAmount": '$amount',
+      "orderAmount": '$monthamount',
       "customerName": 'santosh',
       "orderCurrency": 'INR',
       "appId": '1520515e63d5612b1f28642840150251',
@@ -88,10 +42,12 @@ class _CheckwalletState extends State<Checkwallet> {
                 print('from succes');
                 print(value);
                 homeApi.doPaymentOnline(
-                    amount: totalamount,
-                    subs: subs,
-                    month: months,
+                    amount: amount,
+                    monthamount: monthamount,
+                    subs: '0',
+                    month: monthname,
                     addressid: addressId,
+                    is_wallet: is_wallet,
                     paymentid: orderId);
                 Navigator.pushReplacementNamed(
                   context,
@@ -110,247 +66,368 @@ class _CheckwalletState extends State<Checkwallet> {
             }));
   }
 
-  late Razorpay _razorpay;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // _razorpay = Razorpay();
-    // _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _razorpay.clear();
-  }
-
-  String amount = "";
-
-  void openCheckout(totalamount) async {
-    amount = totalamount.toString();
-    var options = {
-      'key': 'rzp_test_1DP5mmOlF5G5ag',
-      'amount': (totalamount) * 100,
-      'name': 'Boxoniq',
-      'description': 'Add Wallet Money',
-      'prefill': {'contact': '9798416091', 'email': 'test@razorpay.com'},
-      'external': {
-        'wallets': ['paytm']
-      }
+  void cashFreeHalfpayment(
+      {String amount = "",
+      String is_wallet = "",
+      String token = "",
+      String orderId = "",
+      String name = "",
+      String phone = "",
+      String monthamount = "",
+      String email = ""}) {
+    Map<String, dynamic> inputParams = {
+      "orderId": '$orderId',
+      "orderAmount": '$monthamount',
+      "customerName": 'santosh',
+      "orderCurrency": 'INR',
+      "appId": '1520515e63d5612b1f28642840150251',
+      "customerPhone": '9798416091',
+      "customerEmail": 'santosh@gmail.com',
+      'stage': 'test',
+      'tokenData': '$token'
     };
+    CashfreePGSDK.doPayment(inputParams)
+        .then((value) => value?.forEach((key, value) async {
+              if (key == "txStatus" && value == "SUCCESS") {
+                print('from succes');
+                print(value);
+                Map a = await walletApi.doSuccessPayment(
+                    amount: monthamount, txnid: orderId) as Map;
 
-    try {
-      _razorpay.open(options);
-    } catch (e) {
-      debugPrint('Error: e');
-    }
+                if (a['response'] == '1' || a['response'] == 1) {
+                  homeApi.doPayment(
+                    amount: amount,
+                    subs: '0',
+                    month: monthname,
+                    addressid: addressId,
+                  );
+
+                  Navigator.pushReplacementNamed(
+                    context,
+                    '/thankyou',
+                  );
+                } else {}
+
+                throw "";
+              } else {
+                // print('from fail');
+
+              }
+
+              print("$key : $value");
+              //Do something with the result
+            }));
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    String trnid = response.paymentId!;
-    walletApi.doSuccessPayment(amount: amount, txnid: trnid);
-    setState(() {
-      homebloc.fetchWalletbalance();
-
-      amountController.text = "";
-    });
-    // String trnid = response.paymentId!;
-    // String userid = userCred.getUserId();
-    // walletbloc.fetchwallettrans(userid);
-    // walletApi.doAddwalletmoney(userid, amount, trnid, couponid, iscoupon);
-
-    // Fluttertoast.showToast(
-    //     msg: "SUCCESS: " + response.paymentId! + "Rs" + amount,
-    //     toastLength: Toast.LENGTH_SHORT);
-    // Navigator.pushReplacementNamed(
-    //   context, '/money_added',
-    //   // arguments: {'amount': amount}
-    // );
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    // Fluttertoast.showToast(
-    //     msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-    //     toastLength: Toast.LENGTH_SHORT);
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    Fluttertoast.showToast(
-        msg: "EXTERNAL_WALLET: " + response.walletName!,
-        toastLength: Toast.LENGTH_SHORT);
-  }
-
-  String totalamount = '0';
-  String addressId = '0';
-  String months = '0';
-  String subs = '0';
+  String monthname = '1';
+  String addressId = "";
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
-
+    // print(rcvdData['activeIndex']);
+    // print(rcvdData['activeIndex'].runtimeType);
     print(rcvdData['total_amount']);
     print(rcvdData['address_id']);
-    print(rcvdData['month']);
-    print(rcvdData['subs']);
-    totalamount = rcvdData['total_amount'].toString();
     addressId = rcvdData['address_id'];
-    months = rcvdData['month'];
-    subs = rcvdData['subs'];
-    homebloc.fetchWalletbalance();
-    homebloc.fetchuserDetails();
+    print(rcvdData['subs']);
+    homebloc.fetchcalAmount();
+    homebloc.getMonths();
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: lightWhite2,
-          iconTheme: IconThemeData(color: Colors.black),
-          title: Text(
-            "Wallet",
-            style: TextStyle(
-                letterSpacing: 1,
-                fontSize: 18,
-                color: grad2Color,
-                fontFamily: font,
-                fontWeight: FontWeight.bold),
-          ),
+      backgroundColor: grad1Color,
+      appBar: AppBar(
+        backgroundColor: lightWhite2,
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
         ),
-        body: StreamBuilder<WalletModal>(
-            stream: homebloc.getwallet.stream,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return Container();
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "Available Wallet Balance",
-                          style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontFamily: font,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          // padding: EdgeInsets.all(20),
-                          height: 80,
-                          width: MediaQuery.of(context).size.width - 10,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset:
-                                    Offset(1, 3), // changes position of shadow
+        title: Text(
+          "Pay Now",
+          style: TextStyle(
+              letterSpacing: 1,
+              fontSize: 18,
+              color: grad2Color,
+              // fontFamily: font,
+              fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          // Center(
+          //   child: Text(
+          //     "₹ 9,785   ",
+          //     style: TextStyle(
+          //         letterSpacing: 1,
+          //         fontSize: 18,
+          //         color: grad2Color,
+          //         // fontFamily: font,
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width - 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.blue, width: 1),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(1, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: StreamBuilder<CalAmountModal>(
+                    stream: homebloc.getCalculatedAmount.stream,
+                    builder: (context, snapshot) {
+                      // print('++++++++++${snapshot.data!.data[0]}');
+                      if (!snapshot.hasData) return Container();
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 24,
+                                color: Colors.grey,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          // Text(
+                          //   "₹ ${rcvdData['sub_total']}",
+                          //   style: TextStyle(
+                          //       letterSpacing: 1,
+                          //       fontSize: 16,
+                          //       color: Colors.black,
+                          //       // fontFamily: font,
+                          //       fontWeight: FontWeight.bold),
+                          // ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                // height: 60,
+                                // width: 200,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    "₹ ${rcvdData['total_amount']}",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 24,
+                                        color: Colors.black,
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
+                              Positioned(
+                                top: 0,
+                                left: 100,
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.green,
+                                    border: Border.all(
+                                        color: Colors.blue, width: 1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    "₹ ${rcvdData['c_discount'] + rcvdData['b_discount']} off ",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
-                          child: Center(
-                            child: Text(
-                              "₹ ${snapshot.data!.balance[0].amount}",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                  fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        // Text(
-                        //   "Enter amount to add ",
-                        //   style: TextStyle(
-                        //       letterSpacing: 1,
-                        //       fontSize: 16,
-                        //       color: Colors.black,
-                        //       fontFamily: font,
-                        //       fontWeight: FontWeight.bold),
-                        // ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: Offset(
-                                      1, 3), // changes position of shadow
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            controller: amountController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                labelText: 'Enter Amount '),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        StreamBuilder<UserdetailModal>(
-                            stream: homebloc.getuserdetails.stream,
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) return Container();
-                              return InkWell(
+                        ],
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              // StreamBuilder<CalAmountModal>(
+              //     stream: homebloc.getCalculatedAmount.stream,
+              //     builder: (context, snapshot) {
+              //       // print('++++++++++${snapshot.data!.data[0]}');
+              //       if (!snapshot.hasData) return Container();
+              //       return Container(
+              //         width: MediaQuery.of(context).size.width - 40,
+              //         padding: EdgeInsets.all(20),
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(5),
+              //           color: Colors.white,
+              //           border: Border.all(color: Colors.blue, width: 1),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.grey.withOpacity(0.4),
+              //               spreadRadius: 1,
+              //               blurRadius: 1,
+              //               offset: Offset(1, 3), // changes position of shadow
+              //             ),
+              //           ],
+              //         ),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 Column(
+              //                   children: [
+              //                     Text(
+              //                       "Add ₹ ${rcvdData['total_amount']} x ",
+              //                       style: TextStyle(
+              //                           letterSpacing: 1,
+              //                           fontSize: 12,
+              //                           color: Colors.black,
+              //                           // fontFamily: font,
+              //                           fontWeight: FontWeight.bold),
+              //                     ),
+              //                     SizedBox(
+              //                       height: 3,
+              //                     ),
+              //                     StreamBuilder<MonthsModal>(
+              //                         stream: homebloc.getLiveMonths.stream,
+              //                         builder: (context, snapshot) {
+              //                           if (!snapshot.hasData)
+              //                             return Container();
+              //                           return DropDown(
+              //                             items: List.generate(
+              //                                 snapshot.data!.data.length,
+              //                                 (index) => snapshot
+              //                                     .data!.data[index].months!),
+              //                             hint: Text("Select Months"),
+              //                             icon: Icon(
+              //                               Icons.expand_more,
+              //                               color: Colors.blue,
+              //                             ),
+              //                             onChanged: (s) {
+              //                               monthname = s.toString();
+              //                               setState(() {});
+              //                             },
+              //                           );
+              //                         }),
+              //                     // Text(
+              //                     //   "Add ₹ 9785 x ",
+              //                     //   style: TextStyle(
+              //                     //       letterSpacing: 1,
+              //                     //       fontSize: 12,
+              //                     //       color: Colors.black,
+              //                     //       // fontFamily: font,
+              //                     //       fontWeight: FontWeight.bold),
+              //                     // ),
+              //                   ],
+              //                 ),
+              //                 Column(
+              //                   children: [
+              //                     Image.asset("assets/wallet (1) 3.png"),
+              //                     SizedBox(
+              //                       height: 3,
+              //                     ),
+              //                     Text(
+              //                       "In Wallet",
+              //                       style: TextStyle(
+              //                           letterSpacing: 1,
+              //                           fontSize: 12,
+              //                           color: Colors.black,
+              //                           // fontFamily: font,
+              //                           fontWeight: FontWeight.bold),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       );
+              //     }),
+              SizedBox(
+                height: 20,
+              ),
+              StreamBuilder<CalAmountModal>(
+                  stream: homebloc.getCalculatedAmount.stream,
+                  builder: (context, snapshot) {
+                    // print('++++++++++${snapshot.data!.data[0]}');
+                    if (!snapshot.hasData) return Container();
+                    return Column(
+                      children: [
+                        (rcvdData['total_amount']) * int.parse(monthname[0]) >
+                                int.parse(snapshot
+                                    .data!.data[0].response!.walletBallance)
+                            ? InkWell(
                                 onTap: () async {
-                                  // print('object');
-                                  if (amountController.text == "") {
-                                    Fluttertoast.showToast(msg: 'Enter Amount');
-                                    return;
-                                  }
                                   String orderId = DateTime.now()
                                       .millisecondsSinceEpoch
                                       .remainder(10000000000)
                                       .toString();
                                   Walletapi _api = Walletapi();
                                   Map data = await _api.initTokenCashfree(
-                                    amount: amountController.text,
+                                    amount:
+                                        '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
                                     orderId: orderId,
                                   );
                                   print(data);
                                   if (data['status'] == "OK") {
-                                    cashFree(
-                                      amount: amountController.text,
-                                      token: data['cftoken'],
-                                      orderId: orderId,
-                                      name: snapshot.data!.name!,
-                                      email: snapshot.data!.email!,
-                                      phone: snapshot.data!.phone!,
-                                    );
+                                    cashFreeHalfpayment(
+                                        monthamount:
+                                            '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                        token: data['cftoken'],
+                                        orderId: orderId,
+                                        name: 'santosh',
+                                        email: 'email@email.com',
+                                        is_wallet: '1',
+                                        phone: '9798416091',
+                                        amount: rcvdData['total_amount']
+                                            .toString());
                                   } else {
                                     Fluttertoast.showToast(
                                         msg: 'Something went wrong');
                                   }
-                                  // openCheckout(int.parse(amountController.text));
                                 },
                                 child: Container(
-                                  // padding: EdgeInsets.all(20),
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width - 10,
+                                  padding: EdgeInsets.all(10),
+                                  width: MediaQuery.of(context).size.width - 40,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     color: Colors.green,
@@ -364,58 +441,152 @@ class _CheckwalletState extends State<Checkwallet> {
                                       ),
                                     ],
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      "+ Add To Wallet",
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                          fontFamily: font,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  150,
+                                              child: Text(
+                                                "Add ₹ ${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                style: TextStyle(
+                                                  letterSpacing: 1,
+                                                  fontSize: 12,
+                                                  color: Colors.white,
+                                                  // fontFamily: font,
+                                                  // fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                            ),
+                                            Image.asset("assets/Vector.png")
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            }),
-                        Spacer(
-                          flex: 1,
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  HomeApi _api = HomeApi();
+                                  Map data = await _api.doPayment(
+                                      amount:
+                                          '${((rcvdData['total_amount']) * int.parse(monthname[0]))}',
+                                      month: monthname,
+                                      addressid: rcvdData['address_id'],
+                                      subs: rcvdData['subs']);
+                                  print(data);
+                                  if (data['response'] == '1') {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/thankyou',
+                                    );
+                                  } else {
+                                    Fluttertoast.showToast(msg: data['msg']);
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: MediaQuery.of(context).size.width - 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.green,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  150,
+                                              child: Text(
+                                                "Pay through wallet ₹ ${(rcvdData['total_amount']) * int.parse(monthname[0])}  & Proceed",
+                                                style: TextStyle(
+                                                  letterSpacing: 1,
+                                                  fontSize: 12,
+                                                  color: Colors.white,
+                                                  // fontFamily: font,
+                                                  // fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                            ),
+                                            Image.asset("assets/Vector.png")
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                            '( Available Wallet Balance : ₹${snapshot.data!.data[0].response!.walletBallance!} )'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(' Or ',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(
+                          height: 10,
                         ),
                         InkWell(
                           onTap: () async {
-                            if (int.parse(snapshot.data!.balance[0].amount!) >
-                                rcvdData['total_amount']) {
-                              print('paise h bhai');
-                              HomeApi _api = HomeApi();
-                              Map data = await _api.doPayment(
-                                  amount: rcvdData['total_amount'].toString(),
-                                  month: rcvdData['month'],
-                                  addressid: rcvdData['address_id'],
-                                  subs: rcvdData['subs']);
-                              print(data);
-                              if (data['response'] == '1') {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/thankyou',
-                                );
-                              } else {
-                                Fluttertoast.showToast(msg: data['msg']);
-                              }
+                            // print(
+                            //     '${(rcvdData['total_amount']) * int.parse(monthname[0])}');
+                            // return;
+                            String orderId = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .remainder(10000000000)
+                                .toString();
+                            Walletapi _api = Walletapi();
+                            Map data = await _api.initTokenCashfree(
+                              amount:
+                                  '${(rcvdData['total_amount']) * int.parse(monthname[0])}',
+                              orderId: orderId,
+                            );
+                            print(data);
+                            if (data['status'] == "OK") {
+                              cashFreeOnlinepayment(
+                                  monthamount:
+                                      '${(rcvdData['total_amount']) * int.parse(monthname[0])}',
+                                  token: data['cftoken'],
+                                  orderId: orderId,
+                                  name: 'santosh',
+                                  email: 'email@email.com',
+                                  is_wallet: '1',
+                                  phone: '9798416091',
+                                  amount: rcvdData['total_amount'].toString());
                             } else {
                               Fluttertoast.showToast(
-                                  msg: 'Add amount to wallet',
-                                  backgroundColor: Colors.red);
-                              return;
+                                  msg: 'Something went wrong');
                             }
-                            // print('object');
                           },
                           child: Container(
-                            // padding: EdgeInsets.all(20),
-                            height: 40,
-                            width: MediaQuery.of(context).size.width - 10,
+                            padding: EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width - 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: lightWhite2,
+                              color: Colors.amber,
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.4),
@@ -426,92 +597,62 @@ class _CheckwalletState extends State<Checkwallet> {
                                 ),
                               ],
                             ),
-                            child: Center(
-                              child: Text(
-                                "Pay through wallet",
-                                style: TextStyle(
-                                    letterSpacing: 1,
-                                    fontSize: 15,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                150,
+                                        child: Text(
+                                          "Pay Online ₹${(rcvdData['total_amount']) * int.parse(monthname[0])}",
+                                          style: TextStyle(
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            // fontFamily: font,
+                                            // fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                      ),
+                                      Image.asset(
+                                        "assets/Vector.png",
+                                        color: Colors.black,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        StreamBuilder<UserdetailModal>(
-                            stream: homebloc.getuserdetails.stream,
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) return Container();
-                              return InkWell(
-                                onTap: () async {
-                                  String orderId = DateTime.now()
-                                      .millisecondsSinceEpoch
-                                      .remainder(10000000000)
-                                      .toString();
-                                  Walletapi _api = Walletapi();
-                                  Map data = await _api.initTokenCashfree(
-                                    amount: rcvdData['total_amount'].toString(),
-                                    orderId: orderId,
-                                  );
-                                  print(data);
-                                  if (data['status'] == "OK") {
-                                    cashFreeOnlinepayment(
-                                      amount:
-                                          rcvdData['total_amount'].toString(),
-                                      token: data['cftoken'],
-                                      orderId: orderId,
-                                      name: snapshot.data!.name!,
-                                      email: snapshot.data!.email!,
-                                      phone: snapshot.data!.phone!,
-                                    );
-                                  } else {
-                                    Fluttertoast.showToast(
-                                        msg: 'Something went wrong');
-                                  }
-                                  // openCheckout(int.parse(amountController.text));
-                                },
-                                child: Container(
-                                  // padding: EdgeInsets.all(20),
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width - 10,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.green,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(
-                                            1, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Pay Online",
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          fontSize: 15,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          fontFamily: font,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                        SizedBox(
-                          height: 30,
-                        )
-                      ]),
+                      ],
+                    );
+                  }),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Bundle amount will be auto debited on 7th of every month from your wallet.",
+                style: TextStyle(
+                  letterSpacing: 1,
+                  fontSize: 15,
+                  color: Colors.grey[600],
+                  // fontFamily: font,
+                  // fontWeight: FontWeight.bold
                 ),
-              );
-            }));
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -12,6 +12,9 @@ class BillingPage extends StatefulWidget {
   State<BillingPage> createState() => _BillingPageState();
 }
 
+String is_coupon = "0";
+String coupon_Id = "0";
+
 class _BillingPageState extends State<BillingPage> {
   int activeIndex = 1;
   int? couponIndex;
@@ -30,6 +33,8 @@ class _BillingPageState extends State<BillingPage> {
     print(data[0]['response']['total']);
     setState(() {
       totalamount = data[0]['response']['total'];
+      is_coupon = "0";
+      coupon_Id = "0";
     });
   }
 
@@ -47,14 +52,20 @@ class _BillingPageState extends State<BillingPage> {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text(
-          "Billing",
-          style: TextStyle(
-              // // letterSpacing: 1,
-              fontSize: 18,
-              color: grad2Color,
-              fontFamily: font,
-              fontWeight: FontWeight.bold),
+        title: InkWell(
+          onTap: () {
+            print(is_coupon);
+            print(coupon_Id);
+          },
+          child: Text(
+            "Billing",
+            style: TextStyle(
+                // // letterSpacing: 1,
+                fontSize: 18,
+                color: grad2Color,
+                // fontFamily: font,
+                fontWeight: FontWeight.bold),
+          ),
         ),
         // actions: [
         //   Center(
@@ -64,7 +75,7 @@ class _BillingPageState extends State<BillingPage> {
         //           // // letterSpacing: 1,
         //           fontSize: 18,
         //           color: grad2Color,
-        //           fontFamily: font,
+        //           // fontFamily: font,
         //           fontWeight: FontWeight.bold),
         //     ),
         //   ),
@@ -125,13 +136,21 @@ class _BillingPageState extends State<BillingPage> {
                                               coupon: snapshot.data!
                                                   .coupons[index].coupon!);
                                           print(data);
-                                          Fluttertoast.showToast(
-                                              msg: data['msg']);
+                                          if (data['response'] == "1") {
+                                            Fluttertoast.showToast(
+                                                msg: data['msg']);
 
-                                          setState(() {
-                                            couponIndex = index;
-                                            couponDiscount = data['discount'];
-                                          });
+                                            setState(() {
+                                              couponIndex = index;
+                                              couponDiscount = data['discount'];
+                                              is_coupon = "1";
+                                              coupon_Id = snapshot.data!
+                                                  .coupons[index].couponId!;
+                                            });
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                msg: data['msg']);
+                                          }
                                         },
                                         child: Row(
                                           children: [
@@ -175,6 +194,30 @@ class _BillingPageState extends State<BillingPage> {
                                     )),
                           );
                         }),
+                    couponDiscount == 0
+                        ? Container()
+                        : Align(
+                            alignment: Alignment.topRight,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  couponIndex = null;
+                                  couponDiscount = 0;
+                                  is_coupon = "0";
+                                  coupon_Id = '0';
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Remove Coupon',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 10),
+                                ),
+                              ),
+                            )),
                   ],
                 ),
               ),
@@ -218,7 +261,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -230,7 +273,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -248,7 +291,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -260,7 +303,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -278,7 +321,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 couponDiscount == 0
@@ -305,7 +348,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -323,7 +366,7 @@ class _BillingPageState extends State<BillingPage> {
                                       //  letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 deliveryCharge == 0
@@ -350,7 +393,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -368,19 +411,28 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.grey[600],
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 5,
                                 ),
+                                // Text(
+                                //   "₹ ${(totalamount + snapshot.data!.data[0].response!.delivery) - couponDiscount}",
+                                //   style: TextStyle(
+                                //       // // letterSpacing: 1,
+                                //       fontSize: 16,
+                                //       color: Colors.black,
+                                //       // fontFamily: font,
+                                //       fontWeight: FontWeight.bold),
+                                // ),
                                 Text(
-                                  "₹ ${(totalamount + deliveryCharge!) - couponDiscount}",
+                                  "₹ ${(snapshot.data!.data[0].response!.total + deliveryCharge) - couponDiscount}",
                                   style: TextStyle(
                                       // // letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -399,7 +451,7 @@ class _BillingPageState extends State<BillingPage> {
                     // // letterSpacing: 1,
                     fontSize: 16,
                     color: Colors.black,
-                    fontFamily: font,
+                    // fontFamily: font,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -467,7 +519,7 @@ class _BillingPageState extends State<BillingPage> {
                                     // // letterSpacing: 1,
                                     fontSize: 12,
                                     color: Colors.black,
-                                    fontFamily: font,
+                                    // fontFamily: font,
                                     // fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -516,7 +568,7 @@ class _BillingPageState extends State<BillingPage> {
                                       // // letterSpacing: 1,
                                       fontSize: 12,
                                       color: Colors.white,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       // fontWeight: FontWeight.bold
                                     ),
                                   ),
@@ -530,73 +582,82 @@ class _BillingPageState extends State<BillingPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          activeIndex = 0;
-                        });
-                        if (totalamount < 500) {
-                          setState(() {
-                            deliveryCharge = 49;
-                          });
-                        } else {
-                          deliveryCharge = 0;
-                        }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        // height: 80,
-                        width: MediaQuery.of(context).size.width - 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color:
-                                  activeIndex == 0 ? Colors.blue : Colors.grey,
-                              width: 1),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: activeIndex == 0
-                                  ? Colors.grey.withOpacity(0.4)
-                                  : Colors.grey.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset:
-                                  Offset(1, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "One Time Purchase",
-                              style: TextStyle(
-                                // // letterSpacing: 1,
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontFamily: font,
-                                // fontWeight: FontWeight.bold
+                    StreamBuilder<CalAmountModal>(
+                        stream: homebloc.getCalculatedAmount.stream,
+                        builder: (context, snapshot) {
+                          // print('++++++++++${snapshot.data!.data[0]}');
+                          if (!snapshot.hasData) return Container();
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                activeIndex = 0;
+                              });
+                              if (snapshot.data!.data[0].response!.total <
+                                  500) {
+                                setState(() {
+                                  deliveryCharge = 49;
+                                });
+                              } else {
+                                deliveryCharge = 0;
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              // height: 80,
+                              width: MediaQuery.of(context).size.width - 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    color: activeIndex == 0
+                                        ? Colors.blue
+                                        : Colors.grey,
+                                    width: 1),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: activeIndex == 0
+                                        ? Colors.grey.withOpacity(0.4)
+                                        : Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: Offset(
+                                        1, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "One Time Purchase",
+                                    style: TextStyle(
+                                      // // letterSpacing: 1,
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                      // fontFamily: font,
+                                      // fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  CircleAvatar(
+                                    radius: 10,
+                                    // backgroundImage: AssetImage("assets/1 9.png"),
+                                    backgroundColor: activeIndex == 0
+                                        ? Colors.blue
+                                        : Colors.grey[300],
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      // child: Image.asset(
+                                      //   "assets/1 9.png",
+                                      //   fit: BoxFit.contain,
+                                      // ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            CircleAvatar(
-                              radius: 10,
-                              // backgroundImage: AssetImage("assets/1 9.png"),
-                              backgroundColor: activeIndex == 0
-                                  ? Colors.blue
-                                  : Colors.grey[300],
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                // child: Image.asset(
-                                //   "assets/1 9.png",
-                                //   fit: BoxFit.contain,
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                          );
+                        })
                   ],
                 ),
               ),
@@ -625,9 +686,16 @@ class _BillingPageState extends State<BillingPage> {
                         //   Navigator.pushNamed(context, '/thankyou');
                         // }
                         Navigator.pushNamed(context, '/address', arguments: {
+                          'c_discount': couponDiscount,
+                          'b_discount':
+                              snapshot.data!.data[0].response!.bundle_disc,
+                          'sub_total':
+                              snapshot.data!.data[0].response!.sub_total,
                           'activeIndex': activeIndex,
                           'total_amount':
-                              (totalamount + deliveryCharge!) - couponDiscount,
+                              (snapshot.data!.data[0].response!.total +
+                                      deliveryCharge) -
+                                  couponDiscount,
                           'subs': activeIndex.toString()
                         });
                       },

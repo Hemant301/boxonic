@@ -1,3 +1,4 @@
+import 'package:boxoniq/modal/blogmodal.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/homerepo.dart';
 import 'package:rxdart/rxdart.dart';
@@ -26,6 +27,20 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       _liveMyOrder.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<MyOrderModal> _liveMysubHistory =
+      BehaviorSubject<MyOrderModal>();
+  BehaviorSubject<MyOrderModal> get getSubshistory => _liveMysubHistory;
+  fetchsubsHistory() async {
+    try {
+      MyOrderModal homeSlider = await _homeRepo.fetchsubsHistory();
+      // print(homeSlider.imgs!.length);
+
+      _liveMysubHistory.add(homeSlider);
     } catch (e) {
       print(e);
     }
@@ -175,6 +190,64 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<BlogdetailsModal> liveBlogDetails =
+      BehaviorSubject<BlogdetailsModal>();
+  BehaviorSubject<BlogdetailsModal> get getBlogDetails => liveBlogDetails;
+  fetchBlogdetails(id) async {
+    // _liveBlogDetails.addError("Loading");
+    try {
+      BlogdetailsModal homeSlider = await _homeRepo.fetchBlogdetails(id);
+      // print(homeSlider.imgs!.length);
+
+      liveBlogDetails.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<Questionmodal> liveQestion =
+      BehaviorSubject<Questionmodal>();
+  BehaviorSubject<Questionmodal> get getQuestion => liveQestion;
+  fetchquestions() async {
+    // _liveQestion.addError("Loading");
+    try {
+      Questionmodal homeSlider = await _homeRepo.fetchquestions();
+      // print(homeSlider.imgs!.length);
+
+      liveQestion.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<BlogModal> liveBlogList = BehaviorSubject<BlogModal>();
+  BehaviorSubject<BlogModal> get getBlogList => liveBlogList;
+  fetchBlogList() async {
+    // _liveBlogList.addError("Loading");
+    try {
+      BlogModal homeSlider = await _homeRepo.fetchBlogList();
+      // print(homeSlider.imgs!.length);
+
+      liveBlogList.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<StoryModal> liveStories = BehaviorSubject<StoryModal>();
+  BehaviorSubject<StoryModal> get getSories => liveStories;
+  fetchStories() async {
+    // _liveStories.addError("Loading");
+    try {
+      StoryModal homeSlider = await _homeRepo.fetchStories();
+      // print(homeSlider.imgs!.length);
+
+      liveStories.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // final BehaviorSubject<CouponModal> liveCoupons =
   //     BehaviorSubject<CouponModal>();
   // BehaviorSubject<CouponModal> get getCoupons => liveCoupons;
@@ -292,6 +365,21 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       liveuserdetails.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<AnswerModal> liveanswerdetail =
+      BehaviorSubject<AnswerModal>();
+  BehaviorSubject<AnswerModal> get getanswerdetail => liveanswerdetail;
+  fetchanswerDetails(id) async {
+    // liveanswerdetail.addError("Loading");
+    try {
+      AnswerModal homeSlider = await _homeRepo.fetchanswerDetails(id);
+      // print(homeSlider.imgs!.length);
+
+      liveanswerdetail.add(homeSlider);
     } catch (e) {
       print(e);
     }

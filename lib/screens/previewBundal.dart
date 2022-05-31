@@ -34,7 +34,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
               letterSpacing: 1,
               fontSize: 18,
               color: grad2Color,
-              fontFamily: font,
+              // fontFamily: font,
               fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -51,7 +51,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                           letterSpacing: 1,
                           fontSize: 18,
                           color: grad2Color,
-                          fontFamily: font,
+                          // fontFamily: font,
                           fontWeight: FontWeight.bold),
                     ),
                   );
@@ -82,7 +82,10 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                     repeat: false, height: 200),
                                 Text(
                                   'Your Box is Empty',
-                                  style: TextStyle(fontFamily: font),
+                                  style: TextStyle(
+                                      // fontFamily: font
+                                      //
+                                      ),
                                 )
                               ],
                             ))
@@ -129,7 +132,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                     letterSpacing: 1,
                                                     fontSize: 16,
                                                     color: Colors.grey[500],
-                                                    fontFamily: font,
+                                                    // fontFamily: font,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
@@ -390,7 +393,12 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                                 Center(
                                                                               child: Text(
                                                                                 "Remove Item",
-                                                                                style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.white, fontFamily: font, fontWeight: FontWeight.bold),
+                                                                                style: TextStyle(
+                                                                                    letterSpacing: 1,
+                                                                                    fontSize: 10,
+                                                                                    color: Colors.white,
+                                                                                    // fontFamily: font,
+                                                                                    fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           ),
@@ -419,7 +427,12 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                               children: [
                                                                                 Text(
                                                                                   snapshot.data!.bundal[index].product[i].attribute!,
-                                                                                  style: TextStyle(letterSpacing: 1, fontSize: 10, color: Colors.black, fontFamily: font, fontWeight: FontWeight.bold),
+                                                                                  style: TextStyle(
+                                                                                      letterSpacing: 1,
+                                                                                      fontSize: 10,
+                                                                                      color: Colors.black,
+                                                                                      // fontFamily: font,
+                                                                                      fontWeight: FontWeight.bold),
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -507,7 +520,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                           letterSpacing: 1,
                           fontSize: 15,
                           color: Colors.white,
-                          fontFamily: font,
+                          // fontFamily: font,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -547,7 +560,7 @@ class _PreviewItemState extends State<PreviewItem> {
                   letterSpacing: 1,
                   fontSize: 16,
                   color: Colors.grey[500],
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -612,7 +625,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           letterSpacing: 1,
                                           fontSize: 16,
                                           color: Colors.black,
-                                          fontFamily: font,
+                                          // fontFamily: font,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -629,7 +642,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                         letterSpacing: 1,
                                         fontSize: 10,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         // fontWeight: FontWeight.bold
                                       ),
                                     ),
@@ -647,7 +660,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           letterSpacing: 1,
                                           fontSize: 10,
                                           color: Colors.black,
-                                          fontFamily: font,
+                                          // fontFamily: font,
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
@@ -661,7 +674,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
-                                          fontFamily: font,
+                                          // fontFamily: font,
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
@@ -675,7 +688,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
-                                          fontFamily: font,
+                                          // fontFamily: font,
                                           // fontWeight: FontWeight.bold
                                         ),
                                       )
@@ -707,7 +720,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                                   letterSpacing: 1,
                                                   fontSize: 10,
                                                   color: Colors.white,
-                                                  fontFamily: font,
+                                                  // fontFamily: font,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -736,7 +749,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                                     letterSpacing: 1,
                                                     fontSize: 10,
                                                     color: Colors.black,
-                                                    fontFamily: font,
+                                                    // fontFamily: font,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),

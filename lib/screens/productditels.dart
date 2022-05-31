@@ -67,7 +67,10 @@ class _ProductDitelsState extends State<ProductDitels> {
             },
             child: Text(
               rcvdData['title'],
-              style: TextStyle(color: Colors.black, fontFamily: font),
+              style: TextStyle(
+                color: Colors.black,
+                // fontFamily: font
+              ),
             ),
           ),
         ),
@@ -159,7 +162,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                         letterSpacing: 1,
                                         fontSize: 16,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Row(children: [
@@ -223,7 +226,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                       letterSpacing: 1,
                                       fontSize: 13,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       // fontWeight: FontWeight.bold
                                     ),
                                   ),
@@ -236,7 +239,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                         letterSpacing: 1,
                                         fontSize: 12,
                                         color: Color.fromARGB(255, 21, 113, 0),
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -252,7 +255,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                       letterSpacing: 1,
                                       fontSize: 13,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       // fontWeight: FontWeight.bold
                                     ),
                                   ),
@@ -291,7 +294,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                         letterSpacing: 1,
                                         fontSize: 13,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -356,7 +359,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                         letterSpacing: 1,
                                         fontSize: 13,
                                         color: Colors.black,
-                                        fontFamily: font,
+                                        // fontFamily: font,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -368,7 +371,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                                       letterSpacing: 1,
                                       fontSize: 13,
                                       color: Colors.black,
-                                      fontFamily: font,
+                                      // fontFamily: font,
                                       // fontWeight: FontWeight.bold
                                     ),
                                   ),
@@ -402,7 +405,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                       //                   letterSpacing: 1,
                       //                   fontSize: 13,
                       //                   color: Colors.black,
-                      //                   fontFamily: font,
+                      //                   // fontFamily: font,
                       //                   fontWeight: FontWeight.bold),
                       //             ),
                       //             SizedBox(
@@ -414,7 +417,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                       //                 letterSpacing: 1,
                       //                 fontSize: 13,
                       //                 color: Colors.black,
-                      //                 fontFamily: font,
+                      //                 // fontFamily: font,
                       //                 // fontWeight: FontWeight.bold
                       //               ),
                       //             ),
@@ -463,7 +466,8 @@ class _ProductDitelsState extends State<ProductDitels> {
                                   controller: _commentController,
                                   maxLines: 6,
                                   decoration: const InputDecoration(
-                                      hintText: 'Write your comment here'),
+                                      hintText:
+                                          'Write your review and rating here'),
                                 ),
                                 SizedBox(
                                   height: 20,
@@ -547,8 +551,24 @@ class _ProductDitelsState extends State<ProductDitels> {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/previewBundal');
+              onTap: () async {
+                HomeApi _api = HomeApi();
+                Map data = await _api.addToCart(
+                    p_id: rcvdData['id'],
+                    attr_id: attrid4api,
+                    qty: count.toString(),
+                    userid: userCred.getUserId());
+                print(data);
+
+                if (data['response'] == "1") {
+                  Navigator.pushNamed(context, '/previewBundal');
+                  homebloc.checkamount();
+
+                  Fluttertoast.showToast(
+                      msg: 'Successfully added', backgroundColor: Colors.green);
+                } else {
+                  Fluttertoast.showToast(msg: 'Something went wrong');
+                }
               },
               child: Container(
                 // padding: EdgeInsets.all(20),
@@ -569,12 +589,12 @@ class _ProductDitelsState extends State<ProductDitels> {
                     ]),
                 child: Center(
                   child: Text(
-                    "Go to Bag",
+                    "Shop Now",
                     style: TextStyle(
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Colors.red,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -622,7 +642,7 @@ class _ProductDitelsState extends State<ProductDitels> {
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Color.fromARGB(255, 0, 0, 0),
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

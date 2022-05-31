@@ -18,7 +18,7 @@ class Address extends StatelessWidget {
                 letterSpacing: 1,
                 fontSize: 18,
                 color: grad2Color,
-                fontFamily: font,
+                // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -33,7 +33,7 @@ class Address extends StatelessWidget {
                   letterSpacing: 1,
                   fontSize: 16,
                   color: Colors.black,
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -71,7 +71,7 @@ class Address extends StatelessWidget {
                   letterSpacing: 1,
                   fontSize: 16,
                   color: Colors.black,
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -109,7 +109,7 @@ class Address extends StatelessWidget {
                   letterSpacing: 1,
                   fontSize: 16,
                   color: Colors.black,
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(

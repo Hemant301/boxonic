@@ -45,6 +45,7 @@ class _WallatePageState extends State<WallatePage> {
 
                   amountController.text = "";
                 });
+                Navigator.pushNamed(context, '/wallet');
 
                 Fluttertoast.showToast(
                     msg: 'Succesfully Added', backgroundColor: Colors.green);
@@ -65,7 +66,6 @@ class _WallatePageState extends State<WallatePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -75,7 +75,6 @@ class _WallatePageState extends State<WallatePage> {
   }
 
   String amount = "";
-
 
   int sum = 0;
 
@@ -110,7 +109,7 @@ class _WallatePageState extends State<WallatePage> {
                 letterSpacing: 1,
                 fontSize: 18,
                 color: grad2Color,
-                fontFamily: font,
+                // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -139,7 +138,7 @@ class _WallatePageState extends State<WallatePage> {
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Colors.black,
-                        fontFamily: font,
+                        // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -174,7 +173,7 @@ class _WallatePageState extends State<WallatePage> {
                                 letterSpacing: 1,
                                 fontSize: 24,
                                 color: Colors.black,
-                                fontFamily: font,
+                                // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -257,7 +256,7 @@ class _WallatePageState extends State<WallatePage> {
                                   letterSpacing: 1,
                                   fontSize: 15,
                                   color: Colors.white,
-                                  fontFamily: font,
+                                  // fontFamily: font,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -273,7 +272,7 @@ class _WallatePageState extends State<WallatePage> {
                       letterSpacing: 1,
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: font,
+                      // fontFamily: font,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -353,7 +352,7 @@ class _WallatePageState extends State<WallatePage> {
                                                           letterSpacing: 1,
                                                           fontSize: 12,
                                                           color: Colors.black,
-                                                          fontFamily: font,
+                                                          // fontFamily: font,
                                                           // fontWeight: FontWeight.bold
                                                         ),
                                                       ),
@@ -370,7 +369,7 @@ class _WallatePageState extends State<WallatePage> {
                                                         letterSpacing: 1,
                                                         fontSize: 12,
                                                         color: Colors.black,
-                                                        fontFamily: font,
+                                                        // fontFamily: font,
                                                         // fontWeight: FontWeight.bold
                                                       ),
                                                     )

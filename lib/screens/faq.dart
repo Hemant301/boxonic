@@ -32,7 +32,7 @@ class Faq extends StatelessWidget {
                   letterSpacing: 1,
                   fontSize: 18,
                   color: Colors.black,
-                  fontFamily: font,
+                  // fontFamily: font,
                   fontWeight: FontWeight.bold),
             ),
           ],

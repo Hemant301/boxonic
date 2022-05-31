@@ -13,6 +13,7 @@ class Contact extends StatefulWidget {
 
 class _ContactState extends State<Contact> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController commentController = TextEditingController();
   @override
@@ -29,7 +30,7 @@ class _ContactState extends State<Contact> {
               letterSpacing: 1,
               fontSize: 18,
               color: grad2Color,
-              fontFamily: font,
+              // fontFamily: font,
               fontWeight: FontWeight.bold),
         ),
       ),
@@ -306,6 +307,27 @@ class _ContactState extends State<Contact> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: TextField(
+                              controller: emailController,
+                              maxLines: 1,
+                              decoration: const InputDecoration(
+                                  labelText: 'Email',
+                                  // border: InputBorder.none,
+                                  hintText: 'Enter Your Email',
+                                  hintStyle: TextStyle(fontSize: 12))),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white,
+                        ),
+                        width: MediaQuery.of(context).size.width - 60,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: TextField(
                               controller: phoneController,
                               maxLines: 1,
                               decoration: const InputDecoration(
@@ -334,7 +356,7 @@ class _ContactState extends State<Contact> {
 // comments/queries/review ''',
 //                                       labelStyle: TextStyle(fontSize: 12),
                                   // border: InputBorder.none,
-                                  hintText: 'Please write your',
+                                  hintText: 'Please write your Comment',
                                   hintStyle: TextStyle(fontSize: 12))),
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:boxoniq/api/homeapi.dart';
+import 'package:boxoniq/modal/blogmodal.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 
 class HomeRepo {
@@ -13,6 +14,12 @@ class HomeRepo {
 
   Future<MyOrderModal> fetchMyOrder() async {
     final response = await homeApi.fetchMyOrder();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return MyOrderModal(jsonResponse);
+  }
+
+  Future<MyOrderModal> fetchsubsHistory() async {
+    final response = await homeApi.fetchsubsHistory();
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;
     return MyOrderModal(jsonResponse);
   }
@@ -77,6 +84,30 @@ class HomeRepo {
     return WallettransModal(jsonResponse);
   }
 
+  Future<BlogdetailsModal> fetchBlogdetails(id) async {
+    final response = await homeApi.fetchBlogdetails(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return BlogdetailsModal(jsonResponse);
+  }
+
+  Future<Questionmodal> fetchquestions() async {
+    final response = await homeApi.fetchquestions();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return Questionmodal(jsonResponse);
+  }
+
+  Future<BlogModal> fetchBlogList() async {
+    final response = await homeApi.fetchBlogList();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return BlogModal(jsonResponse);
+  }
+
+  Future<StoryModal> fetchStories() async {
+    final response = await homeApi.fetchStories();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return StoryModal(jsonResponse);
+  }
+
   // Future<CouponModal> fetchCoupons(
   //     {String total = "", String coupon = ""}) async {
   //   final response = await homeApi.fetchCoupons(total: total, coupon: coupon);
@@ -124,6 +155,12 @@ class HomeRepo {
     final response = await homeApi.fetchuserDetails();
     var jsonResponse = jsonDecode(response.body) as Map;
     return UserdetailModal(jsonResponse);
+  }
+
+  Future<AnswerModal> fetchanswerDetails(id) async {
+    final response = await homeApi.fetchanswerDetails(id);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return AnswerModal(jsonResponse);
   }
 
   Future<CalAmountModal> fetchcalAmount() async {
