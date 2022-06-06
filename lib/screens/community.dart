@@ -80,7 +80,7 @@ class _CommunityState extends State<Community> {
                       child: Column(
                     children: [
                       Text(
-                        'Ask & Dscuss\neverything here',
+                        'Ask & Discuss\neverything here',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w300, fontSize: 18),

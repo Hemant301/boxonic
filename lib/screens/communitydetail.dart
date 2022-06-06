@@ -328,7 +328,7 @@ class CommunityComments extends StatelessWidget {
                 ),
               )
             ],
-            color: Colors.green,
+            color: Color.fromARGB(255, 255, 195, 195),
             borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

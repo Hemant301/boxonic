@@ -12,12 +12,14 @@ import 'package:boxoniq/screens/billing.dart';
 import 'package:boxoniq/screens/blog.dart';
 import 'package:boxoniq/screens/blogdetail.dart';
 import 'package:boxoniq/screens/bundlecreatorPage.dart';
+import 'package:boxoniq/screens/changeaddress.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/community.dart';
 import 'package:boxoniq/screens/communitydetail.dart';
 import 'package:boxoniq/screens/communitysearch.dart';
 import 'package:boxoniq/screens/contact.dart';
 import 'package:boxoniq/screens/cummunityonboard.dart';
+import 'package:boxoniq/screens/editaddress.dart';
 import 'package:boxoniq/screens/editprofile.dart';
 import 'package:boxoniq/screens/faq.dart';
 import 'package:boxoniq/screens/homescreen.dart';
@@ -25,15 +27,21 @@ import 'package:boxoniq/screens/mybundalSubscription.dart';
 import 'package:boxoniq/screens/myorderdetail.dart';
 import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
+import 'package:boxoniq/screens/mysubsdetail.dart';
+import 'package:boxoniq/screens/newaddress.dart';
 import 'package:boxoniq/screens/pdf.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/productditels.dart';
 import 'package:boxoniq/screens/profile.dart';
+import 'package:boxoniq/screens/referral.dart';
 import 'package:boxoniq/screens/story.dart';
+import 'package:boxoniq/screens/storydetails.dart';
 import 'package:boxoniq/screens/subscription.dart';
 import 'package:boxoniq/screens/subsdetail.dart';
 import 'package:boxoniq/screens/subshistory.dart';
 import 'package:boxoniq/screens/thankyou.dart';
+import 'package:boxoniq/screens/trackorder.dart';
+import 'package:boxoniq/screens/webview.dart';
 import 'package:boxoniq/splash/onbording.dart';
 import 'package:boxoniq/splash/splashsceen.dart';
 import 'package:boxoniq/util/storage.dart';
@@ -61,7 +69,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'sen'),
+        // theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'sen'),
         initialRoute: "/splashsceen",
         routes: {
           "/splashsceen": (context) => Splash(),
@@ -103,7 +111,15 @@ class MyApp extends StatelessWidget {
           "/communitysearch": (context) => Communitysearch(),
           "/cummunityonboard": (context) => Cummunityonboard(),
           "/communitydetail": (context) => Communitydetail(),
-          "/story": (context) => Story()
+          "/story": (context) => Story(),
+          "/mysubsdetail": (context) => Mysubsrdetail(),
+          "/referral": (context) => Referral(),
+          "/editaddress": (context) => Editaddress(),
+          "/storydetails": (context) => Storydetails(),
+          "/newaddress": (context) => Newaddress(),
+          "/changeaddress": (context) => Changeaddress(),
+          "/trackorder": (context) => Trackorder(),
+          "/webview": (context) => Webview(),
         });
   }
 }

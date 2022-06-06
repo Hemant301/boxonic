@@ -186,19 +186,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                "Select Months & Preview Wallet. You can cancel or pause you subscription anytime!",
-                style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 15,
-                  color: Colors.grey[600],
-                  fontFamily: font,
-                  // fontWeight: FontWeight.bold
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
               Container(
                 padding: EdgeInsets.all(20),
                 // height: 80,
@@ -366,11 +353,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             height: 5,
                           ),
                           Text(
-                            "₹ ${snapshot.data!.data[0].response!.sub_total}",
+                            "₹ ${rcvdData['total_amount']}",
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 16,
                                 color: Colors.black,
+                                decoration: TextDecoration.lineThrough,
+                                decorationThickness: 2,
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -386,7 +375,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Text(
-                                    "₹ ${rcvdData['total_amount']}",
+                                    "₹ ${((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100).toStringAsFixed(2)}",
                                     style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 24,
@@ -397,7 +386,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 ),
                               ),
                               Positioned(
-                                top: 0,
+                                top: -5,
                                 left: 100,
                                 child: Container(
                                   padding: EdgeInsets.all(2),
@@ -417,7 +406,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     ],
                                   ),
                                   child: Text(
-                                    "₹ ${rcvdData['c_discount'] + rcvdData['b_discount']} off ",
+                                    " 5% Subscription discount ",
                                     style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 12,
@@ -465,15 +454,23 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Add ₹ ${rcvdData['total_amount']} x ",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontFamily: font,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                      Text(
+                                        "Add ₹ ${((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100).toStringAsFixed(2)} x ",
+                                        style: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                            fontFamily: font,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -488,7 +485,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                               snapshot.data!.data.length,
                                               (index) => snapshot
                                                   .data!.data[index].months!),
-                                          hint: Text("Select Months"),
+                                          hint: Text("Select Months/Times"),
                                           icon: Icon(
                                             Icons.expand_more,
                                             color: Colors.blue,
@@ -529,6 +526,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               ),
                             ],
                           ),
+                          Text(
+                              'Total amount : ₹ ${(((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)}')
                         ],
                       ),
                     );
@@ -543,7 +542,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     if (!snapshot.hasData) return Container();
                     return Column(
                       children: [
-                        (rcvdData['total_amount']) * int.parse(monthname[0]) >
+                        double.parse((((rcvdData['total_amount']) -
+                                            (rcvdData['total_amount']) *
+                                                5 /
+                                                100) *
+                                        int.parse(monthname[0]))
+                                    .toStringAsFixed(2)) >
                                 int.parse(snapshot
                                     .data!.data[0].response!.walletBallance)
                             ? InkWell(
@@ -555,14 +559,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   Walletapi _api = Walletapi();
                                   Map data = await _api.initTokenCashfree(
                                     amount:
-                                        '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                        '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
                                     orderId: orderId,
                                   );
                                   print(data);
                                   if (data['status'] == "OK") {
                                     cashFreeHalfpayment(
                                         monthamount:
-                                            '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                            '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
                                         token: data['cftoken'],
                                         orderId: orderId,
                                         name: 'santosh',
@@ -604,7 +608,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       .width -
                                                   150,
                                               child: Text(
-                                                "Add ₹ ${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
                                                 style: TextStyle(
                                                   letterSpacing: 1,
                                                   fontSize: 12,
@@ -788,7 +792,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 height: 20,
               ),
               Text(
-                "Bundle will be auto Shipped on on 27th of every month from your wallet.",
+                "Bundle amount will be auto debited on shipment date every month from your wallet.",
                 style: TextStyle(
                   letterSpacing: 1,
                   fontSize: 15,

@@ -37,10 +37,27 @@ class HomeBloc {
   BehaviorSubject<MyOrderModal> get getSubshistory => _liveMysubHistory;
   fetchsubsHistory() async {
     try {
+      _liveMysubHistory.addError('error');
       MyOrderModal homeSlider = await _homeRepo.fetchsubsHistory();
       // print(homeSlider.imgs!.length);
 
       _liveMysubHistory.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<MyOrderModal> _liveMysucancelbHistory =
+      BehaviorSubject<MyOrderModal>();
+  BehaviorSubject<MyOrderModal> get getSubcancelshistory =>
+      _liveMysucancelbHistory;
+  fetchsubscancelHistory() async {
+    try {
+      _liveMysucancelbHistory.addError('error');
+      MyOrderModal homeSlider = await _homeRepo.fetchsubscancelHistory();
+      // print(homeSlider.imgs!.length);
+
+      _liveMysucancelbHistory.add(homeSlider);
     } catch (e) {
       print(e);
     }
@@ -100,13 +117,43 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<NumberModal> _livenumber =
+      BehaviorSubject<NumberModal>();
+  BehaviorSubject<NumberModal> get getnumber => _livenumber;
+  fetchnumbers() async {
+    try {
+      NumberModal homeSlider = await _homeRepo.fetchnumbers();
+      // print(homeSlider.imgs!.length);
+
+      _livenumber.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<FilterModal> _liveFilterList =
+      BehaviorSubject<FilterModal>();
+  BehaviorSubject<FilterModal> get getFilterList => _liveFilterList;
+  fetchFilterList(id) async {
+    try {
+      FilterModal homeSlider = await _homeRepo.fetchFilterList(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveFilterList.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<CategoryItemModal> _livecategoryItems =
       BehaviorSubject<CategoryItemModal>();
   BehaviorSubject<CategoryItemModal> get getCategoryitems => _livecategoryItems;
-  fetchcatItems(String id) async {
+  fetchcatItems(String id, String sort, String sort_order, String filter,
+      String filtertype, String filterkey) async {
     // _livecategoryItems.addError("Loading");
     try {
-      CategoryItemModal homeSlider = await _homeRepo.fetchcatItems(id);
+      CategoryItemModal homeSlider = await _homeRepo.fetchcatItems(
+          id, sort, sort_order, filter, filtertype, filterkey);
       // print(homeSlider.imgs!.length);
 
       _livecategoryItems.add(homeSlider);
@@ -309,6 +356,21 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<Myorderdetailmodal> _liveSubsdetails =
+      BehaviorSubject<Myorderdetailmodal>();
+  BehaviorSubject<Myorderdetailmodal> get getSubsdetailss => _liveSubsdetails;
+  fetchsubsdetails(String id) async {
+    try {
+      _liveSubsdetails.addError("Loading");
+      Myorderdetailmodal homeSlider = await _homeRepo.fetchsubsdetails(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSubsdetails.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<AddressListModal> _liveAddredd =
       BehaviorSubject<AddressListModal>();
   BehaviorSubject<AddressListModal> get getAddress => _liveAddredd;
@@ -319,6 +381,20 @@ class HomeBloc {
       // print(homeSlider.imgs!.length);
 
       _liveAddredd.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<StateModal> _livestate = BehaviorSubject<StateModal>();
+  BehaviorSubject<StateModal> get getstate => _livestate;
+  fetchState() async {
+    // _livestate.addError("Loading");
+    try {
+      StateModal homeSlider = await _homeRepo.fetchState();
+      // print(homeSlider.imgs!.length);
+
+      _livestate.add(homeSlider);
     } catch (e) {
       print(e);
     }

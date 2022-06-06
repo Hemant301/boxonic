@@ -24,6 +24,12 @@ class HomeRepo {
     return MyOrderModal(jsonResponse);
   }
 
+  Future<MyOrderModal> fetchsubscancelHistory() async {
+    final response = await homeApi.fetchsubscancelHistory();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return MyOrderModal(jsonResponse);
+  }
+
   Future<BrandModal> fetchHomebrand() async {
     final response = await homeApi.fetchHomebrand();
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;
@@ -48,8 +54,27 @@ class HomeRepo {
     return HomeCategoryModal(jsonResponse);
   }
 
-  Future<CategoryItemModal> fetchcatItems(String id) async {
-    final response = await homeApi.fetchcatItems(id);
+  Future<NumberModal> fetchnumbers() async {
+    final response = await homeApi.fetchnumbers();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return NumberModal(jsonResponse);
+  }
+
+  Future<FilterModal> fetchFilterList(id) async {
+    final response = await homeApi.fetchFilterList(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return FilterModal(jsonResponse);
+  }
+
+  Future<CategoryItemModal> fetchcatItems(
+      String id,
+      String sort,
+      String sort_order,
+      String filter,
+      String filtertype,
+      String filterkey) async {
+    final response = await homeApi.fetchcatItems(
+        id, sort, sort_order, filter, filtertype, filterkey);
     var jsonResponse = jsonDecode(response.body) as Map;
     return CategoryItemModal(jsonResponse);
   }
@@ -133,10 +158,22 @@ class HomeRepo {
     return Myorderdetailmodal(jsonResponse);
   }
 
+  Future<Myorderdetailmodal> fetchsubsdetails(String id) async {
+    final response = await homeApi.fetchsubsdetails(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return Myorderdetailmodal(jsonResponse);
+  }
+
   Future<AddressListModal> fetchAddress() async {
     final response = await homeApi.fetchAddress();
     var jsonResponse = jsonDecode(response.body) as Map;
     return AddressListModal(jsonResponse);
+  }
+
+  Future<StateModal> fetchState() async {
+    final response = await homeApi.fetchState();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return StateModal(jsonResponse);
   }
 
   Future<Myordermodal> fetchSubsdetails(String id) async {

@@ -15,6 +15,8 @@ class HomeScrren extends StatefulWidget {
   State<HomeScrren> createState() => _HomeScrrenState();
 }
 
+String referralcode = "";
+
 class _HomeScrrenState extends State<HomeScrren> {
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   GlobalKey previewContainer = new GlobalKey();
@@ -59,6 +61,9 @@ class _HomeScrrenState extends State<HomeScrren> {
     // print(data);
     userCred.addUserimage(data['img']);
     userCred.addUsername(data['name']);
+    setState(() {
+      referralcode = data['refer_code'];
+    });
   }
 
   @override
@@ -117,7 +122,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                   // shareScreenshot();
                   // _captureSocialPng();
                 },
-                child: Text(
+                child: const Text(
                   "Boxoniq",
                   style: TextStyle(
                       letterSpacing: 1,
@@ -127,7 +132,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(
+              const Text(
                 "Let's begin to continue",
                 style: TextStyle(
                     letterSpacing: 1,
@@ -145,11 +150,11 @@ class _HomeScrrenState extends State<HomeScrren> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(child: MyCorosule()),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -173,7 +178,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "HOW IT WORKS",
                             style: TextStyle(
                                 letterSpacing: 1,
@@ -182,7 +187,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
                           Row(
@@ -209,7 +214,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                     image: "assets/sync 1.png",
                                     title: "Delivery \n every month"),
                               ]),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
                           Center(
@@ -227,7 +232,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                   borderRadius: BorderRadius.circular(5),
                                   color: Color(0xff09A42B),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     "Create Your Bundle",
                                     style: TextStyle(
@@ -244,10 +249,10 @@ class _HomeScrrenState extends State<HomeScrren> {
                         ],
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "Bundle and Subscription Benefits",
@@ -273,7 +278,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                 desc:
                                     'Get additional bundle discount by adding minimum one product from each category',
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               startBox(
@@ -281,7 +286,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                   title: 'Subscribe and Save',
                                   desc:
                                       "Subscription comes with additional benefits throughout your subscription journey"),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               startBox(
@@ -292,7 +297,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                       'Modify, your bundle anytime. Skip or Cancel subscription anytime.'),
                             ],
                           ),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           Column(
@@ -300,7 +305,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                               Container(
                                 height: 300,
                                 width: 88,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(
                                             "assets/pexels-daniel-reche-1556706 1 (2).png"),
@@ -317,10 +322,10 @@ class _HomeScrrenState extends State<HomeScrren> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "SHOP BY CATEGORY",
@@ -365,7 +370,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 SizedBox(
                   height: 20,
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "BRANDS",
@@ -753,14 +758,14 @@ class startBox extends StatelessWidget {
             // ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 22,
+                left: 18,
                 top: 10,
                 bottom: 5,
               ),
               child: Container(
-                // padding: EdgeInsets.all(10),
-                height: 100,
-                width: MediaQuery.of(context).size.width - 160,
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+                // height: 100,
+                width: MediaQuery.of(context).size.width / 2 + 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: primaryLight,
@@ -818,7 +823,7 @@ class startBox extends StatelessWidget {
               bottom: 0,
               top: 0,
               child: CircleAvatar(
-                radius: 50,
+                radius: MediaQuery.of(context).size.width / 10,
                 backgroundColor: Color(0xffD3C6F9),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

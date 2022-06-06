@@ -16,7 +16,7 @@ class Faq extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
             size: 30,
@@ -25,7 +25,7 @@ class Faq extends StatelessWidget {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text(
               "FAQ",
               style: TextStyle(
@@ -96,24 +96,22 @@ class _FaqbuttonState extends State<Faqbutton> {
               children: [
                 Text(
                   '${widget.question}',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: expand == 0
-                      ? Icon(Icons.arrow_drop_down)
-                      : Icon(Icons.arrow_drop_up),
+                      ? const Icon(Icons.arrow_drop_down)
+                      : const Icon(Icons.arrow_drop_up),
                 )
               ],
             ),
             expand == 0
                 ? Container()
-                : Container(
-                    child: Text(
-                      '${widget.answer}',
-                    ),
+                : Text(
+                    '${widget.answer}',
                   ),
-            Divider(
+            const Divider(
               color: Colors.black,
             )
           ],

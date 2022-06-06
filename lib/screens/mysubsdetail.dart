@@ -1,43 +1,38 @@
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/screens/mysublist.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
-class Myorderdetail extends StatelessWidget {
-  const Myorderdetail({Key? key}) : super(key: key);
+class Mysubsrdetail extends StatelessWidget {
+  const Mysubsrdetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
     print(rcvdData['id']);
     String id = rcvdData['id'];
-    homebloc.fetchOrderdetails(id);
+    homebloc.fetchsubsdetails(id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: lightWhite2,
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.all(10.0),
-        //     child: CircleAvatar(
-        //       backgroundImage: NetworkImage(
-        //         "https://cdn-icons-png.flaticon.com/128/1177/1177568.png",
-        //       ),
-        //     ),
-        //   ),
-        // ],
         title: Text(
-          'Order detail',
+          'Subscription detail',
           style: TextStyle(color: Colors.black),
         ),
         actions: [
           Center(
               child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/webview', arguments: {'url': ''});
+              Navigator.pushNamed(context, '/webview', arguments: {
+                'url':
+                    'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
+              });
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -52,9 +47,9 @@ class Myorderdetail extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Myorderdetailmodal>(
-            stream: homebloc.getOrderdetails.stream,
+            stream: homebloc.getSubsdetailss.stream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) return Container();
+              if (!snapshot.hasData) return Shimmer_home();
               return Column(
                 children: [
                   SizedBox(
@@ -404,6 +399,99 @@ class Myorderdetail extends StatelessWidget {
                           )),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/trackorder');
+                        },
+                        child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width / 2 - 40,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.amber,
+                            // border: Border.all(color: Colors.blue, width: 1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(1, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Track Order",
+                                style: TextStyle(
+                                    // letterSpacing: 1,
+                                    fontSize: 12,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    // fontFamily: font,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Image.asset(
+                              //   "assets/Vector.png",
+                              //   width: 10,
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        width: MediaQuery.of(context).size.width / 2 - 40,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromARGB(255, 255, 20, 20),
+                          // border: Border.all(color: Colors.blue, width: 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset:
+                                  Offset(1, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Invoice",
+                              style: TextStyle(
+                                  // letterSpacing: 1,
+                                  fontSize: 12,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  // fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            // SizedBox(
+                            //   width: 10,
+                            // ),
+                            // Image.asset(
+                            //   "assets/Vector.png",
+                            //   width: 10,
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               );
             }),

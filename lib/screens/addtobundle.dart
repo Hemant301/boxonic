@@ -69,7 +69,7 @@ class _AddtobundleState extends State<Addtobundle> {
     homebloc.checkamount();
 
     print(userCred.getUserId());
-    homebloc.fetchcatItems('$activeIndex');
+    homebloc.fetchcatItems('$activeIndex', '0', '0', '0', '0', '0');
     return WillPopScope(
       onWillPop: _onBack,
       child: Scaffold(
@@ -88,27 +88,7 @@ class _AddtobundleState extends State<Addtobundle> {
                 // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
-          actions: [
-            Center(
-              child: StreamBuilder<CheckAmountModal>(
-                  stream: homebloc.getcheckAmount.stream,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Container();
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "₹ ${snapshot.data!.totalamount.toString()}",
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontSize: 18,
-                            color: grad2Color,
-                            // fontFamily: font,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    );
-                  }),
-            ),
-          ],
+          actions: [],
         ),
         body: StreamBuilder<CategoryItemModal>(
             stream: homebloc.getCategoryitems.stream,
@@ -417,19 +397,22 @@ class ProductsCard extends StatefulWidget {
 }
 
 class _ProductsCardState extends State<ProductsCard> {
+  List<String> idArr = [];
   int count = 1;
   String attrId = "";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('init v chal rha');
+    // print('init v chal rha');
+    idArr.clear();
 
     check();
   }
 
   check() async {
-    Map data = await homeApi.fetchcatItemsinIt(widget.appid!);
+    Map data =
+        await homeApi.fetchcatItemsinIt(widget.appid!, '0', '0', '0', '0', '0');
     // print('${data['product'][0]['attribute'][0]['id']} ');
     if (widget.attrIdForApi == "") {
       widget.attrIdForApi = data['product'][widget.i]['attribute'][0]['id'];
@@ -450,7 +433,7 @@ class _ProductsCardState extends State<ProductsCard> {
   @override
   Widget build(BuildContext context) {
     check();
-    print('build bna bhai');
+    // print('build bna bhai');
 
     return Center(
       child: Padding(
@@ -637,6 +620,7 @@ class _ProductsCardState extends State<ProductsCard> {
                               widget.colorIndex = 0;
                               widget.attrIdForApi = "";
                             });
+                            idArr.add('${widget.data!.id!}');
 
                             Fluttertoast.showToast(
                                 msg: 'Successfully added',
@@ -645,27 +629,52 @@ class _ProductsCardState extends State<ProductsCard> {
                             Fluttertoast.showToast(msg: 'Something went wrong');
                           }
                         },
-                        child: Container(
-                          width: 120,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff53900F),
-                            // border: Border.all(color: Colors.blue, width: 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Add to Bundle",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 10,
-                                  color: Colors.white,
-                                  // fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                        child: idArr.contains('${widget.data!.id!}')
+                            ? Container(
+                                width: 120,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xff53900F),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Added to Bundle",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: 120,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xff53900F),
+                                  ),
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Add to Bundle",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 10,
+                                        color: Color(0xff53900F),
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
                       ),
                     ],
                   ),

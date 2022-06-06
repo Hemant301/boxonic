@@ -28,7 +28,7 @@ class HomeApi {
       final response = await client.post(Uri.parse("${base}get-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -40,10 +40,26 @@ class HomeApi {
 
   Future<dynamic> fetchsubsHistory() async {
     try {
-      final response = await client.post(Uri.parse("${base}get-order-bo.php"),
+      final response = await client.post(
+          Uri.parse("${base}get-subscription-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+  Future<dynamic> fetchsubscancelHistory() async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-subscription-order-bo.php"),
+          body: {'account_id': userCred.getUserId()});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -100,7 +116,7 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}super-cat-bo.php"));
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -110,13 +126,51 @@ class HomeApi {
     } finally {}
   }
 
-  Future<dynamic> fetchcatItems(String id) async {
+  Future<dynamic> fetchnumbers() async {
+    try {
+      final response =
+          await client.get(Uri.parse("${base}get-contact-detail.php"));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchFilterList(id) async {
     try {
       final response = await client.post(
-          Uri.parse("${base}product-super-cat-bo.php"),
+          Uri.parse("${base}get-brand-subcategory-bo.php"),
           body: {'sequence': id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchcatItems(String id, String sort, String sort_order,
+      String filter, String filtertype, String filterkey) async {
+    try {
+      final response = await client
+          .post(Uri.parse("${base}product-super-cat-bo-filter.php"), body: {
+        'sequence': id,
+        'sort': sort,
+        'sort_key': sort_order,
+        'filter': filter,
+        'filter_type': filtertype,
+        'filter_key': filterkey
+      });
+      if (response.statusCode == 200) {
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -132,7 +186,7 @@ class HomeApi {
           Uri.parse("${base}product-detail-bo.php"),
           body: {'product_id': id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -236,6 +290,22 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchsubsdetails(String id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-order-details-subscription-bo.php"),
+          body: {'process_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchAddress() async {
     try {
       final response = await client.post(
@@ -244,6 +314,22 @@ class HomeApi {
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
         // // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchState() async {
+    try {
+      final response = await client.get(
+        Uri.parse("${base}get-states-bo.php"),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -661,12 +747,19 @@ class HomeApi {
     } finally {}
   }
 
-  Future<dynamic> fetchcatItemsinIt(String id) async {
+  Future<dynamic> fetchcatItemsinIt(String id, String sort, String sort_order,
+      String filter, String filtertype, String filterkey) async {
     var client = http.Client();
     try {
-      final response = await client.post(
-          Uri.parse("${base}product-super-cat-bo.php"),
-          body: {'sequence': id});
+      final response = await client
+          .post(Uri.parse("${base}product-super-cat-bo-filter.php"), body: {
+        'sequence': id,
+        'sort': sort,
+        'sort_key': sort_order,
+        'filter': filter,
+        'filter_type': filtertype,
+        'filter_key': filterkey
+      });
       if (response.statusCode == 200) {
         // // // print(response.body);
         return jsonDecode(response.body) as Map;
@@ -857,7 +950,7 @@ class HomeApi {
         'product_id': p_id,
       });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -925,6 +1018,29 @@ class HomeApi {
       });
       if (response.statusCode == 200) {
         // // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> getProcessid() async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${droidBase}get-subscription-process-id.php"),
+          body: {
+            'account_id': userCred.getUserId(),
+          });
+      if (response.statusCode == 200) {
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');

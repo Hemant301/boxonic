@@ -137,6 +137,31 @@ class DrawersPage extends StatelessWidget {
                   Divider(),
                   InkWell(
                     onTap: () {
+                      Navigator.pushNamed(context, '/mysublist');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "My Subscription",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset("assets/subscribe.png", height: 35)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(),
+                  InkWell(
+                    onTap: () {
                       Navigator.pushNamed(context, '/subshistory');
                     },
                     child: Padding(
@@ -146,7 +171,7 @@ class DrawersPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "My Bundle History",
+                            "Subscription History",
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 12,
@@ -160,31 +185,7 @@ class DrawersPage extends StatelessWidget {
                     ),
                   ),
                   Divider(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/myorderpage');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Order History",
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                fontSize: 12,
-                                color: grad2Color,
-                                // fontFamily: font,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Image.asset("assets/thistorys.png")
-                        ],
-                      ),
-                    ),
-                  ),
-                  Divider(),
+
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/previewBundal');
@@ -213,67 +214,209 @@ class DrawersPage extends StatelessWidget {
                     ),
                   ),
                   Divider(),
-                  Menulist(
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/myorderpage');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Order History",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/history.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(),
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, "/bundlecreatorPage",
                           arguments: {'id': '1', 'index': '1'});
                     },
-                    name: 'Create Your Bundle',
-                    icon: Icons.branding_watermark_rounded,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Create Your Bundle",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/box.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+                  // Menulist(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, "/bundlecreatorPage",
+                  //         arguments: {'id': '1', 'index': '1'});
+                  //   },
+                  //   name: 'Create Your Bundle',
+                  //   icon: Icons.branding_watermark_rounded,
+                  // ),
                   Divider(),
-                  Menulist(
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         "/addressbook",
                       );
                     },
-                    name: 'Address Book',
-                    icon: Icons.location_on,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Address Book",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/map.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+
                   Divider(),
                   Menulist(
-                    // onTap: () {
-                    //   Navigator.pushNamed(context, "/bundlecreatorPage",
-                    //       arguments: {'id': '1', 'index': '1'});
-                    // },
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/referral",
+                      );
+                    },
                     name: 'Refer & Earn',
                     icon: Icons.currency_rupee,
                   ),
                   Divider(),
-                  Menulist(
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         "/cummunityonboard",
                       );
                     },
-                    name: 'Community',
-                    icon: Icons.local_library_outlined,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Community",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/community2.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+
                   Divider(),
-                  Menulist(
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         "/story",
                       );
                     },
-                    name: 'Story',
-                    icon: Icons.history_toggle_off,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Story",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/story.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+
                   Divider(),
-                  Menulist(
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(
                         context,
                         "/blog",
                       );
                     },
-                    name: 'Blogs',
-                    icon: Icons.rss_feed,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Blogs",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/blog.png",
+                            height: 35,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+
                   Divider(),
                   Menulist(
                     onTap: () {
@@ -286,7 +429,7 @@ class DrawersPage extends StatelessWidget {
                     icon: Icons.contact_mail_outlined,
                   ),
                   Divider(),
-                  Menulist(
+                  InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/pdf', arguments: {
                         'url':
@@ -294,9 +437,40 @@ class DrawersPage extends StatelessWidget {
                         'title': 'About Us'
                       });
                     },
-                    name: 'About Us',
-                    icon: Icons.details_outlined,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "About Us",
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 12,
+                                color: grad2Color,
+                                // fontFamily: font,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            "assets/about.png",
+                            height: 30,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+                  // Menulist(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, '/pdf', arguments: {
+                  //       'url':
+                  //           'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/about.pdf',
+                  //       'title': 'About Us'
+                  //     });
+                  //   },
+                  //   name: 'About Us',
+                  //   icon: Icons.details_outlined,
+                  // ),
                   Divider(),
                   Menulist(
                     onTap: () {

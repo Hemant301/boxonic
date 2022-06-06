@@ -288,7 +288,7 @@ class OrderdetailModal {
   String? response;
   String? orderid;
   String? date;
-  String? amount;
+  dynamic? amount;
   String? img;
   String? status;
   OrderdetailModal(js) {
@@ -383,6 +383,7 @@ class Itemsmodal {
   String? item_attr;
   List<attributeModal> attribute = [];
   String? img;
+  String? super_cat_name;
   String? item_name;
   dynamic? item_price;
   dynamic? attr_price;
@@ -399,6 +400,7 @@ class Itemsmodal {
     item_attr = js['item_attr'] ?? "";
     img = js['img'] ?? "";
     item_name = js['item_name'] ?? "";
+    super_cat_name = js['super_cat_name'] ?? "";
     item_price = js['item_price'] ?? "";
     attr_price = js['attr_price'] ?? "";
     quantity = js['quantity'] ?? "";
@@ -421,14 +423,18 @@ class attributeModal {
 class TotalModal {
   dynamic? subtotal;
   dynamic? coupon;
+  dynamic? bundledissount;
 
   dynamic? discount;
   dynamic? total;
+  dynamic? finaltotal;
   TotalModal(js) {
     subtotal = js['subtotal'] ?? "";
     coupon = js['coupon'] ?? "0";
     discount = js['discount'] ?? "";
     total = js['total'] ?? "";
+    bundledissount = js['bundle_discount'] ?? "0";
+    finaltotal = js['final_total'] ?? "";
   }
 }
 
@@ -533,12 +539,16 @@ class AddressdetailModal {
   String? id;
   String? landmark;
   String? pincode;
+  String? state;
+  String? phone;
 
   AddressdetailModal(js) {
     id = js['id'] ?? "";
     fulladdress = js['full_address'] ?? "";
     landmark = js['landmark'] ?? "";
     pincode = js['pincode'] ?? "";
+    state = js['state'] ?? "";
+    phone = js['phone'] ?? "";
   }
 }
 
@@ -696,5 +706,71 @@ class AnswersDetailModal {
     user_name = js['user_name'] ?? "";
     img = js['img'] ?? "";
     created_on = js['created_on'] ?? "";
+  }
+}
+
+class FilterModal {
+  BrandlistModal? brand;
+  SubcatlistModal? subcat;
+  FilterModal(js) {
+    brand = BrandlistModal(js['brand']);
+    subcat = SubcatlistModal(js['subcat']);
+  }
+}
+
+class BrandlistModal {
+  List<FilterListModal> brand = [];
+  BrandlistModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      brand.add(FilterListModal(js[i]));
+    }
+  }
+}
+
+class SubcatlistModal {
+  List<FilterListModal> subcat = [];
+  SubcatlistModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      subcat.add(FilterListModal(js[i]));
+    }
+  }
+}
+
+class FilterListModal {
+  String? name;
+  String? id;
+  FilterListModal(js) {
+    name = js['name'] ?? "";
+    id = js['id'] ?? "";
+  }
+}
+
+class NumberModal {
+  String? mobile;
+  String? phone;
+  String? email;
+  NumberModal(js) {
+    mobile = js['mobile'];
+    phone = js['phone'];
+    email = js['email'];
+  }
+}
+
+class StateModal {
+  List<StatedetailModal> data = [];
+  StateModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(StatedetailModal(js[i]));
+    }
+  }
+}
+
+class StatedetailModal {
+  String? id;
+  String? state;
+
+  StatedetailModal(js) {
+    id = js['id'] ?? "";
+    state = js['name'] ?? "";
   }
 }

@@ -45,7 +45,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Find the answer on\njust on Tap !',
+                          'Building network for the\nsmartest Parents',
                           // textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                           height: 10,
                         ),
                         Text(
-                          'Lorem ipsum dolor sit amet consectetur\nadipisicing elit. adipisicing elitadipisicing\nelit  adipisicing elitadipisicing',
+                          'Get in touch with parents across india with best tips. Share thoughts, concerns,ask questions & get answers of anything related to baby, baby care, parenting or even baby products ',
                           // textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 13,
@@ -92,7 +92,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                               width: 20,
                             ),
                             Text(
-                              'Back to home',
+                              '1450 Questions Asked',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                               ),
@@ -116,6 +116,14 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                     fontSize: 20),
               ),
               Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                child: Text(
+                  'Boxoniq community keeps you on top of everything happening in your community ',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 88.0),
                 child: Divider(
                   thickness: 2,
@@ -126,35 +134,119 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                 height: 10,
               ),
               Container(
-                width: MediaQuery.of(context).size.width - 100,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      //background color of box
-                      BoxShadow(
-                        color: Color.fromARGB(255, 175, 175, 175),
-                        blurRadius: 5.0, // soften the shadow
-                        spreadRadius: 1.0, //extend the shadow
-                        offset: Offset(
-                          1.0, // Move to right 10  horizontally
-                          1.0, // Move to bottom 10 Vertically
-                        ),
-                      )
-                    ],
-                    color: Color.fromARGB(255, 255, 195, 195),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Text(
-                  'Lorem ipsum dolor sit amet consectetur\nadipisicing elit. adipisicing elitadipisicing\nelit  adipisicing elitadipisicing',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 13,
-                      letterSpacing: 1,
-                      color: Color.fromARGB(255, 0, 0, 0)),
+                width: MediaQuery.of(context).size.width - 80,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/info.png',
+                      height: 150,
+                    ),
+                    Text(
+                      'Get information ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Find the best solutions,recommended by your Community network ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 13,
+                          letterSpacing: 1,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 80,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/share.png',
+                      height: 150,
+                    ),
+                    Text(
+                      'Share topics & events',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Share common topics , babies events & news',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 13,
+                          letterSpacing: 1,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 80,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/community.png',
+                      height: 150,
+                    ),
+                    Text(
+                      'Build community',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Easy communication.Experience the power of community ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 13,
+                          letterSpacing: 1,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
                 height: 20,
-              )
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/community');
+                },
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: 250,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: Text(
+                      'Get started',
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.bold),
+                    ))),
+              ),
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ));

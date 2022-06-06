@@ -12,6 +12,7 @@ TextEditingController _emailController = TextEditingController();
 TextEditingController _pwdController = TextEditingController();
 TextEditingController _dobController = TextEditingController();
 TextEditingController _babynameController = TextEditingController();
+TextEditingController _refController = TextEditingController();
 
 class Creatuser extends StatefulWidget {
   const Creatuser({Key? key}) : super(key: key);
@@ -335,7 +336,27 @@ class _CreatuserState extends State<Creatuser> {
                       hinttext: "Enter Password",
                       // icon: (Icons.email),
                     ),
-
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Referral code",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        color: Colors.grey[800],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FormTTextFild(
+                      controller: _refController,
+                      hinttext: "Enter Referral code",
+                      // icon: (Icons.email),
+                    ),
                     SizedBox(
                       height: 30,
                     ),
@@ -404,6 +425,7 @@ class _CreatuserState extends State<Creatuser> {
                                 shopownerphone: "${_phoneController.text}",
                                 babydob: "${_dobController.text}",
                                 babyname: "${_babynameController.text}",
+                                referral: "${_refController.text}",
                                 shopownername: "${_nameController.text}");
                             print(data);
 

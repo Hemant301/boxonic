@@ -198,22 +198,23 @@ class _CheckwalletState extends State<Checkwallet> {
                     builder: (context, snapshot) {
                       // print('++++++++++${snapshot.data!.data[0]}');
                       if (!snapshot.hasData) return Container();
-                      return Column(
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Total",
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                fontSize: 24,
-                                color: Colors.grey,
-                                // fontFamily: font,
-                                fontWeight: FontWeight.bold),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Total",
+                              style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 24,
+                                  color: Colors.grey,
+                                  // fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
+
                           // Text(
                           //   "₹ ${rcvdData['sub_total']}",
                           //   style: TextStyle(
@@ -224,7 +225,7 @@ class _CheckwalletState extends State<Checkwallet> {
                           //       fontWeight: FontWeight.bold),
                           // ),
                           SizedBox(
-                            height: 5,
+                            width: 30,
                           ),
                           Stack(
                             clipBehavior: Clip.none,
@@ -233,7 +234,7 @@ class _CheckwalletState extends State<Checkwallet> {
                                 // height: 60,
                                 // width: 200,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding: const EdgeInsets.all(0.0),
                                   child: Text(
                                     "₹ ${rcvdData['total_amount']}",
                                     style: TextStyle(
@@ -245,9 +246,12 @@ class _CheckwalletState extends State<Checkwallet> {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                width: 5,
+                              ),
                               Positioned(
-                                top: 0,
-                                left: 100,
+                                top: -10,
+                                left: 70,
                                 child: Container(
                                   padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(
@@ -275,7 +279,7 @@ class _CheckwalletState extends State<Checkwallet> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
@@ -395,82 +399,89 @@ class _CheckwalletState extends State<Checkwallet> {
                         (rcvdData['total_amount']) * int.parse(monthname[0]) >
                                 int.parse(snapshot
                                     .data!.data[0].response!.walletBallance)
-                            ? InkWell(
-                                onTap: () async {
-                                  String orderId = DateTime.now()
-                                      .millisecondsSinceEpoch
-                                      .remainder(10000000000)
-                                      .toString();
-                                  Walletapi _api = Walletapi();
-                                  Map data = await _api.initTokenCashfree(
-                                    amount:
-                                        '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
-                                    orderId: orderId,
-                                  );
-                                  print(data);
-                                  if (data['status'] == "OK") {
-                                    cashFreeHalfpayment(
-                                        monthamount:
+                            ? snapshot.data!.data[0].response!.walletBallance ==
+                                        '0' ||
+                                    snapshot.data!.data[0].response!
+                                            .walletBallance ==
+                                        0
+                                ? Container()
+                                : InkWell(
+                                    onTap: () async {
+                                      String orderId = DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .remainder(10000000000)
+                                          .toString();
+                                      Walletapi _api = Walletapi();
+                                      Map data = await _api.initTokenCashfree(
+                                        amount:
                                             '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
-                                        token: data['cftoken'],
                                         orderId: orderId,
-                                        name: 'santosh',
-                                        email: 'email@email.com',
-                                        is_wallet: '1',
-                                        phone: '9798416091',
-                                        amount: rcvdData['total_amount']
-                                            .toString());
-                                  } else {
-                                    Fluttertoast.showToast(
-                                        msg: 'Something went wrong');
-                                  }
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  width: MediaQuery.of(context).size.width - 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.green,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(
-                                            1, 3), // changes position of shadow
+                                      );
+                                      print(data);
+                                      if (data['status'] == "OK") {
+                                        cashFreeHalfpayment(
+                                            monthamount:
+                                                '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                            token: data['cftoken'],
+                                            orderId: orderId,
+                                            name: 'santosh',
+                                            email: 'email@email.com',
+                                            is_wallet: '1',
+                                            phone: '9798416091',
+                                            amount: rcvdData['total_amount']
+                                                .toString());
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: 'Something went wrong');
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      width: MediaQuery.of(context).size.width -
+                                          40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.green,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width -
-                                                  150,
-                                              child: Text(
-                                                "Add ₹ ${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
-                                                style: TextStyle(
-                                                  letterSpacing: 1,
-                                                  fontSize: 12,
-                                                  color: Colors.white,
-                                                  // fontFamily: font,
-                                                  // fontWeight: FontWeight.bold
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      150,
+                                                  child: Text(
+                                                    "Add ₹ ${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                    style: TextStyle(
+                                                      letterSpacing: 1,
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      // fontFamily: font,
+                                                      // fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                Image.asset("assets/Vector.png")
+                                              ],
                                             ),
-                                            Image.asset("assets/Vector.png")
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )
+                                    ),
+                                  )
                             : InkWell(
                                 onTap: () async {
                                   HomeApi _api = HomeApi();
@@ -539,13 +550,25 @@ class _CheckwalletState extends State<Checkwallet> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                            '( Available Wallet Balance : ₹${snapshot.data!.data[0].response!.walletBallance!} )'),
+                        snapshot.data!.data[0].response!.walletBallance ==
+                                    '0' ||
+                                snapshot.data!.data[0].response!
+                                        .walletBallance ==
+                                    0
+                            ? Container()
+                            : Text(
+                                '( Available Wallet Balance : ₹${snapshot.data!.data[0].response!.walletBallance!} )'),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(' Or ',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        snapshot.data!.data[0].response!.walletBallance ==
+                                    '0' ||
+                                snapshot.data!.data[0].response!
+                                        .walletBallance ==
+                                    0
+                            ? Container()
+                            : Text(' Or ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(
                           height: 10,
                         ),
@@ -636,16 +659,7 @@ class _CheckwalletState extends State<Checkwallet> {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                "Bundle amount will be auto debited on 7th of every month from your wallet.",
-                style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 15,
-                  color: Colors.grey[600],
-                  // fontFamily: font,
-                  // fontWeight: FontWeight.bold
-                ),
-              ),
+
               SizedBox(
                 height: 30,
               ),

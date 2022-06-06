@@ -42,7 +42,14 @@ class _StoryState extends State<Story> {
                               is_swipe: swipe,
                               title: snapshot.data!.stories[i].title,
                               onTap: () {
-                                Fluttertoast.showToast(msg: 'Wait');
+                                Navigator.pushNamed(context, '/storydetails',
+                                    arguments: {
+                                      'title': snapshot.data!.stories[i].title,
+                                      'image': snapshot
+                                          .data!.stories[i].image[index].image,
+                                      'desc': snapshot.data!.stories[i].story,
+                                    });
+                                // Fluttertoast.showToast(msg: 'Wait');
                               },
                               desc: snapshot.data!.stories[i].story,
                               image:
@@ -86,7 +93,7 @@ class _FeedSliderState extends State<FeedSlider> {
     return Stack(
       children: [
         InkWell(
-          // onDoubleTap: () {
+          // onDoubleTap: () {̦̦
           //   setState(() {
           //     is_like = true;
           //   });
@@ -168,9 +175,7 @@ class _FeedSliderState extends State<FeedSlider> {
                           'Stories',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ))),
-                    Container(
-                      width: 10,
-                    )
+                    Icon(Icons.search)
                   ],
                 )),
           ),

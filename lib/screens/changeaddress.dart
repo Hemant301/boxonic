@@ -8,19 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Address extends StatefulWidget {
-  const Address({Key? key}) : super(key: key);
+class Changeaddress extends StatefulWidget {
+  const Changeaddress({Key? key}) : super(key: key);
 
   @override
-  State<Address> createState() => _AddressState();
+  State<Changeaddress> createState() => _ChangeaddressState();
 }
 
-class _AddressState extends State<Address> {
-  TextEditingController addressController = TextEditingController();
-  TextEditingController pincodeController = TextEditingController();
-  TextEditingController landmarkController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  String statename = "";
+class _ChangeaddressState extends State<Changeaddress> {
   @override
   void initState() {
     // TODO: implement initState
@@ -30,11 +25,11 @@ class _AddressState extends State<Address> {
   }
 
   getMydata() {
-    homebloc.liveAddress.listen((value) {
-      addressController.text = value.addess!;
-      pincodeController.text = value.pincode!;
-      landmarkController.text = value.landmark!;
-    });
+    // homebloc.liveAddress.listen((value) {
+    //   addressController.text = value.addess!;
+    //   pincodeController.text = value.pincode!;
+    //   landmarkController.text = value.landmark!;
+    // });
   }
 
   selectAddress() async {
@@ -52,14 +47,16 @@ class _AddressState extends State<Address> {
 
   @override
   Widget build(BuildContext context) {
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    print(rcvdData['id']);
     // homebloc.fetchaddess();
     homebloc.fetchListAddress();
     homebloc.fetchState();
-    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
-    print(rcvdData['activeIndex']);
-    print(rcvdData['activeIndex'].runtimeType);
-    print(rcvdData['total_amount']);
-    print(rcvdData['subs']);
+    // final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    // print(rcvdData['activeIndex']);
+    // print(rcvdData['activeIndex'].runtimeType);
+    // print(rcvdData['total_amount']);
+    // print(rcvdData['subs']);
 
     return Scaffold(
         backgroundColor: grad1Color,
@@ -87,7 +84,6 @@ class _AddressState extends State<Address> {
                   SizedBox(
                     height: 15,
                   ),
-
                   StreamBuilder<AddressListModal>(
                       stream: homebloc.getAddress.stream,
                       builder: (context, snapshot) {
@@ -296,188 +292,39 @@ class _AddressState extends State<Address> {
                             SizedBox(
                               height: 50,
                             ),
-                            snapshot.data!.data.length == 0
-                                ? Container()
-                                : InkWell(
-                                    onTap: () async {
-                                      if (addressId == "0") {
-                                        Fluttertoast.showToast(
-                                            msg: 'Select Address');
-                                        return;
-                                      }
-
-                                      // AuthApi _authapi = AuthApi();
-                                      try {
-                                        // Map data = await _authapi.doSaveAddress(
-                                        //     address: addressController.text,
-                                        //     landmark: landmarkController.text,
-                                        //     pincode: pincodeController.text);
-                                        // print(data["response"].runtimeType);
-
-                                        // if (data['response'] == '1') {
-                                        // Future.delayed(Duration(seconds: 0), () {
-                                        if (rcvdData['activeIndex'] == 1) {
-                                          Navigator.pushNamed(
-                                              context, "/subscription",
-                                              arguments: {
-                                                'c_discount':
-                                                    rcvdData['c_discount'],
-                                                'b_discount':
-                                                    rcvdData['b_discount'],
-                                                'sub_total':
-                                                    rcvdData['sub_total'],
-                                                'address_id': addressId,
-                                                'total_amount':
-                                                    rcvdData['total_amount'],
-                                                'subs': rcvdData['subs']
-                                              });
-                                        } else {
-                                          Navigator.pushNamed(
-                                              context, "/checkwallet",
-                                              arguments: {
-                                                'c_discount':
-                                                    rcvdData['c_discount'],
-                                                'b_discount':
-                                                    rcvdData['b_discount'],
-                                                'sub_total':
-                                                    rcvdData['sub_total'],
-                                                'address_id': addressId,
-                                                'total_amount':
-                                                    rcvdData['total_amount'],
-                                                'month': '0',
-                                                'subs': rcvdData['subs']
-                                              });
-                                        }
-                                      } catch (e) {}
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width -
-                                          40,
-                                      decoration: BoxDecoration(
-                                          color: lightWhite2,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Center(
-                                        child: Text(
-                                          "Next ",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
+                            InkWell(
+                              onTap: () async {
+                                AuthApi api = AuthApi();
+                                Map data = await api.changeAddressapi(
+                                    addressid: addressId,
+                                    processid: rcvdData['id']);
+                                if (data['response'] == '1') {
+                                  setState(() {
+                                    homebloc.fetchSubsdetails(rcvdData['id']);
+                                  });
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width - 40,
+                                decoration: BoxDecoration(
+                                    color: lightWhite2,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Text(
+                                    "Submit ",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
+                                ),
+                              ),
+                            ),
                           ],
                         );
                       }),
-
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Address",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 25,
-                  //   // padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: addressController,
-                  //     maxLines: 4,
-                  //     hinttext: "Enter Your Address",
-
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     // color: Colors.white,
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Pincode",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 40,
-                  //   padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: pincodeController,
-                  //     hinttext: "Enter Your Pincode",
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Landmark",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 40,
-                  //   padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: landmarkController,
-                  //     hinttext: "Enter Your LandMark",
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     // color: Colors.white,
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-
-                  //     // boxShadow: [
-                  //     //   BoxShadow(
-                  //     //     color: Colors.grey.withOpacity(0.4),
-                  //     //     spreadRadius: 1,
-                  //     //     blurRadius: 1,
-                  //     //     offset: Offset(1, 3), // changes position of shadow
-                  //     //   ),
-                  //     // ],
-                  //   ),
-                  // ),
-
                   SizedBox(
                     height: 20,
                   ),

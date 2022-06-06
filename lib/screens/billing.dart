@@ -294,6 +294,25 @@ class _BillingPageState extends State<BillingPage> {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
+                                snapshot.data!.data[0].response!.bundle_disc ==
+                                            '0' ||
+                                        snapshot.data!.data[0].response!
+                                                .bundle_disc ==
+                                            0
+                                    ? Container()
+                                    : Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 2, horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.green[800]),
+                                        child: Text(
+                                          '5% Applied',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -701,7 +720,7 @@ class _BillingPageState extends State<BillingPage> {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                         decoration: BoxDecoration(
                             color: Colors.green,
                             border: Border.all(
