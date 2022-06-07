@@ -18,7 +18,7 @@ class _CommunityState extends State<Community> {
   TextEditingController questionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    homebloc.fetchquestions();
+    homebloc.fetchquestions('1');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: lightWhite2,
@@ -313,7 +313,27 @@ class _CommunityState extends State<Community> {
                         ),
                       ),
                     );
-                  })
+                  }),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/communityquestions');
+                },
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width / 2,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                        child: Text(
+                      'Siew All questions',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ))),
+              ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),

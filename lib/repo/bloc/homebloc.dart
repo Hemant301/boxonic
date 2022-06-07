@@ -18,6 +18,34 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<HomebenefitsModal> _liveHomeBenefits =
+      BehaviorSubject<HomebenefitsModal>();
+  BehaviorSubject<HomebenefitsModal> get getHomeBenifits => _liveHomeBenefits;
+  fetchHomeBenefits() async {
+    try {
+      HomebenefitsModal homeSlider = await _homeRepo.fetchHomeBenefits();
+      // print(homeSlider.imgs!.length);
+
+      _liveHomeBenefits.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<SubsbenefitsModal> _liveSubsBenefits =
+      BehaviorSubject<SubsbenefitsModal>();
+  BehaviorSubject<SubsbenefitsModal> get getSubsBenifits => _liveSubsBenefits;
+  fetchSubsBenefit() async {
+    try {
+      SubsbenefitsModal homeSlider = await _homeRepo.fetchSubsBenefit();
+      // print(homeSlider.imgs!.length);
+
+      _liveSubsBenefits.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<MyOrderModal> _liveMyOrder =
       BehaviorSubject<MyOrderModal>();
   BehaviorSubject<MyOrderModal> get getMyOrder => _liveMyOrder;
@@ -255,10 +283,10 @@ class HomeBloc {
   final BehaviorSubject<Questionmodal> liveQestion =
       BehaviorSubject<Questionmodal>();
   BehaviorSubject<Questionmodal> get getQuestion => liveQestion;
-  fetchquestions() async {
+  fetchquestions(s) async {
     // _liveQestion.addError("Loading");
     try {
-      Questionmodal homeSlider = await _homeRepo.fetchquestions();
+      Questionmodal homeSlider = await _homeRepo.fetchquestions(s);
       // print(homeSlider.imgs!.length);
 
       liveQestion.add(homeSlider);
@@ -283,13 +311,43 @@ class HomeBloc {
 
   final BehaviorSubject<StoryModal> liveStories = BehaviorSubject<StoryModal>();
   BehaviorSubject<StoryModal> get getSories => liveStories;
-  fetchStories() async {
+  fetchStories(s) async {
     // _liveStories.addError("Loading");
     try {
-      StoryModal homeSlider = await _homeRepo.fetchStories();
+      StoryModal homeSlider = await _homeRepo.fetchStories(s);
       // print(homeSlider.imgs!.length);
 
       liveStories.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<Questionmodal> liveCommunitySearch =
+      BehaviorSubject<Questionmodal>();
+  BehaviorSubject<Questionmodal> get getCommunitySearch => liveCommunitySearch;
+  fetchcommunitySearch(s) async {
+    // _liveCommunitySearch.addError("Loading");
+    try {
+      Questionmodal homeSlider = await _homeRepo.fetchcommunitySearch(s);
+      // print(homeSlider.imgs!.length);
+
+      liveCommunitySearch.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<Questionmodal> liveCommunityAll =
+      BehaviorSubject<Questionmodal>();
+  BehaviorSubject<Questionmodal> get getCommunityAll => liveCommunityAll;
+  fetchcommunityall() async {
+    // _liveCommunityAll.addError("Loading");
+    try {
+      Questionmodal homeSlider = await _homeRepo.fetchcommunityall();
+      // print(homeSlider.imgs!.length);
+
+      liveCommunityAll.add(homeSlider);
     } catch (e) {
       print(e);
     }

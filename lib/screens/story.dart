@@ -14,50 +14,142 @@ class Story extends StatefulWidget {
 bool swipe = true;
 
 class _StoryState extends State<Story> {
+  String searchkey = 'all';
+  int searchIndex = 0;
   @override
   Widget build(BuildContext context) {
-    homebloc.fetchStories();
+    homebloc.fetchStories('$searchkey');
     return Scaffold(
-      body: StreamBuilder<StoryModal>(
-          stream: homebloc.getSories.stream,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return Container();
-            return PageView(
-              scrollDirection: Axis.vertical,
-              onPageChanged: (s) {
-                setState(() {
-                  swipe = false;
-                });
-              },
-              children: List.generate(
-                snapshot.data!.stories.length,
-                (i) => PageView(
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (i) {},
-                    children: List.generate(
-                        snapshot.data!.stories[i].image.length,
-                        (index) => FeedSlider(
-                              num: snapshot.data!.stories[i].image.length,
-                              indeX: index,
-                              is_swipe: swipe,
-                              title: snapshot.data!.stories[i].title,
-                              onTap: () {
-                                Navigator.pushNamed(context, '/storydetails',
-                                    arguments: {
-                                      'title': snapshot.data!.stories[i].title,
-                                      'image': snapshot
-                                          .data!.stories[i].image[index].image,
-                                      'desc': snapshot.data!.stories[i].story,
+      body: Stack(
+        children: [
+          StreamBuilder<StoryModal>(
+              stream: homebloc.getSories.stream,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+                return PageView(
+                  scrollDirection: Axis.vertical,
+                  onPageChanged: (s) {
+                    setState(() {
+                      swipe = false;
+                    });
+                  },
+                  children: List.generate(
+                    snapshot.data!.stories.length,
+                    (i) => PageView(
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (i) {},
+                        children: List.generate(
+                            snapshot.data!.stories[i].image.length,
+                            (index) => FeedSlider(
+                                  num: snapshot.data!.stories[i].image.length,
+                                  indeX: index,
+                                  is_swipe: swipe,
+                                  title: snapshot.data!.stories[i].title,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/storydetails',
+                                        arguments: {
+                                          'title':
+                                              snapshot.data!.stories[i].title,
+                                          'image': snapshot.data!.stories[i]
+                                              .image[index].image,
+                                          'desc':
+                                              snapshot.data!.stories[i].story,
+                                        });
+                                    // Fluttertoast.showToast(msg: 'Wait');
+                                  },
+                                  desc: snapshot.data!.stories[i].story,
+                                  image: snapshot
+                                      .data!.stories[i].image[index].image,
+                                ))),
+                  ),
+                );
+              }),
+          Positioned(
+            top: 30,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width - 16,
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Color.fromARGB(255, 223, 223, 223)),
+                      color: Color.fromARGB(255, 230, 230, 230),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Icon(Icons.arrow_back),
+                        ),
+                      ),
+                      searchIndex == 0
+                          ? Container(
+                              // width: 100,
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 230, 230, 230),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                  child: Text(
+                                'Stories',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )))
+                          : SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                // margin: EdgeInsets.only(top: 10),
+                                child: TextFormField(
+                                  autofocus: true,
+                                  // controller: _searchController,
+                                  onChanged: (s) {
+                                    setState(() {
+                                      searchkey = s.toString();
                                     });
-                                // Fluttertoast.showToast(msg: 'Wait');
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Search',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              )),
+                      searchIndex == 0
+                          ? InkWell(
+                              onTap: () {
+                                setState(() {
+                                  searchIndex = 1;
+                                });
                               },
-                              desc: snapshot.data!.stories[i].story,
-                              image:
-                                  snapshot.data!.stories[i].image[index].image,
-                            ))),
-              ),
-            );
-          }),
+                              child: Icon(Icons.search))
+                          : InkWell(
+                              onTap: () {
+                                setState(() {
+                                  setState(() {
+                                    searchIndex = 0;
+                                    searchkey = 'all';
+                                  });
+                                });
+                              },
+                              child: Icon(Icons.close))
+                    ],
+                  )),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -139,47 +231,11 @@ class _FeedSliderState extends State<FeedSlider> {
             ),
           ),
         ),
-        Positioned(
-          top: 30,
-          // left: 10,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                width: MediaQuery.of(context).size.width - 16,
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: Color.fromARGB(255, 223, 223, 223)),
-                    color: Color.fromARGB(255, 230, 230, 230),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Icon(Icons.arrow_back),
-                      ),
-                    ),
-                    Container(
-                        // width: 100,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 230, 230, 230),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                            child: Text(
-                          'Stories',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ))),
-                    Icon(Icons.search)
-                  ],
-                )),
-          ),
-        ),
+        // Positioned(
+        //   top: 30,
+        //   // left: 10,
+        //   child:
+        // ),
         is_like == true
             ? Center(child: Lottie.asset('assets/like.json', height: 150))
             : Container(),

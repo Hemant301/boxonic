@@ -133,6 +133,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     print(rcvdData['subs']);
     homebloc.fetchcalAmount();
     homebloc.getMonths();
+    homebloc.fetchSubsBenefit();
 
     return Scaffold(
       backgroundColor: grad1Color,
@@ -186,32 +187,18 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                padding: EdgeInsets.all(20),
-                // height: 80,
-                width: MediaQuery.of(context).size.width - 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.blue, width: 1),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      // padding: EdgeInsets.all(20),
-                      height: 40,
-                      width: MediaQuery.of(context).size.width - 80,
+              StreamBuilder<SubsbenefitsModal>(
+                  stream: homebloc.getSubsBenifits.stream,
+                  builder: (context, newsnapshot) {
+                    if (!newsnapshot.hasData) return Container();
+                    return Container(
+                      padding: EdgeInsets.all(20),
+                      // height: 80,
+                      width: MediaQuery.of(context).size.width - 40,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.blue, width: 1),
+                        color: Colors.white,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.4),
@@ -221,97 +208,86 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           ),
                         ],
                       ),
-                      child: Center(
-                        child: Text(
-                          "Monthly Subscribe Benefits Includes",
-                          style: TextStyle(
-                            letterSpacing: 1,
-                            fontSize: 12,
-                            color: Colors.white,
-                            fontFamily: font,
-                            // fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width - 80,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.blue, width: 1)
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.grey.withOpacity(0.4),
-                          //     spreadRadius: 1,
-                          //     blurRadius: 1,
-                          //     offset: Offset(1, 3), // changes position of shadow
-                          //   ),
-                          // ],
-                          ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            ">  Monthly Subscribe Benefits Includes",
-                            style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 10,
-                              color: Colors.black,
-                              fontFamily: font,
-                              // fontWeight: FontWeight.bold
+                          Container(
+                            // padding: EdgeInsets.all(20),
+                            height: 40,
+                            width: MediaQuery.of(context).size.width - 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.green,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(
+                                      1, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Monthly Subscribe Benefits Includes",
+                                style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontFamily: font,
+                                  // fontWeight: FontWeight.bold
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 3,
+                            height: 20,
                           ),
-                          Text(
-                            ">  Get 5% off on every shipment",
-                            style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 10,
-                              color: Colors.black,
-                              fontFamily: font,
-                              // fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Text(
-                            ">  Free Shipping Always",
-                            style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 10,
-                              color: Colors.black,
-                              fontFamily: font,
-                              // fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Text(
-                            ">  Surprise Benefits with every 3rd Shipment",
-                            style: TextStyle(
-                              letterSpacing: 1,
-                              fontSize: 10,
-                              color: Colors.black,
-                              fontFamily: font,
-                              // fontWeight: FontWeight.bold
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width - 80,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.white,
+                                border: Border.all(color: Colors.blue, width: 1)
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.grey.withOpacity(0.4),
+                                //     spreadRadius: 1,
+                                //     blurRadius: 1,
+                                //     offset: Offset(1, 3), // changes position of shadow
+                                //   ),
+                                // ],
+                                ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                newsnapshot.data!.data.length,
+                                (index) => Column(
+                                  children: [
+                                    Text(
+                                      '> ${newsnapshot.data!.data[index].name!}',
+                                      style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                        fontFamily: font,
+                                        // fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    );
+                  }),
               SizedBox(
                 height: 20,
               ),
@@ -607,16 +583,38 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       .size
                                                       .width -
                                                   150,
-                                              child: Text(
-                                                "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
-                                                style: TextStyle(
-                                                  letterSpacing: 1,
-                                                  fontSize: 12,
-                                                  color: Colors.white,
-                                                  fontFamily: font,
-                                                  // fontWeight: FontWeight.bold
-                                                ),
-                                              ),
+                                              child: snapshot
+                                                              .data!
+                                                              .data[0]
+                                                              .response!
+                                                              .walletBallance ==
+                                                          "0" ||
+                                                      snapshot
+                                                              .data!
+                                                              .data[0]
+                                                              .response!
+                                                              .walletBallance ==
+                                                          0
+                                                  ? Text(
+                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}  to Wallet & Proceed",
+                                                      style: TextStyle(
+                                                        letterSpacing: 1,
+                                                        fontSize: 12,
+                                                        color: Colors.white,
+                                                        fontFamily: font,
+                                                        // fontWeight: FontWeight.bold
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                      style: TextStyle(
+                                                        letterSpacing: 1,
+                                                        fontSize: 12,
+                                                        color: Colors.white,
+                                                        fontFamily: font,
+                                                        // fontWeight: FontWeight.bold
+                                                      ),
+                                                    ),
                                             ),
                                             Image.asset("assets/Vector.png")
                                           ],
@@ -631,7 +629,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   HomeApi _api = HomeApi();
                                   Map data = await _api.doPayment(
                                       amount:
-                                          '${((rcvdData['total_amount']) * int.parse(monthname[0]))}',
+                                          '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2))}',
                                       month: monthname,
                                       addressid: rcvdData['address_id'],
                                       subs: rcvdData['subs']);

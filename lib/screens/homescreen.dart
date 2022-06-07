@@ -3,6 +3,7 @@ import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/drower.dart';
+import 'package:boxoniq/screens/notify.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
@@ -72,6 +73,7 @@ class _HomeScrrenState extends State<HomeScrren> {
     homebloc.fetchHomebrand2();
     homebloc.fetchHomecategory();
     homebloc.fetchWhyBoxonic();
+    homebloc.fetchHomeBenefits();
     print(userCred.getUserId());
     return RepaintBoundary(
       key: previewContainer,
@@ -150,6 +152,7 @@ class _HomeScrrenState extends State<HomeScrren> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Token(),
                 const SizedBox(
                   height: 20,
                 ),
@@ -270,33 +273,30 @@ class _HomeScrrenState extends State<HomeScrren> {
                     children: [
                       Row(
                         children: [
-                          Column(
-                            children: [
-                              startBox(
-                                image: 'assets/c3.png',
-                                title: 'Bundle Discount',
-                                desc:
-                                    'Get additional bundle discount by adding minimum one product from each category',
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              startBox(
-                                  image: 'assets/c1.png',
-                                  title: 'Subscribe and Save',
-                                  desc:
-                                      "Subscription comes with additional benefits throughout your subscription journey"),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              startBox(
-                                  image: 'assets/c4.png',
-                                  title:
-                                      'Modify , Skip or Cancel Subscription anytime',
-                                  desc:
-                                      'Modify, your bundle anytime. Skip or Cancel subscription anytime.'),
-                            ],
-                          ),
+                          StreamBuilder<HomebenefitsModal>(
+                              stream: homebloc.getHomeBenifits.stream,
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) return Container();
+                                return Column(
+                                  children: List.generate(
+                                    snapshot.data!.data.length,
+                                    (index) => Column(
+                                      children: [
+                                        startBox(
+                                          image:
+                                              snapshot.data!.data[index].image,
+                                          title:
+                                              snapshot.data!.data[index].name,
+                                          desc: snapshot.data!.data[index].desc,
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
                           const Spacer(
                             flex: 1,
                           ),
@@ -827,7 +827,7 @@ class startBox extends StatelessWidget {
                 backgroundColor: Color(0xffD3C6F9),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Image.asset(image!),
+                  child: Image.network(image!),
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -10,6 +11,22 @@ class Cummunityonboard extends StatefulWidget {
 }
 
 class _CummunityonboardState extends State<Cummunityonboard> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    check();
+  }
+
+  check() async {
+    Map data = await homeApi.getNumberofquestion();
+    print(data);
+    setState(() {
+      numberQues = data['quesion_count'];
+    });
+  }
+
+  String numberQues = "0";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +109,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                               width: 20,
                             ),
                             Text(
-                              '1450 Questions Asked',
+                              '$numberQues Questions Asked',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0),
                               ),

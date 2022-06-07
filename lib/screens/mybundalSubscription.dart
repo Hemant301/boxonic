@@ -22,6 +22,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
     print(rcvdData['id']);
     String id = rcvdData['id'];
     homebloc.fetchSubsdetails(id);
+    homebloc.fetchSubsBenefit();
     return Scaffold(
       backgroundColor: grad1Color,
       appBar: AppBar(
@@ -121,56 +122,38 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                         SizedBox(
                           width: 10,
                         ),
-                        InkWell(
-                            onTap: () {
-                              showGeneralDialog(
-                                  context: context,
-                                  barrierLabel: "Barrier",
-                                  barrierDismissible: true,
-                                  barrierColor: Colors.black.withOpacity(0.5),
-                                  transitionDuration:
-                                      Duration(milliseconds: 500),
-                                  pageBuilder: (_, __, ___) {
-                                    return Center(
-                                      child: Container(
-                                        height: 250,
-                                        child: Container(
-                                          padding: EdgeInsets.all(20),
-                                          // height: 80,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              40,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: Colors.blue, width: 1),
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.4),
-                                                spreadRadius: 1,
-                                                blurRadius: 1,
-                                                offset: Offset(1,
-                                                    3), // changes position of shadow
-                                              ),
-                                            ],
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                // padding: EdgeInsets.all(20),
-                                                height: 40,
+                        StreamBuilder<SubsbenefitsModal>(
+                            stream: homebloc.getSubsBenifits.stream,
+                            builder: (context, newsnapshot) {
+                              if (!snapshot.hasData) return Container();
+                              return InkWell(
+                                  onTap: () {
+                                    showGeneralDialog(
+                                        context: context,
+                                        barrierLabel: "Barrier",
+                                        barrierDismissible: true,
+                                        barrierColor:
+                                            Colors.black.withOpacity(0.5),
+                                        transitionDuration:
+                                            Duration(milliseconds: 500),
+                                        pageBuilder: (_, __, ___) {
+                                          return Center(
+                                            child: Container(
+                                              height: 250,
+                                              child: Container(
+                                                padding: EdgeInsets.all(20),
+                                                // height: 80,
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width -
-                                                    80,
+                                                    40,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: Colors.green,
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Colors.blue,
+                                                      width: 1),
+                                                  color: Colors.white,
                                                   boxShadow: [
                                                     BoxShadow(
                                                       color: Colors.grey
@@ -182,96 +165,138 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                     ),
                                                   ],
                                                 ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Monthly Subscribe Benefits Includes",
-                                                    style: TextStyle(
-                                                      letterSpacing: 1,
-                                                      fontSize: 12,
-                                                      color: Colors.white,
-                                                      fontFamily: font,
-                                                      // fontWeight: FontWeight.bold
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.all(10),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width -
-                                                    80,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: Colors.white,
-                                                    border: Border.all(
-                                                        color: Colors.blue,
-                                                        width: 1)),
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: List.generate(
-                                                    5,
-                                                    (index) => Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: Text(
-                                                        ">  Monthly Subscribe Benefits Includes",
-                                                        style: TextStyle(
-                                                          letterSpacing: 1,
-                                                          fontSize: 10,
-                                                          color: Colors.black,
-                                                          fontFamily: font,
-                                                          // fontWeight: FontWeight.bold
+                                                  children: [
+                                                    Container(
+                                                      // padding: EdgeInsets.all(20),
+                                                      height: 40,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        color: Colors.green,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.4),
+                                                            spreadRadius: 1,
+                                                            blurRadius: 1,
+                                                            offset: Offset(1,
+                                                                3), // changes position of shadow
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Monthly Subscribe Benefits Includes",
+                                                          style: TextStyle(
+                                                            letterSpacing: 1,
+                                                            fontSize: 12,
+                                                            color: Colors.white,
+                                                            fontFamily: font,
+                                                            // fontWeight: FontWeight.bold
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              80,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.white,
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.blue,
+                                                              width: 1)),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: List.generate(
+                                                          newsnapshot.data!.data
+                                                              .length,
+                                                          (index) => Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(5.0),
+                                                            child: Text(
+                                                              newsnapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .name!,
+                                                              style: TextStyle(
+                                                                letterSpacing:
+                                                                    1,
+                                                                fontSize: 10,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily:
+                                                                    font,
+                                                                // fontWeight: FontWeight.bold
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(40)),
-                                      ),
-                                    );
-                                  },
-                                  transitionBuilder: (_, anim, __, child) {
-                                    Tween<Offset> tween;
-                                    if (anim.status ==
-                                        AnimationStatus.reverse) {
-                                      tween = Tween(
-                                          begin: Offset(-1, 0),
-                                          end: Offset.zero);
-                                    } else {
-                                      tween = Tween(
-                                          begin: Offset(1, 0),
-                                          end: Offset.zero);
-                                    }
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40)),
+                                            ),
+                                          );
+                                        },
+                                        transitionBuilder:
+                                            (_, anim, __, child) {
+                                          Tween<Offset> tween;
+                                          if (anim.status ==
+                                              AnimationStatus.reverse) {
+                                            tween = Tween(
+                                                begin: Offset(-1, 0),
+                                                end: Offset.zero);
+                                          } else {
+                                            tween = Tween(
+                                                begin: Offset(1, 0),
+                                                end: Offset.zero);
+                                          }
 
-                                    return SlideTransition(
-                                      position: tween.animate(anim),
-                                      child: FadeTransition(
-                                        opacity: anim,
-                                        child: child,
-                                      ),
-                                    );
-                                  });
-                            },
-                            child: Icon(Icons.info, size: 18))
+                                          return SlideTransition(
+                                            position: tween.animate(anim),
+                                            child: FadeTransition(
+                                              opacity: anim,
+                                              child: child,
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  child: Icon(Icons.info, size: 18));
+                            })
                       ],
                     ),
                     SizedBox(

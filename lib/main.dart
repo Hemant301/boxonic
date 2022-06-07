@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:boxoniq/auth/login.dart';
 import 'package:boxoniq/auth/loginotp.dart';
 import 'package:boxoniq/auth/mobilelogin.dart';
@@ -16,6 +18,7 @@ import 'package:boxoniq/screens/changeaddress.dart';
 import 'package:boxoniq/screens/checkwallet.dart';
 import 'package:boxoniq/screens/community.dart';
 import 'package:boxoniq/screens/communitydetail.dart';
+import 'package:boxoniq/screens/communityquestions.dart';
 import 'package:boxoniq/screens/communitysearch.dart';
 import 'package:boxoniq/screens/contact.dart';
 import 'package:boxoniq/screens/cummunityonboard.dart';
@@ -29,6 +32,7 @@ import 'package:boxoniq/screens/myorderpage.dart';
 import 'package:boxoniq/screens/mysublist.dart';
 import 'package:boxoniq/screens/mysubsdetail.dart';
 import 'package:boxoniq/screens/newaddress.dart';
+import 'package:boxoniq/screens/notify.dart';
 import 'package:boxoniq/screens/pdf.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/productditels.dart';
@@ -45,8 +49,13 @@ import 'package:boxoniq/screens/webview.dart';
 import 'package:boxoniq/splash/onbording.dart';
 import 'package:boxoniq/splash/splashsceen.dart';
 import 'package:boxoniq/util/storage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:path_provider_android/path_provider_android.dart';
+import 'package:path_provider_ios/path_provider_ios.dart';
 
 import 'screens/policies.dart';
 
@@ -54,13 +63,34 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await StorageUtil.getInstance();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  FirebaseMessaging.onMessage.listen((event) {
+    // {HEADER: head, body: body, message: title, intent-type: HOME, type: TEXT, id: inte}
+
+    print('${event.data}----------------------');
+    showThisNotification(event.data);
+  });
+  FirebaseMessaging.instance.subscribeToTopic('news');
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -68,7 +98,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        navigatorKey: navigatorKey,
+        title: 'Boxoniq',
         // theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'sen'),
         initialRoute: "/splashsceen",
         routes: {
@@ -120,6 +151,33 @@ class MyApp extends StatelessWidget {
           "/changeaddress": (context) => Changeaddress(),
           "/trackorder": (context) => Trackorder(),
           "/webview": (context) => Webview(),
+          "/communityquestions": (context) => Communityquestions(),
         });
   }
+}
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'Boxoniq', // id
+  'Boxoniq', // title
+  importance: Importance.max,
+
+  playSound: true,
+  sound: RawResourceAndroidNotificationSound('notification'),
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  if (Platform.isAndroid) PathProviderAndroid.registerWith();
+  if (Platform.isIOS) PathProviderIOS.registerWith();
+
+  // WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  print('A bg message just showed up :  ${message.messageId}');
+
+  print(message.data);
+  await FirebaseMessaging.instance.subscribeToTopic('news');
+
+  showThisNotificationInbg(message.data);
 }

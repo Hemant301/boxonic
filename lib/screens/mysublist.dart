@@ -38,15 +38,17 @@ class Mysublist extends StatelessWidget {
                   return Column(
                     children: [
                       snapshot.data!.data.length == 0
-                          ? Column(
-                              children: [
-                                Lottie.asset(
-                                  'assets/empty.json',
-                                  height: 200,
-                                  repeat: false,
-                                ),
-                                Text('No data found')
-                              ],
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Lottie.asset(
+                                    'assets/empty.json',
+                                    height: 200,
+                                    repeat: false,
+                                  ),
+                                  Text('No data found')
+                                ],
+                              ),
                             )
                           : Column(
                               children: List.generate(

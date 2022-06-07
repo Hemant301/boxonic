@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "742326021603",
+    "project_id": "boxoniq-1a3d4",
+    "storage_bucket": "boxoniq-1a3d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742326021603:android:ea40734567b0ff344744d6",
+        "android_client_info": {
+          "package_name": "com.boxoniq.ctpl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742326021603-95tvbmd50sm748urjucsahf1qlp6kqme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf7ZN3GPA65_CiqyaNyqE2axKN--rtVvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742326021603-95tvbmd50sm748urjucsahf1qlp6kqme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

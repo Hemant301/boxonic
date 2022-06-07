@@ -774,3 +774,44 @@ class StatedetailModal {
     state = js['name'] ?? "";
   }
 }
+
+class HomebenefitsModal {
+  List<HomeBenefitdetailModal> data = [];
+  HomebenefitsModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(HomeBenefitdetailModal(js[i]));
+    }
+  }
+}
+
+class HomeBenefitdetailModal {
+  String? name;
+  String? image;
+  String? desc;
+
+  HomeBenefitdetailModal(js) {
+    name = js['name'] ?? "";
+    image = js['image'] ?? "";
+    desc = js['desc'] ?? "";
+  }
+}
+class SubsbenefitsModal {
+  List<SubsBenefitdetailModal> data = [];
+  SubsbenefitsModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(SubsBenefitdetailModal(js[i]));
+    }
+  }
+}
+
+class SubsBenefitdetailModal {
+  String? name;
+  // String? image;
+  // String? desc;
+
+  SubsBenefitdetailModal(js) {
+    name = js['name'] ?? "";
+    // image = js['image'] ?? "";
+    // desc = js['desc'] ?? "";
+  }
+}

@@ -23,6 +23,36 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchHomeBenefits() async {
+    try {
+      final response =
+          await client.get(Uri.parse("${base}get-home-bundle-benefit-bo.php"));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchSubsBenefit() async {
+    try {
+      final response =
+          await client.get(Uri.parse("${base}get-subscription-benefit-bo.php"));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> fetchMyOrder() async {
     try {
       final response = await client.post(Uri.parse("${base}get-order-bo.php"),
@@ -53,6 +83,7 @@ class HomeApi {
       // print(e);
     } finally {}
   }
+
   Future<dynamic> fetchsubscancelHistory() async {
     try {
       final response = await client.post(
@@ -662,11 +693,11 @@ class HomeApi {
     } finally {}
   }
 
-  Future<dynamic> fetchquestions() async {
+  Future<dynamic> fetchquestions(s) async {
     try {
-      final response = await client.get(
-        Uri.parse("${base}get-community-questions.php"),
-      );
+      final response = await client.post(
+          Uri.parse("${base}get-community-questions.php"),
+          body: {'is_limit': s});
       if (response.statusCode == 200) {
         // print(response.body);
         return response;
@@ -694,10 +725,41 @@ class HomeApi {
     } finally {}
   }
 
-  Future<dynamic> fetchStories() async {
+  Future<dynamic> fetchStories(s) async {
+    try {
+      final response = await client
+          .post(Uri.parse("${base}get-stories-bo.php"), body: {'search': s});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchcommunitySearch(s) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}get-community-search-questions.php"),
+          body: {'search': s});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchcommunityall() async {
     try {
       final response = await client.get(
-        Uri.parse("${base}get-stories-bo.php"),
+        Uri.parse("${base}get-community-questions.php"),
       );
       if (response.statusCode == 200) {
         // print(response.body);
@@ -1039,6 +1101,27 @@ class HomeApi {
           body: {
             'account_id': userCred.getUserId(),
           });
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> getNumberofquestion() async {
+    var client = http.Client();
+    try {
+      final response = await client.get(
+        Uri.parse("${base}get-community-question-count.php"),
+      );
       if (response.statusCode == 200) {
         // print(response.body);
         return jsonDecode(response.body) as Map;

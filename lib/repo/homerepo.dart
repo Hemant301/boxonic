@@ -12,6 +12,18 @@ class HomeRepo {
     return HomeSlider(jsonResponse);
   }
 
+  Future<HomebenefitsModal> fetchHomeBenefits() async {
+    final response = await homeApi.fetchHomeBenefits();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return HomebenefitsModal(jsonResponse);
+  }
+
+  Future<SubsbenefitsModal> fetchSubsBenefit() async {
+    final response = await homeApi.fetchSubsBenefit();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return SubsbenefitsModal(jsonResponse);
+  }
+
   Future<MyOrderModal> fetchMyOrder() async {
     final response = await homeApi.fetchMyOrder();
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;
@@ -115,8 +127,8 @@ class HomeRepo {
     return BlogdetailsModal(jsonResponse);
   }
 
-  Future<Questionmodal> fetchquestions() async {
-    final response = await homeApi.fetchquestions();
+  Future<Questionmodal> fetchquestions(s) async {
+    final response = await homeApi.fetchquestions(s);
     var jsonResponse = jsonDecode(response.body) as List;
     return Questionmodal(jsonResponse);
   }
@@ -127,10 +139,22 @@ class HomeRepo {
     return BlogModal(jsonResponse);
   }
 
-  Future<StoryModal> fetchStories() async {
-    final response = await homeApi.fetchStories();
+  Future<StoryModal> fetchStories(s) async {
+    final response = await homeApi.fetchStories(s);
     var jsonResponse = jsonDecode(response.body) as List;
     return StoryModal(jsonResponse);
+  }
+
+  Future<Questionmodal> fetchcommunitySearch(s) async {
+    final response = await homeApi.fetchcommunitySearch(s);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return Questionmodal(jsonResponse);
+  }
+
+  Future<Questionmodal> fetchcommunityall() async {
+    final response = await homeApi.fetchcommunityall();
+    var jsonResponse = jsonDecode(response.body) as List;
+    return Questionmodal(jsonResponse);
   }
 
   // Future<CouponModal> fetchCoupons(

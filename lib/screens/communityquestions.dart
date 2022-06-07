@@ -1,43 +1,39 @@
+// import 'package:flutter/material.dart';
+
+// class Communityquestions extends StatelessWidget {
+//   const Communityquestions({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
 import 'package:boxoniq/modal/blogmodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
 
-class Communitysearch extends StatefulWidget {
-  const Communitysearch({Key? key}) : super(key: key);
+class Communityquestions extends StatefulWidget {
+  const Communityquestions({Key? key}) : super(key: key);
 
   @override
-  State<Communitysearch> createState() => _CommunitysearchState();
+  State<Communityquestions> createState() => _CommunityquestionsState();
 }
 
-class _CommunitysearchState extends State<Communitysearch> {
+class _CommunityquestionsState extends State<Communityquestions> {
   @override
   Widget build(BuildContext context) {
-    homebloc.fetchcommunitySearch('all');
+    homebloc.fetchcommunityall();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: lightWhite2,
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              // controller: _searchController,
-              onChanged: (s) {
-                homebloc.fetchcommunitySearch('$s');
-              },
-              decoration: InputDecoration(
-                  hintText: "Search for questions",
-                  hintStyle: TextStyle(fontSize: 12),
-
-                  // prefixIcon: Icon(Icons.email),
-                  border: InputBorder.none),
-            ),
-          ],
+        title: Text(
+          'All questions',
+          style: TextStyle(color: Colors.black),
         ),
         actions: [],
       ),
@@ -52,7 +48,7 @@ class _CommunitysearchState extends State<Communitysearch> {
               height: 50,
             ),
             StreamBuilder<Questionmodal>(
-                stream: homebloc.getCommunitySearch.stream,
+                stream: homebloc.getCommunityAll.stream,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return Container();
                   return GridView.count(
