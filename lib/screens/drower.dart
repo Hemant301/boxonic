@@ -431,7 +431,7 @@ class DrawersPage extends StatelessWidget {
                   Divider(),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/pdf', arguments: {
+                      Navigator.pushNamed(context, '/about', arguments: {
                         'url':
                             'https://cms.cybertizeweb.com/boxoniq-crm/staticpages/about.pdf',
                         'title': 'About Us'

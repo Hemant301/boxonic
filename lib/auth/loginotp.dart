@@ -20,6 +20,7 @@ class _LoginotpState extends State<Loginotp> {
   String acid = "";
   void initState() {
     otpCon = TextEditingController();
+    SmsAutoFill().getAppSignature.then((value) => print(value));
     super.initState();
   }
 

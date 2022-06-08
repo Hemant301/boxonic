@@ -7,6 +7,7 @@ import 'package:boxoniq/auth/otpverification.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/Wallet.dart';
+import 'package:boxoniq/screens/about.dart';
 import 'package:boxoniq/screens/address.dart';
 import 'package:boxoniq/screens/addressbook.dart';
 import 'package:boxoniq/screens/addtobundle.dart';
@@ -152,6 +153,7 @@ class MyApp extends StatelessWidget {
           "/trackorder": (context) => Trackorder(),
           "/webview": (context) => Webview(),
           "/communityquestions": (context) => Communityquestions(),
+          "/about": (context) => About(),
         });
   }
 }

@@ -13,7 +13,7 @@ class Walletapi {
   }) async {
     var client = http.Client();
     try {
-      print('this is nik api');
+      // print('this is nik api');
 
       final response = await client
           .post(Uri.parse("${base}add-amount-wallet.php"), body: {

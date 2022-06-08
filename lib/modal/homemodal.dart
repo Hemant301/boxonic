@@ -424,14 +424,17 @@ class TotalModal {
   dynamic? subtotal;
   dynamic? coupon;
   dynamic? bundledissount;
-
+  dynamic delivery;
   dynamic? discount;
+  String? status;
   dynamic? total;
   dynamic? finaltotal;
   TotalModal(js) {
     subtotal = js['subtotal'] ?? "";
     coupon = js['coupon'] ?? "0";
     discount = js['discount'] ?? "";
+    delivery = js['delivery'] ?? "";
+    status = js['status'] ?? "";
     total = js['total'] ?? "";
     bundledissount = js['bundle_discount'] ?? "0";
     finaltotal = js['final_total'] ?? "";
@@ -795,6 +798,7 @@ class HomeBenefitdetailModal {
     desc = js['desc'] ?? "";
   }
 }
+
 class SubsbenefitsModal {
   List<SubsBenefitdetailModal> data = [];
   SubsbenefitsModal(js) {

@@ -25,25 +25,6 @@ class Mysubsrdetail extends StatelessWidget {
           'Subscription detail',
           style: TextStyle(color: Colors.black),
         ),
-        actions: [
-          Center(
-              child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/webview', arguments: {
-                'url':
-                    'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Invoice',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ))
-        ],
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Myorderdetailmodal>(
@@ -450,47 +431,58 @@ class Mysubsrdetail extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width / 2 - 40,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromARGB(255, 255, 20, 20),
-                          // border: Border.all(color: Colors.blue, width: 1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset:
-                                  Offset(1, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Invoice",
-                              style: TextStyle(
-                                  // letterSpacing: 1,
-                                  fontSize: 12,
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  // fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            // SizedBox(
-                            //   width: 10,
-                            // ),
-                            // Image.asset(
-                            //   "assets/Vector.png",
-                            //   width: 10,
-                            // ),
-                          ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/webview', arguments: {
+                            'url':
+                                'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width / 2 - 40,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color.fromARGB(255, 255, 20, 20),
+                            // border: Border.all(color: Colors.blue, width: 1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(1, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Invoice",
+                                style: TextStyle(
+                                    // letterSpacing: 1,
+                                    fontSize: 12,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    // fontFamily: font,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Image.asset(
+                              //   "assets/Vector.png",
+                              //   width: 10,
+                              // ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
                   )
                 ],
               );

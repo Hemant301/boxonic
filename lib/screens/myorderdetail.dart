@@ -1,12 +1,19 @@
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class Myorderdetail extends StatelessWidget {
+class Myorderdetail extends StatefulWidget {
   const Myorderdetail({Key? key}) : super(key: key);
 
+  @override
+  State<Myorderdetail> createState() => _MyorderdetailState();
+}
+
+class _MyorderdetailState extends State<Myorderdetail> {
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -33,22 +40,6 @@ class Myorderdetail extends StatelessWidget {
           'Order detail',
           style: TextStyle(color: Colors.black),
         ),
-        actions: [
-          Center(
-              child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/webview', arguments: {'url': ''});
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Invoice',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ))
-        ],
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Myorderdetailmodal>(
@@ -291,6 +282,36 @@ class Myorderdetail extends StatelessWidget {
                               ],
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Delivery",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "₹ ${snapshot.data!.total!.delivery}",
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
                           // Padding(
                           //   padding: const EdgeInsets.all(8.0),
                           //   child: Row(
@@ -404,6 +425,248 @@ class Myorderdetail extends StatelessWidget {
                           )),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  snapshot.data!.total!.status == "5"
+                      ? Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width / 2 - 40,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color.fromARGB(255, 255, 15, 7),
+                            // border: Border.all(color: Colors.blue, width: 1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(1, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Cancelled",
+                                style: TextStyle(
+                                    // letterSpacing: 1,
+                                    fontSize: 12,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    // fontFamily: font,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Image.asset(
+                              //   "assets/Vector.png",
+                              //   width: 10,
+                              // ),
+                            ],
+                          ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            snapshot.data!.total!.status == "1" ||
+                                    snapshot.data!.total!.status == "2"
+                                ? InkWell(
+                                    onTap: () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Are Your Sure?"),
+                                              content: Text(
+                                                  'Are you sure to cancel this order?'),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("No",
+                                                      style: TextStyle(
+                                                          color: Colors.blue)),
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, false),
+                                                ),
+                                                FlatButton(
+                                                    onPressed: () async {
+                                                      HomeApi api = HomeApi();
+                                                      Map data = await api
+                                                          .cancelMyorder(id);
+                                                      if (data['response'] ==
+                                                          "1") {
+                                                        setState(() {});
+                                                        Navigator.pop(context);
+                                                        Fluttertoast.showToast(
+                                                            msg: data['msg']);
+                                                      } else {
+                                                        Fluttertoast.showToast(
+                                                            msg: data['msg']);
+                                                      }
+                                                    },
+                                                    child: Text("Sure",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.blue))),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.amber,
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Cancel",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/trackorder');
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.amber,
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Track Order",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/webview',
+                                    arguments: {
+                                      'url':
+                                          'https://cms.cybertizeweb.com/boxoniq-crm/billing-desk/?id=${rcvdData['id']}'
+                                    });
+                              },
+                              child: Container(
+                                height: 40,
+                                width:
+                                    MediaQuery.of(context).size.width / 2 - 40,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromARGB(255, 255, 20, 20),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(
+                                          1, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Invoice",
+                                      style: TextStyle(
+                                          // letterSpacing: 1,
+                                          fontSize: 12,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          // fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 10,
+                                    // ),
+                                    // Image.asset(
+                                    //   "assets/Vector.png",
+                                    //   width: 10,
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                  SizedBox(
+                    height: 20,
+                  )
                 ],
               );
             }),

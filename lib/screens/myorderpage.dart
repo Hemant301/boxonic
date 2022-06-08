@@ -173,7 +173,7 @@ class MyOrderPage extends StatelessWidget {
                                       ),
                                     ),
                                   )),
-                        )
+                        ),
                 ],
               );
             }),

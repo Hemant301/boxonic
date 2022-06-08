@@ -528,6 +528,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     .data!.data[0].response!.walletBallance)
                             ? InkWell(
                                 onTap: () async {
+                                  // print(((rcvdData['total_amount'] -
+                                  //     (rcvdData['total_amount']) * 5 / 100)));
+
+                                  // return;
+                                  // print(
+                                  //     '${double.parse((rcvdData['total_amount']) - double.parse((rcvdData['total_amount']) * 5 / 100))}');
+                                  // return;
                                   String orderId = DateTime.now()
                                       .millisecondsSinceEpoch
                                       .remainder(10000000000)
@@ -549,8 +556,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         email: 'email@email.com',
                                         is_wallet: '1',
                                         phone: '9798416091',
-                                        amount: rcvdData['total_amount']
-                                            .toString());
+                                        amount:
+                                            '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100))}');
                                   } else {
                                     Fluttertoast.showToast(
                                         msg: 'Something went wrong');
