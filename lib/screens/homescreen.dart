@@ -8,6 +8,7 @@ import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScrren extends StatefulWidget {
   const HomeScrren({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class HomeScrren extends StatefulWidget {
 String referralcode = "";
 
 class _HomeScrrenState extends State<HomeScrren> {
+  TextEditingController emailController = TextEditingController();
   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   GlobalKey previewContainer = new GlobalKey();
   // Future<void> shareScreenshot() async {
@@ -524,6 +526,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                                   ],
                                 ),
                                 child: TextField(
+                                  controller: emailController,
                                   decoration: InputDecoration(
                                       hintText: "Enter your email address",
                                       hintStyle: TextStyle(fontSize: 12),
@@ -534,32 +537,52 @@ class _HomeScrrenState extends State<HomeScrren> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Container(
-                                // padding: EdgeInsets.all(20),
-                                height: 50,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      offset: Offset(
-                                          1, 3), // changes position of shadow
+                              InkWell(
+                                onTap: () async {
+                                  if (emailController.text == "") {
+                                    Fluttertoast.showToast(
+                                        msg: 'Enter email id');
+                                    return;
+                                  }
+                                  HomeApi api = HomeApi();
+                                  Map data = await api
+                                      .stayinTouch(emailController.text);
+                                  if (data['response'] == "1") {
+                                    setState(() {
+                                      emailController.text = "";
+                                    });
+                                    Fluttertoast.showToast(msg: data['msg']);
+                                  } else {
+                                    Fluttertoast.showToast(msg: data['msg']);
+                                  }
+                                },
+                                child: Container(
+                                  // padding: EdgeInsets.all(20),
+                                  height: 50,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(
+                                            1, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Submit",
+                                      style: TextStyle(
+                                          letterSpacing: 1,
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          // fontFamily: font,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Submit",
-                                    style: TextStyle(
-                                        letterSpacing: 1,
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        // fontFamily: font,
-                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               )
