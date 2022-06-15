@@ -145,6 +145,12 @@ class HomeRepo {
     return StoryModal(jsonResponse);
   }
 
+  Future<TrackModal> trackOrder(s) async {
+    final response = await homeApi.trackOrder(s);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return TrackModal(jsonResponse);
+  }
+
   Future<Questionmodal> fetchcommunitySearch(s) async {
     final response = await homeApi.fetchcommunitySearch(s);
     var jsonResponse = jsonDecode(response.body) as List;

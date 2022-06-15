@@ -18,14 +18,14 @@ class AuthApi {
           body: jsonEncode(
               {"login_email": shopownerphone, "login_password": pwd}));
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        ////  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      ////  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -43,14 +43,14 @@ class AuthApi {
               // headers: {"Content-Type": "application/json"},
               body: {"process_id": processid, "address_id": addressid});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -69,14 +69,14 @@ class AuthApi {
             "phone": phone,
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -106,14 +106,14 @@ class AuthApi {
             "reerral": referral,
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -138,14 +138,14 @@ class AuthApi {
         "baby_dob": babydob,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -159,14 +159,14 @@ class AuthApi {
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({"user_id": accid, "otp": otp}));
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -176,21 +176,21 @@ class AuthApi {
   Future<dynamic> dologinvERIFY({String otp = "", String accid = ""}) async {
     var client = http.Client();
     try {
-      print(accid);
-      print(otp);
+      // print(accid);
+      // print(otp);
       final response = await client.post(
           Uri.parse(
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/verify-otp.php"),
           body: {"account_id": accid, "otp": otp});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -199,6 +199,7 @@ class AuthApi {
 
   Future<dynamic> doSaveAddress(
       {String address = "",
+      String name = "",
       String pincode = "",
       String landmark = "",
       String state = "",
@@ -212,19 +213,20 @@ class AuthApi {
             "user_id": userCred.getUserId(),
             "full_address": address,
             'pincode': pincode,
+            'name': name,
             'landmark': landmark,
             'phone': phone,
             'state': state
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -233,6 +235,7 @@ class AuthApi {
 
   Future<dynamic> doEditAddress(
       {String address = "",
+      String name = "",
       String pincode = "",
       String landmark = "",
       String state = "",
@@ -250,17 +253,18 @@ class AuthApi {
             'landmark': landmark,
             'phone': phone,
             'state': state,
-            'address_id': add_id
+            'address_id': add_id,
+            'name': name
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -276,14 +280,14 @@ class AuthApi {
         "question": question,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -299,14 +303,14 @@ class AuthApi {
         "address_id": addresssid,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -329,14 +333,14 @@ class AuthApi {
         "msg": msg,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -356,14 +360,14 @@ class AuthApi {
         'answer': answer
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      //  print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();

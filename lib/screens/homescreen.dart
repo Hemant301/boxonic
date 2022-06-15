@@ -4,6 +4,7 @@ import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/drower.dart';
 import 'package:boxoniq/screens/notify.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
@@ -278,7 +279,8 @@ class _HomeScrrenState extends State<HomeScrren> {
                           StreamBuilder<HomebenefitsModal>(
                               stream: homebloc.getHomeBenifits.stream,
                               builder: (context, snapshot) {
-                                if (!snapshot.hasData) return Container();
+                                if (!snapshot.hasData)
+                                  return subsbenifit_shimmer();
                                 return Column(
                                   children: List.generate(
                                     snapshot.data!.data.length,
@@ -342,7 +344,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 StreamBuilder<HomeCategoryModal>(
                     stream: homebloc.getHomeCategory.stream,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
+                      if (!snapshot.hasData) return Supercategory_shimmer();
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: SingleChildScrollView(
@@ -387,7 +389,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 StreamBuilder<BrandModal>(
                     stream: homebloc.getHomebrand.stream,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
+                      if (!snapshot.hasData) return Subcategory_shimmer();
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 6),
                         child: SingleChildScrollView(
@@ -440,7 +442,7 @@ class _HomeScrrenState extends State<HomeScrren> {
                 StreamBuilder<WhyBoxoniqModal>(
                     stream: homebloc.getWhyBoxonic.stream,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
+                      if (!snapshot.hasData) return Subcategory_shimmer();
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

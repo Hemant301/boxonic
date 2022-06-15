@@ -10,7 +10,7 @@ class CategoryShimmer extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         child: Shimmer.fromColors(
-            baseColor: Color.fromARGB(255, 192, 192, 192),
+            baseColor: Color.fromARGB(255, 210, 210, 210),
             highlightColor: Color.fromARGB(255, 235, 235, 235),
             child: Column(
               children: [
@@ -21,7 +21,9 @@ class CategoryShimmer extends StatelessWidget {
                       (index) => Container(
                             width: MediaQuery.of(context).size.width / (5 + 1),
                             height: 4,
-                            color: Colors.grey,
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20)),
                           )),
                 ),
                 SizedBox(
@@ -34,7 +36,9 @@ class CategoryShimmer extends StatelessWidget {
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.black,
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(20)),
                       ),
                       SizedBox(
                         width: 20,
@@ -44,7 +48,9 @@ class CategoryShimmer extends StatelessWidget {
                           Container(
                             height: 6,
                             width: 150,
-                            color: Colors.black,
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20)),
                           ),
                           SizedBox(
                             height: 10,
@@ -52,7 +58,9 @@ class CategoryShimmer extends StatelessWidget {
                           Container(
                             height: 6,
                             width: 150,
-                            color: Colors.black,
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20)),
                           ),
                         ],
                       ),
@@ -65,7 +73,9 @@ class CategoryShimmer extends StatelessWidget {
                 Container(
                   width: 500,
                   height: 150,
-                  color: Colors.black,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20)),
                 ),
                 SizedBox(
                   height: 20,
@@ -73,7 +83,9 @@ class CategoryShimmer extends StatelessWidget {
                 Container(
                   width: 500,
                   height: 150,
-                  color: Colors.black,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20)),
                 ),
               ],
             )),

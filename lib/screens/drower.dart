@@ -25,6 +25,17 @@ class DrawersPage extends StatelessWidget {
                   // crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Icon(Icons.arrow_back),
+                          ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
@@ -154,7 +165,7 @@ class DrawersPage extends StatelessWidget {
                                 // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Image.asset("assets/subscribe.png", height: 35)
+                          Icon(Icons.subscriptions_outlined)
                         ],
                       ),
                     ),
@@ -179,7 +190,7 @@ class DrawersPage extends StatelessWidget {
                                 // fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Icon(Icons.subscriptions_outlined)
+                          Image.asset("assets/subscribe.png", height: 35)
                         ],
                       ),
                     ),
@@ -206,7 +217,7 @@ class DrawersPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Icon(
-                            Icons.shopping_bag,
+                            Icons.shopping_cart,
                             size: 28,
                           )
                         ],

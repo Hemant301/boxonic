@@ -1,9 +1,9 @@
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 
 class MyCorosule extends StatefulWidget {
   MyCorosule({
@@ -28,7 +28,7 @@ class _MyCorosuleState extends State<MyCorosule> {
     return StreamBuilder<HomeSlider>(
         stream: homebloc.getHomeSlider.stream,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return Container();
+          if (!snapshot.hasData) return Bannercategory_shimmer();
           return InkWell(
             onTap: () {
               Navigator.pushNamed(context, "/bundlecreatorPage",

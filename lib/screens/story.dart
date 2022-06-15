@@ -26,44 +26,63 @@ class _StoryState extends State<Story> {
               stream: homebloc.getSories.stream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return Container();
-                return PageView(
-                  scrollDirection: Axis.vertical,
-                  onPageChanged: (s) {
-                    setState(() {
-                      swipe = false;
-                    });
-                  },
-                  children: List.generate(
-                    snapshot.data!.stories.length,
-                    (i) => PageView(
-                        scrollDirection: Axis.horizontal,
-                        onPageChanged: (i) {},
+                return snapshot.data!.stories.length != 0
+                    ? PageView(
+                        scrollDirection: Axis.vertical,
+                        onPageChanged: (s) {
+                          setState(() {
+                            swipe = false;
+                          });
+                        },
                         children: List.generate(
-                            snapshot.data!.stories[i].image.length,
-                            (index) => FeedSlider(
-                                  num: snapshot.data!.stories[i].image.length,
-                                  indeX: index,
-                                  is_swipe: swipe,
-                                  title: snapshot.data!.stories[i].title,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/storydetails',
-                                        arguments: {
-                                          'title':
-                                              snapshot.data!.stories[i].title,
-                                          'image': snapshot.data!.stories[i]
-                                              .image[index].image,
-                                          'desc':
-                                              snapshot.data!.stories[i].story,
-                                        });
-                                    // Fluttertoast.showToast(msg: 'Wait');
-                                  },
-                                  desc: snapshot.data!.stories[i].story,
-                                  image: snapshot
-                                      .data!.stories[i].image[index].image,
-                                ))),
-                  ),
-                );
+                          snapshot.data!.stories.length,
+                          (i) => PageView(
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: (i) {},
+                              children: List.generate(
+                                  snapshot.data!.stories[i].image.length,
+                                  (index) => FeedSlider(
+                                        num: snapshot
+                                            .data!.stories[i].image.length,
+                                        indeX: index,
+                                        is_swipe: swipe,
+                                        title: snapshot.data!.stories[i].title,
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/storydetails',
+                                              arguments: {
+                                                'title': snapshot
+                                                    .data!.stories[i].title,
+                                                'image': snapshot
+                                                    .data!
+                                                    .stories[i]
+                                                    .image[index]
+                                                    .image,
+                                                'desc': snapshot
+                                                    .data!.stories[i].story,
+                                              });
+                                          // Fluttertoast.showToast(msg: 'Wait');
+                                        },
+                                        desc: snapshot.data!.stories[i].story,
+                                        image: snapshot.data!.stories[i]
+                                            .image[index].image,
+                                      ))),
+                        ),
+                      )
+                    : PageView(
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 80,
+                              ),
+                              Lottie.asset('assets/empty.json',
+                                  repeat: false, height: 200),
+                              Text('No story found')
+                            ],
+                          ),
+                        ],
+                      );
               }),
           Positioned(
             top: 30,

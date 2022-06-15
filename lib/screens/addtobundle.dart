@@ -3,10 +3,7 @@ import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
-import 'package:delivery_tracker/delivery_tracker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../shimmer/shimmer.dart';
@@ -23,12 +20,11 @@ class _AddtobundleState extends State<Addtobundle> {
   String id = "";
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
 
-    print('${rcvdData['process']} process');
-    print('${rcvdData['index']} index');
+    // print('${rcvdData['process']} process');
+    // print('${rcvdData['index']} index');
     setState(() {
       activeIndex = int.parse(rcvdData['index']);
       id = rcvdData['id'];
@@ -39,15 +35,14 @@ class _AddtobundleState extends State<Addtobundle> {
   String process = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print('onsetstate');
+    // print('onsetstate');
     checkamount();
   }
 
   checkamount() async {
     Map data = await homeApi.checkamount();
-    print(data);
+    // print(data);
     setState(() {
       totalamt = data['total_amount'].toString();
     });
@@ -68,18 +63,18 @@ class _AddtobundleState extends State<Addtobundle> {
   Widget build(BuildContext context) {
     homebloc.checkamount();
 
-    print(userCred.getUserId());
+    // print(userCred.getUserId());
     homebloc.fetchcatItems('$activeIndex', '0', '0', '0', '0', '0');
     return WillPopScope(
       onWillPop: _onBack,
       child: Scaffold(
         backgroundColor: grad1Color,
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme:const IconThemeData(
             color: Colors.black, //change your color here
           ),
           backgroundColor: lightWhite2,
-          title: Text(
+          title: const Text(
             "Bundle Creator",
             style: TextStyle(
                 letterSpacing: 1,
@@ -88,12 +83,12 @@ class _AddtobundleState extends State<Addtobundle> {
                 // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
-          actions: [],
+          
         ),
         body: StreamBuilder<CategoryItemModal>(
             stream: homebloc.getCategoryitems.stream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) return CategoryShimmer();
+              if (!snapshot.hasData) return const CategoryShimmer();
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -101,7 +96,7 @@ class _AddtobundleState extends State<Addtobundle> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                   const   SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -117,7 +112,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                       : Colors.grey,
                                 )),
                       ),
-                      SizedBox(
+              const        SizedBox(
                         height: 15,
                       ),
                       Center(
@@ -134,9 +129,9 @@ class _AddtobundleState extends State<Addtobundle> {
                                     backgroundImage:
                                         NetworkImage(snapshot.data!.img!),
                                     backgroundColor:
-                                        Color(0xffD3C6F9).withOpacity(0.5),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
+                                      const  Color(0xffD3C6F9).withOpacity(0.5),
+                                    child: const Padding(
+                                      padding:  EdgeInsets.all(12.0),
                                       // child: Image.asset(
                                       //   "assets/1 9.png",
                                       //   fit: BoxFit.contain,
@@ -150,19 +145,19 @@ class _AddtobundleState extends State<Addtobundle> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
+                               const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   snapshot.data!.name!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 24,
                                       color: Colors.black,
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                               const SizedBox(
                                   height: 5,
                                 ),
                                 SizedBox(
@@ -171,7 +166,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                   child: Text(
                                     snapshot.data!.description!,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       letterSpacing: 1,
 
                                       fontSize: 15,
@@ -186,7 +181,7 @@ class _AddtobundleState extends State<Addtobundle> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                   const   SizedBox(
                         height: 20,
                       ),
                       //
@@ -210,9 +205,9 @@ class _AddtobundleState extends State<Addtobundle> {
               return Container(
                 height: 60,
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(10),
+                padding:const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                   color: lightWhite2,
@@ -222,7 +217,7 @@ class _AddtobundleState extends State<Addtobundle> {
                       color: Colors.grey.withOpacity(0.4),
                       spreadRadius: 1,
                       blurRadius: 1,
-                      offset: Offset(1, 3), // changes position of shadow
+                      offset:const Offset(1, 3), // changes position of shadow
                     ),
                   ],
                 ),
@@ -242,7 +237,7 @@ class _AddtobundleState extends State<Addtobundle> {
                       child: Container(
                         width: 80,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          const  EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.green,
@@ -253,12 +248,12 @@ class _AddtobundleState extends State<Addtobundle> {
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset:
-                                  Offset(1, 3), // changes position of shadow
+                               const   Offset(1, 3), // changes position of shadow
                             ),
                           ],
                         ),
                         child: Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.arrow_back,
                               color: Colors.white,
@@ -288,7 +283,7 @@ class _AddtobundleState extends State<Addtobundle> {
                       },
                       child: Container(
                         // width: 80,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 5,
                         ),
                         decoration: BoxDecoration(
@@ -301,11 +296,11 @@ class _AddtobundleState extends State<Addtobundle> {
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset:
-                                  Offset(1, 3), // changes position of shadow
+                                const  Offset(1, 3), // changes position of shadow
                             ),
                           ],
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Back to subscription",
                             style: TextStyle(
@@ -333,7 +328,7 @@ class _AddtobundleState extends State<Addtobundle> {
                       child: Container(
                         width: 80,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        const    EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.green,
@@ -344,12 +339,12 @@ class _AddtobundleState extends State<Addtobundle> {
                               spreadRadius: 1,
                               blurRadius: 1,
                               offset:
-                                  Offset(1, 3), // changes position of shadow
+                              const    Offset(1, 3), // changes position of shadow
                             ),
                           ],
                         ),
                         child: Row(
-                          children: [
+                          children: const [
                             SizedBox(
                               width: 5,
                             ),
@@ -402,9 +397,7 @@ class _ProductsCardState extends State<ProductsCard> {
   String attrId = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // print('init v chal rha');
     idArr.clear();
 
     check();
@@ -418,7 +411,7 @@ class _ProductsCardState extends State<ProductsCard> {
       widget.attrIdForApi = data['product'][widget.i]['attribute'][0]['id'];
     } else if (widget.attrIdForApi !=
         data['product'][widget.i]['attribute'][0]['id']) {
-      print('true');
+      // print('true');
       return;
     } else {
       widget.attrIdForApi = data['product'][widget.i]['attribute'][0]['id'];
@@ -450,7 +443,7 @@ class _ProductsCardState extends State<ProductsCard> {
                 color: Colors.grey.withOpacity(0.4),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: Offset(1, 3), // changes position of shadow
+                offset:const Offset(1, 3), // changes position of shadow
               ),
             ],
           ),
@@ -476,19 +469,19 @@ class _ProductsCardState extends State<ProductsCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                const  SizedBox(
                     height: 10,
                   ),
                   Text(
                     widget.data!.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         letterSpacing: 1,
                         fontSize: 16,
                         color: Colors.black,
                         // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+               const   SizedBox(
                     height: 5,
                   ),
                   SizedBox(
@@ -496,7 +489,7 @@ class _ProductsCardState extends State<ProductsCard> {
                     child: Text(
                       widget.data!.desc!,
                       maxLines: 4,
-                      style: TextStyle(
+                      style: const TextStyle(
                         letterSpacing: 1,
                         fontSize: 10,
                         color: Colors.black,
@@ -505,12 +498,12 @@ class _ProductsCardState extends State<ProductsCard> {
                       ),
                     ),
                   ),
-                  SizedBox(
+            const      SizedBox(
                     height: 10,
                   ),
                   Text(
                     '₹ ${widget.data!.attr[widget.colorIndex].price!}',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style:const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width / 2 + 30,
@@ -540,14 +533,14 @@ class _ProductsCardState extends State<ProductsCard> {
                                                 : Colors.grey[300],
                                         label: Text(
                                           widget.data!.attr[index].name!,
-                                          style: TextStyle(fontSize: 10),
+                                          style:const TextStyle(fontSize: 10),
                                         )),
                                   ),
                                 )),
                       ),
                     ),
                   ),
-                  SizedBox(
+             const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -568,11 +561,11 @@ class _ProductsCardState extends State<ProductsCard> {
                                 }
                               },
                               child: Container(
-                                padding: EdgeInsets.all(5),
+                                padding:const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(color: Colors.black)),
-                                child: Text('--'),
+                                child: const Text('--'),
                               ),
                             ),
                             Container(
@@ -589,13 +582,13 @@ class _ProductsCardState extends State<ProductsCard> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(color: Colors.black)),
-                                child: Text('+'),
+                                child: const Text('+'),
                               ),
                             )
                           ],
                         ),
                       ),
-                      SizedBox(
+                    const  SizedBox(
                         width: 10,
                       ),
                       InkWell(
@@ -632,14 +625,14 @@ class _ProductsCardState extends State<ProductsCard> {
                         child: idArr.contains('${widget.data!.id!}')
                             ? Container(
                                 width: 120,
-                                padding: EdgeInsets.symmetric(
+                                padding:const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color: Color(0xff53900F),
+                                  color: const Color(0xff53900F),
                                   // border: Border.all(color: Colors.blue, width: 1),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     "Added to Bundle",
                                     style: TextStyle(
@@ -653,17 +646,17 @@ class _ProductsCardState extends State<ProductsCard> {
                               )
                             : Container(
                                 width: 120,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(
-                                    color: Color(0xff53900F),
+                                    color: const Color(0xff53900F),
                                   ),
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color:const Color.fromARGB(255, 255, 255, 255),
                                   // border: Border.all(color: Colors.blue, width: 1),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     "Add to Bundle",
                                     style: TextStyle(
@@ -678,138 +671,9 @@ class _ProductsCardState extends State<ProductsCard> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                const  SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Container(
-                      //   width: 120,
-                      //   padding:
-                      //       EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(5),
-                      //     color: Color(0xff53900F),
-                      //     // border: Border.all(color: Colors.blue, width: 1),
-                      //   ),
-                      //   child: Center(
-                      //     child: Text(
-                      //       "Add to bag",
-                      //       style: TextStyle(
-                      //           letterSpacing: 1,
-                      //           fontSize: 10,
-                      //           color: Colors.white,
-                      //           // fontFamily: font,
-                      //           fontWeight: FontWeight.bold),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     showDialog(
-                      //         context: context,
-                      //         builder: (BuildContext context) {
-                      //           return AlertDialog(
-                      //             title: Row(
-                      //               mainAxisAlignment:
-                      //                   MainAxisAlignment.spaceBetween,
-                      //               children: [
-                      //                 Text("Select"),
-                      //                 InkWell(
-                      //                   onTap: () {
-                      //                     Navigator.pop(context);
-                      //                   },
-                      //                   child: Padding(
-                      //                     padding: const EdgeInsets.all(8.0),
-                      //                     child: Icon(Icons.close),
-                      //                   ),
-                      //                 )
-                      //               ],
-                      //             ),
-                      //             content:
-                      //                 Text('Select Your Preffered Attribute'),
-                      //             actions: <Widget>[
-                      //               Column(
-                      //                 children: List.generate(
-                      //                     5,
-                      //                     (index) => Align(
-                      //                           alignment: Alignment.center,
-                      //                           child: Column(
-                      //                             children: [
-                      //                               Container(
-                      //                                 padding:
-                      //                                     EdgeInsets.all(10),
-                      //                                 child: Text('₹ 500 /Kg'),
-                      //                               ),
-                      //                               Container(
-                      //                                 width: 30,
-                      //                                 height: 1,
-                      //                                 color: Colors.black38,
-                      //                               )
-                      //                             ],
-                      //                           ),
-                      //                         )),
-                      //               )
-                      //             ],
-                      //           );
-                      //         });
-                      //   },
-                      //   child: Container(
-                      //     // width: 120,
-                      //     padding:
-                      //         EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(5),
-                      //       color: Color(0xffC4C4C4),
-                      //       // border: Border.all(color: Colors.blue, width: 1),
-                      //     ),
-                      //     child: Center(
-                      //       child: Row(
-                      //         children: [
-                      //           Text(
-                      //             "₹500 / Kg",
-                      //             style: TextStyle(
-                      //                 letterSpacing: 1,
-                      //                 fontSize: 10,
-                      //                 color: Colors.black,
-                      //                 // fontFamily: font,
-                      //                 fontWeight: FontWeight.bold),
-                      //           ),
-                      //           Icon(
-                      //             Icons.expand_more_outlined,
-                      //             size: 10,
-                      //           )
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //       color: Color(0xffC4C4C4)),
-                      //   child: SizedBox(
-                      //     height: 20,
-                      //     child: DropDown(
-                      //       items: [
-                      //         "3 KG",
-                      //         "5 KG",
-                      //         "10 KG"
-                      //       ],
-                      //       hint: Text("2 KG"),
-                      //       icon: Icon(
-                      //         Icons.expand_more,
-                      //         color: Colors.blue,
-                      //       ),
-                      //       onChanged: print,
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  )
                 ],
               )
             ],

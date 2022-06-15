@@ -120,7 +120,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             }));
   }
 
-  String monthname = '1';
+  String monthname = "1";
   String addressId = "";
   @override
   Widget build(BuildContext context) {
@@ -229,7 +229,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             ),
                             child: Center(
                               child: Text(
-                                "Monthly Subscribe Benefits Includes",
+                                "Monthly Subscription Benefits Includes",
                                 style: TextStyle(
                                   letterSpacing: 1,
                                   fontSize: 12,
@@ -362,7 +362,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 ),
                               ),
                               Positioned(
-                                top: -5,
+                                top: -10,
                                 left: 100,
                                 child: Container(
                                   padding: EdgeInsets.all(2),
@@ -382,7 +382,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     ],
                                   ),
                                   child: Text(
-                                    " 5% Subscription discount ",
+                                    " 5% off ",
                                     style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 12,
@@ -528,6 +528,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     .data!.data[0].response!.walletBallance)
                             ? InkWell(
                                 onTap: () async {
+                                  if (monthname == "1") {
+                                    Fluttertoast.showToast(
+                                        msg: 'Select months to continue');
+                                    return;
+                                  }
                                   // print(((rcvdData['total_amount'] -
                                   //     (rcvdData['total_amount']) * 5 / 100)));
 
@@ -633,6 +638,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               )
                             : InkWell(
                                 onTap: () async {
+                                  if (monthname == "1") {
+                                    Fluttertoast.showToast(
+                                        msg: 'Select  months to continue');
+                                    return;
+                                  }
                                   HomeApi _api = HomeApi();
                                   Map data = await _api.doPayment(
                                       amount:

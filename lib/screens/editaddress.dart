@@ -19,6 +19,7 @@ class _EditaddressState extends State<Editaddress> {
   TextEditingController pincodeController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   String statename = "";
 
   @override
@@ -34,6 +35,7 @@ class _EditaddressState extends State<Editaddress> {
       phoneController.text = rcvdData['phone'];
       statename = rcvdData['state'];
       landmarkController.text = rcvdData['landmark'];
+      nameController.text = rcvdData['name'];
     });
     return Scaffold(
       backgroundColor: grad1Color,
@@ -57,6 +59,40 @@ class _EditaddressState extends State<Editaddress> {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18),
           child: Column(
             children: [
+              SizedBox(
+                height: 15,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Name",
+                  style: TextStyle(
+                    letterSpacing: 1,
+                    fontSize: 16,
+                    color: Colors.black,
+                    // fontFamily: font,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 25,
+                // padding: EdgeInsets.all(5),
+                child: FormTTextFild(
+                  controller: nameController,
+                  // maxLines: 4,
+                  hinttext: "Enter your Name",
+
+                  // icon: (Icons.email),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  // color: Colors.white,
+                  // border: Border.all(color: Colors.blue, width: 1),
+                ),
+              ),
               SizedBox(
                 height: 15,
               ),
@@ -243,6 +279,7 @@ class _EditaddressState extends State<Editaddress> {
                   AuthApi _authapi = AuthApi();
                   try {
                     Map data = await _authapi.doEditAddress(
+                        name: nameController.text,
                         address: addressController.text,
                         landmark: landmarkController.text,
                         add_id: rcvdData['id'],

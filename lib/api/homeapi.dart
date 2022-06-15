@@ -13,13 +13,13 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}slider-bo.php"));
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -28,13 +28,13 @@ class HomeApi {
       final response =
           await client.get(Uri.parse("${base}get-home-bundle-benefit-bo.php"));
       if (response.statusCode == 200) {
-        print(response.body);
+        // //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -43,13 +43,13 @@ class HomeApi {
       final response =
           await client.get(Uri.parse("${base}get-subscription-benefit-bo.php"));
       if (response.statusCode == 200) {
-        print(response.body);
+        //   //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -58,13 +58,13 @@ class HomeApi {
       final response = await client.post(Uri.parse("${base}get-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -74,13 +74,13 @@ class HomeApi {
           Uri.parse("${base}get-subscription-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -90,13 +90,13 @@ class HomeApi {
           Uri.parse("${base}get-cancel-subscription-order-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -104,13 +104,13 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}brand1-bo.php"));
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -119,13 +119,13 @@ class HomeApi {
       final response = await client
           .get(Uri.parse("${newBase}boxoniq-crm/api/droid/get-months.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -133,13 +133,13 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}brand2-bo.php"));
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -147,13 +147,13 @@ class HomeApi {
     try {
       final response = await client.get(Uri.parse("${base}super-cat-bo.php"));
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -162,13 +162,13 @@ class HomeApi {
       final response =
           await client.get(Uri.parse("${base}get-contact-detail.php"));
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -178,13 +178,13 @@ class HomeApi {
           Uri.parse("${base}get-brand-subcategory-bo.php"),
           body: {'sequence': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -201,13 +201,13 @@ class HomeApi {
         'filter_key': filterkey
       });
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -217,13 +217,13 @@ class HomeApi {
           Uri.parse("${base}product-detail-bo.php"),
           body: {'product_id': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -233,13 +233,13 @@ class HomeApi {
           Uri.parse("${base}get-rating-list.php"),
           body: {'product_id': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -250,14 +250,14 @@ class HomeApi {
           Uri.parse("${base}product-detail-bo.php"),
           body: {'product_id': id});
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -276,14 +276,14 @@ class HomeApi {
         'comment': comment
       });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -295,13 +295,13 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-cart-bo.php"), body: {'account-id': id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -314,10 +314,10 @@ class HomeApi {
         print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -327,13 +327,13 @@ class HomeApi {
           Uri.parse("${base}get-order-details-subscription-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -344,13 +344,13 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -360,13 +360,13 @@ class HomeApi {
         Uri.parse("${base}get-states-bo.php"),
       );
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -377,10 +377,10 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-order-details-subscription-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       // print(e);
@@ -393,10 +393,10 @@ class HomeApi {
           Uri.parse("${base}get-order-subscription-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       // print(e);
@@ -408,13 +408,13 @@ class HomeApi {
       final response = await client.post(Uri.parse("${base}get-user-bo.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -424,13 +424,13 @@ class HomeApi {
           Uri.parse("${base}get-community-answers.php"),
           body: {'question_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -442,14 +442,14 @@ class HomeApi {
         'user_id': userCred.getUserId(),
       });
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -463,13 +463,13 @@ class HomeApi {
               "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -479,13 +479,13 @@ class HomeApi {
           Uri.parse("${base}get-why-section.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -495,13 +495,13 @@ class HomeApi {
         Uri.parse("${base}get-faq-bo.php"),
       );
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
 
     } finally {}
   }
@@ -513,13 +513,13 @@ class HomeApi {
   //             "${newBase}boxoniq-crm/api/droid/get-total-amount-with-discount.php"),
   //         body: {'account-id': userCred.getUserId()});
   //     if (response.statusCode == 200) {
-  //       // // // print(response.body);
+  //       // // ////   print(response.body);
   //       return jsonDecode(response.body) as Map;
   //     } else {
-  //       // print('Request failed with status: ${response.statusCode}.');
+  //       // //   print('Request failed with status: ${response.statusCode}.');
   //     }
   //   } catch (e) {
-  //     // print(e);
+  //     // // print(e);
   //   } finally {}
   // }
 
@@ -532,14 +532,14 @@ class HomeApi {
           body: {'account-id': userCred.getUserId()});
 
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as List;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -553,13 +553,13 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/search-super-cat-bo.php"),
           body: {'query': s});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -573,14 +573,14 @@ class HomeApi {
             'query': s,
           });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -593,13 +593,13 @@ class HomeApi {
           Uri.parse("${base}fetch-saved-address-vue.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -611,14 +611,14 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/get-all-address.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -632,14 +632,14 @@ class HomeApi {
           Uri.parse("${base}/check_subscription.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -652,13 +652,13 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/get-user-wallet.php"),
           body: {'account-id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -668,13 +668,13 @@ class HomeApi {
           Uri.parse("${base}get-wallet-history.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -683,13 +683,13 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-blog-detail.php"), body: {'blog_id': id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -699,13 +699,13 @@ class HomeApi {
           Uri.parse("${base}get-community-questions.php"),
           body: {'is_limit': s});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -715,13 +715,13 @@ class HomeApi {
         Uri.parse("${base}get-blogs-bo.php"),
       );
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -730,13 +730,29 @@ class HomeApi {
       final response = await client
           .post(Uri.parse("${base}get-stories-bo.php"), body: {'search': s});
       if (response.statusCode == 200) {
-        // print(response.body);
+        //   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> trackOrder(s) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${base}picker_track_api_link.php"),
+          body: {'track_id': s});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        //    print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // // print(e);
     } finally {}
   }
 
@@ -746,13 +762,13 @@ class HomeApi {
           Uri.parse("${base}get-community-search-questions.php"),
           body: {'search': s});
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -762,13 +778,13 @@ class HomeApi {
         Uri.parse("${base}get-community-questions.php"),
       );
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -783,13 +799,13 @@ class HomeApi {
             'coupon': coupon
           });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -799,13 +815,13 @@ class HomeApi {
         Uri.parse("${base}get-coupon-bo.php"),
       );
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -823,14 +839,14 @@ class HomeApi {
         'filter_key': filterkey
       });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -855,14 +871,14 @@ class HomeApi {
             'process_id': process
           });
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -891,14 +907,14 @@ class HomeApi {
             'qty': qty
           });
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -914,14 +930,14 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cart-remove-item-checkout.php"),
           body: {'cart-id': p_id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -934,17 +950,17 @@ class HomeApi {
     try {
       final response = await client.post(
           Uri.parse(
-              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/skip-sub-item.php"),
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/skip-subscription.php"),
           body: {'process_id': p_id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -960,14 +976,14 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cancel-item-sub.php"),
           body: {'process_id': p_id});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -982,14 +998,14 @@ class HomeApi {
           Uri.parse("${newBase}boxoniq-crm/api/droid/remove-cart-item.php"),
           body: {'cart_id': p_id, 'process_id': process});
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as List;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1012,14 +1028,14 @@ class HomeApi {
         'product_id': p_id,
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1046,14 +1062,14 @@ class HomeApi {
             'process_id': process
           });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1079,14 +1095,14 @@ class HomeApi {
         'coupon_id': coupon_Id
       });
       if (response.statusCode == 200) {
-        // // print(response.body);
+        // ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1102,14 +1118,14 @@ class HomeApi {
             'account_id': userCred.getUserId(),
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1123,14 +1139,14 @@ class HomeApi {
           Uri.parse("${base}cancel-order-bo.php"),
           body: {'user_id': userCred.getUserId(), 'process_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1143,14 +1159,14 @@ class HomeApi {
       final response = await client.post(Uri.parse("${base}add-home-email.php"),
           body: {'user_id': userCred.getUserId(), 'email': email});
       if (response.statusCode == 200) {
-        print(response.body);
+        //   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1164,14 +1180,14 @@ class HomeApi {
         Uri.parse("${base}get-community-question-count.php"),
       );
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1203,14 +1219,14 @@ class HomeApi {
         'coupon_id': coupon_Id
       });
       if (response.statusCode == 200) {
-        // print(response.body);
+        ////   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
-        print('Request failed with status: ${response.statusCode}.');
+        //   print('Request failed with status: ${response.statusCode}.');
         throw "Somethiing went wrong";
       }
     } catch (e) {
-      print(e);
+      // print(e);
       throw "Somethiing went wrong";
     } finally {
       client.close();
@@ -1225,13 +1241,13 @@ class HomeApi {
             'account-id': userCred.getUserId(),
           });
       if (response.statusCode == 200) {
-        // // // print(response.body);
+        // // ////   print(response.body);
         return response;
       } else {
-        // print('Request failed with status: ${response.statusCode}.');
+        // //   print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      // print(e);
+      // // print(e);
     } finally {}
   }
 
@@ -1254,7 +1270,7 @@ class HomeApi {
       print(responseString);
       return jsonDecode(responseString) as Map;
     } catch (e) {
-      print(e);
+      // print(e);
       rethrow;
     } finally {
       client.close();

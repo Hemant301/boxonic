@@ -244,7 +244,7 @@ class _LoginState extends State<Login> {
                                     context, "/StartScreen");
                               });
                               Fluttertoast.showToast(
-                                  msg: "${data['message']}",
+                                  msg: "${data['msg']}",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
@@ -256,7 +256,7 @@ class _LoginState extends State<Login> {
                                 isLoging = false;
                               });
                               Fluttertoast.showToast(
-                                  msg: " ${data['message']}! ",
+                                  msg: " ${data['msg']}! ",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,

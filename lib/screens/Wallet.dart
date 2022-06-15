@@ -1,6 +1,7 @@
 import 'package:boxoniq/api/walletapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:cashfree_pg/cashfree_pg.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class _WallatePageState extends State<WallatePage> {
                 StreamBuilder<WalletModal>(
                     stream: homebloc.getwallet.stream,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
+                      if (!snapshot.hasData) return Shimmer_wallet();
                       return Container(
                         // padding: EdgeInsets.all(20),
                         height: 80,
@@ -281,7 +282,7 @@ class _WallatePageState extends State<WallatePage> {
                 StreamBuilder<WallettransModal>(
                     stream: homebloc.getwallettrans.stream,
                     builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Container();
+                      if (!snapshot.hasData) return Trasaction_shimmer();
                       return Container(
                           // padding: EdgeInsets.all(20),
 

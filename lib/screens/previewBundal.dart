@@ -1,6 +1,7 @@
 import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,12 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
     return Scaffold(
       backgroundColor: grad1Color,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         backgroundColor: lightWhite2,
         // leading: Image.asset("assets/magic-box (1) 1.png"),
-        title: Text(
+        title: const Text(
           "Preview",
           style: TextStyle(
               letterSpacing: 1,
@@ -47,7 +48,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "₹ ${snapshot.data!.totalamount.toString()}",
-                      style: TextStyle(
+                      style: const TextStyle(
                           letterSpacing: 1,
                           fontSize: 18,
                           color: grad2Color,
@@ -62,7 +63,12 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
       body: StreamBuilder<BundleitemModal>(
           stream: homebloc.getBundleitems.stream,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return Container();
+            if (!snapshot.hasData) {
+              return Billing_shimmer(
+                width: 80,
+                number: 4,
+              );
+            }
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -70,7 +76,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+               const     SizedBox(
                       height: 20,
                     ),
                     Column(children: [
@@ -80,7 +86,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                               children: [
                                 Lottie.asset('assets/empty.json',
                                     repeat: false, height: 200),
-                                Text(
+                            const    Text(
                                   'Your Box is Empty',
                                   style: TextStyle(
                                       // fontFamily: font
@@ -89,33 +95,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                 )
                               ],
                             ))
-                          :
-                          // Column(
-                          //     children: List.generate(
-                          //       snapshot.data!.bundal.length,
-                          //       (index) => PreviewItem(
-                          //           onTab: () async {
-                          //             HomeApi _api = HomeApi();
-                          //             List a = await _api.deletecartItem(
-                          //                 snapshot.data!.bundal[index]
-                          //                     .product[index].Cart_id!);
-                          //             print(a[0]['response']);
-                          //             if (a[0]['response'] == true) {
-                          //               setState(() {});
-                          //               Fluttertoast.showToast(
-                          //                   msg: 'Deleted Successfully');
-                          //             } else {
-                          //               Fluttertoast.showToast(
-                          //                   msg: 'Somehing went wrong');
-                          //             }
-                          //           },
-                          //           data: snapshot.data!.bundal[index]),
-                          //     ),
-                          //   ),
-
-                          // ],
-
-                          Column(
+                          : Column(
                               children: List.generate(
                                   snapshot.data!.bundal.length,
                                   (index) => Column(
@@ -154,7 +134,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                     .width -
                                                                 40,
                                                             padding:
-                                                                EdgeInsets.all(
+                                                              const  EdgeInsets.all(
                                                                     10),
                                                             decoration:
                                                                 BoxDecoration(
@@ -174,7 +154,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                   spreadRadius:
                                                                       1,
                                                                   blurRadius: 1,
-                                                                  offset: Offset(
+                                                                  offset: const Offset(
                                                                       1,
                                                                       3), // changes position of shadow
                                                                 ),
@@ -212,7 +192,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                     )
                                                                   ],
                                                                 ),
-                                                                SizedBox(
+                                                           const     SizedBox(
                                                                   width: 10,
                                                                 ),
                                                                 Column(
@@ -223,7 +203,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                       CrossAxisAlignment
                                                                           .start,
                                                                   children: [
-                                                                    SizedBox(
+                                                                 const   SizedBox(
                                                                       height:
                                                                           10,
                                                                     ),
@@ -254,7 +234,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                                 FontWeight.bold),
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                                const    SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     SizedBox(
@@ -285,7 +265,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                               const     SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     Row(
@@ -308,7 +288,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             // fontWeight: FontWeight.bold
                                                                           ),
                                                                         ),
-                                                                        SizedBox(
+                                                                   const     SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
@@ -329,7 +309,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             // fontWeight: FontWeight.bold
                                                                           ),
                                                                         ),
-                                                                        SizedBox(
+                                                                      const  SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
@@ -352,7 +332,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                         )
                                                                       ],
                                                                     ),
-                                                                    SizedBox(
+                                                              const      SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     Row(
@@ -390,7 +370,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                               // border: Border.all(color: Colors.blue, width: 1),
                                                                             ),
                                                                             child:
-                                                                                Center(
+                                                                                const Center(
                                                                               child: Text(
                                                                                 "Remove Item",
                                                                                 style: TextStyle(
@@ -403,13 +383,13 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                        SizedBox(
+                                                                      const  SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
                                                                         Container(
                                                                           // width: 120,
-                                                                          padding: EdgeInsets.symmetric(
+                                                                          padding: const EdgeInsets.symmetric(
                                                                               horizontal: 10,
                                                                               vertical: 5),
                                                                           decoration:
@@ -427,7 +407,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                               children: [
                                                                                 Text(
                                                                                   snapshot.data!.bundal[index].product[i].attribute!,
-                                                                                  style: TextStyle(
+                                                                                  style: const TextStyle(
                                                                                       letterSpacing: 1,
                                                                                       fontSize: 10,
                                                                                       color: Colors.black,
@@ -467,7 +447,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                           ),
                                                         ),
                                                       ))),
-                                          SizedBox(
+                                        const  SizedBox(
                                             height: 20,
                                           ),
                                         ],
@@ -497,7 +477,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                   color: Colors.green,
@@ -514,7 +494,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                 const   Text(
                       "Proceed to Billing",
                       style: TextStyle(
                           letterSpacing: 1,
@@ -523,7 +503,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                           // fontFamily: font,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                const    SizedBox(
                       width: 30,
                     ),
                     Image.asset("assets/Vector.png"),
@@ -573,7 +553,7 @@ class _PreviewItemState extends State<PreviewItem> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width - 40,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
@@ -612,7 +592,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                              const    SizedBox(
                                     height: 10,
                                   ),
                                   Container(
@@ -621,7 +601,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                     child: Text(
                                       widget.data!.product[index].title!,
                                       maxLines: 2,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           letterSpacing: 1,
                                           fontSize: 16,
                                           color: Colors.black,
@@ -629,7 +609,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  SizedBox(
+                                const  SizedBox(
                                     height: 5,
                                   ),
                                   SizedBox(
@@ -638,7 +618,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                     child: Text(
                                       widget.data!.product[index].desc!,
                                       maxLines: 4,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 10,
                                         color: Colors.black,
@@ -647,14 +627,14 @@ class _PreviewItemState extends State<PreviewItem> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                               const   SizedBox(
                                     height: 5,
                                   ),
                                   Row(
                                     children: [
                                       Text(
                                         'Qty: ${widget.data!.product[index].qty!}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
 
                                           letterSpacing: 1,
@@ -664,12 +644,12 @@ class _PreviewItemState extends State<PreviewItem> {
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                      SizedBox(
+                                     const SizedBox(
                                         width: 10,
                                       ),
                                       Text(
                                         'Price: ₹${widget.data!.product[index].price!}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           letterSpacing: 1,
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold,
@@ -678,12 +658,12 @@ class _PreviewItemState extends State<PreviewItem> {
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                      SizedBox(
+                                    const  SizedBox(
                                         width: 10,
                                       ),
                                       Text(
                                         'Total: ₹${widget.data!.product[index].total!}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           letterSpacing: 1,
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold,
@@ -694,7 +674,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                       )
                                     ],
                                   ),
-                                  SizedBox(
+                             const     SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -705,15 +685,15 @@ class _PreviewItemState extends State<PreviewItem> {
                                         onTap: widget.onTab,
                                         child: Container(
                                           width: 120,
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 5, vertical: 5),
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(5),
-                                            color: Color(0xff53900F),
+                                            color: const Color(0xff53900F),
                                             // border: Border.all(color: Colors.blue, width: 1),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: Text(
                                               "Remove Item",
                                               style: TextStyle(
@@ -726,12 +706,12 @@ class _PreviewItemState extends State<PreviewItem> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
+                                     const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
                                         // width: 120,
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 5),
                                         decoration: BoxDecoration(
                                           borderRadius:
@@ -745,7 +725,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                               Text(
                                                 widget.data!.product[index]
                                                     .attribute!,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     letterSpacing: 1,
                                                     fontSize: 10,
                                                     color: Colors.black,
@@ -786,7 +766,7 @@ class _PreviewItemState extends State<PreviewItem> {
                         ),
                       ),
                     ))),
-        SizedBox(
+      const  SizedBox(
           height: 20,
         ),
       ],

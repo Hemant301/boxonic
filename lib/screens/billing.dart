@@ -1,6 +1,7 @@
 import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -121,7 +122,11 @@ class _BillingPageState extends State<BillingPage> {
                     StreamBuilder<CouponModal>(
                         stream: homebloc.getCouponscode.stream,
                         builder: (context, snapshot) {
-                          if (!snapshot.hasData) return Container();
+                          if (!snapshot.hasData)
+                            return Billing_shimmer(
+                              width: 20,
+                              number: 4,
+                            );
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +233,11 @@ class _BillingPageState extends State<BillingPage> {
                   stream: homebloc.getCalculatedAmount.stream,
                   builder: (context, snapshot) {
                     // print('++++++++++${snapshot.data!.data[0]}');
-                    if (!snapshot.hasData) return Container();
+                    if (!snapshot.hasData)
+                      return Billing_shimmer(
+                        width: 20,
+                        number: 4,
+                      );
                     return Container(
                       width: MediaQuery.of(context).size.width - 40,
                       padding: EdgeInsets.all(20),
@@ -578,9 +587,9 @@ class _BillingPageState extends State<BillingPage> {
                                   ),
                                 ],
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding:  EdgeInsets.all(5.0),
                                   child: Text(
                                     "Get 5% Discount on Every Orders + Additional Benefits",
                                     style: TextStyle(
@@ -598,14 +607,19 @@ class _BillingPageState extends State<BillingPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     StreamBuilder<CalAmountModal>(
                         stream: homebloc.getCalculatedAmount.stream,
                         builder: (context, snapshot) {
                           // print('++++++++++${snapshot.data!.data[0]}');
-                          if (!snapshot.hasData) return Container();
+                          if (!snapshot.hasData) {
+                            return Billing_shimmer(
+                              number: 4,
+                              width: 20,
+                            );
+                          }
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -639,7 +653,7 @@ class _BillingPageState extends State<BillingPage> {
                                         : Colors.grey.withOpacity(0.2),
                                     spreadRadius: 1,
                                     blurRadius: 1,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         1, 3), // changes position of shadow
                                   ),
                                 ],
@@ -648,7 +662,7 @@ class _BillingPageState extends State<BillingPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "One Time Purchase",
                                     style: TextStyle(
                                       // // letterSpacing: 1,
@@ -664,8 +678,8 @@ class _BillingPageState extends State<BillingPage> {
                                     backgroundColor: activeIndex == 0
                                         ? Colors.blue
                                         : Colors.grey[300],
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(12.0),
                                       // child: Image.asset(
                                       //   "assets/1 9.png",
                                       //   fit: BoxFit.contain,
@@ -726,7 +740,7 @@ class _BillingPageState extends State<BillingPage> {
                             border: Border.all(
                                 color: Color.fromARGB(96, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(10)),
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           'Proceed',
                           style: TextStyle(

@@ -1,12 +1,8 @@
 import 'package:boxoniq/api/authApi.dart';
-import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
-
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 TextEditingController _mobileController = TextEditingController();
 

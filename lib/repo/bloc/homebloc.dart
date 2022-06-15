@@ -323,6 +323,22 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<TrackModal> liveTrackorder =
+      BehaviorSubject<TrackModal>();
+  BehaviorSubject<TrackModal> get getTrackorder => liveTrackorder;
+  trackOrder(s) async {
+    // _liveTrackorder.addError("Loading");
+    try {
+      liveTrackorder.addError('erroe');
+      TrackModal homeSlider = await _homeRepo.trackOrder(s);
+      // print(homeSlider.imgs!.length);
+
+      liveTrackorder.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<Questionmodal> liveCommunitySearch =
       BehaviorSubject<Questionmodal>();
   BehaviorSubject<Questionmodal> get getCommunitySearch => liveCommunitySearch;

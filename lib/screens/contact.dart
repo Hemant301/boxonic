@@ -100,7 +100,8 @@ class _ContactState extends State<Contact> {
                             padding: const EdgeInsets.all(20.0),
                             child: InkWell(
                               onTap: () async {
-                                String url = "tel:'${snapshot.data!.mobile!}'";
+                                String url =
+                                    "https://wa.me/91${snapshot.data!.mobile}";
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 } else {
@@ -152,8 +153,7 @@ class _ContactState extends State<Contact> {
                                 horizontal: 20, vertical: 10),
                             child: InkWell(
                               onTap: () async {
-                                String url =
-                                    "https://wa.me/91${snapshot.data!.mobile}";
+                                String url = "tel:'${snapshot.data!.mobile!}'";
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 } else {

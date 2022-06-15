@@ -178,7 +178,7 @@ class _CheckwalletState extends State<Checkwallet> {
                 height: 20,
               ),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(25),
                 width: MediaQuery.of(context).size.width - 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
@@ -250,7 +250,7 @@ class _CheckwalletState extends State<Checkwallet> {
                                 width: 5,
                               ),
                               Positioned(
-                                top: -10,
+                                top: -20,
                                 left: 70,
                                 child: Container(
                                   padding: EdgeInsets.all(2),

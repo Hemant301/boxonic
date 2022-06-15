@@ -1,11 +1,13 @@
 import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -83,14 +85,29 @@ class _SearchPageState extends State<SearchPage> {
               StreamBuilder<SearchModal>(
                   stream: homebloc.getSearch.stream,
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Container();
+                    if (!snapshot.hasData)
+                      return Billing_shimmer(number: 5, width: 100);
                     return Column(
-                        children: List.generate(
-                            snapshot.data!.data.length,
-                            (index) => ProductsCard(
-                                appid: _searchController.text,
-                                data: snapshot.data!.data[index],
-                                i: index)));
+                      children: [
+                        snapshot.data!.data.isEmpty
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    Lottie.asset('assets/empty.json',
+                                        repeat: false, height: 200),
+                                    Text('Item Not Found')
+                                  ],
+                                ),
+                              )
+                            : Column(
+                                children: List.generate(
+                                    snapshot.data!.data.length,
+                                    (index) => ProductsCard(
+                                        appid: _searchController.text,
+                                        data: snapshot.data!.data[index],
+                                        i: index))),
+                      ],
+                    );
                   })
             ],
           ),
@@ -346,9 +363,9 @@ class _ProductsCardState extends State<ProductsCard> {
                           }
                         },
                         child: Container(
-                          width: 120,
+                          // width: 120,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xff53900F),

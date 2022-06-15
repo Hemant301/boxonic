@@ -33,7 +33,7 @@ class Mysubsrdetail extends StatelessWidget {
               if (!snapshot.hasData) return Shimmer_home();
               return Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Column(
@@ -54,7 +54,7 @@ class Mysubsrdetail extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.4),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset: Offset(
+                                  offset: const Offset(
                                       1, 3), // changes position of shadow
                                 ),
                               ],
@@ -73,7 +73,7 @@ class Mysubsrdetail extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Column(
@@ -90,7 +90,7 @@ class Mysubsrdetail extends StatelessWidget {
                                         snapshot.data!.items[index].item_name!,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             letterSpacing: 1,
                                             fontSize: 16,
                                             color: Colors.black,
@@ -115,7 +115,7 @@ class Mysubsrdetail extends StatelessWidget {
                                     //     ),
                                     //   ),
                                     // ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Row(
@@ -126,7 +126,7 @@ class Mysubsrdetail extends StatelessWidget {
                                           'Quantity : ${snapshot.data!.items[index].quantity}',
                                           style: TextStyle(fontSize: 12),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
@@ -135,12 +135,12 @@ class Mysubsrdetail extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       'Total : ₹ ${snapshot.data!.items[index].amount}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14),
                                     ),
@@ -153,7 +153,7 @@ class Mysubsrdetail extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Center(
@@ -192,12 +192,12 @@ class Mysubsrdetail extends StatelessWidget {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "₹ ${snapshot.data!.total!.subtotal}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
@@ -222,12 +222,12 @@ class Mysubsrdetail extends StatelessWidget {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "- ₹ ${snapshot.data!.total!.coupon}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
@@ -252,12 +252,42 @@ class Mysubsrdetail extends StatelessWidget {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
-                                  "-₹ ${snapshot.data!.total!.discount}",
+                                  "-₹ ${snapshot.data!.total!.bundledissount}",
+                                  style: const TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Subscription Discount",
                                   style: TextStyle(
+                                      letterSpacing: 1,
+                                      fontSize: 16,
+                                      color: Colors.grey[600],
+                                      // fontFamily: font,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "-₹ ${snapshot.data!.total!.subsdissount}",
+                                  style: const TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
@@ -312,12 +342,12 @@ class Mysubsrdetail extends StatelessWidget {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "₹ ${snapshot.data!.total!.total}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       letterSpacing: 1,
                                       fontSize: 16,
                                       color: Colors.black,
@@ -331,7 +361,7 @@ class Mysubsrdetail extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -357,11 +387,11 @@ class Mysubsrdetail extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Delivery Address',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text(
@@ -380,7 +410,7 @@ class Mysubsrdetail extends StatelessWidget {
                           )),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -388,7 +418,10 @@ class Mysubsrdetail extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/trackorder');
+                          Navigator.pushNamed(context, '/trackorder',
+                              arguments: {
+                                'track_id': snapshot.data!.tackingid
+                              });
                         },
                         child: Container(
                           height: 40,
@@ -410,7 +443,7 @@ class Mysubsrdetail extends StatelessWidget {
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Text(
                                 "Track Order",
                                 style: TextStyle(
@@ -444,21 +477,21 @@ class Mysubsrdetail extends StatelessWidget {
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color.fromARGB(255, 255, 20, 20),
+                            color: Colors.green,
                             // border: Border.all(color: Colors.blue, width: 1),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 1,
-                                offset:
-                                    Offset(1, 3), // changes position of shadow
+                                offset: const Offset(
+                                    1, 3), // changes position of shadow
                               ),
                             ],
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Text(
                                 "Invoice",
                                 style: TextStyle(
@@ -481,7 +514,7 @@ class Mysubsrdetail extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   )
                 ],

@@ -148,7 +148,9 @@ class _SubshistoryState extends State<Subshistory> {
                                                     context, '/mysubsdetail',
                                                     arguments: {
                                                       'id': snapshot.data!
-                                                          .data[index].orderid
+                                                          .data[index].orderid,
+                                                      'is_cancelled':
+                                                          '$activeIndex'
                                                     });
                                               },
                                               child: Container(
@@ -222,7 +224,7 @@ class _SubshistoryState extends State<Subshistory> {
                                                           ],
                                                         ),
                                                         SizedBox(
-                                                          width: 20,
+                                                          width: 10,
                                                         ),
                                                         Column(
                                                           crossAxisAlignment:
@@ -306,7 +308,9 @@ class _SubshistoryState extends State<Subshistory> {
                                                     context, '/mysubsdetail',
                                                     arguments: {
                                                       'id': snapshot.data!
-                                                          .data[index].orderid
+                                                          .data[index].orderid,
+                                                      'is_cancelled':
+                                                          '$activeIndex'
                                                     });
                                               },
                                               child: Container(

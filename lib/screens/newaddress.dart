@@ -19,6 +19,7 @@ class _NewaddressState extends State<Newaddress> {
   TextEditingController pincodeController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   String statename = "";
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,39 @@ class _NewaddressState extends State<Newaddress> {
                             ),
                           )
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Name",
+                        style: TextStyle(
+                          letterSpacing: 1,
+                          fontSize: 16,
+                          color: Colors.black,
+                          // fontFamily: font,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width - 25,
+                      // padding: EdgeInsets.all(5),
+                      child: FormTTextFild(
+                        controller: nameController,
+                        hinttext: "Enter Your Name",
+
+                        // icon: (Icons.email),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        // color: Colors.white,
+                        // border: Border.all(color: Colors.blue, width: 1),
                       ),
                     ),
                     SizedBox(
@@ -252,6 +286,7 @@ class _NewaddressState extends State<Newaddress> {
                         try {
                           Map data = await _authapi.doSaveAddress(
                               address: addressController.text,
+                              name:nameController.text,
                               landmark: landmarkController.text,
                               state: statename,
                               phone: phoneController.text,

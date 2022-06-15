@@ -92,3 +92,39 @@ class Questiondetailmodal {
     created_on = js['created_on'] ?? "";
   }
 }
+
+class TrackModal {
+  List<TrackingdetailModal> track = [];
+
+  TrackModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      track.add(TrackingdetailModal(js[i]));
+    }
+  }
+}
+
+class TrackingdetailModal {
+  List<StatusListModal> status = [];
+  TrackingdetailModal(js) {
+    for (var i = 0; i < js['status_array'].length; i++) {
+      status.add(StatusListModal(js['status_array'][i]));
+    }
+  }
+}
+
+class StatusListModal {
+  String? courier_status_code;
+  String? pickrr_sub_status_code;
+  String? status_time;
+  String? status_body;
+  String? status_location;
+  String? pickrr_status;
+  StatusListModal(js) {
+    courier_status_code = js['courier_status_code'] ?? "";
+    pickrr_sub_status_code = js['pickrr_sub_status_code'] ?? "";
+    status_time = js['status_time'] ?? "";
+    status_body = js['status_body'] ?? "";
+    status_location = js['status_location'] ?? "";
+    pickrr_status = js['pickrr_status'] ?? "";
+  }
+}

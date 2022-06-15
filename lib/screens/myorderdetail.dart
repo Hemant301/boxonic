@@ -472,8 +472,7 @@ class _MyorderdetailState extends State<Myorderdetail> {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            snapshot.data!.total!.status == "1" ||
-                                    snapshot.data!.total!.status == "2"
+                            int.parse(snapshot.data!.total!.status!) < 3
                                 ? InkWell(
                                     onTap: () async {
                                       showDialog(
@@ -499,7 +498,10 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                                           .cancelMyorder(id);
                                                       if (data['response'] ==
                                                           "1") {
-                                                        setState(() {});
+                                                        setState(() {
+                                                          homebloc
+                                                              .fetchMyOrder();
+                                                        });
                                                         Navigator.pop(context);
                                                         Fluttertoast.showToast(
                                                             msg: data['msg']);
@@ -524,7 +526,7 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: Colors.amber,
+                                        color: Colors.red,
                                         // border: Border.all(color: Colors.blue, width: 1),
                                         boxShadow: [
                                           BoxShadow(
@@ -541,12 +543,12 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Cancel",
+                                            "Cancel Order",
                                             style: TextStyle(
                                                 // letterSpacing: 1,
                                                 fontSize: 12,
                                                 color: Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                                    255, 255, 255, 255),
                                                 // fontFamily: font,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -564,7 +566,9 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                 : InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, '/trackorder');
+                                          context, '/trackorder', arguments: {
+                                        'track_id': snapshot.data!.tackingid
+                                      });
                                     },
                                     child: Container(
                                       height: 40,
@@ -626,7 +630,7 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color.fromARGB(255, 255, 20, 20),
+                                  color: Colors.green,
                                   // border: Border.all(color: Colors.blue, width: 1),
                                   boxShadow: [
                                     BoxShadow(

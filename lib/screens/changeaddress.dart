@@ -154,6 +154,8 @@ class _ChangeaddressState extends State<Changeaddress> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
+                                                      Text(snapshot.data!
+                                                          .data[index].name!),
                                                       Text(snapshot
                                                           .data!
                                                           .data[index]
@@ -181,6 +183,11 @@ class _ChangeaddressState extends State<Changeaddress> {
                                                                   context,
                                                                   '/editaddress',
                                                                   arguments: {
+                                                                    'name': snapshot
+                                                                        .data!
+                                                                        .data[
+                                                                            index]
+                                                                        .name,
                                                                     'address': snapshot
                                                                         .data!
                                                                         .data[

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/shimmer/newshimmer.dart';
@@ -15,19 +17,19 @@ class Mysublist extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: lightWhite2,
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
           ),
           // leadingWidth: 0,
           // leading: Container(),
-          title: Text(
+          title: const Text(
             'My Subscription',
             style: TextStyle(color: Colors.black),
           )),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             StreamBuilder<SubsListModal>(
@@ -46,7 +48,7 @@ class Mysublist extends StatelessWidget {
                                     height: 200,
                                     repeat: false,
                                   ),
-                                  Text('No data found')
+                                  Text('No Subscription Found')
                                 ],
                               ),
                             )
@@ -87,32 +89,31 @@ class Mysublist extends StatelessWidget {
                                                       .withOpacity(0.4),
                                                   spreadRadius: 1,
                                                   blurRadius: 1,
-                                                  offset: Offset(1,
+                                                  offset: const Offset(1,
                                                       3), // changes position of shadow
                                                 ),
                                               ],
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            child: Column(
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment.start,
+                                              // crossAxisAlignment:
+                                              //     CrossAxisAlignment.start,
                                               children: [
                                                 SizedBox(
-                                                  height: 120,
-                                                  width: 100,
-                                                  child: Image.network(
-                                                    snapshot
-                                                        .data!.data[index].img!,
+                                                  height: 150,
+                                                  width: 150,
+                                                  child: Image.asset(
+                                                    'assets/subscription.png',
                                                     errorBuilder: ((context,
                                                             error,
                                                             stackTrace) =>
-                                                        Image.network(
-                                                            'https://img.freepik.com/free-vector/error-404-concept-illustration_114360-1811.jpg?w=2000')),
+                                                        Image.asset(
+                                                            'assets/subscription.png')),
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                                 Column(
@@ -121,7 +122,7 @@ class Mysublist extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     // Text(
@@ -133,19 +134,19 @@ class Mysublist extends StatelessWidget {
                                                     //       // fontFamily: font,
                                                     //       fontWeight: FontWeight.bold),
                                                     // ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .spaceBetween,
+                                                              .center,
                                                       children: [
                                                         Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
-                                                          children: [
+                                                          children: const [
                                                             Text(
                                                               'Order id:',
                                                               style: TextStyle(
@@ -189,8 +190,8 @@ class Mysublist extends StatelessWidget {
                                                             ),
                                                           ],
                                                         ),
-                                                        SizedBox(
-                                                          width: 10,
+                                                        const SizedBox(
+                                                          width: 30,
                                                         ),
                                                         Column(
                                                           crossAxisAlignment:
@@ -202,11 +203,12 @@ class Mysublist extends StatelessWidget {
                                                                   .data!
                                                                   .data[index]
                                                                   .order_id!,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  const TextStyle(
                                                                 fontSize: 12,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               height: 10,
                                                             ),
                                                             Text(
@@ -214,11 +216,12 @@ class Mysublist extends StatelessWidget {
                                                                   .data!
                                                                   .data[index]
                                                                   .date!,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  const TextStyle(
                                                                 fontSize: 12,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               height: 10,
                                                             ),
                                                             Text(
@@ -226,11 +229,12 @@ class Mysublist extends StatelessWidget {
                                                                   .data!
                                                                   .data[index]
                                                                   .amount!,
-                                                              style: TextStyle(
+                                                              style:
+                                                                  const TextStyle(
                                                                 fontSize: 12,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               height: 10,
                                                             ),
                                                             Text(
@@ -238,7 +242,7 @@ class Mysublist extends StatelessWidget {
                                                                   .data!
                                                                   .data[index]
                                                                   .status!,
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
@@ -282,17 +286,17 @@ class ShimmerLottie extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Container(
-              padding: EdgeInsets.all(50),
+              padding: const EdgeInsets.all(50),
               width: MediaQuery.of(context).size.width / 2 + 50,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: Color.fromARGB(255, 174, 174, 174),
+                  boxShadow: const [
+                    const BoxShadow(
+                      color: const Color.fromARGB(255, 174, 174, 174),
                       blurRadius: 5.0,
                     ),
                   ],

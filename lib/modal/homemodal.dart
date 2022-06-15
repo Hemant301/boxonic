@@ -81,11 +81,13 @@ class ProductListModal {
   String? img;
   String? title;
   String? desc;
+  int? is_stock;
   List<AttribueListModal> attr = [];
   ProductListModal(js) {
     id = js['id'] ?? "";
     img = js['image'] ?? "";
     title = js['title'] ?? "";
+    is_stock = js['is_stock'] ?? "";
     desc = js['desc'] ?? "";
     for (var i = 0; i < js['attribute'].length; i++) {
       attr.add(AttribueListModal(js['attribute'][i]));
@@ -304,7 +306,7 @@ class OrderdetailModal {
 class Myorderdetailmodal {
   List<Itemsdetailmodal> items = [];
   AddInOrderModal? address;
-
+  String? tackingid;
   TotalModal? total;
   Myorderdetailmodal(js) {
     for (var i = 0; i < js['items'].length; i++) {
@@ -312,6 +314,7 @@ class Myorderdetailmodal {
     }
     total = TotalModal(js['total']);
     address = AddInOrderModal(js['address']);
+    tackingid = js['track_id'] ?? "";
   }
 }
 
@@ -366,11 +369,17 @@ class Myordermodal {
 }
 
 class AddInsubsModal {
+  String? name;
+  String? phone;
+  String? state;
   String? address;
   String? landmark;
   String? pincode;
   AddInsubsModal(js) {
     address = js['address'] ?? "";
+    name = js['name'] ?? "Name";
+    phone = js['phone'] ?? "phone";
+    state = js['state'] ?? "State";
     landmark = js['landmark'] ?? "";
     pincode = js['pincode'] ?? "";
   }
@@ -424,6 +433,7 @@ class TotalModal {
   dynamic? subtotal;
   dynamic? coupon;
   dynamic? bundledissount;
+  dynamic? subsdissount;
   dynamic delivery;
   dynamic? discount;
   String? status;
@@ -437,6 +447,7 @@ class TotalModal {
     status = js['status'] ?? "";
     total = js['total'] ?? "";
     bundledissount = js['bundle_discount'] ?? "0";
+    subsdissount = js['subs_discount'] ?? "0";
     finaltotal = js['final_total'] ?? "";
   }
 }
@@ -538,6 +549,7 @@ class AddressListModal {
 }
 
 class AddressdetailModal {
+  String? name;
   String? fulladdress;
   String? id;
   String? landmark;
@@ -548,6 +560,7 @@ class AddressdetailModal {
   AddressdetailModal(js) {
     id = js['id'] ?? "";
     fulladdress = js['full_address'] ?? "";
+    name = js['name'] ?? "Name";
     landmark = js['landmark'] ?? "";
     pincode = js['pincode'] ?? "";
     state = js['state'] ?? "";
@@ -623,6 +636,7 @@ class ProductModal {
 class ProductdetailModal {
   List<ProductImageModal> image = [];
   String? id;
+  int? isStock;
   String? title;
   String? desc;
   List<ProductAttribueListModal> attr = [];
@@ -633,6 +647,7 @@ class ProductdetailModal {
     id = js['id'] ?? "";
     title = js['title'] ?? "";
     desc = js['desc'] ?? "";
+    isStock = js['is_stock'] ?? "";
     for (var i = 0; i < js['attribute'].length; i++) {
       attr.add(ProductAttribueListModal(js['attribute'][i]));
     }

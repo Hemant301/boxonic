@@ -16,6 +16,7 @@ class BundleCreatorPage extends StatefulWidget {
 }
 
 class _BundleCreatorPageState extends State<BundleCreatorPage> {
+  int colorInd = 0;
   int activeIndex = 5;
   String id = "";
   @override
@@ -127,55 +128,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                       const SizedBox(
                         height: 15,
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.all(10),
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.white,
-                      //       borderRadius: BorderRadius.circular(10)),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      //     children: [
-                      //       Container(
-                      //         child: Row(
-                      //           children: [
-                      //             Icon(Icons.filter_alt_outlined),
-                      //             SizedBox(
-                      //               width: 4,
-                      //             ),
-                      //             Text('Filter')
-                      //           ],
-                      //         ),
-                      //       ),
-                      //       InkWell(
-                      //         onTap: () {
-                      //           showModalBottomSheet(
-                      //               context: context,
-                      //               builder: (BuildContext) => Container(
-                      //                     height: 500,
-                      //                     color: Colors.white,
-                      //                     child: Column(
-                      //                       children: [
-                      //                         Container(
-                      //                             child: Text('Popularity'))
-                      //                       ],
-                      //                     ),
-                      //                   ));
-                      //         },
-                      //         child: Container(
-                      //           child: Row(
-                      //             children: [
-                      //               Icon(Icons.sort),
-                      //               SizedBox(
-                      //                 width: 4,
-                      //               ),
-                      //               Text('Sort')
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
+
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -193,10 +146,6 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                         .withOpacity(0.5),
                                     child: const Padding(
                                       padding: EdgeInsets.all(12.0),
-                                      // child: Image.asset(
-                                      //   "assets/1 9.png",
-                                      //   fit: BoxFit.contain,
-                                      // ),
                                     ),
                                   ),
                                 ),
@@ -267,7 +216,10 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
         bottomNavigationBar: StreamBuilder<CategoryItemModal>(
             stream: homebloc.getCategoryitems.stream,
             builder: (context, snapshot) {
-              if (!snapshot.hasData) return Container();
+              if (!snapshot.hasData)
+                return Container(
+                  height: 10,
+                );
               return Container(
                 height: 60,
                 width: MediaQuery.of(context).size.width,
@@ -476,6 +428,9 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                     ),
                                     InkWell(
                                       onTap: () {
+                                        setState(() {
+                                          colorInd = 0;
+                                        });
                                         Navigator.pop(context);
                                       },
                                       child: const Padding(
@@ -504,6 +459,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                             filter = '0';
                                             filtertype = '0';
                                             filterkey = '0';
+                                            colorInd = 1;
                                           });
                                           Navigator.pop(context);
                                         },
@@ -511,7 +467,10 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 5),
                                           decoration: BoxDecoration(
-                                              color: Colors.amber,
+                                              color: colorInd == 1
+                                                  ? Color.fromARGB(
+                                                      255, 255, 119, 0)
+                                                  : Colors.amber,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
@@ -527,6 +486,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                             filter = '0';
                                             filtertype = '0';
                                             filterkey = '0';
+                                            colorInd = 2;
                                           });
                                           Navigator.pop(context);
                                         },
@@ -534,7 +494,10 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 5),
                                           decoration: BoxDecoration(
-                                              color: Colors.amber,
+                                              color: colorInd == 2
+                                                  ? Color.fromARGB(
+                                                      255, 255, 119, 0)
+                                                  : Colors.amber,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
@@ -551,6 +514,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                             filter = '0';
                                             filtertype = '0';
                                             filterkey = '0';
+                                            colorInd = 3;
                                           });
                                           Navigator.pop(context);
                                         },
@@ -558,7 +522,10 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 5),
                                           decoration: BoxDecoration(
-                                              color: Colors.amber,
+                                              color: colorInd == 3
+                                                  ? Color.fromARGB(
+                                                      255, 255, 119, 0)
+                                                  : Colors.amber,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
@@ -857,15 +824,42 @@ class _ProductsCardState extends State<ProductsCard> {
               children: [
                 Column(
                   children: [
-                    Container(
-                      height: 120,
-                      width: 100,
-                      child: Image.network(
-                        widget.data!.img!,
-                        errorBuilder: (context, error, stackTrace) => Image.network(
-                            'https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?t=st=1648458079~exp=1648458679~hmac=22225d104f55882eeda53ca4bba904e4d687db4db62051a53fc670b06d89a94f&w=740'),
-                        fit: BoxFit.contain,
-                      ),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Opacity(
+                          opacity: widget.data!.is_stock != 1 ? 0.5 : 1,
+                          child: Container(
+                            height: 120,
+                            width: 100,
+                            child: Image.network(
+                              widget.data!.img!,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.network(
+                                      'https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?t=st=1648458079~exp=1648458679~hmac=22225d104f55882eeda53ca4bba904e4d687db4db62051a53fc670b06d89a94f&w=740'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        // widget.data!.is_stock == 1
+                        //     ? Container()
+                        //     : Container(
+                        //         height: 120,
+                        //         width: 100,
+                        //         color: Colors.grey.withOpacity(0.3),
+                        //       ),
+                        widget.data!.is_stock == 1
+                            ? Container()
+                            : Positioned(
+                                bottom: 5,
+                                child: Text(
+                                  'Out of Stock',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                      ],
                     )
                   ],
                 ),
@@ -998,11 +992,14 @@ class _ProductsCardState extends State<ProductsCard> {
                                   }
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(6),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(color: Colors.black)),
-                                  child: const Text('--'),
+                                  child: const Text(
+                                    '--',
+                                    style: TextStyle(letterSpacing: -1),
+                                  ),
                                 ),
                               ),
                               Text('$count'),
@@ -1028,6 +1025,10 @@ class _ProductsCardState extends State<ProductsCard> {
                         ),
                         InkWell(
                           onTap: () async {
+                            if (widget.data!.is_stock != 1) {
+                              Fluttertoast.showToast(msg: 'Out Of Stock');
+                              return;
+                            }
                             if (widget.attrIdForApi == "") {
                               Fluttertoast.showToast(
                                   msg: 'Please select Attribute');

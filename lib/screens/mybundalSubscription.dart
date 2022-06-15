@@ -3,7 +3,6 @@ import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../shimmer/newshimmer.dart';
@@ -16,6 +15,7 @@ class MyBundalSubscription extends StatefulWidget {
 }
 
 class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
+  int isCancelled = 0;
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -32,7 +32,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
               Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back_ios, color: Colors.black)),
-        title: Text(
+        title: const Text(
           "Subscription",
           style: TextStyle(
               letterSpacing: 1,
@@ -50,7 +50,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                   padding: const EdgeInsets.all(12.0),
                   child: InkWell(
                     onTap: () {
-                      if (snapshot.data!.cancel == 1) {
+                      if (isCancelled == 1) {
                         Fluttertoast.showToast(
                             msg: 'Subscription is already cancelled');
                         return;
@@ -128,172 +128,185 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                               if (!snapshot.hasData) return Container();
                               return InkWell(
                                   onTap: () {
-                                    showGeneralDialog(
-                                        context: context,
-                                        barrierLabel: "Barrier",
-                                        barrierDismissible: true,
-                                        barrierColor:
-                                            Colors.black.withOpacity(0.5),
-                                        transitionDuration:
-                                            Duration(milliseconds: 500),
-                                        pageBuilder: (_, __, ___) {
-                                          return Center(
+                                    showDialog(
+                                      context: context,
+                                      barrierLabel: "Barrier",
+                                      barrierDismissible: true,
+                                      barrierColor:
+                                          Colors.black.withOpacity(0.5),
+                                      // transitionDuration:
+                                      //     Duration(milliseconds: 500),
+                                      builder: (_) {
+                                        return Center(
+                                          child: Container(
+                                            height: 300,
                                             child: Container(
-                                              height: 250,
-                                              child: Container(
-                                                padding: EdgeInsets.all(20),
-                                                // height: 80,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width -
-                                                    40,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Colors.blue,
-                                                      width: 1),
-                                                  color: Colors.white,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.4),
-                                                      spreadRadius: 1,
-                                                      blurRadius: 1,
-                                                      offset: Offset(1,
-                                                          3), // changes position of shadow
+                                              padding: EdgeInsets.all(20),
+                                              // height: 80,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  40,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color: Colors.blue,
+                                                    width: 1),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.4),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 1,
+                                                    offset: Offset(1,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  // Row(
+                                                  //   mainAxisAlignment:
+                                                  //       MainAxisAlignment.end,
+                                                  //   children: [
+                                                  //     InkWell(
+                                                  //       onTap: () {
+                                                  //         Navigator.pop(
+                                                  //             context);
+                                                  //       },
+                                                  //       child: Padding(
+                                                  //         padding:
+                                                  //             const EdgeInsets
+                                                  //                 .all(8.0),
+                                                  //         child:
+                                                  //             Icon(Icons.close),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
+                                                  Container(
+                                                    // padding: EdgeInsets.all(20),
+                                                    height: 40,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            80,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: Colors.green,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.grey
+                                                              .withOpacity(0.4),
+                                                          spreadRadius: 1,
+                                                          blurRadius: 1,
+                                                          offset: Offset(1,
+                                                              3), // changes position of shadow
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-                                                      // padding: EdgeInsets.all(20),
-                                                      height: 40,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width -
-                                                              80,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                        color: Colors.green,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.4),
-                                                            spreadRadius: 1,
-                                                            blurRadius: 1,
-                                                            offset: Offset(1,
-                                                                3), // changes position of shadow
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          "Monthly Subscribe Benefits Includes",
-                                                          style: TextStyle(
-                                                            letterSpacing: 1,
-                                                            fontSize: 12,
-                                                            color: Colors.white,
-                                                            fontFamily: font,
-                                                            // fontWeight: FontWeight.bold
-                                                          ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Monthly Subscription Benefits Includes",
+                                                        style: TextStyle(
+                                                          letterSpacing: 1,
+                                                          fontSize: 12,
+                                                          color: Colors.white,
+                                                          fontFamily: font,
+                                                          // fontWeight: FontWeight.bold
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      height: 20,
-                                                    ),
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.all(10),
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width -
-                                                              80,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                          color: Colors.white,
-                                                          border: Border.all(
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.all(10),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            80,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: Colors.blue,
+                                                            width: 1)),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: List.generate(
+                                                        newsnapshot
+                                                            .data!.data.length,
+                                                        (index) => Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5.0),
+                                                          child: Text(
+                                                            newsnapshot
+                                                                .data!
+                                                                .data[index]
+                                                                .name!,
+                                                            style: TextStyle(
+                                                              letterSpacing: 1,
+                                                              fontSize: 10,
                                                               color:
-                                                                  Colors.blue,
-                                                              width: 1)),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: List.generate(
-                                                          newsnapshot.data!.data
-                                                              .length,
-                                                          (index) => Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(5.0),
-                                                            child: Text(
-                                                              newsnapshot
-                                                                  .data!
-                                                                  .data[index]
-                                                                  .name!,
-                                                              style: TextStyle(
-                                                                letterSpacing:
-                                                                    1,
-                                                                fontSize: 10,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontFamily:
-                                                                    font,
-                                                                // fontWeight: FontWeight.bold
-                                                              ),
+                                                                  Colors.black,
+                                                              fontFamily: font,
+                                                              // fontWeight: FontWeight.bold
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          40)),
                                             ),
-                                          );
-                                        },
-                                        transitionBuilder:
-                                            (_, anim, __, child) {
-                                          Tween<Offset> tween;
-                                          if (anim.status ==
-                                              AnimationStatus.reverse) {
-                                            tween = Tween(
-                                                begin: Offset(-1, 0),
-                                                end: Offset.zero);
-                                          } else {
-                                            tween = Tween(
-                                                begin: Offset(1, 0),
-                                                end: Offset.zero);
-                                          }
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(40)),
+                                          ),
+                                        );
+                                      },
+                                      // transitionBuilder:
+                                      //     (_, anim, __, child) {
+                                      //   Tween<Offset> tween;
+                                      //   if (anim.status ==
+                                      //       AnimationStatus.reverse) {
+                                      //     tween = Tween(
+                                      //         begin: Offset(-1, 0),
+                                      //         end: Offset.zero);
+                                      //   } else {
+                                      //     tween = Tween(
+                                      //         begin: Offset(1, 0),
+                                      //         end: Offset.zero);
+                                      //   }
 
-                                          return SlideTransition(
-                                            position: tween.animate(anim),
-                                            child: FadeTransition(
-                                              opacity: anim,
-                                              child: child,
-                                            ),
-                                          );
-                                        });
+                                      // return SlideTransition(
+                                      //   position: tween.animate(anim),
+                                      //   child: FadeTransition(
+                                      //     opacity: anim,
+                                      //     child: child,
+                                      //   ),
+                                      // );
+                                    );
                                   },
                                   child: Icon(Icons.info, size: 18));
                             })
@@ -533,9 +546,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
-                                                        if (snapshot
-                                                                .data!.cancel ==
-                                                            1) {
+                                                        if (isCancelled == 1) {
                                                           Fluttertoast.showToast(
                                                               msg:
                                                                   'Subscription is already cancelled');
@@ -598,9 +609,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                     ),
                                                     InkWell(
                                                       onTap: () async {
-                                                        if (snapshot
-                                                                .data!.cancel ==
-                                                            1) {
+                                                        if (isCancelled == 1) {
                                                           Fluttertoast.showToast(
                                                               msg:
                                                                   'Subscription is already cancelled');
@@ -758,7 +767,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                             },
                                                             child: Chip(
                                                                 padding:
-                                                                    EdgeInsets
+                                                                    const EdgeInsets
                                                                         .all(1),
                                                                 backgroundColor: snapshot
                                                                             .data!
@@ -784,7 +793,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                                       .attribute[
                                                                           i]
                                                                       .attr_name!,
-                                                                  style: TextStyle(
+                                                                  style: const TextStyle(
                                                                       fontSize:
                                                                           10),
                                                                 )),
@@ -799,8 +808,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                             children: [
                                               InkWell(
                                                 onTap: () async {
-                                                  if (snapshot.data!.cancel ==
-                                                      1) {
+                                                  if (isCancelled == 1) {
                                                     Fluttertoast.showToast(
                                                         msg:
                                                             'Subscription is already cancelled');
@@ -811,9 +819,9 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                       builder: (BuildContext
                                                           context) {
                                                         return AlertDialog(
-                                                          title: Text(
+                                                          title: const Text(
                                                               "Are Your Sure?"),
-                                                          content: Text(
+                                                          content: const Text(
                                                               'Are you sure to delete this item from cart?'),
                                                           actions: <Widget>[
                                                             FlatButton(
@@ -1165,10 +1173,10 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 15,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Stack(
                                   clipBehavior: Clip.none,
@@ -1191,7 +1199,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                     ),
                                     Positioned(
                                       top: -10,
-                                      left: 70,
+                                      left: 90,
                                       child: Container(
                                         padding: EdgeInsets.all(2),
                                         decoration: BoxDecoration(
@@ -1286,6 +1294,10 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                   height: 10,
                                 ),
                                 Text(
+                                  snapshot.data!.address!.name!,
+                                  style: TextStyle(),
+                                ),
+                                Text(
                                   snapshot.data!.address!.address!,
                                   style: TextStyle(),
                                 ),
@@ -1295,6 +1307,14 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                 ),
                                 Text(
                                   snapshot.data!.address!.pincode!,
+                                  style: TextStyle(),
+                                ),
+                                Text(
+                                  snapshot.data!.address!.phone!,
+                                  style: TextStyle(),
+                                ),
+                                Text(
+                                  snapshot.data!.address!.state!,
                                   style: TextStyle(),
                                 ),
                               ],
@@ -1381,13 +1401,11 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                   if (data['response'] == "1") {
                                                     setState(() {});
                                                     Fluttertoast.showToast(
-                                                        msg:
-                                                            'Successfully skiped');
+                                                        msg: data['msg']);
                                                     Navigator.pop(context);
                                                   } else {
                                                     Fluttertoast.showToast(
-                                                        msg:
-                                                            'Successfully skiped');
+                                                        msg: data['msg']);
                                                   }
                                                 },
                                                 child: Text("Sure",
@@ -1421,7 +1439,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text(
                                           "Skip for This Month",
                                           style: TextStyle(
@@ -1432,19 +1450,12 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               // fontFamily: font,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        // SizedBox(
-                                        //   width: 10,
-                                        // ),
-                                        // Image.asset(
-                                        //   "assets/Vector.png",
-                                        //   width: 10,
-                                        // ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                        snapshot.data!.cancel == 1
+                        isCancelled == 1
                             ? InkWell(
                                 child: Center(
                                   child: Container(
@@ -1455,14 +1466,15 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                     padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Color.fromARGB(255, 243, 124, 115),
+                                      color: const Color.fromARGB(
+                                          255, 243, 124, 115),
                                       // border: Border.all(color: Colors.blue, width: 1),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.4),
                                           spreadRadius: 1,
                                           blurRadius: 1,
-                                          offset: Offset(1,
+                                          offset: const Offset(1,
                                               3), // changes position of shadow
                                         ),
                                       ],
@@ -1470,7 +1482,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text(
                                           "Cancelled",
                                           style: TextStyle(
@@ -1495,8 +1507,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text("Are Your Sure?"),
-                                          content: Text(
+                                          title: const Text("Are Your Sure?"),
+                                          content: const Text(
                                               'Are you sure to cancel this bundle subscription?'),
                                           actions: <Widget>[
                                             FlatButton(
@@ -1514,7 +1526,10 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                           rcvdData['id']);
                                                   print(data);
                                                   if (data['response'] == '1') {
-                                                    setState(() {});
+                                                    setState(() {
+                                                      isCancelled = 1;
+                                                      homebloc.fetchSublist();
+                                                    });
                                                     Fluttertoast.showToast(
                                                         msg: data['msg']);
                                                     Navigator.pop(context);

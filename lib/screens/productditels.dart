@@ -261,6 +261,17 @@ class _ProductDitelsState extends State<ProductDitels> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              snapshot.data!.product!.isStock == 0
+                                  ? Text(
+                                      'Currently out Of Stock',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  : Container()
                             ],
                           ),
                         ),
@@ -544,112 +555,133 @@ class _ProductDitelsState extends State<ProductDitels> {
                     ]);
               }),
         ),
-        bottomNavigationBar: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          color: Colors.grey.shade100,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            InkWell(
-              onTap: () async {
-                HomeApi _api = HomeApi();
-                Map data = await _api.addToCart(
-                    p_id: rcvdData['id'],
-                    attr_id: attrid4api,
-                    qty: count.toString(),
-                    userid: userCred.getUserId());
-                print(data);
+        bottomNavigationBar: StreamBuilder<ProductModal>(
+            stream: homebloc.getProduct.stream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return Container();
+              return Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.grey.shade100,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          if (snapshot.data!.product!.isStock == 0) {
+                            Fluttertoast.showToast(
+                                msg: 'Currently Out of stock');
+                            return;
+                          }
+                          HomeApi _api = HomeApi();
+                          Map data = await _api.addToCart(
+                              p_id: rcvdData['id'],
+                              attr_id: attrid4api,
+                              qty: count.toString(),
+                              userid: userCred.getUserId());
+                          print(data);
 
-                if (data['response'] == "1") {
-                  Navigator.pushNamed(context, '/previewBundal');
-                  homebloc.checkamount();
+                          if (data['response'] == "1") {
+                            Navigator.pushNamed(context, '/previewBundal');
+                            homebloc.checkamount();
 
-                  Fluttertoast.showToast(
-                      msg: 'Successfully added', backgroundColor: Colors.green);
-                } else {
-                  Fluttertoast.showToast(msg: 'Something went wrong');
-                }
-              },
-              child: Container(
-                // padding: EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width / 2,
+                            Fluttertoast.showToast(
+                                msg: 'Successfully added',
+                                backgroundColor: Colors.green);
+                          } else {
+                            Fluttertoast.showToast(msg: 'Something went wrong');
+                          }
+                        },
+                        child: Container(
+                          // padding: EdgeInsets.all(20),
+                          width: MediaQuery.of(context).size.width / 2,
 
-                decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 206, 206, 206), width: 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 3), // changes position of shadow
+                          decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(5),
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 206, 206, 206),
+                                  width: 1),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(
+                                      1, 3), // changes position of shadow
+                                ),
+                              ]),
+                          child: Center(
+                            child: Text(
+                              "Shop Now",
+                              style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                  // fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ),
+                      InkWell(
+                        onTap: () async {
+                          if (snapshot.data!.product!.isStock == 0) {
+                            Fluttertoast.showToast(
+                                msg: 'Currently Out of stock');
+                            return;
+                          }
+                          HomeApi _api = HomeApi();
+                          Map data = await _api.addToCart(
+                              p_id: rcvdData['id'],
+                              attr_id: attrid4api,
+                              qty: count.toString(),
+                              userid: userCred.getUserId());
+                          print(data);
+
+                          if (data['response'] == "1") {
+                            homebloc.checkamount();
+
+                            Fluttertoast.showToast(
+                                msg: 'Successfully added',
+                                backgroundColor: Colors.green);
+                          } else {
+                            Fluttertoast.showToast(msg: 'Something went wrong');
+                          }
+                        },
+                        child: Container(
+                          // padding: EdgeInsets.all(20),
+                          width: MediaQuery.of(context).size.width / 2,
+
+                          decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(5),
+                              color: lightWhite2,
+                              // border: Border.all(color: Colors.blue, width: 1),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(
+                                      1, 3), // changes position of shadow
+                                ),
+                              ]),
+                          child: Center(
+                            child: Text(
+                              "Add to Cart",
+                              style: TextStyle(
+                                  letterSpacing: 1,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  // fontFamily: font,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      )
                     ]),
-                child: Center(
-                  child: Text(
-                    "Shop Now",
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 16,
-                        color: Colors.red,
-                        // fontFamily: font,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                HomeApi _api = HomeApi();
-                Map data = await _api.addToCart(
-                    p_id: rcvdData['id'],
-                    attr_id: attrid4api,
-                    qty: count.toString(),
-                    userid: userCred.getUserId());
-                print(data);
-
-                if (data['response'] == "1") {
-                  homebloc.checkamount();
-
-                  Fluttertoast.showToast(
-                      msg: 'Successfully added', backgroundColor: Colors.green);
-                } else {
-                  Fluttertoast.showToast(msg: 'Something went wrong');
-                }
-              },
-              child: Container(
-                // padding: EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width / 2,
-
-                decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(5),
-                    color: lightWhite2,
-                    // border: Border.all(color: Colors.blue, width: 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(1, 3), // changes position of shadow
-                      ),
-                    ]),
-                child: Center(
-                  child: Text(
-                    "Add to Cart",
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 16,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        // fontFamily: font,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            )
-          ]),
-        ));
+              );
+            }));
   }
 }
 

@@ -101,17 +101,16 @@ class _CommunityState extends State<Community> {
                                       .transparent, //could change this to Color(0xFF737373),
                                   //so you don't have to change MaterialApp canvasColor
                                   child: Container(
-                                      padding: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: const BoxDecoration(
                                           color: Color.fromARGB(
                                               255, 226, 226, 226),
                                           borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(10.0),
-                                              topRight:
-                                                  const Radius.circular(10.0))),
+                                              topRight: Radius.circular(10.0))),
                                       child: Column(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 15,
                                           ),
                                           Padding(
@@ -125,10 +124,9 @@ class _CommunityState extends State<Community> {
                                                     onTap: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    child: Padding(
+                                                    child: const Padding(
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
+                                                          EdgeInsets.all(8.0),
                                                       child: Icon(
                                                           Icons.arrow_back),
                                                     )),
@@ -140,10 +138,10 @@ class _CommunityState extends State<Community> {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 15,
                                           ),
-                                          Align(
+                                          const Align(
                                             alignment: Alignment.topLeft,
                                             child: Text(
                                               "Quesion",
@@ -155,7 +153,7 @@ class _CommunityState extends State<Community> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Container(
@@ -178,7 +176,7 @@ class _CommunityState extends State<Community> {
                                               // border: Border.all(color: Colors.blue, width: 1),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 15,
                                           ),
                                           InkWell(
@@ -222,7 +220,7 @@ class _CommunityState extends State<Community> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           20)),
-                                              child: Center(
+                                              child: const Center(
                                                 child: Text(
                                                   "Next ",
                                                   style: TextStyle(
@@ -245,7 +243,7 @@ class _CommunityState extends State<Community> {
                             decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(
+                            child: const Center(
                                 child: Text(
                               'Post',
                               style: TextStyle(
@@ -268,14 +266,14 @@ class _CommunityState extends State<Community> {
                   ),
                 )
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
-              Text(
-                'Popular Questions',
+              const Text(
+                'Recent Questions',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               StreamBuilder<Questionmodal>(
@@ -324,14 +322,14 @@ class _CommunityState extends State<Community> {
                     decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Center(
+                    child: const Center(
                         child: Text(
-                      'Siew All questions',
+                      'Show all questions',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],
@@ -368,7 +366,7 @@ class communitybtn extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 1.5,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   //background color of box
                   BoxShadow(
                     color: Color.fromARGB(255, 175, 175, 175),
@@ -390,7 +388,7 @@ class communitybtn extends StatelessWidget {
                   maxLines: 1,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Text(
@@ -398,20 +396,20 @@ class communitybtn extends StatelessWidget {
                   maxLines: 2,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.message),
-                    SizedBox(
+                    const Icon(Icons.message),
+                    const SizedBox(
                       width: 5,
                     ),
                     Text('$answer')
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 InkWell(
@@ -422,14 +420,14 @@ class communitybtn extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Center(
+                      child: const Center(
                           child: Text(
                         'See Answers',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text('$date')

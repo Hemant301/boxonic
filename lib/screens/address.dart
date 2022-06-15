@@ -2,10 +2,9 @@ import 'package:boxoniq/api/authApi.dart';
 import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
+import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
-import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Address extends StatefulWidget {
@@ -23,7 +22,6 @@ class _AddressState extends State<Address> {
   String statename = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getMydata();
     selectAddress();
@@ -39,8 +37,8 @@ class _AddressState extends State<Address> {
 
   selectAddress() async {
     Map a = await homeApi.fetchaddessHome();
-    print('yaha dekh ==========');
-    print(a['address'][0]['id']);
+    // print('yaha dekh ==========');
+    // print(a['address'][0]['id']);
     setState(() {
       addressId = a['address'][0]['id'].toString();
     });
@@ -56,19 +54,19 @@ class _AddressState extends State<Address> {
     homebloc.fetchListAddress();
     homebloc.fetchState();
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
-    print(rcvdData['activeIndex']);
-    print(rcvdData['activeIndex'].runtimeType);
-    print(rcvdData['total_amount']);
-    print(rcvdData['subs']);
+    // print(rcvdData['activeIndex']);
+    // print(rcvdData['activeIndex'].runtimeType);
+    // print(rcvdData['total_amount']);
+    // print(rcvdData['subs']);
 
     return Scaffold(
         backgroundColor: grad1Color,
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
           ),
           backgroundColor: lightWhite2,
-          title: Text(
+          title: const Text(
             "Address",
             style: TextStyle(
                 letterSpacing: 1,
@@ -84,15 +82,18 @@ class _AddressState extends State<Address> {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-
                   StreamBuilder<AddressListModal>(
                       stream: homebloc.getAddress.stream,
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return CircularProgressIndicator();
+                        if (!snapshot.hasData) {
+                          return Billing_shimmer(
+                            width: 40,
+                            number: 4,
+                          );
+                        }
                         return Column(
                           children: [
                             Column(
@@ -113,7 +114,7 @@ class _AddressState extends State<Address> {
                                                       .size
                                                       .width -
                                                   20,
-                                              padding: EdgeInsets.all(20),
+                                              padding: const EdgeInsets.all(20),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -125,7 +126,7 @@ class _AddressState extends State<Address> {
                                                         .withOpacity(0.4),
                                                     spreadRadius: 1,
                                                     blurRadius: 1,
-                                                    offset: Offset(1,
+                                                    offset: const Offset(1,
                                                         3), // changes position of shadow
                                                   ),
                                                 ],
@@ -150,7 +151,7 @@ class _AddressState extends State<Address> {
                                                           : Colors.white,
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 20,
                                                   ),
                                                   Column(
@@ -158,6 +159,8 @@ class _AddressState extends State<Address> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
+                                                      Text(snapshot.data!
+                                                          .data[index].name!),
                                                       Text(snapshot
                                                           .data!
                                                           .data[index]
@@ -174,7 +177,7 @@ class _AddressState extends State<Address> {
                                                           .data[index].state!),
                                                       Text(snapshot.data!
                                                           .data[index].phone!),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 2,
                                                       ),
                                                       Row(
@@ -215,11 +218,17 @@ class _AddressState extends State<Address> {
                                                                         .data[
                                                                             index]
                                                                         .phone,
+                                                                    'name': snapshot
+                                                                        .data!
+                                                                        .data[
+                                                                            index]
+                                                                        .name
                                                                   });
                                                             },
-                                                            child: Padding(
+                                                            child:
+                                                                const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(5.0),
                                                               child: Icon(
                                                                 Icons.edit,
@@ -227,7 +236,8 @@ class _AddressState extends State<Address> {
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(width: 10),
+                                                          const SizedBox(
+                                                              width: 10),
                                                           InkWell(
                                                             onTap: () async {
                                                               AuthApi _authapi =
@@ -243,9 +253,9 @@ class _AddressState extends State<Address> {
                                                                               index]
                                                                           .id!,
                                                                 );
-                                                                print(data[
-                                                                        "response"]
-                                                                    .runtimeType);
+                                                                // print(data[
+                                                                //         "response"]
+                                                                //     .runtimeType);
 
                                                                 if (data[
                                                                         'response'] ==
@@ -274,9 +284,10 @@ class _AddressState extends State<Address> {
                                                                 }
                                                               } catch (e) {}
                                                             },
-                                                            child: Padding(
+                                                            child:
+                                                                const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(5.0),
                                                               child: Icon(
                                                                 Icons.delete,
@@ -293,7 +304,7 @@ class _AddressState extends State<Address> {
                                         ),
                                       )),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                             snapshot.data!.data.length == 0
@@ -306,16 +317,7 @@ class _AddressState extends State<Address> {
                                         return;
                                       }
 
-                                      // AuthApi _authapi = AuthApi();
                                       try {
-                                        // Map data = await _authapi.doSaveAddress(
-                                        //     address: addressController.text,
-                                        //     landmark: landmarkController.text,
-                                        //     pincode: pincodeController.text);
-                                        // print(data["response"].runtimeType);
-
-                                        // if (data['response'] == '1') {
-                                        // Future.delayed(Duration(seconds: 0), () {
                                         if (rcvdData['activeIndex'] == 1) {
                                           Navigator.pushNamed(
                                               context, "/subscription",
@@ -358,7 +360,7 @@ class _AddressState extends State<Address> {
                                           color: lightWhite2,
                                           borderRadius:
                                               BorderRadius.circular(20)),
-                                      child: Center(
+                                      child: const Center(
                                         child: Text(
                                           "Next ",
                                           style: TextStyle(
@@ -372,121 +374,15 @@ class _AddressState extends State<Address> {
                           ],
                         );
                       }),
-
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Address",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 25,
-                  //   // padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: addressController,
-                  //     maxLines: 4,
-                  //     hinttext: "Enter Your Address",
-
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     // color: Colors.white,
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Pincode",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 40,
-                  //   padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: pincodeController,
-                  //     hinttext: "Enter Your Pincode",
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.topLeft,
-                  //   child: Text(
-                  //     "Landmark",
-                  //     style: TextStyle(
-                  //       letterSpacing: 1,
-                  //       fontSize: 16,
-                  //       color: Colors.black,
-                  //       // fontFamily: font,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width - 40,
-                  //   padding: EdgeInsets.all(5),
-                  //   child: FormTTextFild(
-                  //     controller: landmarkController,
-                  //     hinttext: "Enter Your LandMark",
-                  //     // icon: (Icons.email),
-                  //   ),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     // color: Colors.white,
-                  //     // border: Border.all(color: Colors.blue, width: 1),
-
-                  //     // boxShadow: [
-                  //     //   BoxShadow(
-                  //     //     color: Colors.grey.withOpacity(0.4),
-                  //     //     spreadRadius: 1,
-                  //     //     blurRadius: 1,
-                  //     //     offset: Offset(1, 3), // changes position of shadow
-                  //     //   ),
-                  //     // ],
-                  //   ),
-                  // ),
-
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/newaddress');
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         '+ Add Address',
                         style: TextStyle(fontWeight: FontWeight.bold),

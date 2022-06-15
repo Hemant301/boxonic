@@ -21,7 +21,12 @@ class _LoginotpState extends State<Loginotp> {
   void initState() {
     otpCon = TextEditingController();
     SmsAutoFill().getAppSignature.then((value) => print(value));
+    _litenCode();
     super.initState();
+  }
+
+  void _litenCode() async {
+    await SmsAutoFill().listenForCode();
   }
 
   Widget build(BuildContext context) {

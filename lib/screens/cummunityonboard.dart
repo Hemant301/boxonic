@@ -74,7 +74,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                           height: 10,
                         ),
                         Text(
-                          'Get in touch with parents across india with best tips. Share thoughts, concerns,ask questions & get answers of anything related to baby, baby care, parenting or even baby products ',
+                          'Get in touch with parents across india with best tips. Share thoughts, concerns, ask questions & get answers of anything related to baby, baby care, parenting or even baby products ',
                           // textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 13,
@@ -168,7 +168,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                       height: 5,
                     ),
                     Text(
-                      'Find the best solutions,recommended by your Community network ',
+                      'Find the best solutions, recommended by your Community network ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 13,

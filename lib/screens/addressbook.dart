@@ -3,9 +3,7 @@ import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
-import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Addressbook extends StatefulWidget {
@@ -18,7 +16,6 @@ class Addressbook extends StatefulWidget {
 class _AddressbookState extends State<Addressbook> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getMydata();
     selectAddress();
@@ -34,8 +31,8 @@ class _AddressbookState extends State<Addressbook> {
 
   selectAddress() async {
     Map a = await homeApi.fetchaddessHome();
-    print('yaha dekh ==========');
-    print(a['address'][0]['id']);
+    // print('yaha dekh ==========');
+    // print(a['address'][0]['id']);
     setState(() {
       addressId = a['address'][0]['id'].toString();
     });
@@ -59,11 +56,11 @@ class _AddressbookState extends State<Addressbook> {
     return Scaffold(
         backgroundColor: grad1Color,
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
           ),
           backgroundColor: lightWhite2,
-          title: Text(
+          title: const Text(
             "Address",
             style: TextStyle(
                 letterSpacing: 1,
@@ -79,15 +76,16 @@ class _AddressbookState extends State<Addressbook> {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
 
                   StreamBuilder<AddressListModal>(
                       stream: homebloc.getAddress.stream,
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return CircularProgressIndicator();
+                        if (!snapshot.hasData) {
+                          return const CircularProgressIndicator();
+                        }
                         return Column(
                           children: [
                             Column(
@@ -108,7 +106,7 @@ class _AddressbookState extends State<Addressbook> {
                                                       .size
                                                       .width -
                                                   20,
-                                              padding: EdgeInsets.all(20),
+                                              padding: const EdgeInsets.all(20),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -120,7 +118,7 @@ class _AddressbookState extends State<Addressbook> {
                                                         .withOpacity(0.4),
                                                     spreadRadius: 1,
                                                     blurRadius: 1,
-                                                    offset: Offset(1,
+                                                    offset: const Offset(1,
                                                         3), // changes position of shadow
                                                   ),
                                                 ],
@@ -145,7 +143,7 @@ class _AddressbookState extends State<Addressbook> {
                                                           : Colors.white,
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 20,
                                                   ),
                                                   Column(
@@ -153,6 +151,8 @@ class _AddressbookState extends State<Addressbook> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
+                                                      Text(snapshot.data!
+                                                          .data[index].name!),
                                                       Text(snapshot
                                                           .data!
                                                           .data[index]
@@ -169,7 +169,7 @@ class _AddressbookState extends State<Addressbook> {
                                                           .data[index].state!),
                                                       Text(snapshot.data!
                                                           .data[index].phone!),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 2,
                                                       ),
                                                       Row(
@@ -210,11 +210,17 @@ class _AddressbookState extends State<Addressbook> {
                                                                         .data[
                                                                             index]
                                                                         .phone,
+                                                                    'name': snapshot
+                                                                        .data!
+                                                                        .data[
+                                                                            index]
+                                                                        .name
                                                                   });
                                                             },
-                                                            child: Padding(
+                                                            child:
+                                                                const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(5.0),
                                                               child: Icon(
                                                                 Icons.edit,
@@ -222,7 +228,8 @@ class _AddressbookState extends State<Addressbook> {
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(width: 10),
+                                                          const SizedBox(
+                                                              width: 10),
                                                           InkWell(
                                                             onTap: () async {
                                                               AuthApi _authapi =
@@ -238,9 +245,9 @@ class _AddressbookState extends State<Addressbook> {
                                                                               index]
                                                                           .id!,
                                                                 );
-                                                                print(data[
-                                                                        "response"]
-                                                                    .runtimeType);
+                                                                // print(data[
+                                                                //         "response"]
+                                                                //     .runtimeType);
 
                                                                 if (data[
                                                                         'response'] ==
@@ -269,9 +276,10 @@ class _AddressbookState extends State<Addressbook> {
                                                                 }
                                                               } catch (e) {}
                                                             },
-                                                            child: Padding(
+                                                            child:
+                                                                const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(5.0),
                                                               child: Icon(
                                                                 Icons.delete,
@@ -288,7 +296,7 @@ class _AddressbookState extends State<Addressbook> {
                                         ),
                                       )),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                           ],
@@ -400,16 +408,15 @@ class _AddressbookState extends State<Addressbook> {
                   //   ),
                   // ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, '/newaddress');
-                     
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         '+ Add Address',
                         style: TextStyle(fontWeight: FontWeight.bold),

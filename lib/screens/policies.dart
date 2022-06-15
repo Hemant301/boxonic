@@ -8,7 +8,7 @@ class Policies extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         backgroundColor: lightWhite2,
@@ -104,7 +104,7 @@ class Privacybtns extends StatelessWidget {
                 '$title',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Icon(
+           const   Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               )
