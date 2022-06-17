@@ -418,10 +418,11 @@ class Mysubsrdetail extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/trackorder',
-                              arguments: {
-                                'track_id': snapshot.data!.tackingid
-                              });
+                          Navigator.pushNamed(context, '/webview', arguments: {
+                            'title': 'Track order',
+                            'url':
+                                'https://pickrr.com/tracking/#/?tracking_id=${snapshot.data!.tackingid}'
+                          });
                         },
                         child: Container(
                           height: 40,
@@ -467,6 +468,7 @@ class Mysubsrdetail extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, '/webview', arguments: {
+                            'title': 'Invoice',
                             'url':
                                 'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
                           });

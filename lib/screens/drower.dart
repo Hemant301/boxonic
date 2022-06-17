@@ -502,6 +502,17 @@ class DrawersPage extends StatelessWidget {
                     icon: Icons.policy_outlined,
                   ),
                   Divider(),
+                  Menulist(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/webview", arguments: {
+                          'url':
+                              'https://tawk.to/chat/62ac5a31b0d10b6f3e77d8f7/1g5ok0lba',
+                          "title": 'Live chat'
+                        });
+                      },
+                      name: 'Live chat',
+                      icon: Icons.message),
+                  Divider(),
                   // Padding(
                   //   padding:
                   //       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),

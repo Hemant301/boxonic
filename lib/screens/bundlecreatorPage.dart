@@ -16,6 +16,8 @@ class BundleCreatorPage extends StatefulWidget {
 }
 
 class _BundleCreatorPageState extends State<BundleCreatorPage> {
+  List<String> filterId = [];
+  List<String> filtersubCatId = [];
   int colorInd = 0;
   int activeIndex = 5;
   String id = "";
@@ -36,6 +38,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
     super.initState();
     // print('onsetstate');
     checkamount();
+    filterId.clear();
+    filtersubCatId.clear();
   }
 
   checkamount() async {
@@ -406,6 +410,36 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            filterId.isEmpty || filtersubCatId.isEmpty
+                ? Container(
+                    width: 10,
+                    // height: 5,
+                    // color: Colors.red,
+                  )
+                : InkWell(
+                    onTap: () {
+                      setState(() {
+                        filterId.clear();
+                        filtersubCatId.clear();
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+
+            const SizedBox(
+              height: 20,
+            ),
             InkWell(
               onTap: () {
                 showModalBottomSheet(
@@ -563,8 +597,11 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
-                          builder: (BuildContext) => SizedBox(
-                                height: 280,
+                          builder: (context) {
+                            return StatefulBuilder(builder:
+                                (BuildContext context, StateSetter setState) {
+                              return SizedBox(
+                                height: 350,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -618,6 +655,33 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                         EdgeInsets.all(5.0),
                                                     child: InkWell(
                                                         onTap: () {
+                                                          if (filterId.contains(
+                                                              snapshot
+                                                                  .data!
+                                                                  .brand!
+                                                                  .brand[index]
+                                                                  .id!)) {
+                                                            setState(() {
+                                                              filterId.remove(
+                                                                  snapshot
+                                                                      .data!
+                                                                      .brand!
+                                                                      .brand[
+                                                                          index]
+                                                                      .id!);
+                                                            });
+                                                          } else {
+                                                            setState(() {
+                                                              filterId.add(
+                                                                  snapshot
+                                                                      .data!
+                                                                      .brand!
+                                                                      .brand[
+                                                                          index]
+                                                                      .id!);
+                                                            });
+                                                          }
+
                                                           setState(() {
                                                             sort = '0';
                                                             sort_order = '0';
@@ -629,8 +693,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                                 .brand[index]
                                                                 .id!;
                                                           });
-                                                          Navigator.pop(
-                                                              context);
+                                                          // Navigator.pop(
+                                                          //     context);
                                                         },
                                                         child: Chip(
                                                           label: Text(snapshot
@@ -639,7 +703,20 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                               .brand[index]
                                                               .name!),
                                                           backgroundColor:
-                                                              Colors.amber,
+                                                              filterId.contains(
+                                                                      snapshot
+                                                                          .data!
+                                                                          .brand!
+                                                                          .brand[
+                                                                              index]
+                                                                          .id!)
+                                                                  ? Colors.amber
+                                                                  : Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          253,
+                                                                          226,
+                                                                          143),
                                                         )),
                                                   )),
                                         ),
@@ -668,6 +745,27 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                         EdgeInsets.all(5.0),
                                                     child: InkWell(
                                                       onTap: () {
+                                                        if (filtersubCatId
+                                                            .contains(snapshot
+                                                                .data!
+                                                                .subcat!
+                                                                .subcat[index]
+                                                                .id)) {
+                                                          filtersubCatId.remove(
+                                                              snapshot
+                                                                  .data!
+                                                                  .subcat!
+                                                                  .subcat[index]
+                                                                  .id!);
+                                                        } else {
+                                                          filtersubCatId.add(
+                                                              snapshot
+                                                                  .data!
+                                                                  .subcat!
+                                                                  .subcat[index]
+                                                                  .id!);
+                                                        }
+
                                                         setState(() {
                                                           sort = '0';
                                                           sort_order = '0';
@@ -679,7 +777,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                               .subcat[index]
                                                               .id!;
                                                         });
-                                                        Navigator.pop(context);
+                                                        // Navigator.pop(context);
                                                       },
                                                       child: Chip(
                                                         label: Text(snapshot
@@ -688,16 +786,57 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                             .subcat[index]
                                                             .name!),
                                                         backgroundColor:
-                                                            Colors.amber,
+                                                            filtersubCatId.contains(
+                                                                    snapshot
+                                                                        .data!
+                                                                        .subcat!
+                                                                        .subcat[
+                                                                            index]
+                                                                        .id!)
+                                                                ? Colors.amber
+                                                                : Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        255,
+                                                                        217,
+                                                                        101),
                                                       ),
                                                     ),
                                                   )),
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {});
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                30,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.green),
+                                            child: Center(
+                                                child: Text(
+                                              'Filter',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ))),
                                       )
                                     ],
                                   ),
                                 ),
-                              ));
+                              );
+                            });
+                          });
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),

@@ -122,17 +122,17 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                 ),
               ),
               Lottie.asset('assets/community.json', height: 230),
-              SizedBox(
+        const      SizedBox(
                 height: 20,
               ),
-              Text(
+           const   Text(
                 'Features',
                 style: TextStyle(
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              Padding(
+           const   Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
                 child: Text(
@@ -140,7 +140,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Padding(
+          const    Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 88.0),
                 child: Divider(
                   thickness: 2,
@@ -159,15 +159,15 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                       'assets/info.png',
                       height: 150,
                     ),
-                    Text(
+              const      Text(
                       'Get information ',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(
+                 const   SizedBox(
                       height: 5,
                     ),
-                    Text(
+               const     Text(
                       'Find the best solutions, recommended by your Community network ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -178,7 +178,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                   ],
                 ),
               ),
-              SizedBox(
+          const    SizedBox(
                 height: 10,
               ),
               Container(
@@ -190,15 +190,15 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                       'assets/share.png',
                       height: 150,
                     ),
-                    Text(
+                const    Text(
                       'Share topics & events',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(
+                const    SizedBox(
                       height: 5,
                     ),
-                    Text(
+              const      Text(
                       'Share common topics , babies events & news',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -209,27 +209,27 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                   ],
                 ),
               ),
-              SizedBox(
+           const   SizedBox(
                 height: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 80,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   children: [
                     Image.asset(
                       'assets/community.png',
                       height: 150,
                     ),
-                    Text(
+                const    Text(
                       'Build community',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(
+                const    SizedBox(
                       height: 5,
                     ),
-                    Text(
+                const    Text(
                       'Easy communication.Experience the power of community ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -240,7 +240,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                   ],
                 ),
               ),
-              SizedBox(
+         const     SizedBox(
                 height: 20,
               ),
               InkWell(
@@ -248,12 +248,12 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                   Navigator.pushNamed(context, '/community');
                 },
                 child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding:const EdgeInsets.all(10),
                     width: 250,
                     decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Center(
+                    child:const Center(
                         child: Text(
                       'Get started',
                       style: TextStyle(
@@ -261,7 +261,7 @@ class _CummunityonboardState extends State<Cummunityonboard> {
                           fontWeight: FontWeight.bold),
                     ))),
               ),
-              SizedBox(
+          const    SizedBox(
                 height: 30,
               ),
             ],

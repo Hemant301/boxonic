@@ -668,7 +668,7 @@ class HomeApi {
           Uri.parse("${base}get-wallet-history.php"),
           body: {'user_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        // // ////   print(response.body);
+        print(response.body);
         return response;
       } else {
         // //   print('Request failed with status: ${response.statusCode}.');

@@ -619,6 +619,7 @@ class _MyorderdetailState extends State<Myorderdetail> {
                               onTap: () {
                                 Navigator.pushNamed(context, '/webview',
                                     arguments: {
+                                      'title': 'Invoice',
                                       'url':
                                           'https://cms.cybertizeweb.com/boxoniq-crm/billing-desk/?id=${rcvdData['id']}'
                                     });

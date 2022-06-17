@@ -139,7 +139,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                       builder: (_) {
                                         return Center(
                                           child: Container(
-                                            height: 300,
+                                            height: 350,
                                             child: Container(
                                               padding: EdgeInsets.all(20),
                                               // height: 80,
@@ -167,25 +167,6 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                               ),
                                               child: Column(
                                                 children: [
-                                                  // Row(
-                                                  //   mainAxisAlignment:
-                                                  //       MainAxisAlignment.end,
-                                                  //   children: [
-                                                  //     InkWell(
-                                                  //       onTap: () {
-                                                  //         Navigator.pop(
-                                                  //             context);
-                                                  //       },
-                                                  //       child: Padding(
-                                                  //         padding:
-                                                  //             const EdgeInsets
-                                                  //                 .all(8.0),
-                                                  //         child:
-                                                  //             Icon(Icons.close),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
                                                   Container(
                                                     // padding: EdgeInsets.all(20),
                                                     height: 40,
@@ -276,7 +257,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                 ],
                                               ),
                                             ),
-                                            margin: EdgeInsets.symmetric(
+                                            margin: const EdgeInsets.symmetric(
                                                 horizontal: 20),
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -285,34 +266,13 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                           ),
                                         );
                                       },
-                                      // transitionBuilder:
-                                      //     (_, anim, __, child) {
-                                      //   Tween<Offset> tween;
-                                      //   if (anim.status ==
-                                      //       AnimationStatus.reverse) {
-                                      //     tween = Tween(
-                                      //         begin: Offset(-1, 0),
-                                      //         end: Offset.zero);
-                                      //   } else {
-                                      //     tween = Tween(
-                                      //         begin: Offset(1, 0),
-                                      //         end: Offset.zero);
-                                      //   }
-
-                                      // return SlideTransition(
-                                      //   position: tween.animate(anim),
-                                      //   child: FadeTransition(
-                                      //     opacity: anim,
-                                      //     child: child,
-                                      //   ),
-                                      // );
                                     );
                                   },
                                   child: Icon(Icons.info, size: 18));
                             })
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
 
@@ -320,7 +280,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                       'Product delivered for ${snapshot.data!.delivered} Months',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -380,7 +340,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                       ),
                                     ],
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Text(
                                       "Manage Wallet",
                                       style: TextStyle(
@@ -393,7 +353,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               StreamBuilder<WalletModal>(

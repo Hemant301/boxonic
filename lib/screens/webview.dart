@@ -10,6 +10,8 @@ class Webview extends StatefulWidget {
 }
 
 class _WebviewState extends State<Webview> {
+  bool progressBar = true;
+
   // activeIndex=0
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,28 @@ class _WebviewState extends State<Webview> {
           color: Colors.black, //change your color here
         ),
         title: Text(
-          'Invoice',
+          rcvdData['title'],
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: WebView(
-        initialUrl: rcvdData['url'],
-        javascriptMode: JavascriptMode.unrestricted,
+      body: Stack(
+        children: [
+          WebView(
+            initialUrl: rcvdData['url'],
+            javascriptMode: JavascriptMode.unrestricted,
+            onPageFinished: (s) {
+              setState(() {
+                progressBar = false;
+              });
+            },
+          ),
+          progressBar == true
+              ? const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.green,
+                ))
+              : Container()
+        ],
       ),
     );
   }

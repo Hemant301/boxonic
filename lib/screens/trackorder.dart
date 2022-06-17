@@ -66,7 +66,7 @@ class _TrackorderState extends State<Trackorder> {
                               ,
                               thickness: 1.5),
                           endChild: Container(
-                            padding: EdgeInsets.only(left: 10, top: 15),
+                            padding: const EdgeInsets.only(left: 10, top: 15),
                             constraints: const BoxConstraints(
                               minHeight: 80,
                             ),
@@ -78,7 +78,7 @@ class _TrackorderState extends State<Trackorder> {
                                     Text(
                                       snapshot.data!.track[0].status[index]
                                           .pickrr_status!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15),
                                     ),
