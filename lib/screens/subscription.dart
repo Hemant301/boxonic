@@ -120,7 +120,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             }));
   }
 
-  String monthname = "1";
+  String monthname = "01 month";
   String addressId = "";
   @override
   Widget build(BuildContext context) {
@@ -151,19 +151,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               fontFamily: font,
               fontWeight: FontWeight.bold),
         ),
-        actions: [
-          // Center(
-          //   child: Text(
-          //     "₹ 9,785   ",
-          //     style: TextStyle(
-          //         letterSpacing: 1,
-          //         fontSize: 18,
-          //         color: grad2Color,
-          //         fontFamily: font,
-          //         fontWeight: FontWeight.bold),
-          //   ),
-          // ),
-        ],
+        
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -172,7 +160,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+            const  SizedBox(
                 height: 20,
               ),
               Text(
@@ -184,7 +172,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     fontFamily: font,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+             const SizedBox(
                 height: 20,
               ),
               StreamBuilder<SubsbenefitsModal>(
@@ -222,7 +210,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   color: Colors.grey.withOpacity(0.4),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset: Offset(
+                                  offset:const Offset(
                                       1, 3), // changes position of shadow
                                 ),
                               ],
@@ -240,7 +228,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                   const       SizedBox(
                             height: 20,
                           ),
                           Container(
@@ -276,7 +264,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         // fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                    SizedBox(
+                                const    SizedBox(
                                       height: 3,
                                     ),
                                   ],
@@ -288,7 +276,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       ),
                     );
                   }),
-              SizedBox(
+           const   SizedBox(
                 height: 20,
               ),
               Container(
@@ -325,7 +313,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                      const    SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -339,7 +327,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                       const   SizedBox(
                             height: 5,
                           ),
                           Stack(
@@ -376,7 +364,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         color: Colors.grey.withOpacity(0.4),
                                         spreadRadius: 1,
                                         blurRadius: 1,
-                                        offset: Offset(
+                                        offset:const Offset(
                                             1, 3), // changes position of shadow
                                       ),
                                     ],
@@ -398,7 +386,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       );
                     }),
               ),
-              SizedBox(
+            const  SizedBox(
                 height: 20,
               ),
               StreamBuilder<CalAmountModal>(
@@ -418,7 +406,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             color: Colors.grey.withOpacity(0.4),
                             spreadRadius: 1,
                             blurRadius: 1,
-                            offset: Offset(1, 3), // changes position of shadow
+                            offset:const Offset(1, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -434,7 +422,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 children: [
                                   Row(
                                     children: [
-                                      SizedBox(
+                                  const    SizedBox(
                                         width: 30,
                                       ),
                                       Text(
@@ -448,7 +436,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                               const   SizedBox(
                                     height: 3,
                                   ),
                                   StreamBuilder<MonthsModal>(
@@ -462,7 +450,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                               (index) => snapshot
                                                   .data!.data[index].months!),
                                           hint: Text("Select Months/Times"),
-                                          icon: Icon(
+                                          icon:const Icon(
                                             Icons.expand_more,
                                             color: Colors.blue,
                                           ),
@@ -486,7 +474,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               Column(
                                 children: [
                                   Image.asset("assets/wallet (1) 3.png"),
-                                  SizedBox(
+                               const   SizedBox(
                                     height: 3,
                                   ),
                                   Text(
@@ -502,8 +490,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               ),
                             ],
                           ),
-                          Text(
-                              'Total amount : ₹ ${(((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)}')
+                          // Text(
+                          //     'Total amount : ₹ ${(((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)}')
                         ],
                       ),
                     );
@@ -522,7 +510,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                             (rcvdData['total_amount']) *
                                                 5 /
                                                 100) *
-                                        int.parse(monthname[0]))
+                                        int.parse(monthname.substring(0, 3)))
                                     .toStringAsFixed(2)) >
                                 int.parse(snapshot
                                     .data!.data[0].response!.walletBallance)
@@ -547,14 +535,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   Walletapi _api = Walletapi();
                                   Map data = await _api.initTokenCashfree(
                                     amount:
-                                        '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                        '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
                                     orderId: orderId,
                                   );
                                   print(data);
                                   if (data['status'] == "OK") {
                                     cashFreeHalfpayment(
                                         monthamount:
-                                            '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                            '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
                                         token: data['cftoken'],
                                         orderId: orderId,
                                         name: 'santosh',
@@ -608,7 +596,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                               .walletBallance ==
                                                           0
                                                   ? Text(
-                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}  to Wallet & Proceed",
+                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}  to Wallet & Proceed",
                                                       style: TextStyle(
                                                         letterSpacing: 1,
                                                         fontSize: 12,
@@ -618,7 +606,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       ),
                                                     )
                                                   : Text(
-                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
                                                       style: TextStyle(
                                                         letterSpacing: 1,
                                                         fontSize: 12,
@@ -646,7 +634,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   HomeApi _api = HomeApi();
                                   Map data = await _api.doPayment(
                                       amount:
-                                          '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname[0])).toStringAsFixed(2))}',
+                                          '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2))}',
                                       month: monthname,
                                       addressid: rcvdData['address_id'],
                                       subs: rcvdData['subs']);
@@ -688,7 +676,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       .width -
                                                   150,
                                               child: Text(
-                                                "Pay through wallet ₹ ${(rcvdData['total_amount']) * int.parse(monthname[0])}  & Proceed",
+                                                "Pay through wallet ₹ ${(rcvdData['total_amount']) * int.parse(monthname.substring(0, 3))}  & Proceed",
                                                 style: TextStyle(
                                                   letterSpacing: 1,
                                                   fontSize: 12,
@@ -722,7 +710,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                         // InkWell(
                         //   onTap: () async {
                         //     // print(
-                        //     //     '${(rcvdData['total_amount']) * int.parse(monthname[0])}');
+                        //     //     '${(rcvdData['total_amount']) * int.parse(monthname.substring(0,3))}');
                         //     // return;
                         //     String orderId = DateTime.now()
                         //         .millisecondsSinceEpoch
@@ -731,14 +719,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                         //     Walletapi _api = Walletapi();
                         //     Map data = await _api.initTokenCashfree(
                         //       amount:
-                        //           '${(rcvdData['total_amount']) * int.parse(monthname[0])}',
+                        //           '${(rcvdData['total_amount']) * int.parse(monthname.substring(0,3))}',
                         //       orderId: orderId,
                         //     );
                         //     print(data);
                         //     if (data['status'] == "OK") {
                         //       cashFreeOnlinepayment(
                         //           monthamount:
-                        //               '${(rcvdData['total_amount']) * int.parse(monthname[0])}',
+                        //               '${(rcvdData['total_amount']) * int.parse(monthname.substring(0,3))}',
                         //           token: data['cftoken'],
                         //           orderId: orderId,
                         //           name: 'santosh',
@@ -778,7 +766,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                         //                     MediaQuery.of(context).size.width -
                         //                         150,
                         //                 child: Text(
-                        //                   "Pay Online ₹${(rcvdData['total_amount']) * int.parse(monthname[0])}",
+                        //                   "Pay Online ₹${(rcvdData['total_amount']) * int.parse(monthname.substring(0,3))}",
                         //                   style: TextStyle(
                         //                     letterSpacing: 1,
                         //                     fontWeight: FontWeight.bold,

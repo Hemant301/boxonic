@@ -189,7 +189,9 @@ class HomeApi {
   }
 
   Future<dynamic> fetchcatItems(String id, String sort, String sort_order,
-      String filter, String filtertype, String filterkey) async {
+      String filter, String filtertype, List filterkey, List subkey) async {
+    print('$filterkey');
+    print('$subkey');
     try {
       final response = await client
           .post(Uri.parse("${base}product-super-cat-bo-filter.php"), body: {
@@ -197,14 +199,15 @@ class HomeApi {
         'sort': sort,
         'sort_key': sort_order,
         'filter': filter,
-        'filter_type': filtertype,
-        'filter_key': filterkey
+        // 'filter_type': filtertype,
+        'brand_key': filterkey.toString(),
+        'sub_key': subkey.toString(),
       });
       if (response.statusCode == 200) {
-        ////   print(response.body);
+        print(response.body);
         return response;
       } else {
-        // //   print('Request failed with status: ${response.statusCode}.');
+        print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       // // print(e);

@@ -40,6 +40,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
     checkamount();
     filterId.clear();
     filtersubCatId.clear();
+    filtersubCatId.add('0');
+    filterId.add('0');
   }
 
   checkamount() async {
@@ -57,12 +59,20 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
   String filtertype = '0';
   String filterkey = '0';
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    filterId.clear();
+    filtersubCatId.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     homebloc.checkamount();
 
     // print(userCred.getUserId());
-    homebloc.fetchcatItems(
-        '$activeIndex', sort, sort_order, filter, filtertype, filterkey);
+    homebloc.fetchcatItems('$activeIndex', sort, sort_order, filter, filtertype,
+        filterId, filtersubCatId);
     homebloc.fetchFilterList('$activeIndex');
     return Scaffold(
         backgroundColor: grad1Color,
@@ -261,6 +271,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                           filter = '0';
                           filtertype = '0';
                           filterkey = '0';
+                          filterId = ['0'];
+                          filtersubCatId = ['0'];
                         });
                       },
                       child: Container(
@@ -354,6 +366,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                           filter = '0';
                           filtertype = '0';
                           filterkey = '0';
+                          filterId = ['0'];
+                          filtersubCatId = ['0'];
                         });
                         // Navigator.pushNamed(context, "/previewBundal");
                       },
@@ -410,36 +424,36 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            filterId.isEmpty || filtersubCatId.isEmpty
-                ? Container(
-                    width: 10,
-                    // height: 5,
-                    // color: Colors.red,
-                  )
-                : InkWell(
-                    onTap: () {
-                      setState(() {
-                        filterId.clear();
-                        filtersubCatId.clear();
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
-                      ),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
+            // filterId.isEmpty || filtersubCatId.isEmpty
+            //     ? Container(
+            //         width: 10,
+            //         // height: 5,
+            //         // color: Colors.red,
+            //       )
+            //     : InkWell(
+            //         onTap: () {
+            //           setState(() {
+            //             filterId.clear();
+            //             filtersubCatId.clear();
+            //           });
+            //         },
+            //         child: Container(
+            //           padding: const EdgeInsets.all(10),
+            //           decoration: const BoxDecoration(
+            //             shape: BoxShape.circle,
+            //             color: Colors.red,
+            //           ),
+            //           child: const Icon(
+            //             Icons.close,
+            //             color: Colors.white,
+            //             size: 20,
+            //           ),
+            //         ),
+            //       ),
 
-            const SizedBox(
-              height: 20,
-            ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
             InkWell(
               onTap: () {
                 showModalBottomSheet(
@@ -599,7 +613,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                           context: context,
                           builder: (context) {
                             return StatefulBuilder(builder:
-                                (BuildContext context, StateSetter setState) {
+                                (BuildContext context, StateSetter setStates) {
                               return SizedBox(
                                 height: 350,
                                 child: Padding(
@@ -661,7 +675,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                                   .brand!
                                                                   .brand[index]
                                                                   .id!)) {
-                                                            setState(() {
+                                                            setStates(() {
                                                               filterId.remove(
                                                                   snapshot
                                                                       .data!
@@ -671,7 +685,7 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                                       .id!);
                                                             });
                                                           } else {
-                                                            setState(() {
+                                                            setStates(() {
                                                               filterId.add(
                                                                   snapshot
                                                                       .data!
@@ -682,17 +696,16 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                             });
                                                           }
 
-                                                          setState(() {
-                                                            sort = '0';
-                                                            sort_order = '0';
-                                                            filter = '1';
-                                                            filtertype = '0';
-                                                            filterkey = snapshot
-                                                                .data!
-                                                                .brand!
-                                                                .brand[index]
-                                                                .id!;
-                                                          });
+                                                          sort = '0';
+                                                          sort_order = '0';
+                                                          filter = '1';
+                                                          filtertype = '0';
+                                                          filterkey = snapshot
+                                                              .data!
+                                                              .brand!
+                                                              .brand[index]
+                                                              .id!;
+
                                                           // Navigator.pop(
                                                           //     context);
                                                         },
@@ -751,19 +764,25 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                                                 .subcat!
                                                                 .subcat[index]
                                                                 .id)) {
-                                                          filtersubCatId.remove(
-                                                              snapshot
-                                                                  .data!
-                                                                  .subcat!
-                                                                  .subcat[index]
-                                                                  .id!);
+                                                          setStates(() {
+                                                            filtersubCatId
+                                                                .remove(snapshot
+                                                                    .data!
+                                                                    .subcat!
+                                                                    .subcat[
+                                                                        index]
+                                                                    .id!);
+                                                          });
                                                         } else {
-                                                          filtersubCatId.add(
-                                                              snapshot
-                                                                  .data!
-                                                                  .subcat!
-                                                                  .subcat[index]
-                                                                  .id!);
+                                                          setStates(() {
+                                                            filtersubCatId.add(
+                                                                snapshot
+                                                                    .data!
+                                                                    .subcat!
+                                                                    .subcat[
+                                                                        index]
+                                                                    .id!);
+                                                          });
                                                         }
 
                                                         setState(() {

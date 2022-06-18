@@ -84,9 +84,10 @@ class HomeRepo {
       String sort_order,
       String filter,
       String filtertype,
-      String filterkey) async {
+      List filterkey,
+      List subkey) async {
     final response = await homeApi.fetchcatItems(
-        id, sort, sort_order, filter, filtertype, filterkey);
+        id, sort, sort_order, filter, filtertype, filterkey, subkey);
     var jsonResponse = jsonDecode(response.body) as Map;
     return CategoryItemModal(jsonResponse);
   }

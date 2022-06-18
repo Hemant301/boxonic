@@ -64,13 +64,13 @@ class _AddtobundleState extends State<Addtobundle> {
     homebloc.checkamount();
 
     // print(userCred.getUserId());
-    homebloc.fetchcatItems('$activeIndex', '0', '0', '0', '0', '0');
+    homebloc.fetchcatItems('$activeIndex', '0', '0', '0', '0', [], []);
     return WillPopScope(
       onWillPop: _onBack,
       child: Scaffold(
         backgroundColor: grad1Color,
         appBar: AppBar(
-          iconTheme:const IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
           ),
           backgroundColor: lightWhite2,
@@ -83,7 +83,6 @@ class _AddtobundleState extends State<Addtobundle> {
                 // fontFamily: font,
                 fontWeight: FontWeight.bold),
           ),
-          
         ),
         body: StreamBuilder<CategoryItemModal>(
             stream: homebloc.getCategoryitems.stream,
@@ -96,7 +95,7 @@ class _AddtobundleState extends State<Addtobundle> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                   const   SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -112,7 +111,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                       : Colors.grey,
                                 )),
                       ),
-              const        SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Center(
@@ -128,10 +127,10 @@ class _AddtobundleState extends State<Addtobundle> {
                                     radius: 30,
                                     backgroundImage:
                                         NetworkImage(snapshot.data!.img!),
-                                    backgroundColor:
-                                      const  Color(0xffD3C6F9).withOpacity(0.5),
+                                    backgroundColor: const Color(0xffD3C6F9)
+                                        .withOpacity(0.5),
                                     child: const Padding(
-                                      padding:  EdgeInsets.all(12.0),
+                                      padding: EdgeInsets.all(12.0),
                                       // child: Image.asset(
                                       //   "assets/1 9.png",
                                       //   fit: BoxFit.contain,
@@ -145,7 +144,7 @@ class _AddtobundleState extends State<Addtobundle> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                               const SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
@@ -157,7 +156,7 @@ class _AddtobundleState extends State<Addtobundle> {
                                       // fontFamily: font,
                                       fontWeight: FontWeight.bold),
                                 ),
-                               const SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 SizedBox(
@@ -181,7 +180,7 @@ class _AddtobundleState extends State<Addtobundle> {
                           ],
                         ),
                       ),
-                   const   SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       //
@@ -205,7 +204,7 @@ class _AddtobundleState extends State<Addtobundle> {
               return Container(
                 height: 60,
                 width: MediaQuery.of(context).size.width,
-                padding:const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -217,7 +216,7 @@ class _AddtobundleState extends State<Addtobundle> {
                       color: Colors.grey.withOpacity(0.4),
                       spreadRadius: 1,
                       blurRadius: 1,
-                      offset:const Offset(1, 3), // changes position of shadow
+                      offset: const Offset(1, 3), // changes position of shadow
                     ),
                   ],
                 ),
@@ -236,8 +235,8 @@ class _AddtobundleState extends State<Addtobundle> {
                       },
                       child: Container(
                         width: 80,
-                        padding:
-                          const  EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.green,
@@ -247,8 +246,8 @@ class _AddtobundleState extends State<Addtobundle> {
                               color: Colors.grey.withOpacity(0.4),
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset:
-                               const   Offset(1, 3), // changes position of shadow
+                              offset: const Offset(
+                                  1, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -295,8 +294,8 @@ class _AddtobundleState extends State<Addtobundle> {
                               color: Colors.grey.withOpacity(0.4),
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset:
-                                const  Offset(1, 3), // changes position of shadow
+                              offset: const Offset(
+                                  1, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -327,8 +326,8 @@ class _AddtobundleState extends State<Addtobundle> {
                       },
                       child: Container(
                         width: 80,
-                        padding:
-                        const    EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.green,
@@ -338,8 +337,8 @@ class _AddtobundleState extends State<Addtobundle> {
                               color: Colors.grey.withOpacity(0.4),
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset:
-                              const    Offset(1, 3), // changes position of shadow
+                              offset: const Offset(
+                                  1, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -443,7 +442,7 @@ class _ProductsCardState extends State<ProductsCard> {
                 color: Colors.grey.withOpacity(0.4),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset:const Offset(1, 3), // changes position of shadow
+                offset: const Offset(1, 3), // changes position of shadow
               ),
             ],
           ),
@@ -469,7 +468,7 @@ class _ProductsCardState extends State<ProductsCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                const  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
@@ -481,7 +480,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         // fontFamily: font,
                         fontWeight: FontWeight.bold),
                   ),
-               const   SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   SizedBox(
@@ -498,12 +497,12 @@ class _ProductsCardState extends State<ProductsCard> {
                       ),
                     ),
                   ),
-            const      SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     '₹ ${widget.data!.attr[widget.colorIndex].price!}',
-                    style:const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width / 2 + 30,
@@ -533,14 +532,14 @@ class _ProductsCardState extends State<ProductsCard> {
                                                 : Colors.grey[300],
                                         label: Text(
                                           widget.data!.attr[index].name!,
-                                          style:const TextStyle(fontSize: 10),
+                                          style: const TextStyle(fontSize: 10),
                                         )),
                                   ),
                                 )),
                       ),
                     ),
                   ),
-             const SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -561,7 +560,7 @@ class _ProductsCardState extends State<ProductsCard> {
                                 }
                               },
                               child: Container(
-                                padding:const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(color: Colors.black)),
@@ -588,7 +587,7 @@ class _ProductsCardState extends State<ProductsCard> {
                           ],
                         ),
                       ),
-                    const  SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       InkWell(
@@ -625,7 +624,7 @@ class _ProductsCardState extends State<ProductsCard> {
                         child: idArr.contains('${widget.data!.id!}')
                             ? Container(
                                 width: 120,
-                                padding:const EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
@@ -653,7 +652,8 @@ class _ProductsCardState extends State<ProductsCard> {
                                   border: Border.all(
                                     color: const Color(0xff53900F),
                                   ),
-                                  color:const Color.fromARGB(255, 255, 255, 255),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   // border: Border.all(color: Colors.blue, width: 1),
                                 ),
                                 child: const Center(
@@ -671,7 +671,7 @@ class _ProductsCardState extends State<ProductsCard> {
                       ),
                     ],
                   ),
-                const  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],

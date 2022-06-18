@@ -177,11 +177,11 @@ class HomeBloc {
       BehaviorSubject<CategoryItemModal>();
   BehaviorSubject<CategoryItemModal> get getCategoryitems => _livecategoryItems;
   fetchcatItems(String id, String sort, String sort_order, String filter,
-      String filtertype, String filterkey) async {
+      String filtertype, List filterkey, List subkey) async {
     // _livecategoryItems.addError("Loading");
     try {
       CategoryItemModal homeSlider = await _homeRepo.fetchcatItems(
-          id, sort, sort_order, filter, filtertype, filterkey);
+          id, sort, sort_order, filter, filtertype, filterkey, subkey);
       // print(homeSlider.imgs!.length);
 
       _livecategoryItems.add(homeSlider);
