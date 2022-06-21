@@ -67,6 +67,8 @@ dependencies:
   path_provider_ios: ^2.0.8
   location: ^4.4.0
   geolocator: ^8.2.1
+  otp_autofill: ^2.1.0
+
 
   
 
