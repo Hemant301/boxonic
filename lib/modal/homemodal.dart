@@ -345,6 +345,44 @@ class Itemsdetailmodal {
   }
 }
 
+class MySubdetailmodal {
+  // List<Itemsmodal> items = [];
+  List<Ordermodal> order = [];
+  TotalModal? total;
+  String? subs_month;
+  dynamic delivered;
+  String? nextdate;
+  AddInsubsModal? address;
+  String? status;
+  int? cancel;
+  MySubdetailmodal(js) {
+    // for (var i = 0; i < js['items'].length; i++) {
+    //   items.add(Itemsmodal(js['items'][i]));
+    // }
+    for (var i = 0; i < js['order'].length; i++) {
+      order.add(Ordermodal(js['order'][i]));
+    }
+    total = TotalModal(js['total']);
+    subs_month = js['subs_month'] ?? "";
+    delivered = js['delivered'] ?? "";
+    nextdate = js['nextdate'] ?? "";
+    status = js['status'] ?? "";
+    cancel = js['cancel'] ?? "";
+    address = AddInsubsModal(js['address']);
+  }
+}
+
+class Ordermodal {
+  String? title;
+  List<Itemsmodal> items = [];
+  Ordermodal(js) {
+    title = js['title']??"";
+    for (var i = 0; i < js['items'].length; i++) {
+      items.add(Itemsmodal(js['items'][i]));
+    }
+  }
+}
+
 class Myordermodal {
   List<Itemsmodal> items = [];
   TotalModal? total;

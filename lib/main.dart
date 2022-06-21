@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
           "/checkwallet": (context) => Checkwallet(),
           "/myorderdetail": (context) => Myorderdetail(),
           "/mysublist": (context) => Mysublist(),
-          "/subsdetail": (context) => Subsdetail(),
+          // "/subsdetail": (context) => Subsdetail(),
           "/addtobundle": (context) => Addtobundle(),
           "/Wallet": (context) => WallatePage(),
           "/myorderpage": (context) => MyOrderPage(),

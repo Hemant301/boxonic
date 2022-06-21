@@ -42,7 +42,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
-          StreamBuilder<Myordermodal>(
+          StreamBuilder<MySubdetailmodal>(
               stream: homebloc.getSubsdetail.stream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return Container();
@@ -95,7 +95,7 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
         ],
       ),
       body: SingleChildScrollView(
-        child: StreamBuilder<Myordermodal>(
+        child: StreamBuilder<MySubdetailmodal>(
             stream: homebloc.getSubsdetail.stream,
             builder: (context, snapshot) {
               if (!snapshot.hasData) return Shimmer_home();
@@ -419,481 +419,452 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                     ),
                     Column(
                       children: List.generate(
-                        snapshot.data!.items.length,
-                        (index) => Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      snapshot
-                                          .data!.items[index].super_cat_name!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width - 40,
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.white,
-                                    // border: Border.all(color: Colors.blue, width: 1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(
-                                            1, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(
-                                              height: 120,
-                                              width: 100,
-                                              child: Image.network(
-                                                snapshot
-                                                    .data!.items[index].img!,
-                                                fit: BoxFit.contain,
-                                              ))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            snapshot
-                                                .data!.items[index].item_name!,
-                                            style: TextStyle(
-                                                letterSpacing: 1,
-                                                fontSize: 16,
-                                                color: Colors.black,
-                                                // fontFamily: font,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
+                          snapshot.data!.order.length,
+                          (i) => Column(
+                                children: [
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          snapshot.data!.order[i].title!,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )),
+                                  Column(
+                                    children: List.generate(
+                                      snapshot.data!.order[i].items.length,
+                                      (index) => Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
                                             children: [
                                               Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    40,
+                                                padding: EdgeInsets.all(10),
                                                 decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.black)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: Colors.white,
+                                                  // border: Border.all(color: Colors.blue, width: 1),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.4),
+                                                      spreadRadius: 1,
+                                                      blurRadius: 1,
+                                                      offset: Offset(1,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                ),
                                                 child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        if (isCancelled == 1) {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Subscription is already cancelled');
-                                                          return;
-                                                        }
-                                                        HomeApi _api =
-                                                            HomeApi();
-                                                        Map data = await _api.updateQuantity(
-                                                            process:
-                                                                rcvdData['id'],
-                                                            attr_price: snapshot
-                                                                .data!
-                                                                .items[index]
-                                                                .attr_price,
-                                                            cartid: snapshot
-                                                                .data!
-                                                                .items[index]
-                                                                .cart_id!,
-                                                            qty: (int.parse(snapshot
-                                                                        .data!
-                                                                        .items[
-                                                                            index]
-                                                                        .quantity!) -
-                                                                    1)
-                                                                .toString());
-                                                        if (data['response'] ==
-                                                            '1') {
-                                                          setState(() {});
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Successfully updated');
-                                                        } else {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Something went wrong');
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            EdgeInsets.all(1),
-                                                        decoration: BoxDecoration(
-                                                            // shape: BoxShape.circle,
-                                                            // border: Border.all(
-                                                            //     color: Colors.black)
-                                                            ),
-                                                        child: Icon(Icons
-                                                            .arrow_drop_down_outlined),
-                                                      ),
+                                                    Column(
+                                                      children: [
+                                                        SizedBox(
+                                                            height: 120,
+                                                            width: 100,
+                                                            child:
+                                                                Image.network(
+                                                              snapshot
+                                                                  .data!
+                                                                  .order[i]
+                                                                  .items[index]
+                                                                  .img!,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ))
+                                                      ],
                                                     ),
-                                                    Container(
-                                                      padding:
-                                                          EdgeInsets.all(2),
-                                                      decoration: BoxDecoration(
-                                                          // shape: BoxShape.circle,
-                                                          // border: Border.all(
-                                                          //     color: Colors.black)
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          snapshot
+                                                              .data!
+                                                              .order[i]
+                                                              .items[index]
+                                                              .item_name!,
+                                                          style: TextStyle(
+                                                              letterSpacing: 1,
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.black,
+                                                              // fontFamily: font,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .black)),
+                                                              child: Row(
+                                                                children: [
+                                                                  InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (isCancelled ==
+                                                                          1) {
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Subscription is already cancelled');
+                                                                        return;
+                                                                      }
+                                                                      HomeApi
+                                                                          _api =
+                                                                          HomeApi();
+                                                                      Map data = await _api.updateQuantity(
+                                                                          process: rcvdData[
+                                                                              'id'],
+                                                                          attr_price: snapshot
+                                                                              .data!
+                                                                              .order[
+                                                                                  i]
+                                                                              .items[
+                                                                                  index]
+                                                                              .attr_price,
+                                                                          cartid: snapshot
+                                                                              .data!
+                                                                              .order[i]
+                                                                              .items[index]
+                                                                              .cart_id!,
+                                                                          qty: (int.parse(snapshot.data!.order[i].items[index].quantity!) - 1).toString());
+                                                                      if (data[
+                                                                              'response'] ==
+                                                                          '1') {
+                                                                        setState(
+                                                                            () {});
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Successfully updated');
+                                                                      } else {
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Something went wrong');
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              1),
+                                                                      decoration: const BoxDecoration(
+                                                                          // shape: BoxShape.circle,
+                                                                          // border: Border.all(
+                                                                          //     color: Colors.black)
+                                                                          ),
+                                                                      child: const Icon(
+                                                                          Icons
+                                                                              .arrow_drop_down_outlined),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    padding:const
+                                                                        EdgeInsets
+                                                                            .all(2),
+                                                                    decoration: BoxDecoration(
+                                                                        // shape: BoxShape.circle,
+                                                                        // border: Border.all(
+                                                                        //     color: Colors.black)
+                                                                        ),
+                                                                    child: Text(
+                                                                        '${snapshot.data!.order[i].items[index].quantity}'),
+                                                                  ),
+                                                                  InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (isCancelled ==
+                                                                          1) {
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Subscription is already cancelled');
+                                                                        return;
+                                                                      }
+                                                                      HomeApi
+                                                                          _api =
+                                                                          HomeApi();
+                                                                      Map data = await _api.updateQuantity(
+                                                                          process: rcvdData[
+                                                                              'id'],
+                                                                          attr_price: snapshot
+                                                                              .data!
+                                                                              .order[
+                                                                                  i]
+                                                                              .items[
+                                                                                  index]
+                                                                              .attr_price,
+                                                                          cartid: snapshot
+                                                                              .data!
+                                                                              .order[i]
+                                                                              .items[index]
+                                                                              .cart_id!,
+                                                                          qty: (int.parse(snapshot.data!.order[i].items[index].quantity!) + 1).toString());
+                                                                      if (data[
+                                                                              'response'] ==
+                                                                          '1') {
+                                                                        setState(
+                                                                            () {});
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Successfully updated');
+                                                                      } else {
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Something went wrong');
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              1),
+                                                                      decoration: BoxDecoration(
+                                                                          // shape: BoxShape.circle,
+                                                                          // border: Border.all(
+                                                                          //     color: Colors.black)
+                                                                          ),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .arrow_drop_up_outlined),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            // Text(
+                                                            //     'Quantity : ${snapshot.data!.items[index].quantity}'),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                'Price : ₹ ${snapshot.data!.order[i].items[index].attr_price}')
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                                'Total : ₹ ${snapshot.data!.order[i].items[index].amount}'),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                'Attr : ${snapshot.data!.order[i].items[index].item_attr}'),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              2,
+                                                          child:
+                                                              SingleChildScrollView(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            child: Row(
+                                                              children:
+                                                                  List.generate(
+                                                                      snapshot
+                                                                          .data!
+                                                                          .order[
+                                                                              i]
+                                                                          .items[
+                                                                              index]
+                                                                          .attribute
+                                                                          .length,
+                                                                      (n) =>
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(3.0),
+                                                                            child:
+                                                                                InkWell(
+                                                                              onTap: () async {
+                                                                                if (snapshot.data!.cancel == 1) {
+                                                                                  Fluttertoast.showToast(msg: 'Subscription is already cancelled');
+                                                                                  return;
+                                                                                }
+                                                                                HomeApi _api = HomeApi();
+                                                                                Map data = await _api.updateAttr(attrprice: snapshot.data!.order[i].items[index].attribute[n].price, processid: rcvdData['id'], qty: snapshot.data!.order[i].items[index].quantity!, cartid: snapshot.data!.order[i].items[index].cart_id!, item_id: snapshot.data!.order[i].items[index].item_id!, attrid: snapshot.data!.order[i].items[index].attribute[n].attr_id!.toString());
+                                                                                if (data['response'] == '1') {
+                                                                                  setState(() {});
+                                                                                  Fluttertoast.showToast(msg: 'Successfully updated');
+                                                                                } else {
+                                                                                  Fluttertoast.showToast(msg: 'Something went wrong');
+                                                                                }
+                                                                              },
+                                                                              child: Chip(
+                                                                                  padding: const EdgeInsets.all(1),
+                                                                                  backgroundColor: snapshot.data!.order[i].items[index].item_attr == snapshot.data!.order[i].items[index].attribute[n].attr_name! ? Colors.amber : Colors.grey[300],
+                                                                                  label: Text(
+                                                                                    snapshot.data!.order[i].items[index].attribute[n].attr_name!,
+                                                                                    style: const TextStyle(fontSize: 10),
+                                                                                  )),
+                                                                            ),
+                                                                          )),
+                                                            ),
                                                           ),
-                                                      child: Text(
-                                                          '${snapshot.data!.items[index].quantity}'),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        if (isCancelled == 1) {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Subscription is already cancelled');
-                                                          return;
-                                                        }
-                                                        HomeApi _api =
-                                                            HomeApi();
-                                                        Map data = await _api.updateQuantity(
-                                                            process:
-                                                                rcvdData['id'],
-                                                            attr_price: snapshot
-                                                                .data!
-                                                                .items[index]
-                                                                .attr_price,
-                                                            cartid: snapshot
-                                                                .data!
-                                                                .items[index]
-                                                                .cart_id!,
-                                                            qty: (int.parse(snapshot
-                                                                        .data!
-                                                                        .items[
-                                                                            index]
-                                                                        .quantity!) +
-                                                                    1)
-                                                                .toString());
-                                                        if (data['response'] ==
-                                                            '1') {
-                                                          setState(() {});
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Successfully updated');
-                                                        } else {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'Something went wrong');
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            EdgeInsets.all(1),
-                                                        decoration: BoxDecoration(
-                                                            // shape: BoxShape.circle,
-                                                            // border: Border.all(
-                                                            //     color: Colors.black)
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                if (isCancelled ==
+                                                                    1) {
+                                                                  Fluttertoast
+                                                                      .showToast(
+                                                                          msg:
+                                                                              'Subscription is already cancelled');
+                                                                  return;
+                                                                }
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return AlertDialog(
+                                                                        title: const Text(
+                                                                            "Are Your Sure?"),
+                                                                        content:
+                                                                            const Text('Are you sure to delete this item from cart?'),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          FlatButton(
+                                                                            child:
+                                                                                Text("No", style: TextStyle(color: Colors.blue)),
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(context, false),
+                                                                          ),
+                                                                          FlatButton(
+                                                                              onPressed: () async {
+                                                                                HomeApi _api = HomeApi();
+                                                                                List data = await _api.deletesubsItem(snapshot.data!.order[i].items[index].cart_id!, rcvdData['id']);
+                                                                                if (data[0]['response'] == true) {
+                                                                                  setState(() {});
+                                                                                  Navigator.pop(context);
+                                                                                }
+                                                                              },
+                                                                              child: Text("Sure", style: TextStyle(color: Colors.blue))),
+                                                                        ],
+                                                                      );
+                                                                    });
+                                                              },
+                                                              child: Container(
+                                                                width: 110,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            4,
+                                                                        vertical:
+                                                                            5),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .red),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          255,
+                                                                          255,
+                                                                          255),
+                                                                  // border: Border.all(color: Colors.blue, width: 1),
+                                                                ),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    "Remove Item",
+                                                                    style: TextStyle(
+                                                                        letterSpacing: 1,
+                                                                        fontSize: 10,
+                                                                        color: Color.fromARGB(255, 250, 0, 0),
+                                                                        // fontFamily: font,
+                                                                        fontWeight: FontWeight.bold),
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
-                                                        child: Icon(Icons
-                                                            .arrow_drop_up_outlined),
-                                                      ),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            // Container(
+                                                            //   decoration: BoxDecoration(
+                                                            //       color: Color.fromARGB(
+                                                            //           255, 255, 255, 255)),
+                                                            //   child: SizedBox(
+                                                            //     height: 20,
+                                                            //     child: DropDown(
+                                                            //       items: List.generate(
+                                                            //           snapshot.data!.items[index]
+                                                            //               .attribute.length,
+                                                            //           (i) => snapshot
+                                                            //               .data!
+                                                            //               .items[index]
+                                                            //               .attribute[n]
+                                                            //               .attr_name!),
+                                                            //       hint: Text("2 KG"),
+                                                            //       icon: Icon(
+                                                            //         Icons.expand_more,
+                                                            //         color: Colors.blue,
+                                                            //       ),
+                                                            //       onChanged: print,
+                                                            //     ),
+                                                            //   ),
+                                                            // ),
+                                                          ],
+                                                        )
+                                                      ],
                                                     )
                                                   ],
                                                 ),
                                               ),
-                                              // Text(
-                                              //     'Quantity : ${snapshot.data!.items[index].quantity}'),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                  'Price : ₹ ${snapshot.data!.items[index].attr_price}')
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  'Total : ₹ ${snapshot.data!.items[index].amount}'),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                  'Attr : ${snapshot.data!.items[index].item_attr}'),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate(
-                                                    snapshot.data!.items[index]
-                                                        .attribute.length,
-                                                    (i) => Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(3.0),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              if (snapshot.data!
-                                                                      .cancel ==
-                                                                  1) {
-                                                                Fluttertoast
-                                                                    .showToast(
-                                                                        msg:
-                                                                            'Subscription is already cancelled');
-                                                                return;
-                                                              }
-                                                              HomeApi _api =
-                                                                  HomeApi();
-                                                              Map data = await _api.updateAttr(
-                                                                  attrprice: snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .attribute[
-                                                                          i]
-                                                                      .price,
-                                                                  processid:
-                                                                      rcvdData[
-                                                                          'id'],
-                                                                  qty: snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .quantity!,
-                                                                  cartid: snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .cart_id!,
-                                                                  item_id: snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .item_id!,
-                                                                  attrid: snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .attribute[
-                                                                          i]
-                                                                      .attr_id!
-                                                                      .toString());
-                                                              if (data[
-                                                                      'response'] ==
-                                                                  '1') {
-                                                                setState(() {});
-                                                                Fluttertoast
-                                                                    .showToast(
-                                                                        msg:
-                                                                            'Successfully updated');
-                                                              } else {
-                                                                Fluttertoast
-                                                                    .showToast(
-                                                                        msg:
-                                                                            'Something went wrong');
-                                                              }
-                                                            },
-                                                            child: Chip(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(1),
-                                                                backgroundColor: snapshot
-                                                                            .data!
-                                                                            .items[
-                                                                                index]
-                                                                            .item_attr ==
-                                                                        snapshot
-                                                                            .data!
-                                                                            .items[
-                                                                                index]
-                                                                            .attribute[
-                                                                                i]
-                                                                            .attr_name!
-                                                                    ? Colors
-                                                                        .amber
-                                                                    : Colors.grey[
-                                                                        300],
-                                                                label: Text(
-                                                                  snapshot
-                                                                      .data!
-                                                                      .items[
-                                                                          index]
-                                                                      .attribute[
-                                                                          i]
-                                                                      .attr_name!,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          10),
-                                                                )),
-                                                          ),
-                                                        )),
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              InkWell(
-                                                onTap: () async {
-                                                  if (isCancelled == 1) {
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            'Subscription is already cancelled');
-                                                    return;
-                                                  }
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return AlertDialog(
-                                                          title: const Text(
-                                                              "Are Your Sure?"),
-                                                          content: const Text(
-                                                              'Are you sure to delete this item from cart?'),
-                                                          actions: <Widget>[
-                                                            FlatButton(
-                                                              child: Text("No",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blue)),
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      context,
-                                                                      false),
-                                                            ),
-                                                            FlatButton(
-                                                                onPressed:
-                                                                    () async {
-                                                                  HomeApi _api =
-                                                                      HomeApi();
-                                                                  List data = await _api.deletesubsItem(
-                                                                      snapshot
-                                                                          .data!
-                                                                          .items[
-                                                                              index]
-                                                                          .cart_id!,
-                                                                      rcvdData[
-                                                                          'id']);
-                                                                  if (data[0][
-                                                                          'response'] ==
-                                                                      true) {
-                                                                    setState(
-                                                                        () {});
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  }
-                                                                },
-                                                                child: Text(
-                                                                    "Sure",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .blue))),
-                                                          ],
-                                                        );
-                                                      });
-                                                },
-                                                child: Container(
-                                                  width: 110,
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 4,
-                                                      vertical: 5),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    border: Border.all(
-                                                        color: Colors.red),
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                    // border: Border.all(color: Colors.blue, width: 1),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Remove Item",
-                                                      style: TextStyle(
-                                                          letterSpacing: 1,
-                                                          fontSize: 10,
-                                                          color: Color.fromARGB(
-                                                              255, 250, 0, 0),
-                                                          // fontFamily: font,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              // Container(
-                                              //   decoration: BoxDecoration(
-                                              //       color: Color.fromARGB(
-                                              //           255, 255, 255, 255)),
-                                              //   child: SizedBox(
-                                              //     height: 20,
-                                              //     child: DropDown(
-                                              //       items: List.generate(
-                                              //           snapshot.data!.items[index]
-                                              //               .attribute.length,
-                                              //           (i) => snapshot
-                                              //               .data!
-                                              //               .items[index]
-                                              //               .attribute[i]
-                                              //               .attr_name!),
-                                              //       hint: Text("2 KG"),
-                                              //       icon: Icon(
-                                              //         Icons.expand_more,
-                                              //         color: Colors.blue,
-                                              //       ),
-                                              //       onChanged: print,
-                                              //     ),
-                                              //   ),
-                                              // ),
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )),
                     ),
                     SizedBox(
                       height: 20,

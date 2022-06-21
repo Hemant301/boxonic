@@ -151,7 +151,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               fontFamily: font,
               fontWeight: FontWeight.bold),
         ),
-        
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -160,7 +159,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            const  SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -172,7 +171,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     fontFamily: font,
                     fontWeight: FontWeight.bold),
               ),
-             const SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               StreamBuilder<SubsbenefitsModal>(
@@ -210,7 +209,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   color: Colors.grey.withOpacity(0.4),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset:const Offset(
+                                  offset: const Offset(
                                       1, 3), // changes position of shadow
                                 ),
                               ],
@@ -228,7 +227,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               ),
                             ),
                           ),
-                   const       SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Container(
@@ -255,7 +254,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 (index) => Column(
                                   children: [
                                     Text(
-                                      '> ${newsnapshot.data!.data[index].name!}',
+                                      '${newsnapshot.data!.data[index].name!}',
                                       style: TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 10,
@@ -264,7 +263,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         // fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                const    SizedBox(
+                                    const SizedBox(
                                       height: 3,
                                     ),
                                   ],
@@ -276,7 +275,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       ),
                     );
                   }),
-           const   SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -313,7 +312,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                      const    SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -327,7 +326,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 fontFamily: font,
                                 fontWeight: FontWeight.bold),
                           ),
-                       const   SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Stack(
@@ -364,7 +363,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         color: Colors.grey.withOpacity(0.4),
                                         spreadRadius: 1,
                                         blurRadius: 1,
-                                        offset:const Offset(
+                                        offset: const Offset(
                                             1, 3), // changes position of shadow
                                       ),
                                     ],
@@ -386,7 +385,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       );
                     }),
               ),
-            const  SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               StreamBuilder<CalAmountModal>(
@@ -406,7 +405,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                             color: Colors.grey.withOpacity(0.4),
                             spreadRadius: 1,
                             blurRadius: 1,
-                            offset:const Offset(1, 3), // changes position of shadow
+                            offset: const Offset(
+                                1, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -422,7 +422,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 children: [
                                   Row(
                                     children: [
-                                  const    SizedBox(
+                                      const SizedBox(
                                         width: 30,
                                       ),
                                       Text(
@@ -436,7 +436,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                       ),
                                     ],
                                   ),
-                               const   SizedBox(
+                                  const SizedBox(
                                     height: 3,
                                   ),
                                   StreamBuilder<MonthsModal>(
@@ -450,7 +450,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                               (index) => snapshot
                                                   .data!.data[index].months!),
                                           hint: Text("Select Months/Times"),
-                                          icon:const Icon(
+                                          icon: const Icon(
                                             Icons.expand_more,
                                             color: Colors.blue,
                                           ),
@@ -474,7 +474,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               Column(
                                 children: [
                                   Image.asset("assets/wallet (1) 3.png"),
-                               const   SizedBox(
+                                  const SizedBox(
                                     height: 3,
                                   ),
                                   Text(
@@ -490,8 +490,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               ),
                             ],
                           ),
-                          // Text(
-                          //     'Total amount : ₹ ${(((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)}')
+                          Text(
+                              'Total amount : ₹ ${(((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)}')
                         ],
                       ),
                     );

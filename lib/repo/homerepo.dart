@@ -207,10 +207,10 @@ class HomeRepo {
     return StateModal(jsonResponse);
   }
 
-  Future<Myordermodal> fetchSubsdetails(String id) async {
+  Future<MySubdetailmodal> fetchSubsdetails(String id) async {
     final response = await homeApi.fetchSubsdetails(id);
     var jsonResponse = jsonDecode(response.body) as Map;
-    return Myordermodal(jsonResponse);
+    return MySubdetailmodal(jsonResponse);
   }
 
   Future<SubsListModal> fetchSublist() async {

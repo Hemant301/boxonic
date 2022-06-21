@@ -196,6 +196,7 @@ class HomeBloc {
   fetchProduct(String id) async {
     // _liveProduct.addError("Loading");
     try {
+      _liveProduct.addError('err');
       ProductModal homeSlider = await _homeRepo.fetchProduct(id);
       // print(homeSlider.imgs!.length);
 
@@ -474,14 +475,14 @@ class HomeBloc {
     }
   }
 
-  final BehaviorSubject<Myordermodal> _liveSubsdetail =
-      BehaviorSubject<Myordermodal>();
-  BehaviorSubject<Myordermodal> get getSubsdetail => _liveSubsdetail;
+  final BehaviorSubject<MySubdetailmodal> _liveSubsdetail =
+      BehaviorSubject<MySubdetailmodal>();
+  BehaviorSubject<MySubdetailmodal> get getSubsdetail => _liveSubsdetail;
   fetchSubsdetails(String id) async {
     // _liveSubsdetail.addError("Loading");
     try {
       // _liveSubsdetail.addError('error');
-      Myordermodal homeSlider = await _homeRepo.fetchSubsdetails(id);
+      MySubdetailmodal homeSlider = await _homeRepo.fetchSubsdetails(id);
       // print(homeSlider.imgs!.length);
 
       _liveSubsdetail.add(homeSlider);
