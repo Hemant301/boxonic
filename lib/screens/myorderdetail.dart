@@ -409,17 +409,140 @@ class _MyorderdetailState extends State<Myorderdetail> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                snapshot.data!.address!.address!,
-                                style: TextStyle(),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Name',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.name!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                snapshot.data!.address!.landmark!,
-                                style: TextStyle(),
+                              SizedBox(
+                                height: 2,
                               ),
-                              Text(
-                                snapshot.data!.address!.pincode!,
-                                style: TextStyle(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Address',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: Text(
+                                      snapshot.data!.address!.address!,
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'LandMark',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.landmark!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'State',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.state!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Pincode',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.pincode!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Phone',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.phone!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
                               ),
                             ],
                           )),
@@ -565,10 +688,12 @@ class _MyorderdetailState extends State<Myorderdetail> {
                                   )
                                 : InkWell(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/trackorder', arguments: {
-                                        'track_id': snapshot.data!.tackingid
-                                      });
+                                      Navigator.pushNamed(context, '/webview',
+                                          arguments: {
+                                            'title': 'Track order',
+                                            'url':
+                                                'https://pickrr.com/tracking/#/?tracking_id=${snapshot.data!.tackingid}'
+                                          });
                                     },
                                     child: Container(
                                       height: 40,

@@ -100,7 +100,7 @@ class _AddressState extends State<Address> {
                               children: List.generate(
                                   snapshot.data!.data.length,
                                   (index) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(5.0),
                                         child: InkWell(
                                           onTap: () {
                                             setState(() {
@@ -114,7 +114,7 @@ class _AddressState extends State<Address> {
                                                       .size
                                                       .width -
                                                   20,
-                                              padding: const EdgeInsets.all(20),
+                                              padding: const EdgeInsets.all(15),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -131,174 +131,307 @@ class _AddressState extends State<Address> {
                                                   ),
                                                 ],
                                               ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                              child: Column(
                                                 children: [
-                                                  Container(
-                                                    height: 10,
-                                                    width: 10,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.blue),
-                                                      shape: BoxShape.circle,
-                                                      color: addressId ==
-                                                              snapshot
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      child: Icon(Icons.home)),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        height: 10,
+                                                        width: 10,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.blue),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: addressId ==
+                                                                  snapshot
+                                                                      .data!
+                                                                      .data[
+                                                                          index]
+                                                                      .id
+                                                              ? Colors.blue
+                                                              : Colors.white,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'Name*',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(snapshot
                                                                   .data!
                                                                   .data[index]
-                                                                  .id
-                                                          ? Colors.blue
-                                                          : Colors.white,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(snapshot.data!
-                                                          .data[index].name!),
-                                                      Text(snapshot
-                                                          .data!
-                                                          .data[index]
-                                                          .fulladdress!),
-                                                      Text(snapshot
-                                                          .data!
-                                                          .data[index]
-                                                          .landmark!),
-                                                      Text(snapshot
-                                                          .data!
-                                                          .data[index]
-                                                          .pincode!),
-                                                      Text(snapshot.data!
-                                                          .data[index].state!),
-                                                      Text(snapshot.data!
-                                                          .data[index].phone!),
-                                                      const SizedBox(
-                                                        height: 2,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Navigator.pushNamed(
-                                                                  context,
-                                                                  '/editaddress',
-                                                                  arguments: {
-                                                                    'address': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .fulladdress,
-                                                                    'id': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .id,
-                                                                    'landmark': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .landmark,
-                                                                    'pincode': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .pincode,
-                                                                    'state': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .state,
-                                                                    'phone': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .phone,
-                                                                    'name': snapshot
-                                                                        .data!
-                                                                        .data[
-                                                                            index]
-                                                                        .name
-                                                                  });
-                                                            },
-                                                            child:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(5.0),
-                                                              child: Icon(
-                                                                Icons.edit,
-                                                                size: 15,
+                                                                  .name!),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 2,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'Address*',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
                                                               ),
-                                                            ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Container(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    2,
+                                                                child: Text(snapshot
+                                                                    .data!
+                                                                    .data[index]
+                                                                    .fulladdress!),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'LandMark',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .landmark!),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 2,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'Pincode*',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .pincode!),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'State*',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .state!),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                width: 80,
+                                                                child: Text(
+                                                                  'Phone*',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .phone!),
+                                                            ],
                                                           ),
                                                           const SizedBox(
-                                                              width: 10),
-                                                          InkWell(
-                                                            onTap: () async {
-                                                              AuthApi _authapi =
-                                                                  AuthApi();
-                                                              try {
-                                                                Map data =
-                                                                    await _authapi
-                                                                        .deleteAddress(
-                                                                  addresssid:
-                                                                      snapshot
+                                                            height: 2,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  Navigator.pushNamed(
+                                                                      context,
+                                                                      '/editaddress',
+                                                                      arguments: {
+                                                                        'address': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .fulladdress,
+                                                                        'id': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .id,
+                                                                        'landmark': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .landmark,
+                                                                        'pincode': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .pincode,
+                                                                        'state': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .state,
+                                                                        'phone': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .phone,
+                                                                        'name': snapshot
+                                                                            .data!
+                                                                            .data[index]
+                                                                            .name
+                                                                      });
+                                                                },
+                                                                child:
+                                                                    const Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5.0),
+                                                                  child: Icon(
+                                                                    Icons.edit,
+                                                                    size: 15,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: 10),
+                                                              InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  AuthApi
+                                                                      _authapi =
+                                                                      AuthApi();
+                                                                  try {
+                                                                    Map data =
+                                                                        await _authapi
+                                                                            .deleteAddress(
+                                                                      addresssid: snapshot
                                                                           .data!
                                                                           .data[
                                                                               index]
                                                                           .id!,
-                                                                );
-                                                                // print(data[
-                                                                //         "response"]
-                                                                //     .runtimeType);
+                                                                    );
+                                                                    // print(data[
+                                                                    //         "response"]
+                                                                    //     .runtimeType);
 
-                                                                if (data[
-                                                                        'response'] ==
-                                                                    '1') {
-                                                                  setState(
-                                                                      () {});
-                                                                } else {
-                                                                  Fluttertoast.showToast(
-                                                                      msg:
-                                                                          " ${data['msg']}! ",
-                                                                      toastLength:
-                                                                          Toast
+                                                                    if (data[
+                                                                            'response'] ==
+                                                                        '1') {
+                                                                      setState(
+                                                                          () {});
+                                                                    } else {
+                                                                      Fluttertoast.showToast(
+                                                                          msg:
+                                                                              " ${data['msg']}! ",
+                                                                          toastLength: Toast
                                                                               .LENGTH_SHORT,
-                                                                      gravity: ToastGravity
-                                                                          .BOTTOM,
-                                                                      timeInSecForIosWeb:
-                                                                          1,
-                                                                      backgroundColor:
-                                                                          Colors
+                                                                          gravity: ToastGravity
+                                                                              .BOTTOM,
+                                                                          timeInSecForIosWeb:
+                                                                              1,
+                                                                          backgroundColor: Colors
                                                                               .red,
-                                                                      textColor:
-                                                                          Colors
+                                                                          textColor: Colors
                                                                               .white,
-                                                                      fontSize:
-                                                                          16.0);
-                                                                }
-                                                              } catch (e) {}
-                                                            },
-                                                            child:
-                                                                const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(5.0),
-                                                              child: Icon(
-                                                                Icons.delete,
-                                                                size: 15,
+                                                                          fontSize:
+                                                                              16.0);
+                                                                    }
+                                                                  } catch (e) {}
+                                                                },
+                                                                child:
+                                                                    const Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5.0),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .delete,
+                                                                    size: 15,
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
+                                                            ],
+                                                          )
                                                         ],
                                                       )
                                                     ],
-                                                  )
+                                                  ),
                                                 ],
                                               )),
                                         ),

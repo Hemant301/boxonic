@@ -220,6 +220,14 @@ class _SubshistoryState extends State<Subshistory> {
                                                                         fontWeight:
                                                                             FontWeight.bold))
                                                               ],
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Text('Month :',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold))
+                                                              ],
                                                             )
                                                           ],
                                                         ),
@@ -262,6 +270,12 @@ class _SubshistoryState extends State<Subshistory> {
                                                                     .data!
                                                                     .data[index]
                                                                     .status!)
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                    '${index + 1}')
                                                               ],
                                                             )
                                                           ],

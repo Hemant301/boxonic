@@ -1,3 +1,4 @@
+import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/screens/mysublist.dart';
@@ -5,10 +6,16 @@ import 'package:boxoniq/shimmer/newshimmer.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class Mysubsrdetail extends StatelessWidget {
+class Mysubsrdetail extends StatefulWidget {
   const Mysubsrdetail({Key? key}) : super(key: key);
 
+  @override
+  State<Mysubsrdetail> createState() => _MysubsrdetailState();
+}
+
+class _MysubsrdetailState extends State<Mysubsrdetail> {
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -394,17 +401,140 @@ class Mysubsrdetail extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                snapshot.data!.address!.address!,
-                                style: TextStyle(),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Name',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.name!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                snapshot.data!.address!.landmark!,
-                                style: TextStyle(),
+                              SizedBox(
+                                height: 2,
                               ),
-                              Text(
-                                snapshot.data!.address!.pincode!,
-                                style: TextStyle(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Address',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: Text(
+                                      snapshot.data!.address!.address!,
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'LandMark',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.landmark!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'State',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.state!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Pincode',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.pincode!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    child: Text(
+                                      'Phone',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data!.address!.phone!,
+                                    style: TextStyle(),
+                                  ),
+                                ],
                               ),
                             ],
                           )),
@@ -413,24 +543,14 @@ class Mysubsrdetail extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/webview', arguments: {
-                            'title': 'Track order',
-                            'url':
-                                'https://pickrr.com/tracking/#/?tracking_id=${snapshot.data!.tackingid}'
-                          });
-                        },
-                        child: Container(
+                  snapshot.data!.total!.status == "5"
+                      ? Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width / 2 - 40,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.amber,
+                            color: Color.fromARGB(255, 255, 15, 7),
                             // border: Border.all(color: Colors.blue, width: 1),
                             boxShadow: [
                               BoxShadow(
@@ -444,58 +564,9 @@ class Mysubsrdetail extends StatelessWidget {
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
-                                "Track Order",
-                                style: TextStyle(
-                                    // letterSpacing: 1,
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    // fontFamily: font,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              // SizedBox(
-                              //   width: 10,
-                              // ),
-                              // Image.asset(
-                              //   "assets/Vector.png",
-                              //   width: 10,
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/webview', arguments: {
-                            'title': 'Invoice',
-                            'url':
-                                'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
-                          });
-                        },
-                        child: Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 2 - 40,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green,
-                            // border: Border.all(color: Colors.blue, width: 1),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.4),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(
-                                    1, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Invoice",
+                                "Cancelled",
                                 style: TextStyle(
                                     // letterSpacing: 1,
                                     fontSize: 12,
@@ -512,10 +583,211 @@ class Mysubsrdetail extends StatelessWidget {
                               // ),
                             ],
                           ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            int.parse(snapshot.data!.total!.status!) < 3
+                                ? InkWell(
+                                    onTap: () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Are Your Sure?"),
+                                              content: Text(
+                                                  'Are you sure to cancel this order?'),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("No",
+                                                      style: TextStyle(
+                                                          color: Colors.blue)),
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, false),
+                                                ),
+                                                FlatButton(
+                                                    onPressed: () async {
+                                                      HomeApi api = HomeApi();
+                                                      Map data = await api
+                                                          .cancelMySubsorder(
+                                                              id);
+                                                      if (data['response'] ==
+                                                          "1") {
+                                                        setState(() {
+                                                          homebloc
+                                                              .fetchsubsdetails(
+                                                                  id);
+                                                        });
+                                                        Navigator.pop(context);
+                                                        Fluttertoast.showToast(
+                                                            msg: data['msg']);
+                                                      } else {
+                                                        Fluttertoast.showToast(
+                                                            msg: data['msg']);
+                                                      }
+                                                    },
+                                                    child: Text("Sure",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.blue))),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.red,
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Cancel Order",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, '/webview',
+                                          arguments: {
+                                            'title': 'Track order',
+                                            'url':
+                                                'https://pickrr.com/tracking/#/?tracking_id=${snapshot.data!.tackingid}'
+                                          });
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.amber,
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            "Track Order",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/webview',
+                                    arguments: {
+                                      'title': 'Invoice',
+                                      'url':
+                                          'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
+                                    });
+                              },
+                              child: Container(
+                                height: 40,
+                                width:
+                                    MediaQuery.of(context).size.width / 2 - 40,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green,
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: const Offset(
+                                          1, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      "Invoice",
+                                      style: TextStyle(
+                                          // letterSpacing: 1,
+                                          fontSize: 12,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          // fontFamily: font,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 10,
+                                    // ),
+                                    // Image.asset(
+                                    //   "assets/Vector.png",
+                                    //   width: 10,
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(
                     height: 20,
                   )

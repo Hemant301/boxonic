@@ -79,6 +79,8 @@ class _WallatePageState extends State<WallatePage> {
 
   int sum = 0;
 
+  int check=0;
+
   @override
   Widget build(BuildContext context) {
 // Generate a v1 (time-based) id
@@ -122,6 +124,7 @@ class _WallatePageState extends State<WallatePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+           
                 SizedBox(
                   height: 30,
                 ),

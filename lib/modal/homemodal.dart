@@ -376,7 +376,7 @@ class Ordermodal {
   String? title;
   List<Itemsmodal> items = [];
   Ordermodal(js) {
-    title = js['title']??"";
+    title = js['title'] ?? "";
     for (var i = 0; i < js['items'].length; i++) {
       items.add(Itemsmodal(js['items'][i]));
     }
@@ -491,13 +491,20 @@ class TotalModal {
 }
 
 class AddInOrderModal {
+  String? name;
   String? address;
   String? landmark;
+  String? state;
+  String? phone;
   String? pincode;
   AddInOrderModal(js) {
     address = js['address'] ?? "";
     landmark = js['landmark'] ?? "";
     pincode = js['pincode'] ?? "";
+    name = js['name'] ?? "";
+    address = js['address'] ?? "";
+    state = js['state'] ?? "";
+    phone = js['phone'] ?? "";
   }
 }
 

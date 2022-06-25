@@ -586,8 +586,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                                                     ),
                                                                   ),
                                                                   Container(
-                                                                    padding:const
-                                                                        EdgeInsets
+                                                                    padding:
+                                                                        const EdgeInsets
                                                                             .all(2),
                                                                     decoration: BoxDecoration(
                                                                         // shape: BoxShape.circle,
@@ -993,14 +993,40 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                         MainAxisAlignment.spaceBetween,
                                     // crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Bundle Discount",
-                                        style: TextStyle(
-                                            letterSpacing: 1,
-                                            fontSize: 16,
-                                            color: Colors.grey[600],
-                                            // fontFamily: font,
-                                            fontWeight: FontWeight.bold),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Bundle Discount",
+                                            style: TextStyle(
+                                                letterSpacing: 1,
+                                                fontSize: 16,
+                                                color: Colors.grey[600],
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          snapshot.data!.total!.bundledissount
+                                                      .toString() ==
+                                                  "0"
+                                              ? Container()
+                                              : Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 2,
+                                                      horizontal: 10),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.green[800]),
+                                                  child: Text(
+                                                    '5% Applied',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                        ],
                                       ),
                                       SizedBox(
                                         height: 5,
@@ -1224,29 +1250,140 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(
-                                  snapshot.data!.address!.name!,
-                                  style: TextStyle(),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'Name',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      snapshot.data!.address!.name!,
+                                      style: TextStyle(),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  snapshot.data!.address!.address!,
-                                  style: TextStyle(),
+                                SizedBox(
+                                  height: 2,
                                 ),
-                                Text(
-                                  snapshot.data!.address!.landmark!,
-                                  style: TextStyle(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'Address',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Text(
+                                        snapshot.data!.address!.address!,
+                                        style: TextStyle(),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  snapshot.data!.address!.pincode!,
-                                  style: TextStyle(),
+                                SizedBox(
+                                  height: 2,
                                 ),
-                                Text(
-                                  snapshot.data!.address!.phone!,
-                                  style: TextStyle(),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'LandMark',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      snapshot.data!.address!.landmark!,
+                                      style: TextStyle(),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  snapshot.data!.address!.state!,
-                                  style: TextStyle(),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'State',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      snapshot.data!.address!.state!,
+                                      style: TextStyle(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'Pincode',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      snapshot.data!.address!.pincode!,
+                                      style: TextStyle(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        'Phone',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      snapshot.data!.address!.phone!,
+                                      style: TextStyle(),
+                                    ),
+                                  ],
                                 ),
                               ],
                             )),

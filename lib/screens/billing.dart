@@ -589,7 +589,7 @@ class _BillingPageState extends State<BillingPage> {
                               ),
                               child: const Center(
                                 child: Padding(
-                                  padding:  EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: Text(
                                     "Get 5% Discount on Every Orders + Additional Benefits",
                                     style: TextStyle(
@@ -625,7 +625,7 @@ class _BillingPageState extends State<BillingPage> {
                               setState(() {
                                 activeIndex = 0;
                               });
-                              if (snapshot.data!.data[0].response!.total <
+                              if (snapshot.data!.data[0].response!.sub_total <
                                   500) {
                                 setState(() {
                                   deliveryCharge = 49;

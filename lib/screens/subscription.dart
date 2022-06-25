@@ -122,6 +122,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   String monthname = "01 month";
   String addressId = "";
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -499,6 +500,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               SizedBox(
                 height: 20,
               ),
+              isLoading == true
+                  ? Center(child: CircularProgressIndicator())
+                  : Container(),
+              SizedBox(
+                height: 20,
+              ),
               StreamBuilder<CalAmountModal>(
                   stream: homebloc.getCalculatedAmount.stream,
                   builder: (context, snapshot) {
@@ -516,11 +523,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     .data!.data[0].response!.walletBallance)
                             ? InkWell(
                                 onTap: () async {
-                                  if (monthname == "1") {
+                                  if (monthname == "01 month") {
                                     Fluttertoast.showToast(
                                         msg: 'Select months to continue');
                                     return;
                                   }
+                                  setState(() {
+                                    isLoading = true;
+                                  });
                                   // print(((rcvdData['total_amount'] -
                                   //     (rcvdData['total_amount']) * 5 / 100)));
 
@@ -540,6 +550,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   );
                                   print(data);
                                   if (data['status'] == "OK") {
+                                    setState(() {
+                                      isLoading = false;
+                                      
+                                    });
                                     cashFreeHalfpayment(
                                         monthamount:
                                             '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
@@ -552,6 +566,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         amount:
                                             '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100))}');
                                   } else {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     Fluttertoast.showToast(
                                         msg: 'Something went wrong');
                                   }
@@ -596,7 +613,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                               .walletBallance ==
                                                           0
                                                   ? Text(
-                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}  to Wallet & Proceed",
+                                                      "Add ₹ ${((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3)) - int.parse(snapshot.data!.data[0].response!.walletBallance))).toStringAsFixed(2)}  to Wallet & Proceed",
                                                       style: TextStyle(
                                                         letterSpacing: 1,
                                                         fontSize: 12,
@@ -606,7 +623,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                                       ),
                                                     )
                                                   : Text(
-                                                      "Add ₹ ${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)} more to Wallet & Proceed",
+                                                      "Add ₹ ${((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3)) - int.parse(snapshot.data!.data[0].response!.walletBallance))).toStringAsFixed(2)} more to Wallet & Proceed",
                                                       style: TextStyle(
                                                         letterSpacing: 1,
                                                         fontSize: 12,
@@ -626,11 +643,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               )
                             : InkWell(
                                 onTap: () async {
-                                  if (monthname == "1") {
+                                  if (monthname == "01 month") {
                                     Fluttertoast.showToast(
                                         msg: 'Select  months to continue');
                                     return;
                                   }
+                                  setState(() {
+                                    isLoading = true;
+                                  });
                                   HomeApi _api = HomeApi();
                                   Map data = await _api.doPayment(
                                       amount:
@@ -640,11 +660,17 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                       subs: rcvdData['subs']);
                                   print(data);
                                   if (data['response'] == '1') {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     Navigator.pushNamed(
                                       context,
                                       '/thankyou',
                                     );
                                   } else {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     Fluttertoast.showToast(msg: data['msg']);
                                   }
                                 },
@@ -795,7 +821,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 height: 20,
               ),
               Text(
-                "Bundle amount will be auto debited on shipment date every month from your wallet.",
+                "Bundle amount will be auto debited on shipment date of every month from your wallet.",
                 style: TextStyle(
                   letterSpacing: 1,
                   fontSize: 15,

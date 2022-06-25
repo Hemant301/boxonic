@@ -103,10 +103,10 @@ class AuthApi {
             "password": pwd,
             "baby_name": babyname,
             "baby_dob": babydob,
-            "reerral": referral,
+            "refer_code": referral,
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //  print('Request failed with status: ${response.statusCode}.');
