@@ -130,12 +130,16 @@ class ProductsCard extends StatefulWidget {
 }
 
 class _ProductsCardState extends State<ProductsCard> {
+  List<String> idArr = [];
+
   int count = 1;
   String attrId = "";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    idArr.clear();
+
     print('init v chal rha');
 
     check();
@@ -353,6 +357,7 @@ class _ProductsCardState extends State<ProductsCard> {
                             setState(() {
                               widget.colorIndex = 0;
                               widget.attrIdForApi = "";
+                              idArr.add('${widget.data!.id!}');
                             });
 
                             Fluttertoast.showToast(
@@ -362,27 +367,53 @@ class _ProductsCardState extends State<ProductsCard> {
                             Fluttertoast.showToast(msg: 'Something went wrong');
                           }
                         },
-                        child: Container(
-                          // width: 120,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff53900F),
-                            // border: Border.all(color: Colors.blue, width: 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Add to bag",
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontSize: 10,
-                                  color: Colors.white,
-                                  // fontFamily: font,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                        child: idArr.contains('${widget.data!.id!}')
+                            ? Container(
+                                // width: 120,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: const Color(0xff53900F),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Added to Bundle",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                // width: 120,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: const Color(0xff53900F),
+                                  ),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  // border: Border.all(color: Colors.blue, width: 1),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Add to Bundle",
+                                    style: TextStyle(
+                                        letterSpacing: 1,
+                                        fontSize: 10,
+                                        color: Color(0xff53900F),
+                                        // fontFamily: font,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
                       ),
                     ],
                   ),

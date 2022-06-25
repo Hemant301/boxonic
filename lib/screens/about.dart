@@ -166,6 +166,12 @@ class About extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
+              Center(
+                child: LottieBuilder.asset(
+                  'assets/vision.json',
+                  height: 150,
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),

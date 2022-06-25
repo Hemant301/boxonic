@@ -3,6 +3,7 @@ import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:otp_autofill/otp_autofill.dart';
 
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -17,16 +18,30 @@ class _LoginotpState extends State<Loginotp> {
   bool? isLoading;
   @override
   late TextEditingController otpCon;
+  late OTPInteractor _otpInteractor;
+
   String acid = "";
   void initState() {
     otpCon = TextEditingController();
-    SmsAutoFill().getAppSignature.then((value) => print(value));
-    _litenCode();
-    super.initState();
-  }
+    _otpInteractor = OTPInteractor();
+    _otpInteractor
+        .getAppSignature()
+        //ignore: avoid_print
+        .then((value) => print('signature - $value'));
 
-  void _litenCode() async {
-    await SmsAutoFill().listenForCode();
+    otpCon = OTPTextEditController(
+      codeLength: 5,
+      //ignore: avoid_print
+      onCodeReceive: (code) => print('Your Application receive code - $code'),
+      otpInteractor: _otpInteractor,
+    )..startListenUserConsent(
+        (code) {
+          final exp = RegExp(r'(\d{5})');
+          return exp.stringMatch(code ?? '') ?? '';
+        },
+      );
+
+    super.initState();
   }
 
   Widget build(BuildContext context) {

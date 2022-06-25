@@ -427,7 +427,7 @@ class _CreatuserState extends State<Creatuser> {
                                 babyname: "${_babynameController.text}",
                                 referral: "${_refController.text}",
                                 shopownername: "${_nameController.text}");
-                            print(data);
+                            // print(data);
 
                             if (data['response'] == '1') {
                               setState(() {
@@ -449,7 +449,7 @@ class _CreatuserState extends State<Creatuser> {
                                   fontSize: 16.0);
                             } else {
                               Fluttertoast.showToast(
-                                  msg: " ${data['message']}! ",
+                                  msg: " ${data['msg']}! ",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,

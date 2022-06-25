@@ -121,6 +121,7 @@ class _CheckwalletState extends State<Checkwallet> {
 
   String monthname = '1';
   String addressId = "";
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -287,6 +288,12 @@ class _CheckwalletState extends State<Checkwallet> {
                     }),
               ),
               SizedBox(
+                height: 10,
+              ),
+              isLoading == true
+                  ? Center(child: CircularProgressIndicator())
+                  : Container(),
+              SizedBox(
                 height: 20,
               ),
               // StreamBuilder<CalAmountModal>(
@@ -407,6 +414,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                 ? Container()
                                 : InkWell(
                                     onTap: () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
                                       String orderId = DateTime.now()
                                           .millisecondsSinceEpoch
                                           .remainder(10000000000)
@@ -419,6 +429,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                       );
                                       print(data);
                                       if (data['status'] == "OK") {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
                                         cashFreeHalfpayment(
                                             monthamount:
                                                 '${(rcvdData['total_amount'] * int.parse(monthname[0])) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
@@ -431,6 +444,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                             amount: rcvdData['total_amount']
                                                 .toString());
                                       } else {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
                                         Fluttertoast.showToast(
                                             msg: 'Something went wrong');
                                       }
@@ -484,6 +500,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                   )
                             : InkWell(
                                 onTap: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
                                   HomeApi _api = HomeApi();
                                   Map data = await _api.doPayment(
                                       amount:
@@ -493,6 +512,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                       subs: rcvdData['subs']);
                                   print(data);
                                   if (data['response'] == '1') {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     Navigator.pushNamed(
                                       context,
                                       '/thankyou',
@@ -577,6 +599,9 @@ class _CheckwalletState extends State<Checkwallet> {
                             // print(
                             //     '${(rcvdData['total_amount']) * int.parse(monthname[0])}');
                             // return;
+                            setState(() {
+                              isLoading = true;
+                            });
                             String orderId = DateTime.now()
                                 .millisecondsSinceEpoch
                                 .remainder(10000000000)
@@ -589,6 +614,9 @@ class _CheckwalletState extends State<Checkwallet> {
                             );
                             print(data);
                             if (data['status'] == "OK") {
+                              setState(() {
+                                isLoading = false;
+                              });
                               cashFreeOnlinepayment(
                                   monthamount:
                                       '${(rcvdData['total_amount']) * int.parse(monthname[0])}',
@@ -600,6 +628,9 @@ class _CheckwalletState extends State<Checkwallet> {
                                   phone: '9798416091',
                                   amount: rcvdData['total_amount'].toString());
                             } else {
+                              setState(() {
+                                isLoading = false;
+                              });
                               Fluttertoast.showToast(
                                   msg: 'Something went wrong');
                             }

@@ -224,7 +224,7 @@ class _CommunitydetailState extends State<Communitydetail> {
                                                           20)),
                                               child: Center(
                                                 child: Text(
-                                                  "Next ",
+                                                  "Submit",
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 20,

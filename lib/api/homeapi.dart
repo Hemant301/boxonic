@@ -330,7 +330,7 @@ class HomeApi {
           Uri.parse("${base}get-order-details-subscription-bo.php"),
           body: {'process_id': id});
       if (response.statusCode == 200) {
-        //   print(response.body);
+        print(response.body);
         return response;
       } else {
         // //   print('Request failed with status: ${response.statusCode}.');
@@ -1098,7 +1098,7 @@ class HomeApi {
         'coupon_id': coupon_Id
       });
       if (response.statusCode == 200) {
-        // ////   print(response.body);
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -1156,6 +1156,27 @@ class HomeApi {
     }
   }
 
+  Future<dynamic> cancelMySubsorder(id) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${base}cancel-subscription-order-bo.php"),
+          body: {'user_id': userCred.getUserId(), 'process_id': id});
+      if (response.statusCode == 200) {
+        //   print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        //   print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      // print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> stayinTouch(email) async {
     var client = http.Client();
     try {
@@ -1183,7 +1204,7 @@ class HomeApi {
         Uri.parse("${base}get-community-question-count.php"),
       );
       if (response.statusCode == 200) {
-        ////   print(response.body);
+        //   print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -1196,6 +1217,8 @@ class HomeApi {
       client.close();
     }
   }
+
+
 
   Future<dynamic> doPaymentOnline({
     String amount = "",
@@ -1222,7 +1245,7 @@ class HomeApi {
         'coupon_id': coupon_Id
       });
       if (response.statusCode == 200) {
-        ////   print(response.body);
+        //  print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -1244,10 +1267,10 @@ class HomeApi {
             'account-id': userCred.getUserId(),
           });
       if (response.statusCode == 200) {
-        // // ////   print(response.body);
+        //    print(response.body);
         return response;
       } else {
-        // //   print('Request failed with status: ${response.statusCode}.');
+        //  print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       // // print(e);
