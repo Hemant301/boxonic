@@ -204,6 +204,22 @@ class HomeApi {
         'sub_key': subkey.toString(),
       });
       if (response.statusCode == 200) {
+        //   print(response.body);
+        return response;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchRecommendItems() async {
+    try {
+      final response = await client.get(
+        Uri.parse("${base}admin-bundle-item-bo.php"),
+      );
+      if (response.statusCode == 200) {
         print(response.body);
         return response;
       } else {
@@ -396,7 +412,7 @@ class HomeApi {
           Uri.parse("${base}get-order-subscription-bo.php"),
           body: {'account_id': userCred.getUserId()});
       if (response.statusCode == 200) {
-        //   print(response.body);
+        print(response.body);
         return response;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -775,13 +791,14 @@ class HomeApi {
     } finally {}
   }
 
-  Future<dynamic> fetchcommunityall() async {
+  Future<dynamic> fetchcommunityall(page) async {
     try {
-      final response = await client.get(
-        Uri.parse("${base}get-community-questions.php"),
-      );
+      var body = {'page': page};
+      print(body);
+      final response = await client
+          .post(Uri.parse("${base}get-community-questions.php"), body: body);
       if (response.statusCode == 200) {
-        ////   print(response.body);
+        print(response.body);
         return response;
       } else {
         // //   print('Request failed with status: ${response.statusCode}.');
@@ -842,7 +859,27 @@ class HomeApi {
         'filter_key': filterkey
       });
       if (response.statusCode == 200) {
-        // // ////   print(response.body);
+        //    print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        //   print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      // print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> fetchRecommendedItemsinIt() async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.get(Uri.parse("${base}admin-bundle-item-bo.php"));
+      if (response.statusCode == 200) {
+        //    print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -979,7 +1016,7 @@ class HomeApi {
               "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/cancel-item-sub.php"),
           body: {'process_id': p_id});
       if (response.statusCode == 200) {
-        // ////   print(response.body);
+        //    print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //   print('Request failed with status: ${response.statusCode}.');
@@ -1217,8 +1254,6 @@ class HomeApi {
       client.close();
     }
   }
-
-
 
   Future<dynamic> doPaymentOnline({
     String amount = "",

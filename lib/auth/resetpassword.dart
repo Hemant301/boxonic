@@ -1,19 +1,25 @@
 import 'package:boxoniq/api/authApi.dart';
+import 'package:boxoniq/util/blog.dart';
 import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
-TextEditingController _mobileController = TextEditingController();
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
-class Mobilelogin extends StatefulWidget {
-  const Mobilelogin({Key? key}) : super(key: key);
+TextEditingController _phoneController = TextEditingController();
+
+TextEditingController _pwdController = TextEditingController();
+
+class Resetpassword extends StatefulWidget {
+  const Resetpassword({Key? key}) : super(key: key);
 
   @override
-  State<Mobilelogin> createState() => _MobileloginState();
+  State<Resetpassword> createState() => _ResetpasswordState();
 }
 
-class _MobileloginState extends State<Mobilelogin> {
+class _ResetpasswordState extends State<Resetpassword> {
   bool isLoging = false;
 
   @override
@@ -50,7 +56,7 @@ class _MobileloginState extends State<Mobilelogin> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50, left: 30),
                     child: Text(
-                      "Sign in ",
+                      "Reset Password",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,
@@ -76,34 +82,11 @@ class _MobileloginState extends State<Mobilelogin> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text(
-                    //   "Welcome Back",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     letterSpacing: 1,
-                    //     color: Color(0xff000e29),
-                    //     fontSize: 25,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Hello there, sign in to continue",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        letterSpacing: 1,
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     SizedBox(
                       height: 30,
                     ),
                     Text(
-                      "Phone Number",
+                      "Enter your phone number to continue",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         letterSpacing: 1,
@@ -116,88 +99,24 @@ class _MobileloginState extends State<Mobilelogin> {
                       height: 10,
                     ),
                     FormTTextFild(
-                      // num: 10,
-                      controller: _mobileController,
+                      num: 10,
+                      controller: _phoneController,
                       hinttext: "Enter Your phone number",
-                      // keyboardType: TextInputType.number,
-                      // icon: (Icons.email),
-                    ),
-                    // SizedBox(
-                    //   height: 30,
-                    // ),
-                    // Text(
-                    //   "Password",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     letterSpacing: 1,
-                    //     color: Colors.grey[500],
-                    //     fontSize: 15,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // ClipRRect(
-                    //   borderRadius: BorderRadius.circular(20),
-                    //   child: TextField(
-                    //     obscureText: true,
-                    //     enableSuggestions: false,
-                    //     autocorrect: false,
-                    //     controller: _pwdController,
-                    //     decoration: InputDecoration(
-                    //       border: InputBorder.none,
-                    //       filled: true,
 
-                    //       fillColor: Color.fromARGB(255, 255, 255, 255),
-                    //       hintStyle: TextStyle(
-                    //           color: Colors.grey,
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 12),
-                    //       hintText: "Enter Your Password",
-                    //       // icon: Icon(
-                    //       //   icon,
-                    //       //   color: Colors.black,
-                    //       // ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // FormTTextFild(
-                    //   obscureText: true,
-                    //   enableSuggestions: false,
-                    //   autocorrect: false,
-                    //   controller: _pwdController,
-                    //   hinttext: "Enter Your Password",
-                    //   // icon: (Icons.email),
-                    // ),
-                    SizedBox(
-                      height: 20,
+                      keyboardType: TextInputType.number,
+                      // icon: (Icons.email),
                     ),
                     SizedBox(
                       height: 50,
-                    ),
-                    isLoging == true
-                        ? Center(child: CircularProgressIndicator())
-                        : Container(),
-                    SizedBox(
-                      height: 10,
+                      child: isLoging == true
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(),
                     ),
                     Center(
                       child: InkWell(
                         onTap: () async {
-                          // if ((_emailController.text).length <= 9) {
-                          //   Fluttertoast.showToast(
-                          //       msg: "Invalid Login!",
-                          //       toastLength: Toast.LENGTH_SHORT,
-                          //       gravity: ToastGravity.BOTTOM,
-                          //       timeInSecForIosWeb: 1,
-                          //       backgroundColor: Colors.red,
-                          //       textColor: Colors.white,
-                          //       fontSize: 16.0);
-                          //   return;
-                          // } else
-                          if (_mobileController.text == " " ||
-                              _mobileController.text == "") {
+                          if (_phoneController.text == " " ||
+                              _phoneController.text == "") {
                             Fluttertoast.showToast(
                                 msg: "Invalid Mobile number!",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -215,21 +134,21 @@ class _MobileloginState extends State<Mobilelogin> {
                           AuthApi _authapi = AuthApi();
                           try {
                             Map data = await _authapi.doLoginotp(
-                              phone: "${_mobileController.text}",
+                              phone: "${_phoneController.text}",
                             );
                             print(data["response"].runtimeType);
 
                             if (data['response'] == '1') {
                               // userCred.addUserId('${data['accountId']}');
                               Future.delayed(Duration(seconds: 0), () {
-                                Navigator.pushNamed(context, '/loginotp',
+                                Navigator.pushNamed(context, '/newpass',
                                     arguments: {
                                       'ACCId': data['accountId'],
-                                      "mobile": _mobileController.text
+                                      "mobile": _phoneController.text
                                     });
                               });
                               Fluttertoast.showToast(
-                                  msg: "${data['msg']}",
+                                  msg: "${data['message']}",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
@@ -241,7 +160,7 @@ class _MobileloginState extends State<Mobilelogin> {
                                 isLoging = false;
                               });
                               Fluttertoast.showToast(
-                                  msg: " ${data['msg']}! ",
+                                  msg: " ${data['message']}! ",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
@@ -253,8 +172,12 @@ class _MobileloginState extends State<Mobilelogin> {
                               });
                             }
                           } catch (e) {}
+
+                          // Navigator.pushReplacementNamed(context, '/main');
                         },
-                        //
+                        //  {
+                        //   Navigator.pushNamed(context, "/creat");
+                        // },
                         child: Container(
                           height: 50,
                           width: MediaQuery.of(context).size.width - 90,
@@ -263,7 +186,7 @@ class _MobileloginState extends State<Mobilelogin> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
                             child: Text(
-                              "Sign in ",
+                              "Reset",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
@@ -275,39 +198,6 @@ class _MobileloginState extends State<Mobilelogin> {
                     ),
                     SizedBox(
                       height: 10,
-                    ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     Navigator.pushNamed(context, '/mobilelogin');
-                    //   },
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: Center(
-                    //         child: Text(
-                    //       'Sign in with OTP',
-                    //       style: TextStyle(fontWeight: FontWeight.bold),
-                    //     )),
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/signup");
-                        },
-                        child: Text(
-                          "Sign up",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            letterSpacing: 1,
-                            color: Colors.red,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
                     ),
                   ]),
             ),

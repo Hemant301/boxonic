@@ -21,25 +21,9 @@ class _LoginotpState extends State<Loginotp> {
   late OTPInteractor _otpInteractor;
 
   String acid = "";
+  String mobile = "";
   void initState() {
     otpCon = TextEditingController();
-    _otpInteractor = OTPInteractor();
-    _otpInteractor
-        .getAppSignature()
-        //ignore: avoid_print
-        .then((value) => print('signature - $value'));
-
-    otpCon = OTPTextEditController(
-      codeLength: 5,
-      //ignore: avoid_print
-      onCodeReceive: (code) => print('Your Application receive code - $code'),
-      otpInteractor: _otpInteractor,
-    )..startListenUserConsent(
-        (code) {
-          final exp = RegExp(r'(\d{5})');
-          return exp.stringMatch(code ?? '') ?? '';
-        },
-      );
 
     super.initState();
   }
@@ -48,6 +32,7 @@ class _LoginotpState extends State<Loginotp> {
     Map data = ModalRoute.of(context)!.settings.arguments as Map;
     // print("${data['ACCId']}}-------------123");
     acid = data['ACCId'];
+    mobile = data['mobile'];
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -110,7 +95,7 @@ class _LoginotpState extends State<Loginotp> {
                   margin: EdgeInsets.only(top: 50),
                   child: PinInputTextField(
                     controller: otpCon,
-                    pinLength: 5,
+                    pinLength: 6,
                     cursor: Cursor(
                       width: 2,
                       height: 30,
@@ -132,11 +117,40 @@ class _LoginotpState extends State<Loginotp> {
               SizedBox(
                 height: 20,
               ),
-              isLoading == true
-                  ? Center(child: CircularProgressIndicator())
-                  : Container(),
+              InkWell(
+                onTap: () async {
+                  AuthApi _authapi = AuthApi();
+                  try {
+                    Map data = await _authapi.doLoginotp(
+                      phone: "${mobile}",
+                    );
+                    print(data["response"].runtimeType);
+
+                    if (data['response'] == '1') {
+                      // userCred.addUserId('${data['accountId']}');
+
+                      Fluttertoast.showToast(
+                          msg: "OTP sent",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    }
+                  } catch (e) {}
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                      alignment: Alignment.topRight, child: Text("Resend OTP")),
+                ),
+              ),
               SizedBox(
-                height: 20,
+                height: 40,
+                child: isLoading == true
+                    ? Center(child: CircularProgressIndicator())
+                    : Container(),
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),

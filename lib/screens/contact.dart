@@ -5,7 +5,14 @@ import 'package:boxoniq/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
 
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
@@ -15,10 +22,41 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
+  ScreenshotController screenshotController = ScreenshotController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController commentController = TextEditingController();
+  Future getPdf(Uint8List screenShot) async {
+    pw.Document pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (context) {
+          return pw.Expanded(
+            // change this line to this:
+            child: pw.Image(pw.MemoryImage(screenShot), fit: pw.BoxFit.contain),
+          );
+        },
+      ),
+    );
+    var status = await Permission.storage.status;
+    var status2 = await Permission.accessMediaLocation;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    } else if (status2.isGranted == false) {
+      await Permission.accessMediaLocation.request();
+      await (Permission.manageExternalStorage);
+    }
+
+    Directory? appDocDir = Directory('/storage/emulated/0/');
+    String appDocPath = appDocDir.path;
+
+    File pdfFile = File('$appDocPath/demoTextFile.pdf');
+    pdfFile.writeAsBytesSync(await pdf.save());
+    Fluttertoast.showToast(msg: "$appDocPath saved ");
+  }
+
   @override
   Widget build(BuildContext context) {
     homebloc.fetchnumbers();
@@ -64,7 +102,7 @@ class _ContactState extends State<Contact> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 10),
                     child: Text(
-                      'For any service related queries you can contact us anytime at',
+                      'For any service related queries you can contact us anytime between 10 AM to 6 PM (Mon-Sat) at',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15,
@@ -72,182 +110,187 @@ class _ContactState extends State<Contact> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      top: 20,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(20),
-                        color: lightWhite2.withOpacity(0.7),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                            offset: Offset(1, 3), // changes position of shadow
-                          ),
-                        ],
+                  Screenshot(
+                    controller: screenshotController,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        top: 20,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: InkWell(
-                              onTap: () async {
-                                String url =
-                                    "https://wa.me/91${snapshot.data!.mobile}";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.mobile_friendly_outlined,
-                                    color: Color.fromARGB(255, 2, 2, 2),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "WHATSAPP",
-                                        style: TextStyle(
-                                            fontSize: 10,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(20),
+                          color: lightWhite2.withOpacity(0.7),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset:
+                                  Offset(1, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: InkWell(
+                                onTap: () async {
+                                  String url =
+                                      "https://wa.me/91${snapshot.data!.mobile}";
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.mobile_friendly_outlined,
+                                      color: Color.fromARGB(255, 2, 2, 2),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "WHATSAPP",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1,
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          snapshot.data!.mobile!,
+                                          style: TextStyle(
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1,
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        snapshot.data!.mobile!,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 1,
-                                          color: Colors.black87,
+                                            color: Colors.black87,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: InkWell(
-                              onTap: () async {
-                                String url = "tel:'${snapshot.data!.mobile!}'";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.call,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "WORK",
-                                        style: TextStyle(
-                                            fontSize: 10,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: InkWell(
+                                onTap: () async {
+                                  String url =
+                                      "tel:'${snapshot.data!.mobile!}'";
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.call,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "WORK",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1,
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0)),
+                                        ),
+                                        Text(
+                                          snapshot.data!.phone!,
+                                          style: TextStyle(
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1,
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      Text(
-                                        snapshot.data!.phone!,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 1,
-                                          color: Colors.black87,
+                                            color: Colors.black87,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            child: InkWell(
-                              onTap: () async {
-                                String _urlmail =
-                                    'mailto:${snapshot.data!.email!}';
-                                if (!await launch(_urlmail))
-                                  throw 'Could not launch $_urlmail';
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.mail,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "EMAIL",
-                                        style: TextStyle(
-                                            fontSize: 10,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: InkWell(
+                                onTap: () async {
+                                  String _urlmail =
+                                      'mailto:${snapshot.data!.email!}';
+                                  if (!await launch(_urlmail))
+                                    throw 'Could not launch $_urlmail';
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.mail,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "EMAIL",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1,
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0)),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          snapshot.data!.email!,
+                                          style: TextStyle(
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1,
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        snapshot.data!.email!,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 1,
-                                          color: Colors.black87,
+                                            color: Colors.black87,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -280,17 +323,30 @@ class _ContactState extends State<Contact> {
                           SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'Enquiry Form',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
-                                )),
+                          InkWell(
+                            onTap: () {
+                              screenshotController
+                                  .capture(delay: Duration(milliseconds: 10))
+                                  .then((capturedImage) async {
+                                print("sucess");
+                                getPdf(capturedImage!);
+                                // ShowCapturedWidget(context, capturedImage!);
+                              }).catchError((onError) {
+                                print(onError);
+                              });
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Enquiry Form',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                  )),
+                            ),
                           ),
                           Center(
                             child: Container(

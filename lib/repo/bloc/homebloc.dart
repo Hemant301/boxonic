@@ -190,13 +190,29 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<CategoryItemModal> _liveRecommendedItems =
+      BehaviorSubject<CategoryItemModal>();
+  BehaviorSubject<CategoryItemModal> get getRecommendeditems =>
+      _liveRecommendedItems;
+  fetchRecommendItems() async {
+    // _liveRecommendedItems.addError("Loading");
+    try {
+      CategoryItemModal homeSlider = await _homeRepo.fetchRecommendItems();
+      // print(homeSlider.imgs!.length);
+
+      _liveRecommendedItems.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<ProductModal> _liveProduct =
       BehaviorSubject<ProductModal>();
   BehaviorSubject<ProductModal> get getProduct => _liveProduct;
   fetchProduct(String id) async {
     // _liveProduct.addError("Loading");
     try {
-      _liveProduct.addError('err');
+      // _liveProduct.addError('err');
       ProductModal homeSlider = await _homeRepo.fetchProduct(id);
       // print(homeSlider.imgs!.length);
 
@@ -358,13 +374,21 @@ class HomeBloc {
   final BehaviorSubject<Questionmodal> liveCommunityAll =
       BehaviorSubject<Questionmodal>();
   BehaviorSubject<Questionmodal> get getCommunityAll => liveCommunityAll;
-  fetchcommunityall() async {
+  fetchcommunityall(page) async {
     // _liveCommunityAll.addError("Loading");
     try {
-      Questionmodal homeSlider = await _homeRepo.fetchcommunityall();
+      Questionmodal homeSlider = await _homeRepo.fetchcommunityall(page);
+      if (liveCommunityAll.hasValue) {
+        print('============');
+        Questionmodal x = liveCommunityAll.stream.value;
+
+        x.ques.addAll(homeSlider.ques);
+        liveCommunityAll.add(x);
+      } else {
+        liveCommunityAll.add(homeSlider);
+      }
       // print(homeSlider.imgs!.length);
 
-      liveCommunityAll.add(homeSlider);
     } catch (e) {
       print(e);
     }
@@ -385,6 +409,11 @@ class HomeBloc {
   //     print(e);
   //   }
   // }
+
+  clear() {
+    print('eeeee');
+    liveCommunityAll.addError('error');
+  }
 
   final BehaviorSubject<CouponModal> liveGetCoupons =
       BehaviorSubject<CouponModal>();

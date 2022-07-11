@@ -76,7 +76,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-               const     SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(children: [
@@ -86,7 +86,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                               children: [
                                 Lottie.asset('assets/empty.json',
                                     repeat: false, height: 200),
-                            const    Text(
+                                const Text(
                                   'Your Box is Empty',
                                   style: TextStyle(
                                       // fontFamily: font
@@ -134,8 +134,8 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                     .width -
                                                                 40,
                                                             padding:
-                                                              const  EdgeInsets.all(
-                                                                    10),
+                                                                const EdgeInsets
+                                                                    .all(10),
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -192,7 +192,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                     )
                                                                   ],
                                                                 ),
-                                                           const     SizedBox(
+                                                                const SizedBox(
                                                                   width: 10,
                                                                 ),
                                                                 Column(
@@ -203,7 +203,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                       CrossAxisAlignment
                                                                           .start,
                                                                   children: [
-                                                                 const   SizedBox(
+                                                                    const SizedBox(
                                                                       height:
                                                                           10,
                                                                     ),
@@ -234,7 +234,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                                 FontWeight.bold),
                                                                       ),
                                                                     ),
-                                                                const    SizedBox(
+                                                                    const SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     SizedBox(
@@ -265,7 +265,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                               const     SizedBox(
+                                                                    const SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     Row(
@@ -288,7 +288,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             // fontWeight: FontWeight.bold
                                                                           ),
                                                                         ),
-                                                                   const     SizedBox(
+                                                                        const SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
@@ -309,7 +309,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             // fontWeight: FontWeight.bold
                                                                           ),
                                                                         ),
-                                                                      const  SizedBox(
+                                                                        const SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
@@ -332,7 +332,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                         )
                                                                       ],
                                                                     ),
-                                                              const      SizedBox(
+                                                                    const SizedBox(
                                                                       height: 5,
                                                                     ),
                                                                     Row(
@@ -383,7 +383,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      const  SizedBox(
+                                                                        const SizedBox(
                                                                           width:
                                                                               10,
                                                                         ),
@@ -447,7 +447,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                                                           ),
                                                         ),
                                                       ))),
-                                        const  SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                         ],
@@ -494,8 +494,8 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                 const   Text(
-                      "Proceed to Billing",
+                    const Text(
+                      "Proceed to Checkout",
                       style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 15,
@@ -503,7 +503,7 @@ class _PreviewBundalPageState extends State<PreviewBundalPage> {
                           // fontFamily: font,
                           fontWeight: FontWeight.bold),
                     ),
-                const    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Image.asset("assets/Vector.png"),
@@ -592,7 +592,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                              const    SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Container(
@@ -609,7 +609,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                const  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   SizedBox(
@@ -627,7 +627,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                       ),
                                     ),
                                   ),
-                               const   SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -644,7 +644,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                     const SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Text(
@@ -658,7 +658,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           // fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                    const  SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Text(
@@ -674,7 +674,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                       )
                                     ],
                                   ),
-                             const     SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -706,7 +706,7 @@ class _PreviewItemState extends State<PreviewItem> {
                                           ),
                                         ),
                                       ),
-                                     const SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
@@ -766,7 +766,7 @@ class _PreviewItemState extends State<PreviewItem> {
                         ),
                       ),
                     ))),
-      const  SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],

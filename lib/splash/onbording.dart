@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:lottie/lottie.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -98,16 +100,48 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Image.asset(
-                                "assets/onbrding1.png",
+                              Container(
                                 height:
                                     MediaQuery.of(context).size.height - 350,
                                 width: MediaQuery.of(context).size.width - 40,
+                                child: Image.asset(
+                                  'assets/spl1.png',
+                                  height: 200,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Text(
-                                  "List Your Store and start onboarding customers online. Increase Sales up to 10x",
+                                  "Create your own customized bundle from our collection of must-haves baby essentials product for your baby.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height - 350,
+                                  width: MediaQuery.of(context).size.width - 40,
+                                  child: Image.asset(
+                                    "assets/spl2.png",
+                                    fit: BoxFit.contain,
+                                    height: 150,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  "Subscribe your bundle box and get it delivered every month",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -131,29 +165,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 padding: const EdgeInsets.all(15.0),
                                 child: Text(
                                   "Hassle-free delivery with our dedicated delivery partner with tracking feature. With Guaranteed delivery Time.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/onbording3.png",
-                                height:
-                                    MediaQuery.of(context).size.height - 350,
-                                width: MediaQuery.of(context).size.width - 40,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
-                                  "No Shop Opening Required in this Covid-19 Time. Do business with ease with a very low commission percentage",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,

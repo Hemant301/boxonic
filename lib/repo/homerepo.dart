@@ -92,6 +92,12 @@ class HomeRepo {
     return CategoryItemModal(jsonResponse);
   }
 
+  Future<CategoryItemModal> fetchRecommendItems() async {
+    final response = await homeApi.fetchRecommendItems();
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return CategoryItemModal(jsonResponse);
+  }
+
   Future<ProductModal> fetchProduct(String id) async {
     final response = await homeApi.fetchProduct(id);
     var jsonResponse = jsonDecode(response.body) as Map;
@@ -158,8 +164,8 @@ class HomeRepo {
     return Questionmodal(jsonResponse);
   }
 
-  Future<Questionmodal> fetchcommunityall() async {
-    final response = await homeApi.fetchcommunityall();
+  Future<Questionmodal> fetchcommunityall(page) async {
+    final response = await homeApi.fetchcommunityall(page);
     var jsonResponse = jsonDecode(response.body) as List;
     return Questionmodal(jsonResponse);
   }

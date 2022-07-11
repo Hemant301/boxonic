@@ -38,22 +38,24 @@ class Faq extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          StreamBuilder<FaqModal>(
-              stream: homebloc.getFaq.stream,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return Container();
-                return Column(
-                  children: List.generate(
-                      snapshot.data!.faq.length,
-                      (index) => Faqbutton(
-                            question: snapshot.data!.faq[index].question,
-                            answer: snapshot.data!.faq[index].answer,
-                          )),
-                );
-              })
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            StreamBuilder<FaqModal>(
+                stream: homebloc.getFaq.stream,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return Container();
+                  return Column(
+                    children: List.generate(
+                        snapshot.data!.faq.length,
+                        (index) => Faqbutton(
+                              question: snapshot.data!.faq[index].question,
+                              answer: snapshot.data!.faq[index].answer,
+                            )),
+                  );
+                })
+          ],
+        ),
       ),
     );
   }
@@ -94,9 +96,12 @@ class _FaqbuttonState extends State<Faqbutton> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '${widget.question}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Container(
+                  width: MediaQuery.of(context).size.width - 80,
+                  child: Text(
+                    '${widget.question}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -105,6 +110,9 @@ class _FaqbuttonState extends State<Faqbutton> {
                       : const Icon(Icons.arrow_drop_up),
                 )
               ],
+            ),
+            SizedBox(
+              height: 10,
             ),
             expand == 0
                 ? Container()

@@ -78,7 +78,7 @@ Use my referral code $referralcode to get discount''',
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Text(
-              'Invite friends & earn flat ₹50 in your Boxoniq wallet, On their first purchase. ',
+              'Invite friends & earn flat ₹50 in your Boxoniq wallet, On their first purchase of minimum order of ₹ 500. ',
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),

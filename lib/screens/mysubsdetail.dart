@@ -734,58 +734,117 @@ class _MysubsrdetailState extends State<Mysubsrdetail> {
                                       ),
                                     ),
                                   ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/webview',
-                                    arguments: {
-                                      'title': 'Invoice',
-                                      'url':
-                                          'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
-                                    });
-                              },
-                              child: Container(
-                                height: 40,
-                                width:
-                                    MediaQuery.of(context).size.width / 2 - 40,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green,
-                                  // border: Border.all(color: Colors.blue, width: 1),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      offset: const Offset(
-                                          1, 3), // changes position of shadow
+                            int.parse(snapshot.data!.total!.status!) < 3
+                                ? InkWell(
+                                    onTap: () {
+                                      return;
+                                      Navigator.pushNamed(context, '/webview',
+                                          arguments: {
+                                            'title': 'Invoice',
+                                            'url':
+                                                'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
+                                          });
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color:
+                                            Color.fromARGB(255, 128, 176, 130),
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: const Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            "Invoice",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      "Invoice",
-                                      style: TextStyle(
-                                          // letterSpacing: 1,
-                                          fontSize: 12,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          // fontFamily: font,
-                                          fontWeight: FontWeight.bold),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, '/webview',
+                                          arguments: {
+                                            'title': 'Invoice',
+                                            'url':
+                                                'https://cms.cybertizeweb.com/boxoniq-crm/billing-subscription/?id=${rcvdData['id']}'
+                                          });
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          40,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.green,
+                                        // border: Border.all(color: Colors.blue, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: const Offset(1,
+                                                3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Text(
+                                            "Invoice",
+                                            style: TextStyle(
+                                                // letterSpacing: 1,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                // fontFamily: font,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          // Image.asset(
+                                          //   "assets/Vector.png",
+                                          //   width: 10,
+                                          // ),
+                                        ],
+                                      ),
                                     ),
-                                    // SizedBox(
-                                    //   width: 10,
-                                    // ),
-                                    // Image.asset(
-                                    //   "assets/Vector.png",
-                                    //   width: 10,
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  ),
                           ],
                         ),
                   const SizedBox(

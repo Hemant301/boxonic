@@ -155,7 +155,7 @@ class _LoginState extends State<Login> {
                           border: InputBorder.none,
                           filled: true,
 
-                          fillColor: Color.fromARGB(255, 255, 255, 255),
+                          fillColor: Color.fromARGB(255, 243, 243, 243),
                           hintStyle: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -168,25 +168,22 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    // FormTTextFild(
-                    //   obscureText: true,
-                    //   enableSuggestions: false,
-                    //   autocorrect: false,
-                    //   controller: _pwdController,
-                    //   hinttext: "Enter Your Password",
-                    //   // icon: (Icons.email),
-                    // ),
-                    SizedBox(
-                      height: 20,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/resetpassword');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text("Reset Password")),
+                      ),
                     ),
                     SizedBox(
                       height: 50,
-                    ),
-                    isLoging == true
-                        ? Center(child: CircularProgressIndicator())
-                        : Container(),
-                    SizedBox(
-                      height: 10,
+                      child: isLoging == true
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(),
                     ),
                     Center(
                       child: InkWell(
