@@ -547,7 +547,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   Walletapi _api = Walletapi();
                                   Map data = await _api.initTokenCashfree(
                                     amount:
-                                        '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                        '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}',
                                     orderId: orderId,
                                   );
                                   print(data);
@@ -555,9 +555,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     setState(() {
                                       isLoading = false;
                                     });
+                                    // print(
+                                    //     '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}');
+                                    // return;
                                     cashFreeHalfpayment(
                                         monthamount:
-                                            '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                            '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}',
                                         token: data['cftoken'],
                                         orderId: orderId,
                                         name: 'santosh',
@@ -565,7 +568,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         is_wallet: '1',
                                         phone: '9798416091',
                                         amount:
-                                            '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100))}');
+                                            '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100)).toStringAsFixed(2)}');
                                   } else {
                                     setState(() {
                                       isLoading = false;

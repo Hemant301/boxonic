@@ -52,7 +52,7 @@ class _ContactState extends State<Contact> {
     Directory? appDocDir = Directory('/storage/emulated/0/');
     String appDocPath = appDocDir.path;
 
-    File pdfFile = File('$appDocPath/demoTextFile.pdf');
+    File pdfFile = File('$appDocPath demoTextFile.pdf');
     pdfFile.writeAsBytesSync(await pdf.save());
     Fluttertoast.showToast(msg: "$appDocPath saved ");
   }
