@@ -8,11 +8,15 @@
 //     return Container();
 //   }
 // }
+import 'dart:convert';
+
 import 'package:boxoniq/modal/blogmodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
 import 'package:boxoniq/util/const.dart';
+import 'package:boxoniq/util/constance.dart';
 import 'package:boxoniq/util/textfild.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Communityquestions extends StatefulWidget {
   const Communityquestions({Key? key}) : super(key: key);
@@ -22,9 +26,37 @@ class Communityquestions extends StatefulWidget {
 }
 
 class _CommunityquestionsState extends State<Communityquestions> {
+  List mainData = [];
+  ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    mainData.clear();
+    // homebloc.fetchcommunityall("$page");
+    fetchcommunityallInit("$page");
+
+    // TODO: implement initState
+    _scrollController.addListener(() {
+      if (_scrollController.hasClients) {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          setState(() {
+            isLoading = true;
+            page = page + 1;
+// print(called)
+            fetchcommunityallInit("$page");
+          });
+
+          // print('Bs bhai bs');
+        }
+      }
+    });
+  }
+
+  int page = 1;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    homebloc.fetchcommunityall();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: lightWhite2,
@@ -39,6 +71,7 @@ class _CommunityquestionsState extends State<Communityquestions> {
       ),
       // backgroundColor: Colors.black,
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             SizedBox(
@@ -47,43 +80,62 @@ class _CommunityquestionsState extends State<Communityquestions> {
             SizedBox(
               height: 50,
             ),
-            StreamBuilder<Questionmodal>(
-                stream: homebloc.getCommunityAll.stream,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Container();
-                  return GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    childAspectRatio: 8.4 / 11,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: List.generate(
-                        snapshot.data!.ques.length,
-                        (index) => InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/communitydetail',
-                                    arguments: {
-                                      'id': snapshot
-                                          .data!.ques[index].question_id,
-                                      'ques':
-                                          snapshot.data!.ques[index].question,
-                                      'image': snapshot.data!.ques[index].img,
-                                      'name':
-                                          snapshot.data!.ques[index].user_name,
-                                    });
-                              },
-                              child: communitysearchbtn(
-                                img: snapshot.data!.ques[index].img,
-                                text: snapshot.data!.ques[index].question,
-                                number: snapshot.data!.ques[index].anser_count
-                                    .toString(),
-                              ),
-                            )),
-                  );
-                })
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              childAspectRatio: 8.4 / 11,
+              physics: NeverScrollableScrollPhysics(),
+              children: List.generate(
+                  mainData.length,
+                  (index) => InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/communitydetail',
+                              arguments: {
+                                'id': mainData[index]['question_id'],
+                                'ques': mainData[index]['question'],
+                                'image': mainData[index]['img'],
+                                'name': mainData[index]['user_name'],
+                              });
+                        },
+                        child: communitysearchbtn(
+                          img: mainData[index]['img'],
+                          text: mainData[index]['question'],
+                          number: mainData[index]['answer_count'].toString(),
+                        ),
+                      )),
+            ),
+            isLoading == false ? Container() : CircularProgressIndicator()
           ],
         ),
       ),
     );
+  }
+
+  Future<dynamic> fetchcommunityallInit(page) async {
+    var client = http.Client();
+    try {
+      var body = {'page': page};
+      print(body);
+      final response = await client
+          .post(Uri.parse("${base}get-community-questions.php"), body: body);
+      if (response.statusCode == 200) {
+        //print(response.body);
+        setState(() {
+          isLoading = false;
+          mainData.addAll(jsonDecode(response.body));
+        });
+        // print(mainData);
+        // return jsonDecode(response.body) as Map;
+      } else {
+        //   print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      // print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
   }
 }
 

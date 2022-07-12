@@ -222,7 +222,7 @@ class _CommunityState extends State<Community> {
                                                           20)),
                                               child: const Center(
                                                 child: Text(
-                                                  "Next ",
+                                                  "Submit",
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 20,

@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:boxoniq/auth/login.dart';
 import 'package:boxoniq/auth/loginotp.dart';
 import 'package:boxoniq/auth/mobilelogin.dart';
+import 'package:boxoniq/auth/newpass.dart';
 import 'package:boxoniq/auth/otpverification.dart';
+import 'package:boxoniq/auth/resetpassword.dart';
 import 'package:boxoniq/auth/signup.dart';
 import 'package:boxoniq/screens/StartScreen.dart';
 import 'package:boxoniq/screens/Wallet.dart';
@@ -38,6 +40,7 @@ import 'package:boxoniq/screens/pdf.dart';
 import 'package:boxoniq/screens/previewBundal.dart';
 import 'package:boxoniq/screens/productditels.dart';
 import 'package:boxoniq/screens/profile.dart';
+import 'package:boxoniq/screens/recommend.dart';
 import 'package:boxoniq/screens/referral.dart';
 import 'package:boxoniq/screens/story.dart';
 import 'package:boxoniq/screens/storydetails.dart';
@@ -154,6 +157,9 @@ class MyApp extends StatelessWidget {
           "/webview": (context) => Webview(),
           "/communityquestions": (context) => Communityquestions(),
           "/about": (context) => About(),
+          "/resetpassword": (context) => Resetpassword(),
+          "/newpass": (context) => Newpass(),
+          "/recommend": (context) => Recommend(),
         });
   }
 }

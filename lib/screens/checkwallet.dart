@@ -37,11 +37,11 @@ class _CheckwalletState extends State<Checkwallet> {
       'tokenData': '$token'
     };
     CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
+        .then((value) => value?.forEach((key, value) async {
               if (key == "txStatus" && value == "SUCCESS") {
                 print('from succes');
                 print(value);
-                homeApi.doPaymentOnline(
+                Map a = await homeApi.doPaymentOnline(
                     amount: amount,
                     monthamount: monthamount,
                     subs: '0',
@@ -49,10 +49,12 @@ class _CheckwalletState extends State<Checkwallet> {
                     addressid: addressId,
                     is_wallet: is_wallet,
                     paymentid: orderId);
-                Navigator.pushReplacementNamed(
-                  context,
-                  '/thankyou',
-                );
+
+                if (a['response'].toString() == "1") {
+                  Navigator.pushReplacementNamed(context, '/thankyou',
+                      arguments: {'id': a['order-id']});
+                }
+
                 throw "";
               } else {
                 // print('from fail');
@@ -102,10 +104,8 @@ class _CheckwalletState extends State<Checkwallet> {
                     addressid: addressId,
                   );
 
-                  Navigator.pushReplacementNamed(
-                    context,
-                    '/thankyou',
-                  );
+                  Navigator.pushReplacementNamed(context, '/thankyou',
+                      arguments: {'id': a['order-id']});
                 } else {}
 
                 throw "";
@@ -515,10 +515,8 @@ class _CheckwalletState extends State<Checkwallet> {
                                     setState(() {
                                       isLoading = false;
                                     });
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/thankyou',
-                                    );
+                                    Navigator.pushNamed(context, '/thankyou',
+                                        arguments: {'id': data['order-id']});
                                   } else {
                                     Fluttertoast.showToast(msg: data['msg']);
                                   }

@@ -5,6 +5,8 @@ class Thankyou extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -40,7 +42,7 @@ class Thankyou extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  'Your Order is Placed Successfully. \nORDER ID IS #BXNQ1254785',
+                  'Your Order is Placed Successfully. \nORDER ID IS ${rcvdData['id']}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 13, letterSpacing: 1.5),
                 ),
@@ -78,34 +80,34 @@ class Thankyou extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  width: 280,
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 5.0,
-                            offset: Offset(
-                              0.5,
-                              0.5,
-                            ))
-                      ],
-                      color: Color.fromARGB(255, 250, 250, 250),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'See Booking',
-                        style: TextStyle(
-                            fontSize: 13,
-                            letterSpacing: 1.5,
-                            color: Color.fromARGB(255, 0, 0, 0)),
-                      ),
-                    ],
-                  ),
-                )
+                // Container(
+                //   width: 280,
+                //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                //   decoration: BoxDecoration(
+                //       boxShadow: <BoxShadow>[
+                //         BoxShadow(
+                //             color: Colors.black54,
+                //             blurRadius: 5.0,
+                //             offset: Offset(
+                //               0.5,
+                //               0.5,
+                //             ))
+                //       ],
+                //       color: Color.fromARGB(255, 250, 250, 250),
+                //       borderRadius: BorderRadius.circular(10)),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         'See Booking',
+                //         style: TextStyle(
+                //             fontSize: 13,
+                //             letterSpacing: 1.5,
+                //             color: Color.fromARGB(255, 0, 0, 0)),
+                //       ),
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),

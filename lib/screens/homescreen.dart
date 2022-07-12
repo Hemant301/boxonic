@@ -10,6 +10,7 @@ import 'package:boxoniq/util/const.dart';
 import 'package:boxoniq/util/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScrren extends StatefulWidget {
   const HomeScrren({Key? key}) : super(key: key);
@@ -350,6 +351,8 @@ class _HomeScrrenState extends State<HomeScrren> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: List.generate(
                               snapshot.data!.category.length,
                               (index) => InkWell(
@@ -594,6 +597,71 @@ class _HomeScrrenState extends State<HomeScrren> {
                       ),
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          if (!await launch(
+                              "https://www.facebook.com/Boxoniq-217526560272373"))
+                            throw 'Could not launch';
+                        },
+                        child: Image.asset(
+                          'assets/facebook.png',
+                          height: 40,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (!await launch("https://twitter.com/boxoniq"))
+                            throw 'Could not launch';
+                        },
+                        child: Image.asset(
+                          'assets/twitter.png',
+                          height: 40,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (!await launch(
+                              "https://www.instagram.com/boxoniq/"))
+                            throw 'Could not launch';
+                        },
+                        child: Image.asset(
+                          'assets/instagram.png',
+                          height: 40,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (!await launch(
+                              "https://www.youtube.com/channel/UCHuOg7Cc0O4663sk3JKUYRA"))
+                            throw 'Could not launch';
+                        },
+                        child: Image.asset(
+                          'assets/youtube.png',
+                          height: 40,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (!await launch(
+                              "https://www.linkedin.com/company/boxoniq/"))
+                            throw 'Could not launch';
+                        },
+                        child: Image.asset(
+                          'assets/linkedin.png',
+                          height: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
                 )
               ]),
         ),
@@ -693,6 +761,8 @@ class babyItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 35,
@@ -709,14 +779,18 @@ class babyItem extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Text(
-            name!,
-            style: TextStyle(
-              letterSpacing: 1,
-              fontSize: 10,
-              color: Colors.black,
-              // fontFamily: font,
-              // fontWeight: FontWeight.bold
+          Container(
+            width: 80,
+            child: Text(
+              name!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                letterSpacing: 1,
+                fontSize: 10,
+                color: Colors.black,
+                // fontFamily: font,
+                // fontWeight: FontWeight.bold
+              ),
             ),
           ),
         ],

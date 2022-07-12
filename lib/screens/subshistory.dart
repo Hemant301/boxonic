@@ -246,7 +246,7 @@ class _SubshistoryState extends State<Subshistory> {
                                                                       .data!
                                                                       .data[
                                                                           index]
-                                                                      .orderid!,
+                                                                      .neworderid!,
                                                                 ),
                                                               ],
                                                             ),
@@ -412,7 +412,7 @@ class _SubshistoryState extends State<Subshistory> {
                                                                       .data!
                                                                       .data[
                                                                           index]
-                                                                      .orderid!,
+                                                                      .neworderid!,
                                                                 ),
                                                               ],
                                                             ),

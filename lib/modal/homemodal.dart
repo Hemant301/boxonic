@@ -63,7 +63,7 @@ class CategoryItemModal {
   String? img;
   String? name;
   String? description;
-  int? totalCount;
+  dynamic? totalCount;
   List<ProductListModal> product = [];
   CategoryItemModal(js) {
     img = js['img'] ?? "";
@@ -81,7 +81,7 @@ class ProductListModal {
   String? img;
   String? title;
   String? desc;
-  int? is_stock;
+  dynamic? is_stock;
   List<AttribueListModal> attr = [];
   ProductListModal(js) {
     id = js['id'] ?? "";
@@ -289,6 +289,7 @@ class MyOrderModal {
 class OrderdetailModal {
   String? response;
   String? orderid;
+  String? neworderid;
   String? date;
   dynamic? amount;
   String? img;
@@ -296,6 +297,7 @@ class OrderdetailModal {
   OrderdetailModal(js) {
     response = js['response'] ?? "";
     orderid = js['order_id'] ?? "";
+    neworderid = js['new_order_id'] ?? "";
     date = js['date'] ?? "";
     img = js['img'] ?? "";
     amount = js['amount'] ?? "";
@@ -484,7 +486,7 @@ class TotalModal {
     delivery = js['delivery'] ?? "";
     status = js['status'] ?? "";
     total = js['total'] ?? "";
-    bundledissount = js['bundle_discount'] ?? "0";
+    bundledissount = js['bundle_discount'] ?? "";
     subsdissount = js['subs_discount'] ?? "0";
     finaltotal = js['final_total'] ?? "";
   }
@@ -520,6 +522,7 @@ class SubsListModal {
 class SubsModal {
   String? response;
   String? order_id;
+  String? neworder_id;
   String? img;
   String? amount;
   String? date;
@@ -527,6 +530,7 @@ class SubsModal {
   SubsModal(js) {
     response = js['response'] ?? "";
     order_id = js['order_id'] ?? "";
+    neworder_id = js['new_order_id'] ?? "";
     img = js['img'] ?? "";
     amount = js['amount'] ?? "";
     date = js['date'] ?? "";

@@ -72,7 +72,7 @@ class _NewaddressState extends State<Newaddress> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Name",
+                        "Name*",
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 16,
@@ -105,7 +105,7 @@ class _NewaddressState extends State<Newaddress> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Address",
+                        "Address*",
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 16,
@@ -139,7 +139,7 @@ class _NewaddressState extends State<Newaddress> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "State",
+                        "State*",
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 16,
@@ -178,7 +178,7 @@ class _NewaddressState extends State<Newaddress> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Pincode",
+                        "Pincode*",
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 16,
@@ -251,7 +251,7 @@ class _NewaddressState extends State<Newaddress> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Phone number",
+                        "Phone number*",
                         style: TextStyle(
                           letterSpacing: 1,
                           fontSize: 16,
@@ -286,7 +286,7 @@ class _NewaddressState extends State<Newaddress> {
                         try {
                           Map data = await _authapi.doSaveAddress(
                               address: addressController.text,
-                              name:nameController.text,
+                              name: nameController.text,
                               landmark: landmarkController.text,
                               state: statename,
                               phone: phoneController.text,

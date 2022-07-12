@@ -1,3 +1,4 @@
+import 'package:boxoniq/api/authApi.dart';
 import 'package:boxoniq/api/homeapi.dart';
 import 'package:boxoniq/modal/homemodal.dart';
 import 'package:boxoniq/repo/bloc/homebloc.dart';
@@ -424,6 +425,26 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/recommend');
+                // AuthApi _api = AuthApi();
+                // Map data = await _api.addAddrecomCart();
+                // print(data);
+                // if (data['response'].toString() == "1") {
+                // }
+              },
+              child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.green,
+                  ),
+                  child: Icon(Icons.redeem)),
+            ),
+            SizedBox(
+              height: 15,
+            ),
             // filterId.isEmpty || filtersubCatId.isEmpty
             //     ? Container(
             //         width: 10,
@@ -490,8 +511,8 @@ class _BundleCreatorPageState extends State<BundleCreatorPage> {
                                 ),
                                 const Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                        'Select any one of the following to sort')),
+                                    child:
+                                        Text('Select the following to sort')),
                                 const SizedBox(
                                   height: 20,
                                 ),

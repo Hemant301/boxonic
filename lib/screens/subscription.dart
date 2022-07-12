@@ -38,11 +38,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       'tokenData': '$token'
     };
     CashfreePGSDK.doPayment(inputParams)
-        .then((value) => value?.forEach((key, value) {
+        .then((value) => value?.forEach((key, value) async {
               if (key == "txStatus" && value == "SUCCESS") {
                 print('from succes');
                 print(value);
-                homeApi.doPaymentOnline(
+                Map a = await homeApi.doPaymentOnline(
                     amount: amount,
                     monthamount: monthamount,
                     subs: '1',
@@ -50,10 +50,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     addressid: addressId,
                     is_wallet: is_wallet,
                     paymentid: orderId);
-                Navigator.pushReplacementNamed(
-                  context,
-                  '/thankyou',
-                );
+
+                if (a['response'].toString() == "1") {
+                  Navigator.pushReplacementNamed(context, '/thankyou',
+                      arguments: {'id': a['order-id']});
+                }
+
                 throw "";
               } else {
                 // print('from fail');
@@ -96,17 +98,17 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     amount: monthamount, txnid: orderId) as Map;
 
                 if (a['response'] == '1' || a['response'] == 1) {
-                  homeApi.doPayment(
+                  Map d = await homeApi.doPayment(
                     amount: amount,
                     subs: '1',
                     month: monthname,
                     addressid: addressId,
                   );
 
-                  Navigator.pushReplacementNamed(
-                    context,
-                    '/thankyou',
-                  );
+                  if (d['response'].toString() == "1") {
+                    Navigator.pushReplacementNamed(context, '/thankyou',
+                        arguments: {'id': d['order-id']});
+                  }
                 } else {}
 
                 throw "";
@@ -545,18 +547,20 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                   Walletapi _api = Walletapi();
                                   Map data = await _api.initTokenCashfree(
                                     amount:
-                                        '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                        '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}',
                                     orderId: orderId,
                                   );
                                   print(data);
                                   if (data['status'] == "OK") {
                                     setState(() {
                                       isLoading = false;
-                                      
                                     });
+                                    // print(
+                                    //     '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}');
+                                    // return;
                                     cashFreeHalfpayment(
                                         monthamount:
-                                            '${double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)}',
+                                            '${(double.parse((((rcvdData['total_amount']) - (rcvdData['total_amount']) * 5 / 100) * int.parse(monthname.substring(0, 3))).toStringAsFixed(2)) - int.parse(snapshot.data!.data[0].response!.walletBallance)).toStringAsFixed(2)}',
                                         token: data['cftoken'],
                                         orderId: orderId,
                                         name: 'santosh',
@@ -564,7 +568,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                         is_wallet: '1',
                                         phone: '9798416091',
                                         amount:
-                                            '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100))}');
+                                            '${((rcvdData['total_amount'] - (rcvdData['total_amount']) * 5 / 100)).toStringAsFixed(2)}');
                                   } else {
                                     setState(() {
                                       isLoading = false;
@@ -663,10 +667,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                     setState(() {
                                       isLoading = false;
                                     });
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/thankyou',
-                                    );
+                                    Navigator.pushNamed(context, '/thankyou',
+                                        arguments: {'id': data['order-id']});
                                   } else {
                                     setState(() {
                                       isLoading = false;

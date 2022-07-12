@@ -174,7 +174,7 @@ class _AddressState extends State<Address> {
                                                               Container(
                                                                 width: 80,
                                                                 child: Text(
-                                                                  'Name*',
+                                                                  'Name',
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
@@ -204,7 +204,7 @@ class _AddressState extends State<Address> {
                                                               Container(
                                                                 width: 80,
                                                                 child: Text(
-                                                                  'Address*',
+                                                                  'Address',
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
@@ -256,7 +256,7 @@ class _AddressState extends State<Address> {
                                                               Container(
                                                                 width: 80,
                                                                 child: Text(
-                                                                  'Pincode*',
+                                                                  'Pincode',
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
@@ -277,7 +277,7 @@ class _AddressState extends State<Address> {
                                                               Container(
                                                                 width: 80,
                                                                 child: Text(
-                                                                  'State*',
+                                                                  'State',
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
@@ -298,7 +298,7 @@ class _AddressState extends State<Address> {
                                                               Container(
                                                                 width: 80,
                                                                 child: Text(
-                                                                  'Phone*',
+                                                                  'Phone',
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight

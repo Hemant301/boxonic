@@ -31,7 +31,7 @@ class FormTTextFild extends StatelessWidget {
           border: InputBorder.none,
           filled: true,
 
-          fillColor: Color.fromARGB(255, 255, 255, 255),
+          fillColor: Color.fromARGB(255, 240, 240, 240),
           hintStyle: TextStyle(
               color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12),
           hintText: hinttext,

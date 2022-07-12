@@ -69,7 +69,32 @@ class AuthApi {
             "phone": phone,
           });
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        //  print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      //  print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> resetPassword(
+      {String phone = "", String otp = "", String password = ""}) async {
+    var client = http.Client();
+    try {
+      final body = {"phone": phone, "otp": otp, "password": password};
+      final response = await client.post(
+          Uri.parse(
+              "https://cms.cybertizeweb.com/boxoniq-crm/api/droid/update-password.php"),
+          body: jsonEncode(body),
+          headers: {"Content-Type": "application/json"});
+      if (response.statusCode == 200) {
+        print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         //  print('Request failed with status: ${response.statusCode}.');
@@ -218,6 +243,28 @@ class AuthApi {
             'phone': phone,
             'state': state
           });
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        //  print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      //  print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> addAddrecomCart() async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.post(Uri.parse("$base/add-items-in-bundle.php"), body: {
+        "account_id": userCred.getUserId(),
+      });
       if (response.statusCode == 200) {
         // print(response.body);
         return jsonDecode(response.body) as Map;

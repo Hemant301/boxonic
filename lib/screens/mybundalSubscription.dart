@@ -22,6 +22,8 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
     print(rcvdData['id']);
     String id = rcvdData['id'];
     homebloc.fetchSubsdetails(id);
+    homebloc.fetchWalletbalance();
+
     homebloc.fetchSubsBenefit();
     return Scaffold(
       backgroundColor: grad1Color,
@@ -273,7 +275,18 @@ class _MyBundalSubscriptionState extends State<MyBundalSubscription> {
                       ],
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 5,
+                    ),
+                    Text(
+                      "Modify, Skip or Cancel your subscription from here anytime",
+                      style: TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
 
                     Text(
