@@ -147,14 +147,6 @@ class Mysublist extends StatelessWidget {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: const [
-                                                            Text(
-                                                              'Order id:',
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
                                                             SizedBox(
                                                               height: 10,
                                                             ),
@@ -198,16 +190,6 @@ class Mysublist extends StatelessWidget {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(
-                                                              snapshot
-                                                                  .data!
-                                                                  .data[index]
-                                                                  .neworder_id!,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
                                                             const SizedBox(
                                                               height: 10,
                                                             ),
